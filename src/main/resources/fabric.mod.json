@@ -1,0 +1,30 @@
+{
+    "schemaVersion": 1,
+    "id": "metropolis",
+    "version": "${version}",
+    "name": "Metropolis",
+    "description": "bruh",
+    "authors": [
+        "Arrokoth233",
+        "Radekemia"
+    ],
+    "contact": {
+        "repo": "https://github.com/DoveCotMC/Metropolis"
+    },
+    "license": "All-Rights-Reserved",
+    "icon": "assets/Metropolis/icon.png",
+    "environment": "*",
+    "entrypoints": {
+        "client": [
+            "team.dovecotmc.metropolis.metropolis.client.MetropolisClient"
+        ],
+        "main": [
+            "team.dovecotmc.metropolis.metropolis.Metropolis"
+        ]
+    },
+    "depends": {
+        "fabricloader": ">=${loader_version}",
+        "fabric": "*",
+        "minecraft": "${minecraft_version}"
+    }
+}
