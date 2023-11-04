@@ -17,29 +17,18 @@ import net.minecraft.world.BlockView;
  * @project DovecotRailwayDeco-1.19.2
  * @copyright Copyright © 2023 Arrokoth All Rights Reserved.
  */
-public class BlockCeilingA extends HorizontalFacingBlock {
+public class BlockCeilingA extends Block {
     public BlockCeilingA(Settings settings) {
         super(settings);
     }
 
     @Override
     public VoxelShape getCollisionShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {
-        Direction facing = IBlock.getStatePropertySafe(state, FACING);
-        return IBlock.getVoxelShapeByDirection(0.0, 10.0, 0.0, 16.0, 12.0, 16.0, facing);
+        return Block.createCuboidShape(0.0, 10.0, 0.0, 16.0, 12.0, 16.0);
     }
 
     @Override
     public VoxelShape getOutlineShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {
-        Direction facing = IBlock.getStatePropertySafe(state, FACING);
-        return IBlock.getVoxelShapeByDirection(0.0, 10.0, 0.0, 16.0, 12.0, 16.0, facing);
-    }
-
-    public BlockState getPlacementState(ItemPlacementContext ctx) {
-        return this.getDefaultState().with(FACING, ctx.getPlayerFacing().getOpposite());
-    }
-
-    @Override
-    protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
-        builder.add(FACING);
+        return Block.createCuboidShape(0.0, 10.0, 0.0, 16.0, 12.0, 16.0);
     }
 }

@@ -33,7 +33,7 @@ public class MetroBlocks {
     public static final Block BLOCK_TICKET_BARRIER_ENTRANCE_A = registerDovecotFeatures("ticket_barrier_entrance_a", new BlockBeyondTicketBarrier(true));
     public static final Block BLOCK_TICKET_BARRIER_EXIT_A = registerDovecotFeatures("ticket_barrier_exit_a", new BlockBeyondTicketBarrier(false));
     public static final Block BLOCK_CEILING_A = registerDovecotFeatures("ceiling_a", new BlockCeilingA(FabricBlockSettings.of(Material.METAL, MapColor.GRAY).nonOpaque().luminance(1)));
-    public static final Block BLOCK_CEILING_A_LIGHT = registerDovecotFeatures("ceiling_a_light", new BlockCeilingA(FabricBlockSettings.of(Material.METAL, MapColor.GRAY).nonOpaque().luminance(15)));
+//    public static final Block BLOCK_CEILING_B = registerDovecotFeatures("ceiling_b", new BlockCeilingA(FabricBlockSettings.of(Material.METAL, MapColor.GRAY).nonOpaque().luminance(1)));
 
     private static Block registerDovecotFeatures(String id, Block block) {
         return Registry.register(Registry.BLOCK, new Identifier(Metropolis.MOD_ID, id), block);

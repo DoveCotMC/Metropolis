@@ -35,7 +35,7 @@ public class MetroItems {
     // 国铁闸机
     // 天花板
     public static final Item ITEM_CEILING_A = registerDovecotFeature("ceiling_a", new BlockItem(MetroBlocks.BLOCK_CEILING_A, new Item.Settings().group(Metropolis.ITEM_GROUP)));
-//    public static final Item
+//    public static final Item ITEM_CEILING_B = register("ceiling_b", new BlockItem(MetroBlocks.))
 
     public static Item registerDovecotFeature(String id, Item item) {
         return Registry.register(Registry.ITEM, new Identifier(Metropolis.MOD_ID, id), item);
