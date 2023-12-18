@@ -25,13 +25,13 @@ public class BlockCeilingB extends HorizontalFacingBlock {
     @Override
     public VoxelShape getCollisionShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {
         Direction facing = IBlock.getStatePropertySafe(state, FACING);
-        return IBlock.getVoxelShapeByDirection(0.0, 10.0, 0.0, 16.0, 12.0, 16.0, facing);
+        return IBlock.getVoxelShapeByDirection(0.0, 7.0, 0.0, 16.0, 9.0, 16.0, facing);
     }
 
     @Override
     public VoxelShape getOutlineShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {
         Direction facing = IBlock.getStatePropertySafe(state, FACING);
-        return IBlock.getVoxelShapeByDirection(0.0, 10.0, 0.0, 16.0, 12.0, 16.0, facing);
+        return IBlock.getVoxelShapeByDirection(0.0, 8.0, 0.0, 16.0, 9.0, 16.0, facing);
     }
 
     public BlockState getPlacementState(ItemPlacementContext ctx) {

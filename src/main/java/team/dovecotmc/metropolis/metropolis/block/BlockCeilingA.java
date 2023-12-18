@@ -24,11 +24,11 @@ public class BlockCeilingA extends Block {
 
     @Override
     public VoxelShape getCollisionShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {
-        return Block.createCuboidShape(0.0, 10.0, 0.0, 16.0, 12.0, 16.0);
+        return Block.createCuboidShape(0.0, 7.0, 0.0, 16.0, 9.0, 16.0);
     }
 
     @Override
     public VoxelShape getOutlineShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {
-        return Block.createCuboidShape(0.0, 10.0, 0.0, 16.0, 12.0, 16.0);
+        return Block.createCuboidShape(0.0, 7.0, 0.0, 16.0, 9.0, 16.0);
     }
 }

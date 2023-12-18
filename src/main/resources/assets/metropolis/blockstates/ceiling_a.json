@@ -1,19 +1,7 @@
 {
   "variants": {
-    "facing=north": {
+    "": {
       "model": "metropolis:block/ceiling_a"
-    },
-    "facing=south": {
-      "model": "metropolis:block/ceiling_a",
-      "y": 180
-    },
-    "facing=west": {
-      "model": "metropolis:block/ceiling_a",
-      "y": 270
-    },
-    "facing=east": {
-      "model": "metropolis:block/ceiling_a",
-      "y": 90
     }
   }
 }
