@@ -15,21 +15,22 @@ import team.dovecotmc.metropolis.metropolis.Metropolis;
  * @copyright Copyright © 2023 Arrokoth All Rights Reserved.
  */
 public class MetroBlocks {
-    public static final Block BLOCK_CABLE_A = registerDovecotFeatures("cable_a", new BlockCable(FabricBlockSettings.of(Material.METAL, MapColor.STONE_GRAY).noCollision().nonOpaque()));
-    public static final Block BLOCK_CABLE_A_1 = registerDovecotFeatures("cable_a_1", new BlockCable(FabricBlockSettings.of(Material.METAL, MapColor.STONE_GRAY).noCollision().nonOpaque()));
-    public static final Block BLOCK_CABLE_A_2 = registerDovecotFeatures("cable_a_2", new BlockCable(FabricBlockSettings.of(Material.METAL, MapColor.STONE_GRAY).noCollision().nonOpaque()));
-    public static final Block BLOCK_CABLE_A_3 = registerDovecotFeatures("cable_a_3", new BlockCable(FabricBlockSettings.of(Material.METAL, MapColor.STONE_GRAY).noCollision().nonOpaque()));
-    public static final Block BLOCK_CABLE_A_4 = registerDovecotFeatures("cable_a_4", new BlockCable(FabricBlockSettings.of(Material.METAL, MapColor.STONE_GRAY).noCollision().nonOpaque()));
-    public static final Block BLOCK_CABLE_A_5 = registerDovecotFeatures("cable_a_5", new BlockCable(FabricBlockSettings.of(Material.METAL, MapColor.STONE_GRAY).noCollision().nonOpaque()));
-    public static final Block BLOCK_CABLE_A_6 = registerDovecotFeatures("cable_a_6", new BlockCable(FabricBlockSettings.of(Material.METAL, MapColor.STONE_GRAY).noCollision().nonOpaque()));
-    public static final Block BLOCK_CABLE_A_7 = registerDovecotFeatures("cable_a_7", new BlockCable(FabricBlockSettings.of(Material.METAL, MapColor.STONE_GRAY).noCollision().nonOpaque()));
-    public static final Block BLOCK_CABLE_A_8 = registerDovecotFeatures("cable_a_8", new BlockCable(FabricBlockSettings.of(Material.METAL, MapColor.STONE_GRAY).noCollision().nonOpaque()));
-    public static final Block BLOCK_CABLE_A_9 = registerDovecotFeatures("cable_a_9", new BlockCable(FabricBlockSettings.of(Material.METAL, MapColor.STONE_GRAY).noCollision().nonOpaque()));
-    // 隧道灯
+    // TODO: Merge Cables into a single block
+//    public static final Block BLOCK_CABLE_A = registerDovecotFeatures("cable_a", new BlockCable(FabricBlockSettings.of(Material.METAL, MapColor.STONE_GRAY).noCollision().nonOpaque()));
+//    public static final Block BLOCK_CABLE_A_1 = registerDovecotFeatures("cable_a_1", new BlockCable(FabricBlockSettings.of(Material.METAL, MapColor.STONE_GRAY).noCollision().nonOpaque()));
+//    public static final Block BLOCK_CABLE_A_2 = registerDovecotFeatures("cable_a_2", new BlockCable(FabricBlockSettings.of(Material.METAL, MapColor.STONE_GRAY).noCollision().nonOpaque()));
+//    public static final Block BLOCK_CABLE_A_3 = registerDovecotFeatures("cable_a_3", new BlockCable(FabricBlockSettings.of(Material.METAL, MapColor.STONE_GRAY).noCollision().nonOpaque()));
+//    public static final Block BLOCK_CABLE_A_4 = registerDovecotFeatures("cable_a_4", new BlockCable(FabricBlockSettings.of(Material.METAL, MapColor.STONE_GRAY).noCollision().nonOpaque()));
+//    public static final Block BLOCK_CABLE_A_5 = registerDovecotFeatures("cable_a_5", new BlockCable(FabricBlockSettings.of(Material.METAL, MapColor.STONE_GRAY).noCollision().nonOpaque()));
+//    public static final Block BLOCK_CABLE_A_6 = registerDovecotFeatures("cable_a_6", new BlockCable(FabricBlockSettings.of(Material.METAL, MapColor.STONE_GRAY).noCollision().nonOpaque()));
+//    public static final Block BLOCK_CABLE_A_7 = registerDovecotFeatures("cable_a_7", new BlockCable(FabricBlockSettings.of(Material.METAL, MapColor.STONE_GRAY).noCollision().nonOpaque()));
+//    public static final Block BLOCK_CABLE_A_8 = registerDovecotFeatures("cable_a_8", new BlockCable(FabricBlockSettings.of(Material.METAL, MapColor.STONE_GRAY).noCollision().nonOpaque()));
+//    public static final Block BLOCK_CABLE_A_9 = registerDovecotFeatures("cable_a_9", new BlockCable(FabricBlockSettings.of(Material.METAL, MapColor.STONE_GRAY).noCollision().nonOpaque()));
+    // Tunnel light
     public static final Block BLOCK_TUNNEL_LIGHT_A = registerDovecotFeatures("tunnel_light_a", new BlockTunnelLight(FabricBlockSettings.of(Material.METAL, MapColor.STONE_GRAY).nonOpaque()));
     public static final Block BLOCK_TICKET_MACHINE_A = registerDovecotFeatures("ticket_machine_a", new BlockSmallerTickerMachine(FabricBlockSettings.of(Material.METAL, MapColor.DIAMOND_BLUE).nonOpaque()));
     public static final Block BLOCK_TICKET_MACHINE_B = registerDovecotFeatures("ticket_machine_b", new BlockTicketMachine(FabricBlockSettings.of(Material.METAL, MapColor.DIAMOND_BLUE).nonOpaque()));
-    // 天花板
+    // Ceiling
     public static final Block BLOCK_TICKET_BARRIER_ENTRANCE_A = registerDovecotFeatures("ticket_barrier_entrance_a", new BlockBeyondTicketBarrier(true));
     public static final Block BLOCK_TICKET_BARRIER_EXIT_A = registerDovecotFeatures("ticket_barrier_exit_a", new BlockBeyondTicketBarrier(false));
     public static final Block BLOCK_CEILING_A = registerDovecotFeatures("ceiling_a", new BlockCeilingA(FabricBlockSettings.of(Material.METAL, MapColor.GRAY).nonOpaque().luminance(1)));
