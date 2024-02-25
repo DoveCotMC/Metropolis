@@ -36,6 +36,9 @@ public class MetroBlocks {
     public static final Block BLOCK_CEILING_A = registerDovecotFeatures("ceiling_a", new BlockCeilingA(FabricBlockSettings.of(Material.METAL, MapColor.GRAY).nonOpaque().luminance(1)));
 //    public static final Block BLOCK_CEILING_B = registerDovecotFeatures("ceiling_b", new BlockCeilingA(FabricBlockSettings.of(Material.METAL, MapColor.GRAY).nonOpaque().luminance(1)));
 
+    // Train bumpers
+    public static final Block BLOCK_BUMPER_A = register("bumper_a", new BumperBlock(FabricBlockSettings.of(Material.METAL, MapColor.YELLOW).nonOpaque()));
+
     private static Block registerDovecotFeatures(String id, Block block) {
         return Registry.register(Registry.BLOCK, new Identifier(Metropolis.MOD_ID, id), block);
     }
