@@ -21,7 +21,7 @@ import net.minecraft.world.World;
  * @project DovecotRailwayDeco-1.19.2
  * @copyright Copyright © 2023 Arrokoth All Rights Reserved.
  */
-@SuppressWarnings("deprecation")
+@SuppressWarnings({"deprecation", "unused"})
 public class BlockPCMonitor extends HorizontalFacingBlock {
     public BlockPCMonitor(Settings settings) {
         super(settings);

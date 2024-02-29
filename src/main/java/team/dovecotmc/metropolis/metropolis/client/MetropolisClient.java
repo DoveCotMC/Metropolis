@@ -10,6 +10,5 @@ import net.fabricmc.api.ClientModInitializer;
 public class MetropolisClient implements ClientModInitializer {
     @Override
     public void onInitializeClient() {
-
     }
 }

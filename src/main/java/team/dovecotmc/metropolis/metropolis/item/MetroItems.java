@@ -42,8 +42,12 @@ public class MetroItems {
     public static final Item ITEM_TURNSTILE_A_ENTRANCE = register("turnstile_a_entrance", new BlockItem(MetroBlocks.BLOCK_TURNSTILE_A_ENTRANCE, new Item.Settings().group(Metropolis.ITEM_GROUP)));
     public static final Item ITEM_TURNSTILE_A_EXIT = register("turnstile_a_exit", new BlockItem(MetroBlocks.BLOCK_TURNSTILE_A_EXIT, new Item.Settings().group(Metropolis.ITEM_GROUP)));
 
+    // Ticket Machine
+    public static final Item ITEM_TICKET_MACHINE = register("ticket_machine", new BlockItem(MetroBlocks.BLOCK_TICKET_MACHINE, new Item.Settings().group(Metropolis.ITEM_GROUP)));
+
     // Ticket
     public static final Item ITEM_TICKET = register("ticket", new ItemTicket(new Item.Settings().group(Metropolis.ITEM_GROUP), true));
+    public static final Item ITEM_CARD = register("card", new ItemTicket(new Item.Settings().group(Metropolis.ITEM_GROUP), false));
 
     public static Item registerDovecotFeature(String id, Item item) {
         return Registry.register(Registry.ITEM, new Identifier(Metropolis.MOD_ID, id), item);

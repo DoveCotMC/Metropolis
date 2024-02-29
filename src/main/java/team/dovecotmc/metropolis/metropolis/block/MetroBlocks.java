@@ -42,6 +42,9 @@ public class MetroBlocks {
     public static final Block BLOCK_TURNSTILE_A_ENTRANCE = register("turnstile_a_entrance", new BlockTurnstile(false));
     public static final Block BLOCK_TURNSTILE_A_EXIT = register("turnstile_a_exit", new BlockTurnstile(true));
 
+    // Ticket Machine
+    public static final Block BLOCK_TICKET_MACHINE = register("ticket_machine", new team.dovecotmc.metropolis.metropolis.block.BlockTicketMachine());
+
     private static Block registerDovecotFeatures(String id, Block block) {
         return Registry.register(Registry.BLOCK, new Identifier(Metropolis.MOD_ID, id), block);
     }

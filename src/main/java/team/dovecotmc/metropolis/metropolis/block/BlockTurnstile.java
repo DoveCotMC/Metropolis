@@ -4,6 +4,7 @@ import mtr.SoundEvents;
 import mtr.block.IBlock;
 import mtr.data.RailwayData;
 import mtr.data.Station;
+import mtr.item.ItemRailModifier;
 import net.minecraft.block.*;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemPlacementContext;
@@ -26,6 +27,8 @@ import net.minecraft.util.shape.VoxelShapes;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 import team.dovecotmc.metropolis.metropolis.item.ItemTicket;
+
+import java.util.Objects;
 
 /**
  * @author Arrokoth
@@ -51,7 +54,9 @@ public class BlockTurnstile extends HorizontalFacingBlock {
         RailwayData railwayData = RailwayData.getInstance(world);
         Station station = RailwayData.getStation(railwayData.stations, railwayData.dataCache, pos);
 
-        System.out.println(station);
+        if (Objects.isNull(station)) {
+            return ActionResult.PASS;
+        }
 
         ItemStack itemStack = player.getStackInHand(hand);
         if (itemStack.getItem() instanceof ItemTicket) {
@@ -69,6 +74,9 @@ public class BlockTurnstile extends HorizontalFacingBlock {
 
                 if (((ItemTicket) itemStack.getItem()).disposable) {
                     player.setStackInHand(hand, ItemStack.EMPTY);
+                } else {
+                    nbt.putBoolean(ItemTicket.ENTERED, false);
+                    nbt.remove(ItemTicket.ENTERED_ZONE);
                 }
 
             } else {
@@ -79,7 +87,6 @@ public class BlockTurnstile extends HorizontalFacingBlock {
 
                 nbt.putBoolean(ItemTicket.ENTERED, true);
                 nbt.putInt(ItemTicket.ENTERED_ZONE, station.zone);
-
             }
             world.setBlockState(pos, state.with(OPEN, true));
             world.createAndScheduleBlockTick(pos, this, 20);
