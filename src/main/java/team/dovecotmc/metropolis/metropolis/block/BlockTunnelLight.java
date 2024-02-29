@@ -17,6 +17,7 @@ import net.minecraft.world.BlockView;
  * @project DovecotRailwayDeco-1.19.2
  * @copyright Copyright © 2023 Arrokoth All Rights Reserved.
  */
+@SuppressWarnings("deprecation")
 public class BlockTunnelLight extends HorizontalFacingBlock {
     public BlockTunnelLight(Settings settings) {
         super(settings.luminance(value -> 12));

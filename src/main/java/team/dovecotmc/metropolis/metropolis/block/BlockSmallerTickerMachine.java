@@ -19,6 +19,7 @@ import net.minecraft.world.World;
  * @project DovecotRailwayDeco-1.19.2
  * @copyright Copyright © 2023 Arrokoth All Rights Reserved.
  */
+@SuppressWarnings("deprecation")
 public class BlockSmallerTickerMachine extends HorizontalFacingBlock {
     public BlockSmallerTickerMachine(Settings settings) {
         super(settings);

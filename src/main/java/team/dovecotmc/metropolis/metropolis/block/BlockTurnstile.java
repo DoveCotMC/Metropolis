@@ -5,7 +5,6 @@ import mtr.block.IBlock;
 import mtr.data.RailwayData;
 import mtr.data.Station;
 import net.minecraft.block.*;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.item.ItemStack;
@@ -26,13 +25,14 @@ import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.util.shape.VoxelShapes;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
-import team.dovecotmc.metropolis.metropolis.item.TicketItem;
+import team.dovecotmc.metropolis.metropolis.item.ItemTicket;
 
 /**
  * @author Arrokoth
  * @project Metropolis
  * @copyright Copyright © 2024 Arrokoth All Rights Reserved.
  */
+@SuppressWarnings("deprecation")
 public class BlockTurnstile extends HorizontalFacingBlock {
     public final boolean isExit;
     public static final BooleanProperty OPEN = BooleanProperty.of("open");
@@ -54,31 +54,31 @@ public class BlockTurnstile extends HorizontalFacingBlock {
         System.out.println(station);
 
         ItemStack itemStack = player.getStackInHand(hand);
-        if (itemStack.getItem() instanceof TicketItem) {
+        if (itemStack.getItem() instanceof ItemTicket) {
             NbtCompound nbt = itemStack.getOrCreateNbt();
             if (this.isExit) {
-                if (!nbt.getBoolean(TicketItem.ENTERED)) {
+                if (!nbt.getBoolean(ItemTicket.ENTERED)) {
                     player.sendMessage(Text.translatable("metropolis.info.ticket_error"), true);
                     return ActionResult.SUCCESS;
                 }
 
-                if (nbt.getInt(TicketItem.REMAIN_MONEY) < station.zone - nbt.getInt(TicketItem.ENTERED_ZONE)) {
+                if (nbt.getInt(ItemTicket.REMAIN_MONEY) < station.zone - nbt.getInt(ItemTicket.ENTERED_ZONE)) {
                     player.sendMessage(Text.translatable("metropolis.info.ticket_error"), true);
                     return ActionResult.SUCCESS;
                 }
 
-                if (((TicketItem) itemStack.getItem()).disposable) {
+                if (((ItemTicket) itemStack.getItem()).disposable) {
                     player.setStackInHand(hand, ItemStack.EMPTY);
                 }
 
             } else {
-                if (nbt.getBoolean(TicketItem.ENTERED)) {
+                if (nbt.getBoolean(ItemTicket.ENTERED)) {
                     player.sendMessage(Text.translatable("metropolis.info.ticket_error"), true);
                     return ActionResult.SUCCESS;
                 }
 
-                nbt.putBoolean(TicketItem.ENTERED, true);
-                nbt.putInt(TicketItem.ENTERED_ZONE, station.zone);
+                nbt.putBoolean(ItemTicket.ENTERED, true);
+                nbt.putInt(ItemTicket.ENTERED_ZONE, station.zone);
 
             }
             world.setBlockState(pos, state.with(OPEN, true));
@@ -94,22 +94,8 @@ public class BlockTurnstile extends HorizontalFacingBlock {
         world.setBlockState(pos, state.with(OPEN, false));
     }
 
-    @Override
-    public void onEntityCollision(BlockState state, World world, BlockPos pos, Entity entity) {
-        System.out.println(1145141919810L);
-//        if (world.isClient() || !(entity instanceof PlayerEntity)) {
-//            return;
-//        }
-//        System.out.println(114514);
-//
-//        PlayerEntity player = (PlayerEntity) entity;
-//        RailwayData railwayData = RailwayData.getInstance(world);
-//        Station station = RailwayData.getStation(railwayData.stations, railwayData.dataCache, pos);
-//        System.out.println(station.id);
-    }
-
     public VoxelShape getOutlineShape(BlockState state, BlockView blockGetter, BlockPos pos, ShapeContext collisionContext) {
-        Direction facing = (Direction) IBlock.getStatePropertySafe(state, FACING);
+        Direction facing = IBlock.getStatePropertySafe(state, FACING);
         return VoxelShapes.combine(
                 IBlock.getVoxelShapeByDirection(0.0, 0.0, 0.0, 1.0, 15.0, 16.0, facing),
                 IBlock.getVoxelShapeByDirection(12.0, 0.0, 0.0, 16.0 , 15.0, 16.0, facing),
@@ -117,7 +103,7 @@ public class BlockTurnstile extends HorizontalFacingBlock {
     }
 
     public VoxelShape getCollisionShape(BlockState state, BlockView blockGetter, BlockPos blockPos, ShapeContext collisionContext) {
-        Direction facing = (Direction)IBlock.getStatePropertySafe(state, FACING);
+        Direction facing = IBlock.getStatePropertySafe(state, FACING);
         VoxelShape base = VoxelShapes.combine(
                 IBlock.getVoxelShapeByDirection(0.0, 0.0, 0.0, 1.0, 24.0, 16.0, facing),
                 IBlock.getVoxelShapeByDirection(15.0, 0.0, 0.0, 16.0, 24.0, 16.0, facing),

@@ -2,7 +2,6 @@ package team.dovecotmc.metropolis.metropolis.item;
 
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemGroup;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 import team.dovecotmc.metropolis.metropolis.Metropolis;
@@ -13,6 +12,7 @@ import team.dovecotmc.metropolis.metropolis.block.MetroBlocks;
  * @project Metropolis
  * @copyright Copyright © 2023 Arrokoth All Rights Reserved.
  */
+@SuppressWarnings("unused")
 public class MetroItems {
     // Experimental features in other mods
 //    public static final Item ITEM_CABLE_A = registerDovecotFeature("cable_a", new BlockItem(MetroBlocks.BLOCK_CABLE_A, new Item.Settings().group(Metropolis.ITEM_GROUP)));
@@ -43,7 +43,7 @@ public class MetroItems {
     public static final Item ITEM_TURNSTILE_A_EXIT = register("turnstile_a_exit", new BlockItem(MetroBlocks.BLOCK_TURNSTILE_A_EXIT, new Item.Settings().group(Metropolis.ITEM_GROUP)));
 
     // Ticket
-    public static final Item ITEM_TICKET = register("ticket", new TicketItem(new Item.Settings().group(Metropolis.ITEM_GROUP), true));
+    public static final Item ITEM_TICKET = register("ticket", new ItemTicket(new Item.Settings().group(Metropolis.ITEM_GROUP), true));
 
     public static Item registerDovecotFeature(String id, Item item) {
         return Registry.register(Registry.ITEM, new Identifier(Metropolis.MOD_ID, id), item);

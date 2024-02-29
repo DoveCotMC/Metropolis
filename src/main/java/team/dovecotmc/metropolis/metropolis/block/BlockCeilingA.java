@@ -1,14 +1,9 @@
 package team.dovecotmc.metropolis.metropolis.block;
 
-import mtr.block.IBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
-import net.minecraft.block.HorizontalFacingBlock;
 import net.minecraft.block.ShapeContext;
-import net.minecraft.item.ItemPlacementContext;
-import net.minecraft.state.StateManager;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
 import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.world.BlockView;
 
@@ -17,6 +12,7 @@ import net.minecraft.world.BlockView;
  * @project DovecotRailwayDeco-1.19.2
  * @copyright Copyright © 2023 Arrokoth All Rights Reserved.
  */
+@SuppressWarnings("deprecation")
 public class BlockCeilingA extends Block {
     public BlockCeilingA(Settings settings) {
         super(settings);
