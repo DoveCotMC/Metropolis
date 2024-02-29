@@ -33,11 +33,18 @@ public class MetroItems {
     public static final Item ITEM_TICKET_BARRIER_ENTRANCE_A = registerDovecotFeature("ticket_barrier_entrance_a", new BlockItem(MetroBlocks.BLOCK_TICKET_BARRIER_ENTRANCE_A, new Item.Settings().group(Metropolis.ITEM_GROUP)));
     public static final Item ITEM_TICKET_BARRIER_EXIT_A = registerDovecotFeature("ticket_barrier_exit_a", new BlockItem(MetroBlocks.BLOCK_TICKET_BARRIER_EXIT_A, new Item.Settings().group(Metropolis.ITEM_GROUP)));
     // Ticker barrier
-    // 天花板
+    // Ceiling
     public static final Item ITEM_CEILING_A = registerDovecotFeature("ceiling_a", new BlockItem(MetroBlocks.BLOCK_CEILING_A, new Item.Settings().group(Metropolis.ITEM_GROUP)));
-//    public static final Item ITEM_CEILING_B = register("ceiling_b", new BlockItem(MetroBlocks.))
 
     public static final Item ITEM_BUMPER_A = register("bumper_a", new BlockItem(MetroBlocks.BLOCK_BUMPER_A, new Item.Settings().group(Metropolis.ITEM_GROUP)));
+
+    // Turnstile
+    public static final Item ITEM_TURNSTILE_A_ENTRANCE = register("turnstile_a_entrance", new BlockItem(MetroBlocks.BLOCK_TURNSTILE_A_ENTRANCE, new Item.Settings().group(Metropolis.ITEM_GROUP)));
+    public static final Item ITEM_TURNSTILE_A_EXIT = register("turnstile_a_exit", new BlockItem(MetroBlocks.BLOCK_TURNSTILE_A_EXIT, new Item.Settings().group(Metropolis.ITEM_GROUP)));
+
+    // Ticket
+    public static final Item ITEM_TICKET = register("ticket", new TicketItem(new Item.Settings().group(Metropolis.ITEM_GROUP), true));
+
     public static Item registerDovecotFeature(String id, Item item) {
         return Registry.register(Registry.ITEM, new Identifier(Metropolis.MOD_ID, id), item);
     }

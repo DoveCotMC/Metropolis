@@ -11,8 +11,8 @@ import net.minecraft.state.StateManager;
  * @project Metropolis
  * @copyright Copyright © 2024 Arrokoth All Rights Reserved.
  */
-public class BumperBlock extends HorizontalFacingBlock {
-    protected BumperBlock(Settings settings) {
+public class BlockBumper extends HorizontalFacingBlock {
+    protected BlockBumper(Settings settings) {
         super(settings);
     }
 

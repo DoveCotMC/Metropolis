@@ -34,10 +34,13 @@ public class MetroBlocks {
     public static final Block BLOCK_TICKET_BARRIER_ENTRANCE_A = registerDovecotFeatures("ticket_barrier_entrance_a", new BlockBeyondTicketBarrier(true));
     public static final Block BLOCK_TICKET_BARRIER_EXIT_A = registerDovecotFeatures("ticket_barrier_exit_a", new BlockBeyondTicketBarrier(false));
     public static final Block BLOCK_CEILING_A = registerDovecotFeatures("ceiling_a", new BlockCeilingA(FabricBlockSettings.of(Material.METAL, MapColor.GRAY).nonOpaque().luminance(1)));
-//    public static final Block BLOCK_CEILING_B = registerDovecotFeatures("ceiling_b", new BlockCeilingA(FabricBlockSettings.of(Material.METAL, MapColor.GRAY).nonOpaque().luminance(1)));
 
     // Train bumpers
-    public static final Block BLOCK_BUMPER_A = register("bumper_a", new BumperBlock(FabricBlockSettings.of(Material.METAL, MapColor.YELLOW).nonOpaque()));
+    public static final Block BLOCK_BUMPER_A = register("bumper_a", new BlockBumper(FabricBlockSettings.of(Material.METAL, MapColor.YELLOW).nonOpaque()));
+
+    // Turnstile
+    public static final Block BLOCK_TURNSTILE_A_ENTRANCE = register("turnstile_a_entrance", new BlockTurnstile(false));
+    public static final Block BLOCK_TURNSTILE_A_EXIT = register("turnstile_a_exit", new BlockTurnstile(true));
 
     private static Block registerDovecotFeatures(String id, Block block) {
         return Registry.register(Registry.BLOCK, new Identifier(Metropolis.MOD_ID, id), block);
