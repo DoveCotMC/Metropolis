@@ -64,11 +64,13 @@ public class BlockTurnstile extends HorizontalFacingBlock {
             if (this.isExit) {
                 if (!nbt.getBoolean(ItemTicket.ENTERED)) {
                     player.sendMessage(Text.translatable("metropolis.info.ticket_error"), true);
+                    world.playSound(null, pos, SoundEvents.TICKET_BARRIER, SoundCategory.BLOCKS, 1.0f, 1.0f);
                     return ActionResult.SUCCESS;
                 }
 
                 if (nbt.getInt(ItemTicket.REMAIN_MONEY) < station.zone - nbt.getInt(ItemTicket.ENTERED_ZONE)) {
                     player.sendMessage(Text.translatable("metropolis.info.ticket_error"), true);
+                    world.playSound(null, pos, SoundEvents.TICKET_BARRIER, SoundCategory.BLOCKS, 1.0f, 1.0f);
                     return ActionResult.SUCCESS;
                 }
 
@@ -76,12 +78,13 @@ public class BlockTurnstile extends HorizontalFacingBlock {
                     player.setStackInHand(hand, ItemStack.EMPTY);
                 } else {
                     nbt.putBoolean(ItemTicket.ENTERED, false);
+                    nbt.putInt(ItemTicket.REMAIN_MONEY, nbt.getInt(ItemTicket.REMAIN_MONEY) - (station.zone - nbt.getInt(ItemTicket.ENTERED_ZONE)));
                     nbt.remove(ItemTicket.ENTERED_ZONE);
                 }
-
             } else {
                 if (nbt.getBoolean(ItemTicket.ENTERED)) {
                     player.sendMessage(Text.translatable("metropolis.info.ticket_error"), true);
+                    world.playSound(null, pos, SoundEvents.TICKET_BARRIER, SoundCategory.BLOCKS, 1.0f, 1.0f);
                     return ActionResult.SUCCESS;
                 }
 
