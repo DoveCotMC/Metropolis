@@ -51,7 +51,7 @@ public class TicketMachineScreen extends Screen {
 
 //        itemRenderer.renderItem(this.ticketItem, ModelTransformation.Mode.GROUND, false, matrices, VertexConsumers.union(), 1, 0);
 //        itemRenderer.renderItem(this.ticketItem, ModelTransformation.Mode.GROUND, 1, 1, matrices, 1);
-        itemRenderer.renderItem(this.ticketItem, ModelTransformation.Mode.GROUND, 1, 1, matrices, (VertexConsumerProvider) VertexConsumers.union(), 0);
+        itemRenderer.renderInGui(this.ticketItem, 1, 1);
 
         super.render(matrices, mouseX, mouseY, delta);
     }
