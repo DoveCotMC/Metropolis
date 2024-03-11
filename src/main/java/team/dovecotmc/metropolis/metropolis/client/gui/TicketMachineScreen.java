@@ -66,17 +66,18 @@ public class TicketMachineScreen extends Screen {
 //        itemRenderer.renderInGui(this.ticketItem, 1, 1);
         VertexConsumerProvider.Immediate immediate = MinecraftClient.getInstance().getBufferBuilders().getEntityVertexConsumers();
 
-        MatrixStack matrixStack = RenderSystem.getModelViewStack();
-        matrixStack.push();
-        matrixStack.translate(8.0, 8.0, 0.0);
-        matrixStack.scale(1.0F, -1.0F, 1.0F);
-        matrixStack.scale(16.0F, 16.0F, 16.0F);
+//        MatrixStack matrixStack = RenderSystem.getModelViewStack();
+        matrices.push();
+        matrices.translate(8.0, 8.0, 0.0);
+//        matrices.scale(1.0F, 1.0F, 1.0F);
+        matrices.scale(16.0F, 16.0F, 16.0F);
         RenderSystem.applyModelViewMatrix();
 //        itemRenderer.renderItem(this.ticketItem, ModelTransformation.Mode.GUI, false, matrixStack, immediate, 15728880, OverlayTexture.DEFAULT_UV, new );
-        itemRenderer.renderItem(this.ticketItem, ModelTransformation.Mode.GUI, 15728880, OverlayTexture.DEFAULT_UV, matrixStack, immediate, 0);
+//        System.out.println(VertexConsumers.union());
+        itemRenderer.renderItem(this.ticketItem, ModelTransformation.Mode.GUI, 15728880, OverlayTexture.DEFAULT_UV, matrices, immediate, 0);
         immediate.draw();
         RenderSystem.enableDepthTest();
-        matrixStack.pop();
+        matrices.pop();
         RenderSystem.applyModelViewMatrix();
 //        matrices.pop();
 //        matrices.push();
