@@ -10,6 +10,7 @@ import net.minecraft.client.gui.screen.ingame.CraftingScreen;
 import net.minecraft.client.gui.widget.ButtonWidget;
 import net.minecraft.client.realms.gui.screen.RealmsSettingsScreen;
 import net.minecraft.client.render.*;
+import net.minecraft.client.render.item.ItemRenderer;
 import net.minecraft.client.render.model.BakedModel;
 import net.minecraft.client.render.model.json.ModelTransformation;
 import net.minecraft.client.texture.SpriteAtlasTexture;
@@ -60,29 +61,20 @@ public class TicketMachineScreen extends Screen {
         drawTexture(matrices, this.width / 2 - IMAGE_WIDTH / 2, this.height / 2 - IMAGE_HEIGHT / 2, 0, 0, IMAGE_WIDTH, IMAGE_HEIGHT, IMAGE_WIDTH, IMAGE_HEIGHT);
         RenderSystem.disableBlend();
 
-//        itemRenderer.renderItem(this.ticketItem, ModelTransformation.Mode.GROUND, false, matrices, VertexConsumers.union(), 1, 0);
-//        itemRenderer.renderItem(this.ticketItem, ModelTransformation.Mode.GROUND, 1, 1, matrices, 1);
-//        itemRenderer.renderItem();
-//        itemRenderer.renderInGui(this.ticketItem, 1, 1);
-        VertexConsumerProvider.Immediate immediate = MinecraftClient.getInstance().getBufferBuilders().getEntityVertexConsumers();
-
-//        MatrixStack matrixStack = RenderSystem.getModelViewStack();
-        matrices.push();
-        matrices.translate(8.0, 8.0, 0.0);
-//        matrices.scale(1.0F, 1.0F, 1.0F);
-        matrices.scale(16.0F, 16.0F, 16.0F);
-        RenderSystem.applyModelViewMatrix();
-//        itemRenderer.renderItem(this.ticketItem, ModelTransformation.Mode.GUI, false, matrixStack, immediate, 15728880, OverlayTexture.DEFAULT_UV, new );
-//        System.out.println(VertexConsumers.union());
-        itemRenderer.renderItem(this.ticketItem, ModelTransformation.Mode.GUI, 15728880, OverlayTexture.DEFAULT_UV, matrices, immediate, 0);
-        immediate.draw();
-        RenderSystem.enableDepthTest();
-        matrices.pop();
-        RenderSystem.applyModelViewMatrix();
-//        matrices.pop();
-//        matrices.push();
-
         super.render(matrices, mouseX, mouseY, delta);
+
+        MatrixStack matrixStack = RenderSystem.getModelViewStack();
+        matrixStack.push();
+        matrixStack.translate(8.0, 8.0, 0.0);
+        matrixStack.scale(1.0F, -1.0F, 1.0F);
+        matrixStack.scale(16.0F, 16.0F, 16.0F);
+        RenderSystem.applyModelViewMatrix();
+
+        VertexConsumerProvider.Immediate immediate = MinecraftClient.getInstance().getBufferBuilders().getEntityVertexConsumers();
+        itemRenderer.renderItem(this.ticketItem, ModelTransformation.Mode.GROUND, 15728880, OverlayTexture.DEFAULT_UV, matrices, immediate, 0);
+
+        matrixStack.pop();
+//        RenderSystem.applyModelViewMatrix();
     }
 
     @Override
