@@ -11,6 +11,7 @@ import net.minecraft.util.Identifier;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import team.dovecotmc.metropolis.metropolis.block.MetroBlocks;
+import team.dovecotmc.metropolis.metropolis.block.entity.MetroBlockEntities;
 import team.dovecotmc.metropolis.metropolis.item.MetroItems;
 
 /**
@@ -31,6 +32,7 @@ public class Metropolis implements ModInitializer {
     @Override
     public void onInitialize() {
         MetroBlocks.initialize();
+        MetroBlockEntities.initialize();
         MetroItems.initialize();
 
         ServerPlayNetworking.registerGlobalReceiver(ID_SCREEN_CLOSE_TICKET_MACHINE, (server, player, handler, buf, responseSender) -> {
