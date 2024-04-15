@@ -2,8 +2,12 @@ package team.dovecotmc.metropolis.metropolis.client;
 
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
+import net.fabricmc.fabric.api.client.rendering.v1.BlockEntityRendererRegistry;
+import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
 import net.minecraft.item.ItemStack;
 import team.dovecotmc.metropolis.metropolis.Metropolis;
+import team.dovecotmc.metropolis.metropolis.block.entity.MetroBlockEntities;
+import team.dovecotmc.metropolis.metropolis.client.block.entity.TicketMachineBlockEntityRenderer;
 import team.dovecotmc.metropolis.metropolis.client.gui.MetroScreens;
 import team.dovecotmc.metropolis.metropolis.client.gui.TicketMachineScreen;
 
@@ -22,5 +26,7 @@ public class MetropolisClient implements ClientModInitializer {
                 client.setScreen(new TicketMachineScreen(stack));
             });
         });
+
+        BlockEntityRendererRegistry.register(MetroBlockEntities.TICKET_MACHINE_BLOCK_ENTITY, ctx -> new TicketMachineBlockEntityRenderer());
     }
 }
