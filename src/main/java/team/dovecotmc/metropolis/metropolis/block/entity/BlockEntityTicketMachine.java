@@ -22,6 +22,7 @@ import org.jetbrains.annotations.Nullable;
  */
 public class BlockEntityTicketMachine extends BlockEntity implements BlockTicketMachineInventory {
     public static final String TAG_CARD_SLOT_OCCUPIED = "card_slot_occupied";
+    public boolean cardSlotOccupied = false;
     private final DefaultedList<ItemStack> items = DefaultedList.ofSize(1, ItemStack.EMPTY);
 
     public BlockEntityTicketMachine(BlockPos pos, BlockState state) {
@@ -42,12 +43,18 @@ public class BlockEntityTicketMachine extends BlockEntity implements BlockTicket
     @Override
     public void readNbt(NbtCompound nbt) {
         super.readNbt(nbt);
+
+        this.cardSlotOccupied = nbt.getBoolean(TAG_CARD_SLOT_OCCUPIED);
+
         Inventories.readNbt(nbt, items);
     }
 
     @Override
     protected void writeNbt(NbtCompound nbt) {
         super.writeNbt(nbt);
+
+        nbt.putBoolean(TAG_CARD_SLOT_OCCUPIED, cardSlotOccupied);
+
         Inventories.writeNbt(nbt, items);
     }
 

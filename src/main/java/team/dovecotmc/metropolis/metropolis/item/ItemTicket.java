@@ -1,7 +1,5 @@
 package team.dovecotmc.metropolis.metropolis.item;
 
-import mtr.mappings.Utilities;
-import mtr.screen.PIDSConfigScreen;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;

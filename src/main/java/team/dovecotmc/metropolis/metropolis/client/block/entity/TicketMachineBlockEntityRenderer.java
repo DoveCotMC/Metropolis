@@ -49,7 +49,9 @@ public class TicketMachineBlockEntityRenderer implements BlockEntityRenderer<Blo
 //        System.out.println(entity.isEmpty());
 //        System.out.println(entity.createNbt().getBoolean(BlockEntityTicketMachine.TAG_CARD_SLOT_OCCUPIED));
 //        if (!(entity.getStack(0).isEmpty() || entity.getStack(0).equals(ItemStack.EMPTY))) {
-        if (entity.createNbt().getBoolean(BlockEntityTicketMachine.TAG_CARD_SLOT_OCCUPIED)) {
+//        if (entity.createNbt().getBoolean(BlockEntityTicketMachine.TAG_CARD_SLOT_OCCUPIED)) {
+//        if (true) {
+        if (entity.cardSlotOccupied) {
             matrices.push();
             matrices.translate(0.25 + 0.0625, 0.0625 * 2, 0.0625 * 2);
             matrices.multiply(Quaternion.fromEulerXyzDegrees(new Vec3f(67.5f, 0, 30f)));

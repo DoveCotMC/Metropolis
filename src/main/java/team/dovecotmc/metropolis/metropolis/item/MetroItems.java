@@ -47,6 +47,7 @@ public class MetroItems {
 
     // Ticket
     public static final Item ITEM_TICKET = register("ticket", new ItemTicket(new Item.Settings().group(Metropolis.ITEM_GROUP), true));
+    // TODO: 鸽达通 - Dovepus Card (
     public static final Item ITEM_CARD = register("card", new ItemTicket(new Item.Settings().group(Metropolis.ITEM_GROUP), false));
 
     public static Item registerDovecotFeature(String id, Item item) {

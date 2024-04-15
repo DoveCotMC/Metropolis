@@ -18,6 +18,7 @@ import net.minecraft.nbt.NbtCompound;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.screen.NamedScreenHandlerFactory;
 import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.state.StateManager;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
@@ -36,7 +37,7 @@ import team.dovecotmc.metropolis.metropolis.item.ItemTicket;
  */
 public class BlockTicketMachine extends BlockDirectionalDoubleBlockBase implements BlockEntityProvider {
     public BlockTicketMachine() {
-        super(Settings.of(Material.METAL).nonOpaque());
+        super(Settings.of(Material.METAL).nonOpaque().luminance(value -> 1).requiresTool());
     }
 
     @Override
@@ -103,22 +104,34 @@ public class BlockTicketMachine extends BlockDirectionalDoubleBlockBase implemen
 
         ItemStack itemStack = player.getStackInHand(hand);
         if (player.getStackInHand(hand).getItem() instanceof ItemTicket) {
+            if (nbt.getBoolean(BlockEntityTicketMachine.TAG_CARD_SLOT_OCCUPIED)) {
+                player.setStackInHand(hand, entity.getStack(0));
+                nbt.putBoolean(BlockEntityTicketMachine.TAG_CARD_SLOT_OCCUPIED, true);
+                entity.readNbt(nbt);
+            } else {
+                player.setStackInHand(hand, ItemStack.EMPTY);
+                nbt.putBoolean(BlockEntityTicketMachine.TAG_CARD_SLOT_OCCUPIED, true);
+                entity.readNbt(nbt);
+            }
             entity.setStack(0, itemStack);
-            player.setStackInHand(hand, ItemStack.EMPTY);
-            player.getInventory().addPickBlock(entity.getStack(0));
-            nbt.putBoolean(BlockEntityTicketMachine.TAG_CARD_SLOT_OCCUPIED, true);
+        } else if (player.getStackInHand(hand).getItem().equals(Items.EMERALD)) {
+            if (nbt.getBoolean(BlockEntityTicketMachine.TAG_CARD_SLOT_OCCUPIED)) {
+                NbtCompound nbtCard = entity.getStack(0).getOrCreateNbt();
+                nbtCard.putInt(ItemTicket.REMAIN_MONEY, nbtCard.getInt(ItemTicket.REMAIN_MONEY) + player.getStackInHand(hand).getCount());
+                player.setStackInHand(hand, ItemStack.EMPTY);
+            }
         } else {
-            player.getInventory().addPickBlock(entity.getStack(0));
-            entity.removeStack(0);
-            nbt.putBoolean(BlockEntityTicketMachine.TAG_CARD_SLOT_OCCUPIED, false);
+            if (nbt.getBoolean(BlockEntityTicketMachine.TAG_CARD_SLOT_OCCUPIED)) {
+                player.giveItemStack(entity.getStack(0));
+                nbt.putBoolean(BlockEntityTicketMachine.TAG_CARD_SLOT_OCCUPIED, false);
+                entity.readNbt(nbt);
+            }
         }
 
         // Sync data
-        System.out.println(nbt.getBoolean(BlockEntityTicketMachine.TAG_CARD_SLOT_OCCUPIED));
-        System.out.println(nbt);
-        entity.readNbt(nbt);
+        System.out.println(itemStack);
+        System.out.println(entity.getItems());
         serverPlayer.networkHandler.sendPacket(entity.toUpdatePacket());
-        serverPlayer.networkHandler.tick();
 
         return ActionResult.SUCCESS;
     }
@@ -141,7 +154,7 @@ public class BlockTicketMachine extends BlockDirectionalDoubleBlockBase implemen
     public boolean onSyncedBlockEvent(BlockState state, World world, BlockPos pos, int type, int data) {
         super.onSyncedBlockEvent(state, world, pos, type, data);
         BlockEntity blockEntity = world.getBlockEntity(pos);
-        return blockEntity == null ? false : blockEntity.onSyncedBlockEvent(type, data);
+        return blockEntity != null && blockEntity.onSyncedBlockEvent(type, data);
     }
 
     @Nullable
