@@ -26,9 +26,11 @@ public class BlockEntityTicketMachine extends BlockEntity implements BlockTicket
     public static final String TAG_SELLING_TICKET_MODE = "ticket_selling_mode";
     public boolean ticketSellingMode = false;
     public static final String TAG_EMERALD_CACHE = "emerald_cache";
-    public int emeraldCache = -1;
+    public int emeraldCache = 0;
     public static final String TAG_CARD_SLOT_OCCUPIED = "card_slot_occupied";
     public boolean cardSlotOccupied = false;
+    public static final String TAG_TICKET_SLOT_ANIMATION_TICK = "ticket_slot_animation_tick";
+    public long ticketSlotAnimationTick = 0;
     private final DefaultedList<ItemStack> items = DefaultedList.ofSize(2, ItemStack.EMPTY);
 
     public BlockEntityTicketMachine(BlockPos pos, BlockState state) {
@@ -51,7 +53,10 @@ public class BlockEntityTicketMachine extends BlockEntity implements BlockTicket
         super.readNbt(nbt);
 
         this.cardSlotOccupied = nbt.getBoolean(TAG_CARD_SLOT_OCCUPIED);
+        this.ticketSellingMode = nbt.getBoolean(TAG_SELLING_TICKET_MODE);
         this.ticketSlotOccupied = nbt.getBoolean(TAG_TICKET_SLOT_OCCUPIED);
+        this.emeraldCache = nbt.getInt(TAG_EMERALD_CACHE);
+        this.ticketSlotAnimationTick = nbt.getLong(TAG_TICKET_SLOT_ANIMATION_TICK);
 
         Inventories.readNbt(nbt, items);
     }
@@ -61,7 +66,10 @@ public class BlockEntityTicketMachine extends BlockEntity implements BlockTicket
         super.writeNbt(nbt);
 
         nbt.putBoolean(TAG_CARD_SLOT_OCCUPIED, cardSlotOccupied);
-        nbt.putBoolean(TAG_CARD_SLOT_OCCUPIED, ticketSlotOccupied);
+        nbt.putBoolean(TAG_SELLING_TICKET_MODE, ticketSellingMode);
+        nbt.putBoolean(TAG_TICKET_SLOT_OCCUPIED, ticketSlotOccupied);
+        nbt.putInt(TAG_EMERALD_CACHE, emeraldCache);
+        nbt.putLong(TAG_TICKET_SLOT_ANIMATION_TICK, ticketSlotAnimationTick);
 
         Inventories.writeNbt(nbt, items);
     }

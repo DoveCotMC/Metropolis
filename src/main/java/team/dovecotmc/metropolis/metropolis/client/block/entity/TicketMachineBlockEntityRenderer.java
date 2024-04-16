@@ -36,7 +36,11 @@ public class TicketMachineBlockEntityRenderer implements BlockEntityRenderer<Blo
         // Render Ticket
         if (entity.ticketSlotOccupied) {
             matrices.push();
-            matrices.translate(0.25 + 0.0625, 0.5 - 0.0625, 0.3);
+            matrices.translate(
+                    0.25 + 0.0625,
+                    0.5 - 0.0625,
+                    0.3 + Math.pow((1 - Math.min(1, ((mc.world.getTime() + tickDelta) - entity.ticketSlotAnimationTick) / 10d)) * 0.3, 2)
+            );
             matrices.multiply(Quaternion.fromEulerXyzDegrees(new Vec3f(-90, 0, 90)));
             matrices.scale(0.5f, 0.5f, 0.5f);
             itemRenderer.renderItem(new ItemStack(MetroItems.ITEM_TICKET), ModelTransformation.Mode.GROUND, light, 0, matrices, vertexConsumers, 0);
@@ -47,8 +51,16 @@ public class TicketMachineBlockEntityRenderer implements BlockEntityRenderer<Blo
         // Render Card
         if (entity.cardSlotOccupied) {
             matrices.push();
-            matrices.translate(0.25 + 0.0625, 0.0625 * 2, 0.0625 * 2);
-            matrices.multiply(Quaternion.fromEulerXyzDegrees(new Vec3f(67.5f, 0, 30f)));
+            matrices.translate(
+                    0.25 + 0.0625,
+                    0.0625 * 2 + Math.pow((1 - Math.min(1, ((mc.world.getTime() + tickDelta) - entity.ticketSlotAnimationTick) / 2d)), 1.5) * 0.2d,
+                    0.0625 * 2
+            );
+            matrices.multiply(Quaternion.fromEulerXyzDegrees(new Vec3f(
+                    67.5f,
+                    0,
+                    30f + (float) Math.toRadians(Math.pow((1 - Math.min(1, ((mc.world.getTime() + tickDelta) - entity.ticketSlotAnimationTick) / 3d)) * 60, 2))
+            )));
             matrices.scale(0.5f, 0.5f, 0.5f);
             itemRenderer.renderItem(entity.getStack(0), ModelTransformation.Mode.GROUND, light, 0, matrices, vertexConsumers, 0);
             matrices.pop();
