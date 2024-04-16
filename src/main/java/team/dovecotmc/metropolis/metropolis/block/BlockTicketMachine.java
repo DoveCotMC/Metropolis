@@ -9,6 +9,7 @@ import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityTicker;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.block.enums.DoubleBlockHalf;
+import net.minecraft.entity.passive.VillagerEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.item.Item;
@@ -19,6 +20,8 @@ import net.minecraft.network.PacketByteBuf;
 import net.minecraft.screen.NamedScreenHandlerFactory;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
+import net.minecraft.sound.SoundCategory;
+import net.minecraft.sound.SoundEvents;
 import net.minecraft.state.StateManager;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
@@ -29,6 +32,7 @@ import org.jetbrains.annotations.Nullable;
 import team.dovecotmc.metropolis.metropolis.Metropolis;
 import team.dovecotmc.metropolis.metropolis.block.entity.BlockEntityTicketMachine;
 import team.dovecotmc.metropolis.metropolis.item.ItemTicket;
+import team.dovecotmc.metropolis.metropolis.item.MetroItems;
 
 /**
  * @author Arrokoth
@@ -65,72 +69,76 @@ public class BlockTicketMachine extends BlockDirectionalDoubleBlockBase implemen
         ServerPlayerEntity serverPlayer = (ServerPlayerEntity) player;
         BlockEntityTicketMachine entity = (BlockEntityTicketMachine) world.getBlockEntity(pos);
 
-//        // Item Render Modes:
-//        // 0: None
-//        // 1: Ticket
-//        // 2: Card
         NbtCompound nbt = entity.createNbt();
-//        System.out.println(nbt);
-//
-//        // Card
-//        if (player.getStackInHand(hand).getItem() instanceof ItemTicket) {
-////            ItemTicket item = (ItemTicket) player.getStackInHand(hand).getItem();
-////            if (item.disposable) {
-////                nbt.putInt(BlockEntityTicketMachine.TAG_ITEM_RENDER_MODE, 2);
-////            } else {
-////                nbt.putInt(BlockEntityTicketMachine.TAG_ITEM_RENDER_MODE, 1);
-////            }
-//            nbt.putInt(BlockEntityTicketMachine.TAG_ITEM_RENDER_MODE, 2);
-//
-//            ItemStack stackBuf = inventory.getStack(0);
-//            if (!stackBuf.isEmpty()) {
-//                inventory.setStack(0, player.getStackInHand(hand));
-//                System.out.println(inventory.getStack(0));
-//                player.setStackInHand(hand, inventory.getStack(0));
-//            } else {
-//                inventory.setStack(0, player.getStackInHand(hand));
-//                player.setStackInHand(hand, ItemStack.EMPTY);
-//            }
-//        } else {
-//            nbt.putInt(BlockEntityTicketMachine.TAG_ITEM_RENDER_MODE, 0);
-//            System.out.println(inventory.getStack(0));
-//            ItemStack stackBuf = inventory.getStack(0);
-//            if (!stackBuf.isEmpty()) {
-//                player.setStackInHand(hand, inventory.getStack(0));
-//                inventory.setStack(0, ItemStack.EMPTY);
-//            }
-//        }
-//
 
         ItemStack itemStack = player.getStackInHand(hand);
-        if (player.getStackInHand(hand).getItem() instanceof ItemTicket) {
-            if (nbt.getBoolean(BlockEntityTicketMachine.TAG_CARD_SLOT_OCCUPIED)) {
-                player.setStackInHand(hand, entity.getStack(0));
-                nbt.putBoolean(BlockEntityTicketMachine.TAG_CARD_SLOT_OCCUPIED, true);
-                entity.readNbt(nbt);
-            } else {
-                player.setStackInHand(hand, ItemStack.EMPTY);
-                nbt.putBoolean(BlockEntityTicketMachine.TAG_CARD_SLOT_OCCUPIED, true);
-                entity.readNbt(nbt);
+        System.out.println(nbt.getBoolean(BlockEntityTicketMachine.TAG_SELLING_TICKET_MODE));
+        System.out.println(nbt.getBoolean(BlockEntityTicketMachine.TAG_TICKET_SLOT_OCCUPIED));
+        if (nbt.getBoolean(BlockEntityTicketMachine.TAG_SELLING_TICKET_MODE)) {
+            nbt.putBoolean(BlockEntityTicketMachine.TAG_TICKET_SLOT_OCCUPIED, true);
+            nbt.putBoolean(BlockEntityTicketMachine.TAG_SELLING_TICKET_MODE, false);
+            System.out.println(111);
+            entity.readNbt(nbt);
+        } else if (nbt.getBoolean(BlockEntityTicketMachine.TAG_TICKET_SLOT_OCCUPIED)) {
+            System.out.println(111);
+            player.giveItemStack(entity.getStack(1));
+            nbt.putBoolean(BlockEntityTicketMachine.TAG_TICKET_SLOT_OCCUPIED, false);
+            entity.readNbt(nbt);
+            world.playSound(null, pos, SoundEvents.BLOCK_WOOL_BREAK, SoundCategory.BLOCKS, 1f, 1f);
+        } else if (itemStack.getItem() instanceof ItemTicket) {
+            if (!((ItemTicket) itemStack.getItem()).disposable) {
+                if (nbt.getBoolean(BlockEntityTicketMachine.TAG_CARD_SLOT_OCCUPIED)) {
+                    player.setStackInHand(hand, entity.getStack(0));
+                    nbt.putBoolean(BlockEntityTicketMachine.TAG_CARD_SLOT_OCCUPIED, true);
+                    entity.readNbt(nbt);
+                } else {
+                    player.setStackInHand(hand, ItemStack.EMPTY);
+                    nbt.putBoolean(BlockEntityTicketMachine.TAG_CARD_SLOT_OCCUPIED, true);
+                    entity.readNbt(nbt);
+                }
+                entity.setStack(0, itemStack);
+                world.playSound(null, pos, SoundEvents.BLOCK_WOOL_BREAK, SoundCategory.BLOCKS, 1f, 1f);
             }
-            entity.setStack(0, itemStack);
         } else if (player.getStackInHand(hand).getItem().equals(Items.EMERALD)) {
             if (nbt.getBoolean(BlockEntityTicketMachine.TAG_CARD_SLOT_OCCUPIED)) {
                 NbtCompound nbtCard = entity.getStack(0).getOrCreateNbt();
-                nbtCard.putInt(ItemTicket.REMAIN_MONEY, nbtCard.getInt(ItemTicket.REMAIN_MONEY) + player.getStackInHand(hand).getCount());
+                nbtCard.putInt(ItemTicket.REMAIN_MONEY, nbtCard.getInt(ItemTicket.REMAIN_MONEY) + itemStack.getCount());
                 player.setStackInHand(hand, ItemStack.EMPTY);
+                world.playSound(null, pos, SoundEvents.ITEM_ARMOR_EQUIP_DIAMOND, SoundCategory.BLOCKS, 1f, 1f);
+            } else {
+                ItemStack itemStack1 = itemStack;
+                itemStack1.setCount(itemStack.getCount() - 1);
+                player.setStackInHand(hand, itemStack1);
+//                nbt.putInt(BlockEntityTicketMachine.TAG_EMERALD_CACHE, nbt.getInt(BlockEntityTicketMachine.TAG_EMERALD_CACHE) + 1);
+                world.playSound(null, pos, SoundEvents.ITEM_ARMOR_EQUIP_DIAMOND, SoundCategory.BLOCKS, 1f, 1f);
+                nbt.putBoolean(BlockEntityTicketMachine.TAG_SELLING_TICKET_MODE, true);
+                if (entity.getStack(1).isEmpty()) {
+                    // TODO: Configable
+                    ItemStack ticketStack = new ItemStack(MetroItems.ITEM_TICKET);
+                    NbtCompound ticketNbt = ticketStack.getOrCreateNbt();
+                    ticketNbt.putInt(ItemTicket.REMAIN_MONEY, 1);
+                    System.out.println(nbt);
+                    entity.readNbt(nbt);
+                    entity.setStack(1, ticketStack);
+                } else {
+                    ItemStack ticketStack = entity.getStack(1);
+                    NbtCompound ticketNbt = ticketStack.getOrCreateNbt();
+                    ticketNbt.putInt(ItemTicket.REMAIN_MONEY, ticketNbt.getInt(ItemTicket.REMAIN_MONEY) + 1);
+                    System.out.println(nbt);
+                    entity.readNbt(nbt);
+                    entity.setStack(1, ticketStack);
+                }
             }
         } else {
             if (nbt.getBoolean(BlockEntityTicketMachine.TAG_CARD_SLOT_OCCUPIED)) {
                 player.giveItemStack(entity.getStack(0));
                 nbt.putBoolean(BlockEntityTicketMachine.TAG_CARD_SLOT_OCCUPIED, false);
                 entity.readNbt(nbt);
+                world.playSound(null, pos, SoundEvents.BLOCK_WOOL_BREAK, SoundCategory.BLOCKS, 1f, 1f);
             }
         }
 
         // Sync data
-        System.out.println(itemStack);
-        System.out.println(entity.getItems());
         serverPlayer.networkHandler.sendPacket(entity.toUpdatePacket());
 
         return ActionResult.SUCCESS;

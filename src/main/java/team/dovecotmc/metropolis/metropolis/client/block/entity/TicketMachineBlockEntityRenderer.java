@@ -34,29 +34,22 @@ public class TicketMachineBlockEntityRenderer implements BlockEntityRenderer<Blo
         ItemRenderer itemRenderer = mc.getItemRenderer();
 
         // Render Ticket
-        matrices.push();
-        matrices.translate(0.25 + 0.0625, 0.5 - 0.0625, 0.3);
-        matrices.multiply(Quaternion.fromEulerXyzDegrees(new Vec3f(-90, 0, 90)));
-        matrices.scale(0.5f, 0.5f, 0.5f);
-        itemRenderer.renderItem(new ItemStack(MetroItems.ITEM_TICKET), ModelTransformation.Mode.GROUND, light, 0, matrices, vertexConsumers, 0);
-        matrices.pop();
+        if (entity.ticketSlotOccupied) {
+            matrices.push();
+            matrices.translate(0.25 + 0.0625, 0.5 - 0.0625, 0.3);
+            matrices.multiply(Quaternion.fromEulerXyzDegrees(new Vec3f(-90, 0, 90)));
+            matrices.scale(0.5f, 0.5f, 0.5f);
+            itemRenderer.renderItem(new ItemStack(MetroItems.ITEM_TICKET), ModelTransformation.Mode.GROUND, light, 0, matrices, vertexConsumers, 0);
+//            itemRenderer.renderItem(entity.getStack(1), ModelTransformation.Mode.GROUND, light, 0, matrices, vertexConsumers, 0);
+            matrices.pop();
+        }
 
         // Render Card
-//        System.out.println(entity.getStack(0));
-
-        // Check if there is a card on the machine
-//        System.out.println(entity.getItems());
-//        System.out.println(entity.isEmpty());
-//        System.out.println(entity.createNbt().getBoolean(BlockEntityTicketMachine.TAG_CARD_SLOT_OCCUPIED));
-//        if (!(entity.getStack(0).isEmpty() || entity.getStack(0).equals(ItemStack.EMPTY))) {
-//        if (entity.createNbt().getBoolean(BlockEntityTicketMachine.TAG_CARD_SLOT_OCCUPIED)) {
-//        if (true) {
         if (entity.cardSlotOccupied) {
             matrices.push();
             matrices.translate(0.25 + 0.0625, 0.0625 * 2, 0.0625 * 2);
             matrices.multiply(Quaternion.fromEulerXyzDegrees(new Vec3f(67.5f, 0, 30f)));
             matrices.scale(0.5f, 0.5f, 0.5f);
-//        itemRenderer.renderItem(new ItemStack(MetroItems.ITEM_CARD), ModelTransformation.Mode.GROUND, light, 0, matrices, vertexConsumers, 0);
             itemRenderer.renderItem(entity.getStack(0), ModelTransformation.Mode.GROUND, light, 0, matrices, vertexConsumers, 0);
             matrices.pop();
         }

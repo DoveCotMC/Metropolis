@@ -21,9 +21,15 @@ import org.jetbrains.annotations.Nullable;
  * @copyright Copyright © 2024 Arrokoth All Rights Reserved.
  */
 public class BlockEntityTicketMachine extends BlockEntity implements BlockTicketMachineInventory {
+    public static final String TAG_TICKET_SLOT_OCCUPIED = "ticket_slot_occupied";
+    public boolean ticketSlotOccupied = false;
+    public static final String TAG_SELLING_TICKET_MODE = "ticket_selling_mode";
+    public boolean ticketSellingMode = false;
+    public static final String TAG_EMERALD_CACHE = "emerald_cache";
+    public int emeraldCache = -1;
     public static final String TAG_CARD_SLOT_OCCUPIED = "card_slot_occupied";
     public boolean cardSlotOccupied = false;
-    private final DefaultedList<ItemStack> items = DefaultedList.ofSize(1, ItemStack.EMPTY);
+    private final DefaultedList<ItemStack> items = DefaultedList.ofSize(2, ItemStack.EMPTY);
 
     public BlockEntityTicketMachine(BlockPos pos, BlockState state) {
         super(MetroBlockEntities.TICKET_MACHINE_BLOCK_ENTITY, pos, state);
@@ -45,6 +51,7 @@ public class BlockEntityTicketMachine extends BlockEntity implements BlockTicket
         super.readNbt(nbt);
 
         this.cardSlotOccupied = nbt.getBoolean(TAG_CARD_SLOT_OCCUPIED);
+        this.ticketSlotOccupied = nbt.getBoolean(TAG_TICKET_SLOT_OCCUPIED);
 
         Inventories.readNbt(nbt, items);
     }
@@ -54,6 +61,7 @@ public class BlockEntityTicketMachine extends BlockEntity implements BlockTicket
         super.writeNbt(nbt);
 
         nbt.putBoolean(TAG_CARD_SLOT_OCCUPIED, cardSlotOccupied);
+        nbt.putBoolean(TAG_CARD_SLOT_OCCUPIED, ticketSlotOccupied);
 
         Inventories.writeNbt(nbt, items);
     }
