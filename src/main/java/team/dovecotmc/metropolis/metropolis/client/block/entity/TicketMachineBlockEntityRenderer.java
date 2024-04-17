@@ -65,6 +65,16 @@ public class TicketMachineBlockEntityRenderer implements BlockEntityRenderer<Blo
             itemRenderer.renderItem(entity.getStack(0), ModelTransformation.Mode.GROUND, light, 0, matrices, vertexConsumers, 0);
             matrices.pop();
         }
+
+        float fontSize = 8;
+        matrices.push();
+        matrices.multiply(Quaternion.fromEulerXyzDegrees(new Vec3f(180, 180, 0)));
+        matrices.translate(-13 / 16f, -10 / 16f, (5 - 0.01) / 16f);
+        matrices.scale(1 / 16f / fontSize, 1 / 16f / fontSize, 1 / 16f / fontSize);
+
+        mc.textRenderer.draw("test", 0, 0, 0xFFFFFFFF, false, matrices.peek().getPositionMatrix(), vertexConsumers, false, 0x00000000, light);
+        matrices.pop();
+//        context.drawText(client.textRenderer, "Hello, world!", 10, 200, 0xFFFFFFFF, false);
     }
 
 
