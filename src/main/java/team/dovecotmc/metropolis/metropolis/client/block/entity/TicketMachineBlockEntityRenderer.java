@@ -67,6 +67,7 @@ public class TicketMachineBlockEntityRenderer implements BlockEntityRenderer<Blo
         }
     }
 
+
     @Override
     public boolean rendersOutsideBoundingBox(BlockEntityTicketMachine blockEntity) {
         return BlockEntityRenderer.super.rendersOutsideBoundingBox(blockEntity);
