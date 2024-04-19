@@ -11,6 +11,7 @@ import net.minecraft.client.render.item.ItemRenderer;
 import net.minecraft.client.render.model.json.ModelTransformation;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.item.ItemStack;
+import net.minecraft.text.Text;
 import net.minecraft.util.math.Quaternion;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.math.Vec3f;
@@ -72,7 +73,10 @@ public class TicketMachineBlockEntityRenderer implements BlockEntityRenderer<Blo
         matrices.translate(-13 / 16f, -10 / 16f, (5 - 0.01) / 16f);
         matrices.scale(1 / 16f / fontSize, 1 / 16f / fontSize, 1 / 16f / fontSize);
 
-        mc.textRenderer.draw("test", 0, 0, 0xFFFFFFFF, false, matrices.peek().getPositionMatrix(), vertexConsumers, false, 0x00000000, light);
+        matrices.scale(0.5f, 0.5f, 0.5f);
+        matrices.translate(0, 3, 0);
+        mc.textRenderer.draw(Text.translatable("gui.metropolis.info.ticket_machine.0"), 0, 0, 0xFFFFFFFF, false, matrices.peek().getPositionMatrix(), vertexConsumers, false, 0x00000000, light);
+
         matrices.pop();
 //        context.drawText(client.textRenderer, "Hello, world!", 10, 200, 0xFFFFFFFF, false);
     }
