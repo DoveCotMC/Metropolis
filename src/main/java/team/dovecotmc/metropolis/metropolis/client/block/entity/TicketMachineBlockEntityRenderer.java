@@ -5,6 +5,7 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.block.enums.DoubleBlockHalf;
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.font.TextRenderer;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.block.entity.BlockEntityRenderer;
 import net.minecraft.client.render.item.ItemRenderer;
@@ -69,15 +70,31 @@ public class TicketMachineBlockEntityRenderer implements BlockEntityRenderer<Blo
 
         float fontSize = 8;
         matrices.push();
-        matrices.multiply(Quaternion.fromEulerXyzDegrees(new Vec3f(180, 180, 0)));
-        matrices.translate(-13 / 16f, -10 / 16f, (5 - 0.01) / 16f);
-        matrices.scale(1 / 16f / fontSize, 1 / 16f / fontSize, 1 / 16f / fontSize);
+//        matrices.multiply(Quaternion.fromEulerXyzDegrees(new Vec3f(180, 180, 0)));
+//        matrices.translate(-13 / 16f, -10 / 16f, (5 - 0.01) / 16f);
+//        matrices.scale(1 / 16f / fontSize, 1 / 16f / fontSize, 1 / 16f / fontSize);
+//
+//        matrices.scale(0.5f, 0.5f, 0.5f);
+//        matrices.translate(0, 3, 0);
+//        mc.textRenderer.draw(Text.translatable("gui.metropolis.info.ticket_machine.0"), 0, 0, 0xFFFFFFFF, false, matrices.peek().getPositionMatrix(), vertexConsumers, false, 0x00000000, light);
 
-        matrices.scale(0.5f, 0.5f, 0.5f);
-        matrices.translate(0, 3, 0);
-        mc.textRenderer.draw(Text.translatable("gui.metropolis.info.ticket_machine.0"), 0, 0, 0xFFFFFFFF, false, matrices.peek().getPositionMatrix(), vertexConsumers, false, 0x00000000, light);
+//        System.out.println(mc.player.angle(tickDelta));
+
+//        if (entity.getPos().equals(mc.player.getCameraPosVec(tickDelta))) {
+//        }
+        Text textInfoHovering = Text.translatable("gui.metropolis.info.ticket_machine.0");
+
+        matrices.multiply(Quaternion.fromEulerXyzDegrees(new Vec3f(180, 180, 0)));
+        matrices.translate(-8 / 16f, -4 / 16f, 1 / 16f);
+        matrices.scale(1 / 16f / fontSize, 1 / 16f / fontSize, 1 / 16f / fontSize);
+        matrices.multiply(Quaternion.fromEulerXyzDegrees(new Vec3f(0, mc.player.getRotationClient().y, 0)));
+        matrices.multiply(Quaternion.fromEulerXyzDegrees(new Vec3f(-mc.player.getRotationClient().x, 0, 0)));
+        matrices.translate(-mc.textRenderer.getWidth(textInfoHovering) / 2f, 0, 0);
+
+        mc.textRenderer.draw(textInfoHovering, 0, 0, 0xFFFFFFFF, false, matrices.peek().getPositionMatrix(), vertexConsumers, false, 0x00000000, light);
 
         matrices.pop();
+
 //        context.drawText(client.textRenderer, "Hello, world!", 10, 200, 0xFFFFFFFF, false);
     }
 
