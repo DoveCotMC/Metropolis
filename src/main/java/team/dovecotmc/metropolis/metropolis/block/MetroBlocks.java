@@ -45,6 +45,9 @@ public class MetroBlocks {
     // Ticket Machine
     public static final Block BLOCK_TICKET_MACHINE = register("ticket_machine", new team.dovecotmc.metropolis.metropolis.block.BlockTicketMachine());
 
+    // Monitor
+    public static final Block BLOCK_MONITOR = register("monitor", new BlockMonitor());
+
     private static Block registerDovecotFeatures(String id, Block block) {
         return Registry.register(Registry.BLOCK, new Identifier(Metropolis.MOD_ID, id), block);
     }
