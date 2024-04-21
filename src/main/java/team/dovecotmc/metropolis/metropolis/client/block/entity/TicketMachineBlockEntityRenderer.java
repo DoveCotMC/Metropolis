@@ -13,10 +13,9 @@ import net.minecraft.client.render.model.json.ModelTransformation;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.item.ItemStack;
 import net.minecraft.text.Text;
-import net.minecraft.util.math.Quaternion;
-import net.minecraft.util.math.Vec3d;
-import net.minecraft.util.math.Vec3f;
+import net.minecraft.util.math.*;
 import team.dovecotmc.metropolis.metropolis.block.entity.BlockEntityTicketMachine;
+import team.dovecotmc.metropolis.metropolis.item.ItemTicket;
 import team.dovecotmc.metropolis.metropolis.item.MetroItems;
 
 /**
@@ -69,31 +68,37 @@ public class TicketMachineBlockEntityRenderer implements BlockEntityRenderer<Blo
         }
 
         float fontSize = 8;
-        matrices.push();
-//        matrices.multiply(Quaternion.fromEulerXyzDegrees(new Vec3f(180, 180, 0)));
-//        matrices.translate(-13 / 16f, -10 / 16f, (5 - 0.01) / 16f);
-//        matrices.scale(1 / 16f / fontSize, 1 / 16f / fontSize, 1 / 16f / fontSize);
-//
-//        matrices.scale(0.5f, 0.5f, 0.5f);
-//        matrices.translate(0, 3, 0);
-//        mc.textRenderer.draw(Text.translatable("gui.metropolis.info.ticket_machine.0"), 0, 0, 0xFFFFFFFF, false, matrices.peek().getPositionMatrix(), vertexConsumers, false, 0x00000000, light);
+        Text textInfoHovering = null;
 
-//        System.out.println(mc.player.angle(tickDelta));
+        if (entity.ticketSellingMode) {
+            textInfoHovering = Text.literal(String.format(Text.translatable("gui.metropolis.info.ticket_machine.ticket_selling").toString(), entity.createNbt().getString(BlockEntityTicketMachine.TAG_EMERALD_CACHE)));
+        } else if (entity.ticketSlotOccupied) {
+            textInfoHovering = Text.translatable("gui.metropolis.info.ticket_machine.take_ticket");
+        } else if (entity.cardSlotOccupied) {
+            textInfoHovering = Text.literal(String.format(Text.translatable("gui.metropolis.info.ticket_machine.card_info").getString(), entity.getStack(0).getOrCreateNbt().getInt(ItemTicket.REMAIN_MONEY)));
+        } else {
+            textInfoHovering = Text.translatable("gui.metropolis.info.ticket_machine.default");
+        }
 
-//        if (entity.getPos().equals(mc.player.getCameraPosVec(tickDelta))) {
-//        }
-        Text textInfoHovering = Text.translatable("gui.metropolis.info.ticket_machine.0");
+        Vec3d pointingPos = mc.player.raycast(mc.player.isCreative() ? 5 : 4.5, tickDelta, false).getPos();
+        BlockPos entityPos = entity.getPos();
+        if (
+                (int) pointingPos.x == entityPos.getX() &&
+                        (int) pointingPos.y == entityPos.getY() &&
+                        (int) pointingPos.z == entityPos.getZ()) {
+            matrices.push();
 
-        matrices.multiply(Quaternion.fromEulerXyzDegrees(new Vec3f(180, 180, 0)));
-        matrices.translate(-8 / 16f, -4 / 16f, 1 / 16f);
-        matrices.scale(1 / 16f / fontSize, 1 / 16f / fontSize, 1 / 16f / fontSize);
-        matrices.multiply(Quaternion.fromEulerXyzDegrees(new Vec3f(0, mc.player.getRotationClient().y, 0)));
-        matrices.multiply(Quaternion.fromEulerXyzDegrees(new Vec3f(-mc.player.getRotationClient().x, 0, 0)));
-        matrices.translate(-mc.textRenderer.getWidth(textInfoHovering) / 2f, 0, 0);
+            matrices.multiply(Quaternion.fromEulerXyzDegrees(new Vec3f(180, 180, 0)));
+            matrices.translate(-8 / 16f, -4 / 16f, 1 / 16f);
+            matrices.scale(1 / 16f / fontSize, 1 / 16f / fontSize, 1 / 16f / fontSize);
+            matrices.multiply(Quaternion.fromEulerXyzDegrees(new Vec3f(0, mc.player.getRotationClient().y, 0)));
+            matrices.multiply(Quaternion.fromEulerXyzDegrees(new Vec3f(-mc.player.getRotationClient().x, 0, 0)));
 
-        mc.textRenderer.draw(textInfoHovering, 0, 0, 0xFFFFFFFF, false, matrices.peek().getPositionMatrix(), vertexConsumers, false, 0x00000000, light);
+            matrices.translate(-mc.textRenderer.getWidth(textInfoHovering) / 2f, 0, 0);
+            mc.textRenderer.draw(textInfoHovering, 0, 0, 0xFFFFFFFF, false, matrices.peek().getPositionMatrix(), vertexConsumers, false, 0x00000000, light);
 
-        matrices.pop();
+            matrices.pop();
+        }
 
 //        context.drawText(client.textRenderer, "Hello, world!", 10, 200, 0xFFFFFFFF, false);
     }
