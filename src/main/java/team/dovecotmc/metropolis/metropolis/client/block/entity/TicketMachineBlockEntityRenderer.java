@@ -71,16 +71,17 @@ public class TicketMachineBlockEntityRenderer implements BlockEntityRenderer<Blo
         Text textInfoHovering = null;
 
         if (entity.ticketSellingMode) {
-            textInfoHovering = Text.literal(String.format(Text.translatable("gui.metropolis.info.ticket_machine.ticket_selling").toString(), entity.createNbt().getString(BlockEntityTicketMachine.TAG_EMERALD_CACHE)));
+            textInfoHovering = Text.translatable("gui.metropolis.info.ticket_machine.ticket_selling", entity.createNbt().getInt(BlockEntityTicketMachine.TAG_EMERALD_CACHE));
+            System.out.println(entity.createNbt().getInt(BlockEntityTicketMachine.TAG_EMERALD_CACHE));
         } else if (entity.ticketSlotOccupied) {
             textInfoHovering = Text.translatable("gui.metropolis.info.ticket_machine.take_ticket");
         } else if (entity.cardSlotOccupied) {
-            textInfoHovering = Text.literal(String.format(Text.translatable("gui.metropolis.info.ticket_machine.card_info").getString(), entity.getStack(0).getOrCreateNbt().getInt(ItemTicket.REMAIN_MONEY)));
+            textInfoHovering = Text.translatable("gui.metropolis.info.ticket_machine.card_info", entity.getStack(0).getOrCreateNbt().getInt(ItemTicket.REMAIN_MONEY));
         } else {
             textInfoHovering = Text.translatable("gui.metropolis.info.ticket_machine.default");
         }
 
-        Vec3d pointingPos = mc.player.raycast(mc.player.isCreative() ? 5 : 4.5, tickDelta, false).getPos();
+        Vec3d pointingPos = mc.player.raycast(mc.player.isCreative() ? 5 : mc.player.isSpectator() ? -1 : 4.5, tickDelta, false).getPos();
         BlockPos entityPos = entity.getPos();
         if (
                 (int) pointingPos.x == entityPos.getX() &&

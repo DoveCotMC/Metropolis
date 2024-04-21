@@ -68,71 +68,6 @@ public class BlockTicketMachine extends BlockDirectionalDoubleBlockBase implemen
         NbtCompound nbt = entity.createNbt().copy();
 
         ItemStack itemStack = player.getStackInHand(hand);
-//        System.out.println(nbt.getBoolean(BlockEntityTicketMachine.TAG_SELLING_TICKET_MODE));
-//        System.out.println(nbt.getBoolean(BlockEntityTicketMachine.TAG_TICKET_SLOT_OCCUPIED));
-//        if (nbt.getBoolean(BlockEntityTicketMachine.TAG_SELLING_TICKET_MODE)) {
-//            nbt.putBoolean(BlockEntityTicketMachine.TAG_TICKET_SLOT_OCCUPIED, true);
-//            nbt.putBoolean(BlockEntityTicketMachine.TAG_SELLING_TICKET_MODE, false);
-//            System.out.println(111);
-//            entity.readNbt(nbt);
-//        } else if (nbt.getBoolean(BlockEntityTicketMachine.TAG_TICKET_SLOT_OCCUPIED)) {
-//            System.out.println(111);
-//            player.giveItemStack(entity.getStack(1));
-//            nbt.putBoolean(BlockEntityTicketMachine.TAG_TICKET_SLOT_OCCUPIED, false);
-//            entity.readNbt(nbt);
-//            world.playSound(null, pos, SoundEvents.BLOCK_WOOL_BREAK, SoundCategory.BLOCKS, 1f, 1f);
-//        } else if (itemStack.getItem() instanceof ItemTicket) {
-//            if (!((ItemTicket) itemStack.getItem()).disposable) {
-//                if (nbt.getBoolean(BlockEntityTicketMachine.TAG_CARD_SLOT_OCCUPIED)) {
-//                    player.setStackInHand(hand, entity.getStack(0));
-//                    nbt.putBoolean(BlockEntityTicketMachine.TAG_CARD_SLOT_OCCUPIED, true);
-//                    entity.readNbt(nbt);
-//                } else {
-//                    player.setStackInHand(hand, ItemStack.EMPTY);
-//                    nbt.putBoolean(BlockEntityTicketMachine.TAG_CARD_SLOT_OCCUPIED, true);
-//                    entity.readNbt(nbt);
-//                }
-//                entity.setStack(0, itemStack);
-//                world.playSound(null, pos, SoundEvents.BLOCK_WOOL_BREAK, SoundCategory.BLOCKS, 1f, 1f);
-//            }
-//        } else if (player.getStackInHand(hand).getItem().equals(Items.EMERALD)) {
-//            if (nbt.getBoolean(BlockEntityTicketMachine.TAG_CARD_SLOT_OCCUPIED)) {
-//                NbtCompound nbtCard = entity.getStack(0).getOrCreateNbt();
-//                nbtCard.putInt(ItemTicket.REMAIN_MONEY, nbtCard.getInt(ItemTicket.REMAIN_MONEY) + itemStack.getCount());
-//                player.setStackInHand(hand, ItemStack.EMPTY);
-//                world.playSound(null, pos, SoundEvents.ITEM_ARMOR_EQUIP_DIAMOND, SoundCategory.BLOCKS, 1f, 1f);
-//            } else {
-//                ItemStack itemStack1 = itemStack;
-//                itemStack1.setCount(itemStack.getCount() - 1);
-//                player.setStackInHand(hand, itemStack1);
-////                nbt.putInt(BlockEntityTicketMachine.TAG_EMERALD_CACHE, nbt.getInt(BlockEntityTicketMachine.TAG_EMERALD_CACHE) + 1);
-//                world.playSound(null, pos, SoundEvents.ITEM_ARMOR_EQUIP_DIAMOND, SoundCategory.BLOCKS, 1f, 1f);
-//                nbt.putBoolean(BlockEntityTicketMachine.TAG_SELLING_TICKET_MODE, true);
-//                if (entity.getStack(1).isEmpty()) {
-//                    // TODO: Configable
-//                    ItemStack ticketStack = new ItemStack(MetroItems.ITEM_TICKET);
-//                    NbtCompound ticketNbt = ticketStack.getOrCreateNbt();
-//                    ticketNbt.putInt(ItemTicket.REMAIN_MONEY, 1);
-//                    System.out.println(nbt);
-//                    entity.readNbt(nbt);
-//                    entity.setStack(1, ticketStack);
-//                } else {
-//                    ItemStack ticketStack = entity.getStack(1);
-//                    NbtCompound ticketNbt = ticketStack.getOrCreateNbt();
-//                    ticketNbt.putInt(ItemTicket.REMAIN_MONEY, ticketNbt.getInt(ItemTicket.REMAIN_MONEY) + 1);
-//                    System.out.println(nbt);
-//                    entity.readNbt(nbt);
-//                    entity.setStack(1, ticketStack);
-//                }
-//            }
-//        } else {
-//            if (nbt.getBoolean(BlockEntityTicketMachine.TAG_CARD_SLOT_OCCUPIED)) {
-//                player.giveItemStack(entity.getStack(0));
-//                nbt.putBoolean(BlockEntityTicketMachine.TAG_CARD_SLOT_OCCUPIED, false);
-//                entity.readNbt(nbt);
-//                world.playSound(null, pos, SoundEvents.BLOCK_WOOL_BREAK, SoundCategory.BLOCKS, 1f, 1f);
-//            }
-//        }
 
         // Scheduled item updater tasks
         List<Pair<Integer, ItemStack>> scheduledItemUpdaterTasks = new ArrayList<>();
@@ -152,14 +87,19 @@ public class BlockTicketMachine extends BlockDirectionalDoubleBlockBase implemen
                     ItemStack cardStack = entity.getStack(0);
                     NbtCompound cardNbt = cardStack.getOrCreateNbt();
                     cardNbt.putInt(ItemTicket.REMAIN_MONEY, cardNbt.getInt(ItemTicket.REMAIN_MONEY) + 1);
-                    itemStack.setCount(itemStack.getCount() - 1);
-                    player.setStackInHand(hand, itemStack);
+
+                    if (!player.isCreative())
+                        itemStack.setCount(itemStack.getCount() - 1);
+//                        player.setStackInHand(hand, itemStack);
+
                     scheduledItemUpdaterTasks.add(new Pair<>(0, cardStack));
                     world.playSound(null, pos, SoundEvents.ITEM_ARMOR_EQUIP_DIAMOND, SoundCategory.BLOCKS, 1f, 1f);
                 } else {
                     // Enable selling mode
-                    itemStack.setCount(itemStack.getCount() - 1);
-                    player.setStackInHand(hand, itemStack);
+                    if (!player.isCreative())
+                        itemStack.setCount(itemStack.getCount() - 1);
+//                        player.setStackInHand(hand, itemStack);
+
                     nbt.putInt(BlockEntityTicketMachine.TAG_EMERALD_CACHE, nbt.getInt(BlockEntityTicketMachine.TAG_EMERALD_CACHE) + 1);
                     nbt.putBoolean(BlockEntityTicketMachine.TAG_SELLING_TICKET_MODE, true);
                     world.playSound(null, pos, SoundEvents.ITEM_ARMOR_EQUIP_DIAMOND, SoundCategory.BLOCKS, 1f, 1f);
