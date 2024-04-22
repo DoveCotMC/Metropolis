@@ -1,6 +1,7 @@
 package team.dovecotmc.metropolis.metropolis.block;
 
 import net.minecraft.block.*;
+import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.IntProperty;
@@ -13,17 +14,25 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.util.shape.VoxelShapes;
 import net.minecraft.world.BlockView;
+import org.jetbrains.annotations.Nullable;
+import team.dovecotmc.metropolis.metropolis.block.entity.BlockEntityMonitor;
+import team.dovecotmc.metropolis.metropolis.block.entity.BlockEntityTicketMachine;
 
 /**
  * @author Arrokoth
  * @project Metropolis
  * @copyright Copyright © 2024 Arrokoth All Rights Reserved.
  */
-public class BlockMonitor extends Block {
+public class BlockMonitor extends BlockWithEntity {
     public static final IntProperty ROTATION;
 
     static {
         ROTATION = Properties.ROTATION;
+    }
+
+    public BlockMonitor() {
+        super(Settings.of(Material.METAL, MapColor.GRAY));
+        this.setDefaultState((BlockState)((BlockState)this.stateManager.getDefaultState()).with(ROTATION, 0));
     }
 
     public VoxelShape getCullingShape(BlockState state, BlockView world, BlockPos pos) {
@@ -46,8 +55,14 @@ public class BlockMonitor extends Block {
         builder.add(new Property[]{ROTATION});
     }
 
-    public BlockMonitor() {
-        super(Settings.of(Material.METAL, MapColor.GRAY));
-        this.setDefaultState((BlockState)((BlockState)this.stateManager.getDefaultState()).with(ROTATION, 0));
+    @Nullable
+    @Override
+    public BlockEntity createBlockEntity(BlockPos pos, BlockState state) {
+        return new BlockEntityMonitor(pos, state);
+    }
+
+    @Override
+    public boolean isTranslucent(BlockState state, BlockView world, BlockPos pos) {
+        return true;
     }
 }

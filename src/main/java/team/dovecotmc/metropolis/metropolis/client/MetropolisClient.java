@@ -12,7 +12,10 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.Identifier;
 import team.dovecotmc.metropolis.metropolis.Metropolis;
 import team.dovecotmc.metropolis.metropolis.block.MetroBlocks;
+import team.dovecotmc.metropolis.metropolis.block.entity.BlockEntityMonitor;
 import team.dovecotmc.metropolis.metropolis.block.entity.MetroBlockEntities;
+import team.dovecotmc.metropolis.metropolis.client.block.entity.BumperBlockEntityRenderer;
+import team.dovecotmc.metropolis.metropolis.client.block.entity.MonitorBlockEntityRenderer;
 import team.dovecotmc.metropolis.metropolis.client.block.entity.TicketMachineBlockEntityRenderer;
 import team.dovecotmc.metropolis.metropolis.client.gui.MetroScreens;
 import team.dovecotmc.metropolis.metropolis.client.gui.TicketMachineScreen;
@@ -37,6 +40,8 @@ public class MetropolisClient implements ClientModInitializer {
 
         BlockRenderLayerMap.INSTANCE.putBlock(MetroBlocks.BLOCK_TICKET_MACHINE, RenderLayer.getCutout());
         BlockEntityRendererRegistry.register(MetroBlockEntities.TICKET_MACHINE_BLOCK_ENTITY, ctx -> new TicketMachineBlockEntityRenderer());
+        BlockEntityRendererRegistry.register(MetroBlockEntities.MONITOR_BLOCK_ENTITY, ctx -> new MonitorBlockEntityRenderer());
+        BlockEntityRendererRegistry.register(MetroBlockEntities.BUMPER_BLOCK_ENTITY, ctx -> new BumperBlockEntityRenderer());
 
         HudRenderCallback.EVENT.register((matrixStack, tickDelta) -> {
         });

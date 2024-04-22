@@ -36,7 +36,7 @@ public class MetroItems {
     // Ceiling
     public static final Item ITEM_CEILING_A = registerDovecotFeature("ceiling_a", new BlockItem(MetroBlocks.BLOCK_CEILING_A, new Item.Settings().group(Metropolis.ITEM_GROUP)));
 
-    public static final Item ITEM_BUMPER_A = register("bumper_a", new BlockItem(MetroBlocks.BLOCK_BUMPER_A, new Item.Settings().group(Metropolis.ITEM_GROUP)));
+    public static final Item ITEM_BUMPER = register("bumper", new BlockItem(MetroBlocks.BLOCK_BUMPER, new Item.Settings().group(Metropolis.ITEM_GROUP)));
 
     // Turnstile
     public static final Item ITEM_TURNSTILE_A_ENTRANCE = register("turnstile_a_entrance", new BlockItem(MetroBlocks.BLOCK_TURNSTILE_A_ENTRANCE, new Item.Settings().group(Metropolis.ITEM_GROUP)));
@@ -49,6 +49,8 @@ public class MetroItems {
     public static final Item ITEM_TICKET = register("ticket", new ItemTicket(new Item.Settings().group(Metropolis.ITEM_GROUP), true));
     // TODO: 鸽达通 - Dovepus Card (
     public static final Item ITEM_CARD = register("card", new ItemTicket(new Item.Settings().group(Metropolis.ITEM_GROUP), false));
+    // Monitor
+    public static final Item ITEM_MONITOR = register("monitor", new BlockItem(MetroBlocks.BLOCK_MONITOR, new Item.Settings().group(Metropolis.ITEM_GROUP)));
 
     public static Item registerDovecotFeature(String id, Item item) {
         return Registry.register(Registry.ITEM, new Identifier(Metropolis.MOD_ID, id), item);

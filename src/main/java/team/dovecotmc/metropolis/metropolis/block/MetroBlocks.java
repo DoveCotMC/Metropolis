@@ -36,7 +36,7 @@ public class MetroBlocks {
     public static final Block BLOCK_CEILING_A = registerDovecotFeatures("ceiling_a", new BlockCeilingA(FabricBlockSettings.of(Material.METAL, MapColor.GRAY).nonOpaque().luminance(1)));
 
     // Train bumpers
-    public static final Block BLOCK_BUMPER_A = register("bumper_a", new BlockBumper(FabricBlockSettings.of(Material.METAL, MapColor.YELLOW).nonOpaque()));
+    public static final Block BLOCK_BUMPER = register("bumper", new BlockBumper());
 
     // Turnstile
     public static final Block BLOCK_TURNSTILE_A_ENTRANCE = register("turnstile_a_entrance", new BlockTurnstile(false));
