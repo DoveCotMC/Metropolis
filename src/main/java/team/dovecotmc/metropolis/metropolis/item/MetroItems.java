@@ -51,6 +51,8 @@ public class MetroItems {
     public static final Item ITEM_CARD = register("card", new ItemTicket(new Item.Settings().group(Metropolis.ITEM_GROUP), false));
     // Monitor
     public static final Item ITEM_MONITOR = register("monitor", new BlockItem(MetroBlocks.BLOCK_MONITOR, new Item.Settings().group(Metropolis.ITEM_GROUP)));
+    // Concrete
+    public static final Item ITEM_CONCRETE = register("concrete", new BlockItem(MetroBlocks.BLOCK_CONCRETE, new Item.Settings().group(Metropolis.ITEM_GROUP)));
 
     public static Item registerDovecotFeature(String id, Item item) {
         return Registry.register(Registry.ITEM, new Identifier(Metropolis.MOD_ID, id), item);

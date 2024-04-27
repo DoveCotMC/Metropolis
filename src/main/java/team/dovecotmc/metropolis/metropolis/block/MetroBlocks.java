@@ -2,9 +2,11 @@ package team.dovecotmc.metropolis.metropolis.block;
 
 import mtr.block.BlockTicketMachine;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
+import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.MapColor;
 import net.minecraft.block.Material;
+import net.minecraft.util.DyeColor;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 import team.dovecotmc.metropolis.metropolis.Metropolis;
@@ -47,6 +49,8 @@ public class MetroBlocks {
 
     // Monitor
     public static final Block BLOCK_MONITOR = register("monitor", new BlockMonitor());
+    // Concrete
+    public static final Block BLOCK_CONCRETE = register("concrete", new Block(AbstractBlock.Settings.of(Material.STONE, DyeColor.LIGHT_GRAY)));
 
     private static Block registerDovecotFeatures(String id, Block block) {
         return Registry.register(Registry.BLOCK, new Identifier(Metropolis.MOD_ID, id), block);
