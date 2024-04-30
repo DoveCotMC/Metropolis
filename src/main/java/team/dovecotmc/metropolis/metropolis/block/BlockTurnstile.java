@@ -100,10 +100,10 @@ public class BlockTurnstile extends HorizontalFacingBlock implements BlockEntity
 //        return ActionResult.SUCCESS;
     }
 
-//    @Override
-//    public void scheduledTick(BlockState state, ServerWorld world, BlockPos pos, Random random) {
-//        world.setBlockState(pos, state.with(OPEN, false));
-//    }
+    @Override
+    public void scheduledTick(BlockState state, ServerWorld world, BlockPos pos, Random random) {
+        world.setBlockState(pos, state.with(OPEN, false));
+    }
 
     public VoxelShape getOutlineShape(BlockState state, BlockView blockGetter, BlockPos pos, ShapeContext collisionContext) {
         Direction facing = IBlock.getStatePropertySafe(state, FACING);
