@@ -17,17 +17,25 @@ public class MetroBlockEntities {
     public static final BlockEntityType<BlockEntityTicketMachine> TICKET_MACHINE_BLOCK_ENTITY = Registry.register(
             Registry.BLOCK_ENTITY_TYPE,
             new Identifier(Metropolis.MOD_ID, "ticket_machine"),
-            FabricBlockEntityTypeBuilder.create(BlockEntityTicketMachine::new, MetroBlocks.BLOCK_TICKET_MACHINE).build());
+            FabricBlockEntityTypeBuilder.create(BlockEntityTicketMachine::new, MetroBlocks.BLOCK_TICKET_MACHINE).build()
+    );
 
     public static final BlockEntityType<BlockEntityMonitor> MONITOR_BLOCK_ENTITY = Registry.register(
             Registry.BLOCK_ENTITY_TYPE,
             new Identifier(Metropolis.MOD_ID, "monitor"),
-            FabricBlockEntityTypeBuilder.create(BlockEntityMonitor::new, MetroBlocks.BLOCK_MONITOR).build());
+            FabricBlockEntityTypeBuilder.create(BlockEntityMonitor::new, MetroBlocks.BLOCK_MONITOR).build()
+    );
 
+    public static final BlockEntityType<BlockEntityTurnstile> TURNSTILE_BLOCK_ENTITY = Registry.register(
+            Registry.BLOCK_ENTITY_TYPE,
+            new Identifier(Metropolis.MOD_ID, "turnstile"),
+            FabricBlockEntityTypeBuilder.create(BlockEntityTurnstile::new, MetroBlocks.BLOCK_TURNSTILE).build()
+    );
     public static final BlockEntityType<BlockEntityBumper> BUMPER_BLOCK_ENTITY = Registry.register(
             Registry.BLOCK_ENTITY_TYPE,
             new Identifier(Metropolis.MOD_ID, "bumper"),
-            FabricBlockEntityTypeBuilder.create(BlockEntityBumper::new, MetroBlocks.BLOCK_BUMPER).build());
+            FabricBlockEntityTypeBuilder.create(BlockEntityBumper::new, MetroBlocks.BLOCK_BUMPER).build()
+    );
 
     public static void initialize() {
         Metropolis.LOGGER.info("Registering Block entities");

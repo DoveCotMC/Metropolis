@@ -41,8 +41,7 @@ public class MetroBlocks {
     public static final Block BLOCK_BUMPER = register("bumper", new BlockBumper());
 
     // Turnstile
-    public static final Block BLOCK_TURNSTILE_A_ENTRANCE = register("turnstile_a_entrance", new BlockTurnstile(false));
-    public static final Block BLOCK_TURNSTILE_A_EXIT = register("turnstile_a_exit", new BlockTurnstile(true));
+    public static final Block BLOCK_TURNSTILE = register("turnstile", new BlockTurnstile());
 
     // Ticket Machine
     public static final Block BLOCK_TICKET_MACHINE = register("ticket_machine", new team.dovecotmc.metropolis.metropolis.block.BlockTicketMachine());
