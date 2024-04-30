@@ -108,15 +108,15 @@ public class BlockTurnstile extends HorizontalFacingBlock implements BlockEntity
     public VoxelShape getOutlineShape(BlockState state, BlockView blockGetter, BlockPos pos, ShapeContext collisionContext) {
         Direction facing = IBlock.getStatePropertySafe(state, FACING);
         return VoxelShapes.combine(
-                IBlock.getVoxelShapeByDirection(0.0, 0.0, 0.0, 1.0, 15.0, 16.0, facing),
-                IBlock.getVoxelShapeByDirection(12.0, 0.0, 0.0, 16.0 , 15.0, 16.0, facing),
+                IBlock.getVoxelShapeByDirection(0.0, 0.0, 0.0, 4.0, 15.0, 16.0, facing),
+                IBlock.getVoxelShapeByDirection(15.0, 0.0, 0.0, 16.0 , 15.0, 16.0, facing),
                 BooleanBiFunction.OR);
     }
 
     public VoxelShape getCollisionShape(BlockState state, BlockView blockGetter, BlockPos blockPos, ShapeContext collisionContext) {
         Direction facing = IBlock.getStatePropertySafe(state, FACING);
         VoxelShape base = VoxelShapes.combine(
-                IBlock.getVoxelShapeByDirection(0.0, 0.0, 0.0, 1.0, 24.0, 16.0, facing),
+                IBlock.getVoxelShapeByDirection(0.0, 0.0, 0.0, 2.0, 24.0, 16.0, facing),
                 IBlock.getVoxelShapeByDirection(15.0, 0.0, 0.0, 16.0, 24.0, 16.0, facing),
                 BooleanBiFunction.OR);
         return IBlock.getStatePropertySafe(state, OPEN) ? base : VoxelShapes.union(IBlock.getVoxelShapeByDirection(0.0, 0.0, 7.0, 16.0, 24.0, 9.0, facing), base);
