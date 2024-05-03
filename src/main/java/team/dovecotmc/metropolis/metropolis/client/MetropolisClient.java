@@ -6,6 +6,7 @@ import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.fabric.api.client.rendering.v1.BlockEntityRendererRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback;
+import net.minecraft.block.Block;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.RenderLayers;
 import net.minecraft.item.ItemStack;
@@ -17,6 +18,7 @@ import team.dovecotmc.metropolis.metropolis.block.entity.MetroBlockEntities;
 import team.dovecotmc.metropolis.metropolis.client.block.entity.BumperBlockEntityRenderer;
 import team.dovecotmc.metropolis.metropolis.client.block.entity.MonitorBlockEntityRenderer;
 import team.dovecotmc.metropolis.metropolis.client.block.entity.TicketMachineBlockEntityRenderer;
+import team.dovecotmc.metropolis.metropolis.client.block.entity.TurnstileBlockEntityRenderer;
 import team.dovecotmc.metropolis.metropolis.client.gui.MetroScreens;
 import team.dovecotmc.metropolis.metropolis.client.gui.TicketMachineScreen;
 
@@ -42,6 +44,7 @@ public class MetropolisClient implements ClientModInitializer {
         BlockEntityRendererRegistry.register(MetroBlockEntities.TICKET_MACHINE_BLOCK_ENTITY, ctx -> new TicketMachineBlockEntityRenderer());
         BlockEntityRendererRegistry.register(MetroBlockEntities.MONITOR_BLOCK_ENTITY, ctx -> new MonitorBlockEntityRenderer());
         BlockEntityRendererRegistry.register(MetroBlockEntities.BUMPER_BLOCK_ENTITY, ctx -> new BumperBlockEntityRenderer());
+        BlockEntityRendererRegistry.register(MetroBlockEntities.TURNSTILE_BLOCK_ENTITY, ctx -> new TurnstileBlockEntityRenderer());
 
         HudRenderCallback.EVENT.register((matrixStack, tickDelta) -> {
         });
