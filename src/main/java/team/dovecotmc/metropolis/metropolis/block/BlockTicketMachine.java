@@ -2,6 +2,7 @@ package team.dovecotmc.metropolis.metropolis.block;
 
 import mtr.block.BlockDirectionalDoubleBlockBase;
 import mtr.block.IBlock;
+import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
 import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.block.*;
@@ -9,8 +10,11 @@ import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityTicker;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.block.enums.DoubleBlockHalf;
+import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.option.KeyBinding;
 import net.minecraft.client.render.block.BlockModelRenderer;
 import net.minecraft.client.render.block.BlockModels;
+import net.minecraft.client.util.InputUtil;
 import net.minecraft.entity.passive.VillagerEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.Inventory;
@@ -32,6 +36,7 @@ import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
+import org.lwjgl.glfw.GLFW;
 import team.dovecotmc.metropolis.metropolis.Metropolis;
 import team.dovecotmc.metropolis.metropolis.block.entity.BlockEntityTicketMachine;
 import team.dovecotmc.metropolis.metropolis.item.ItemTicket;
@@ -88,21 +93,38 @@ public class BlockTicketMachine extends BlockDirectionalDoubleBlockBase implemen
                 if (entity.cardSlotOccupied) {
                     ItemStack cardStack = entity.getStack(0);
                     NbtCompound cardNbt = cardStack.getOrCreateNbt();
-                    cardNbt.putInt(ItemTicket.REMAIN_MONEY, cardNbt.getInt(ItemTicket.REMAIN_MONEY) + 1);
 
-                    if (!player.isCreative())
-                        itemStack.setCount(itemStack.getCount() - 1);
+                    // TODO: Wha is thiz key banding
+                    if (MinecraftClient.getInstance().options.sprintKey.isPressed()) {
+                        cardNbt.putInt(ItemTicket.REMAIN_MONEY, cardNbt.getInt(ItemTicket.REMAIN_MONEY) + itemStack.getCount());
+
+                        if (!player.isCreative())
+                            itemStack.setCount(0);
 //                        player.setStackInHand(hand, itemStack);
+                    } else {
+                        cardNbt.putInt(ItemTicket.REMAIN_MONEY, cardNbt.getInt(ItemTicket.REMAIN_MONEY) + 1);
+
+                        if (!player.isCreative())
+                            itemStack.setCount(itemStack.getCount() - 1);
+//                        player.setStackInHand(hand, itemStack);
+                    }
 
                     scheduledItemUpdaterTasks.add(new Pair<>(0, cardStack));
                     world.playSound(null, pos, SoundEvents.ITEM_ARMOR_EQUIP_DIAMOND, SoundCategory.BLOCKS, 1f, 1f);
                 } else {
                     // Enable selling mode
-                    if (!player.isCreative())
-                        itemStack.setCount(itemStack.getCount() - 1);
+                    if (MinecraftClient.getInstance().options.sprintKey.isPressed()) {
+                        nbt.putInt(BlockEntityTicketMachine.TAG_EMERALD_CACHE, nbt.getInt(BlockEntityTicketMachine.TAG_EMERALD_CACHE) + itemStack.getCount());
+                        if (!player.isCreative())
+                            itemStack.setCount(0);
 //                        player.setStackInHand(hand, itemStack);
+                    } else {
+                        nbt.putInt(BlockEntityTicketMachine.TAG_EMERALD_CACHE, nbt.getInt(BlockEntityTicketMachine.TAG_EMERALD_CACHE) + 1);
+                        if (!player.isCreative())
+                            itemStack.setCount(itemStack.getCount() - 1);
+//                        player.setStackInHand(hand, itemStack);
+                    }
 
-                    nbt.putInt(BlockEntityTicketMachine.TAG_EMERALD_CACHE, nbt.getInt(BlockEntityTicketMachine.TAG_EMERALD_CACHE) + 1);
                     nbt.putBoolean(BlockEntityTicketMachine.TAG_SELLING_TICKET_MODE, true);
                     world.playSound(null, pos, SoundEvents.ITEM_ARMOR_EQUIP_DIAMOND, SoundCategory.BLOCKS, 1f, 1f);
                 }
