@@ -65,4 +65,9 @@ public class BlockMonitor extends BlockWithEntity {
     public boolean isTranslucent(BlockState state, BlockView world, BlockPos pos) {
         return true;
     }
+
+    @Override
+    public BlockRenderType getRenderType(BlockState state) {
+        return BlockRenderType.INVISIBLE;
+    }
 }
