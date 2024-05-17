@@ -14,15 +14,17 @@ import team.dovecotmc.metropolis.metropolis.client.block.model.BlockMonitorModel
  * @project Metropolis
  * @copyright Copyright © 2024 Arrokoth All Rights Reserved.
  */
-public class BlockMonitorModelProvider implements ModelResourceProvider {
-    public static final Identifier MONITOR_MODEL = new Identifier(Metropolis.MOD_ID, "block/embedded/monitor");
+public class MetroModelProvicer implements ModelResourceProvider {
+//    public static final Identifier MONITOR_MODEL = new Identifier(Metropolis.MOD_ID, "block/embedded/monitor");
+    public static final Identifier TURNSTILE_R_MODEL = new Identifier(Metropolis.MOD_ID, "block/embedded/turnstile_r_model");
 
     @Override
     public @Nullable UnbakedModel loadModelResource(Identifier resourceId, ModelProviderContext context) throws ModelProviderException {
-        if (resourceId.equals(MONITOR_MODEL)) {
-            return new BlockMonitorModel();
-        } else {
-            return null;
-        }
+//        if (resourceId.equals(MONITOR_MODEL)) {
+//            return new BlockMonitorModel();
+//        } else {
+//            return null;
+//        }
+        return null;
     }
 }

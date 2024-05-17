@@ -28,6 +28,7 @@ import net.minecraft.util.shape.VoxelShapes;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
+import team.dovecotmc.metropolis.metropolis.block.entity.BlockEntityTurnstile;
 import team.dovecotmc.metropolis.metropolis.item.ItemTicket;
 
 import java.util.Objects;
@@ -140,6 +141,11 @@ public class BlockTurnstile extends HorizontalFacingBlock implements BlockEntity
     @Nullable
     @Override
     public BlockEntity createBlockEntity(BlockPos pos, BlockState state) {
-        return null;
+        return new BlockEntityTurnstile(pos, state);
+    }
+
+    @Override
+    public BlockRenderType getRenderType(BlockState state) {
+        return BlockRenderType.INVISIBLE;
     }
 }
