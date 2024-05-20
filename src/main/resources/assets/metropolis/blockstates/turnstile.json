@@ -1,7 +1,7 @@
 {
     "variants": {
         "": {
-            "model": "metropolis:block/turnstile_r"
+            "model": "metropolis:block/turnstile"
         }
     }
 }
