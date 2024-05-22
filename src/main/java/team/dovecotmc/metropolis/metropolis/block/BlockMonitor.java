@@ -2,7 +2,9 @@ package team.dovecotmc.metropolis.metropolis.block;
 
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemPlacementContext;
+import net.minecraft.item.ItemStack;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.IntProperty;
 import net.minecraft.state.property.Properties;
@@ -17,6 +19,7 @@ import net.minecraft.world.BlockView;
 import org.jetbrains.annotations.Nullable;
 import team.dovecotmc.metropolis.metropolis.block.entity.BlockEntityMonitor;
 import team.dovecotmc.metropolis.metropolis.block.entity.BlockEntityTicketMachine;
+import team.dovecotmc.metropolis.metropolis.item.MetroItems;
 
 /**
  * @author Arrokoth

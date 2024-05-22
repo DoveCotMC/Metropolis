@@ -48,26 +48,26 @@ public class TurnstileBlockEntityRenderer implements BlockEntityRenderer<BlockEn
 
 //        ChestBlockEntityRenderer
 //        VertexConsumer vertexConsumer = getTexture().getVertexConsumer(vertexConsumers, RenderLayer::getEntityCutout);
-        matrices.push();
-        matrices.translate(7f / 16f, 1, 0);
-        ModelPart partRight = this.modelPart.getChild("right");
-        partRight.pivotX = 6.0F;
-        partRight.pivotY = -6.0F;
-        partRight.pivotZ = 5.0F;
-        partRight.yaw = (float) ((float) Math.toRadians(67.5) + Math.sin(world.getTime() + tickDelta));
-        partRight.render(matrices, vertexConsumers.getBuffer(RenderLayers.getBlockLayer(entity.getCachedState())), light, overlay);
-        matrices.pop();
-
-        matrices.push();
-        matrices.translate(7f / 16f, 1, 0);
-        ModelPart partLeft = this.modelPart.getChild("left");
-        partLeft.pivotX = -6.0F;
-        partLeft.pivotY = -6.0F;
-        partLeft.pivotZ = 5.0F;
-        partLeft.yaw = (float) ((float) Math.toRadians(-67.5) - Math.sin(world.getTime() + tickDelta));
-//        partLeft.yaw = (float) Math.toRadians(-67.5);
-        partLeft.render(matrices, vertexConsumers.getBuffer(RenderLayers.getBlockLayer(entity.getCachedState())), light, overlay);
-        matrices.pop();
+//        matrices.push();
+//        matrices.translate(7f / 16f, 1, 0);
+//        ModelPart partRight = this.modelPart.getChild("right");
+//        partRight.pivotX = 6.0F;
+//        partRight.pivotY = -6.0F;
+//        partRight.pivotZ = 5.0F;
+//        partRight.yaw = (float) ((float) Math.toRadians(67.5) + Math.sin(world.getTime() + tickDelta));
+//        partRight.render(matrices, vertexConsumers.getBuffer(RenderLayers.getBlockLayer(entity.getCachedState())), light, overlay);
+//        matrices.pop();
+//
+//        matrices.push();
+//        matrices.translate(7f / 16f, 1, 0);
+//        ModelPart partLeft = this.modelPart.getChild("left");
+//        partLeft.pivotX = -6.0F;
+//        partLeft.pivotY = -6.0F;
+//        partLeft.pivotZ = 5.0F;
+//        partLeft.yaw = (float) ((float) Math.toRadians(-67.5) - Math.sin(world.getTime() + tickDelta));
+////        partLeft.yaw = (float) Math.toRadians(-67.5);
+//        partLeft.render(matrices, vertexConsumers.getBuffer(RenderLayers.getBlockLayer(entity.getCachedState())), light, overlay);
+//        matrices.pop();
     }
 
     @Override

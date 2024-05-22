@@ -4,6 +4,7 @@ import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.item.ItemPlacementContext;
+import net.minecraft.item.ItemStack;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.IntProperty;
 import net.minecraft.state.property.Properties;
@@ -18,6 +19,7 @@ import net.minecraft.world.BlockView;
 import org.jetbrains.annotations.Nullable;
 import team.dovecotmc.metropolis.metropolis.block.entity.BlockEntityBumper;
 import team.dovecotmc.metropolis.metropolis.block.entity.BlockEntityMonitor;
+import team.dovecotmc.metropolis.metropolis.item.MetroItems;
 
 /**
  * @author Arrokoth
@@ -65,5 +67,8 @@ public class BlockBumper extends BlockWithEntity {
     @Override
     public boolean isTranslucent(BlockState state, BlockView world, BlockPos pos) {
         return true;
+    }
+    public BlockRenderType getRenderType(BlockState state) {
+        return BlockRenderType.INVISIBLE;
     }
 }

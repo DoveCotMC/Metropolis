@@ -1,5 +1,6 @@
 package team.dovecotmc.metropolis.metropolis.block;
 
+import mtr.Items;
 import mtr.SoundEvents;
 import mtr.block.IBlock;
 import mtr.data.RailwayData;
@@ -8,6 +9,7 @@ import mtr.item.ItemRailModifier;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
@@ -15,6 +17,7 @@ import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.BooleanProperty;
+import net.minecraft.state.property.IntProperty;
 import net.minecraft.text.Text;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
@@ -40,7 +43,7 @@ import java.util.Objects;
  */
 @SuppressWarnings("deprecation")
 public class BlockTurnstile extends HorizontalFacingBlock implements BlockEntityProvider {
-    public static final BooleanProperty OPEN = BooleanProperty.of("open");
+    public static final IntProperty OPEN = IntProperty.of("open", 0, 2);
 
     public BlockTurnstile() {
         super(Settings.of(Material.METAL, MapColor.GRAY).requiresTool().strength(2.0F).nonOpaque());
@@ -48,9 +51,20 @@ public class BlockTurnstile extends HorizontalFacingBlock implements BlockEntity
 
     @Override
     public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
-//        if (world.isClient()) {
-//            return ActionResult.PASS;
-//        }
+        if (world.isClient()) {
+            return ActionResult.PASS;
+        }
+
+        if (hand == Hand.MAIN_HAND) {
+            ItemStack stack = player.getStackInHand(hand);
+
+            if (stack.getItem() instanceof ItemTicket) {
+                // Ticket mode
+            } else if (stack.getItem() == Items.BRUSH.get()) {
+                // And edit mode
+            }
+        }
+
         return ActionResult.SUCCESS;
 
 //        RailwayData railwayData = RailwayData.getInstance(world);
@@ -103,34 +117,34 @@ public class BlockTurnstile extends HorizontalFacingBlock implements BlockEntity
 
     @Override
     public void scheduledTick(BlockState state, ServerWorld world, BlockPos pos, Random random) {
-        world.setBlockState(pos, state.with(OPEN, false));
+        world.setBlockState(pos, state.with(OPEN, 1));
     }
 
     public VoxelShape getOutlineShape(BlockState state, BlockView blockGetter, BlockPos pos, ShapeContext collisionContext) {
         Direction facing = IBlock.getStatePropertySafe(state, FACING);
-//        return VoxelShapes.combine(
-//                IBlock.getVoxelShapeByDirection(0.0, 0.0, 0.0, 4.0, 15.0, 16.0, facing),
-//                IBlock.getVoxelShapeByDirection(15.0, 0.0, 0.0, 16.0 , 15.0, 16.0, facing),
-//                BooleanBiFunction.OR);
-        return VoxelShapes.union(
-                IBlock.getVoxelShapeByDirection(0.0, 0.0, 7.0, 16.0, 15, 9.0, facing),
-                VoxelShapes.combine(
+        return VoxelShapes.combine(
                 IBlock.getVoxelShapeByDirection(0.0, 0.0, 0.0, 4.0, 15.0, 16.0, facing),
                 IBlock.getVoxelShapeByDirection(15.0, 0.0, 0.0, 16.0 , 15.0, 16.0, facing),
-                BooleanBiFunction.OR));
+                BooleanBiFunction.OR);
+//        return VoxelShapes.union(
+//                IBlock.getVoxelShapeByDirection(0.0, 0.0, 7.0, 16.0, 15, 9.0, facing),
+//                VoxelShapes.combine(
+//                IBlock.getVoxelShapeByDirection(0.0, 0.0, 0.0, 4.0, 15.0, 16.0, facing),
+//                IBlock.getVoxelShapeByDirection(15.0, 0.0, 0.0, 16.0 , 15.0, 16.0, facing),
+//                BooleanBiFunction.OR));
     }
 
     public VoxelShape getCollisionShape(BlockState state, BlockView blockGetter, BlockPos blockPos, ShapeContext collisionContext) {
         Direction facing = IBlock.getStatePropertySafe(state, FACING);
         VoxelShape base = VoxelShapes.combine(
                 IBlock.getVoxelShapeByDirection(0.0, 0.0, 0.0, 2.0, 24.0, 16.0, facing),
-                IBlock.getVoxelShapeByDirection(15.0, 0.0, 0.0, 16.0, 24.0, 16.0, facing),
+                IBlock.getVoxelShapeByDirection(14.0, 0.0, 0.0, 16.0, 24.0, 16.0, facing),
                 BooleanBiFunction.OR);
-        return IBlock.getStatePropertySafe(state, OPEN) ? base : VoxelShapes.union(IBlock.getVoxelShapeByDirection(0.0, 0.0, 7.0, 16.0, 24.0, 9.0, facing), base);
+        return IBlock.getStatePropertySafe(state, OPEN) == 0 ? base : VoxelShapes.union(IBlock.getVoxelShapeByDirection(0.0, 0.0, 7.0, 16.0, 24.0, 9.0, facing), base);
     }
 
     public BlockState getPlacementState(ItemPlacementContext ctx) {
-        return this.getDefaultState().with(FACING, ctx.getPlayerFacing().getOpposite()).with(OPEN, false);
+        return this.getDefaultState().with(FACING, ctx.getPlayerFacing().getOpposite()).with(OPEN, 1);
     }
 
     @Override
