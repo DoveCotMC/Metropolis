@@ -12,7 +12,7 @@
         "repo": "https://github.com/DoveCotMC/Metropolis"
     },
     "license": "All-Rights-Reserved",
-    "icon": "assets/Metropolis/icon.png",
+    "icon": "assets/metropolis/icon.png",
     "environment": "*",
     "entrypoints": {
         "client": [

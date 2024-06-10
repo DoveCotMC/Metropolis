@@ -23,7 +23,7 @@ public class BlockBeyondTicketBarrier extends BlockTicketBarrier {
     }
 
     public VoxelShape getOutlineShape(BlockState state, BlockView blockGetter, BlockPos pos, ShapeContext collisionContext) {
-        Direction facing = (Direction) IBlock.getStatePropertySafe(state, FACING);
+        Direction facing = IBlock.getStatePropertySafe(state, FACING);
         return VoxelShapes.combine(
                 IBlock.getVoxelShapeByDirection(0.0, 0.0, 0.0, 4.0, 15.0, 16.0, facing),
                 IBlock.getVoxelShapeByDirection(15.0, 0.0, 0.0, 16.0 , 15.0, 16.0, facing),
@@ -31,8 +31,8 @@ public class BlockBeyondTicketBarrier extends BlockTicketBarrier {
     }
 
     public VoxelShape getCollisionShape(BlockState state, BlockView blockGetter, BlockPos blockPos, ShapeContext collisionContext) {
-        Direction facing = (Direction)IBlock.getStatePropertySafe(state, FACING);
-        TicketSystem.EnumTicketBarrierOpen open = (TicketSystem.EnumTicketBarrierOpen)IBlock.getStatePropertySafe(state, OPEN);
+        Direction facing = IBlock.getStatePropertySafe(state, FACING);
+        TicketSystem.EnumTicketBarrierOpen open = IBlock.getStatePropertySafe(state, OPEN);
         VoxelShape base = VoxelShapes.combine(
                 IBlock.getVoxelShapeByDirection(0.0, 0.0, 0.0, 1.0, 24.0, 16.0, facing),
                 IBlock.getVoxelShapeByDirection(15.0, 0.0, 0.0, 16.0, 24.0, 16.0, facing),

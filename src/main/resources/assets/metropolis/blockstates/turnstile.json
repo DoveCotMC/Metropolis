@@ -1,0 +1,49 @@
+{
+    "variants": {
+        "facing=north,open=0": {
+            "model": "metropolis:block/turnstile",
+            "y": 180
+        },
+        "facing=east,open=0": {
+            "model": "metropolis:block/turnstile",
+            "y": 270
+        },
+        "facing=south,open=0": {
+            "model": "metropolis:block/turnstile"
+        },
+        "facing=west,open=0": {
+            "model": "metropolis:block/turnstile",
+            "y": 90
+        },
+        "facing=north,open=1": {
+            "model": "metropolis:block/turnstile_close_front",
+            "y": 180
+        },
+        "facing=east,open=1": {
+            "model": "metropolis:block/turnstile_close_front",
+            "y": 270
+        },
+        "facing=south,open=1": {
+            "model": "metropolis:block/turnstile_close_front"
+        },
+        "facing=west,open=1": {
+            "model": "metropolis:block/turnstile_close_front",
+            "y": 90
+        },
+        "facing=north,open=2": {
+            "model": "metropolis:block/turnstile_close_back",
+            "y": 180
+        },
+        "facing=east,open=2": {
+            "model": "metropolis:block/turnstile_close_back",
+            "y": 270
+        },
+        "facing=south,open=2": {
+            "model": "metropolis:block/turnstile_close_back"
+        },
+        "facing=west,open=2": {
+            "model": "metropolis:block/turnstile_close_back",
+            "y": 90
+        }
+    }
+}

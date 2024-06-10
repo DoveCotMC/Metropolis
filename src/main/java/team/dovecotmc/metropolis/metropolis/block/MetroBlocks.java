@@ -2,9 +2,11 @@ package team.dovecotmc.metropolis.metropolis.block;
 
 import mtr.block.BlockTicketMachine;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
+import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.MapColor;
 import net.minecraft.block.Material;
+import net.minecraft.util.DyeColor;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 import team.dovecotmc.metropolis.metropolis.Metropolis;
@@ -34,10 +36,20 @@ public class MetroBlocks {
     public static final Block BLOCK_TICKET_BARRIER_ENTRANCE_A = registerDovecotFeatures("ticket_barrier_entrance_a", new BlockBeyondTicketBarrier(true));
     public static final Block BLOCK_TICKET_BARRIER_EXIT_A = registerDovecotFeatures("ticket_barrier_exit_a", new BlockBeyondTicketBarrier(false));
     public static final Block BLOCK_CEILING_A = registerDovecotFeatures("ceiling_a", new BlockCeilingA(FabricBlockSettings.of(Material.METAL, MapColor.GRAY).nonOpaque().luminance(1)));
-//    public static final Block BLOCK_CEILING_B = registerDovecotFeatures("ceiling_b", new BlockCeilingA(FabricBlockSettings.of(Material.METAL, MapColor.GRAY).nonOpaque().luminance(1)));
 
     // Train bumpers
-    public static final Block BLOCK_BUMPER_A = register("bumper_a", new BumperBlock(FabricBlockSettings.of(Material.METAL, MapColor.YELLOW).nonOpaque()));
+    public static final Block BLOCK_BUMPER = register("bumper", new BlockBumper());
+
+    // Turnstile
+    public static final Block BLOCK_TURNSTILE = register("turnstile", new BlockTurnstile());
+
+    // Ticket Machine
+    public static final Block BLOCK_TICKET_MACHINE = register("ticket_machine", new team.dovecotmc.metropolis.metropolis.block.BlockTicketMachine());
+
+    // Monitor
+    public static final Block BLOCK_MONITOR = register("monitor", new BlockMonitor());
+    // Concrete
+    public static final Block BLOCK_CONCRETE = register("concrete", new Block(AbstractBlock.Settings.of(Material.STONE, DyeColor.LIGHT_GRAY)));
 
     private static Block registerDovecotFeatures(String id, Block block) {
         return Registry.register(Registry.BLOCK, new Identifier(Metropolis.MOD_ID, id), block);

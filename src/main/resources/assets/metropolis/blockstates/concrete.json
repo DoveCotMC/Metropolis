@@ -1,0 +1,7 @@
+{
+    "variants": {
+        "": {
+            "model": "metropolis:block/concrete"
+        }
+    }
+}
