@@ -2,8 +2,8 @@
 	"credit": "Made with Blockbench",
 	"texture_size": [64, 64],
 	"textures": {
-		"0": "tickvendor_ev23_yellow",
-		"particle": "tickvendor_ev23_yellow"
+		"0": "metropolis:block/tickvendor_ev23",
+		"particle": "metropolis:block/tickvendor_ev23"
 	},
 	"elements": [
 		{

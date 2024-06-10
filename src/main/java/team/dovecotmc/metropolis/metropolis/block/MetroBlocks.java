@@ -32,6 +32,8 @@ public class MetroBlocks {
     public static final Block BLOCK_TUNNEL_LIGHT_A = registerDovecotFeatures("tunnel_light_a", new BlockTunnelLight(FabricBlockSettings.of(Material.METAL, MapColor.STONE_GRAY).nonOpaque()));
     public static final Block BLOCK_TICKET_MACHINE_A = registerDovecotFeatures("ticket_machine_a", new BlockSmallerTickerMachine(FabricBlockSettings.of(Material.METAL, MapColor.DIAMOND_BLUE).nonOpaque()));
     public static final Block BLOCK_TICKET_MACHINE_B = registerDovecotFeatures("ticket_machine_b", new BlockTicketMachine(FabricBlockSettings.of(Material.METAL, MapColor.DIAMOND_BLUE).nonOpaque()));
+    public static final Block BLOCK_TICKET_VENDOR_EM10 = register("ticket_vendor_em10", new BlockTicketVendor());
+    public static final Block BLOCK_TICKET_VENDOR_EV23 = register("ticket_vendor_ev23", new BlockTicketVendor());
     // Ceiling
     public static final Block BLOCK_TICKET_BARRIER_ENTRANCE_A = registerDovecotFeatures("ticket_barrier_entrance_a", new BlockBeyondTicketBarrier(true));
     public static final Block BLOCK_TICKET_BARRIER_EXIT_A = registerDovecotFeatures("ticket_barrier_exit_a", new BlockBeyondTicketBarrier(false));

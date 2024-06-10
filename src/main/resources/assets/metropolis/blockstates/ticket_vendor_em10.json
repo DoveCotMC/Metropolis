@@ -1,0 +1,20 @@
+{
+    "variants": {
+        "facing=north": {
+            "model": "metropolis:block/ticket_vendor_em10",
+            "y": 0
+        },
+        "facing=east": {
+            "model": "metropolis:block/ticket_vendor_em10",
+            "y": 90
+        },
+        "facing=south": {
+            "model": "metropolis:block/ticket_vendor_em10",
+            "y": 180
+        },
+        "facing=west": {
+            "model": "metropolis:block/ticket_vendor_em10",
+            "y": 270
+        }
+    }
+}
