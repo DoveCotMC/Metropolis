@@ -7,7 +7,11 @@ import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.fabric.api.client.rendering.v1.BlockEntityRendererRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityModelLayerRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback;
+import net.minecraft.block.FlowerPotBlock;
+import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.RenderLayer;
+import net.minecraft.client.render.block.BlockModelRenderer;
+import net.minecraft.client.render.block.BlockRenderManager;
 import net.minecraft.item.ItemStack;
 import team.dovecotmc.metropolis.metropolis.Metropolis;
 import team.dovecotmc.metropolis.metropolis.block.MetroBlocks;
@@ -40,6 +44,7 @@ public class MetropolisClient implements ClientModInitializer {
         BlockRenderLayerMap.INSTANCE.putBlock(MetroBlocks.BLOCK_TICKET_MACHINE, RenderLayer.getCutout());
         BlockRenderLayerMap.INSTANCE.putBlock(MetroBlocks.BLOCK_TICKET_VENDOR_EM10, RenderLayer.getCutout());
         BlockRenderLayerMap.INSTANCE.putBlock(MetroBlocks.BLOCK_TICKET_VENDOR_EV23, RenderLayer.getCutout());
+
 
         ModelLoadingRegistry.INSTANCE.registerResourceProvider(rm -> new MetroModelProvicer());
 
