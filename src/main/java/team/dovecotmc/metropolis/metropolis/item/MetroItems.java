@@ -34,10 +34,11 @@ public class MetroItems {
     // byd老闸机
     public static final Item ITEM_TICKET_BARRIER_ENTRANCE_A = registerDovecotFeature("ticket_barrier_entrance_a", new BlockItem(MetroBlocks.BLOCK_TICKET_BARRIER_ENTRANCE_A, new Item.Settings().group(Metropolis.ITEM_GROUP)));
     public static final Item ITEM_TICKET_BARRIER_EXIT_A = registerDovecotFeature("ticket_barrier_exit_a", new BlockItem(MetroBlocks.BLOCK_TICKET_BARRIER_EXIT_A, new Item.Settings().group(Metropolis.ITEM_GROUP)));
-    public static final Item BLOCK_TICKET_VENDOR_UP_1 = register("ticket_vendor_up_1", new BlockItem(MetroBlocks.BLOCK_TICKET_VENDOR_UP_1, new Item.Settings().group(Metropolis.ITEM_GROUP)));
-    public static final Item BLOCK_TICKET_VENDOR_UP_EV23 = register("ticket_vendor_up_ev23", new BlockItem(MetroBlocks.BLOCK_TICKET_VENDOR_UP_EV23, new Item.Settings().group(Metropolis.ITEM_GROUP)));
-    public static final Item BLOCK_TICKET_VENDOR_UP_EV23_GREEN = register("ticket_vendor_up_ev23_green", new BlockItem(MetroBlocks.BLOCK_TICKET_VENDOR_UP_EV23_GREEN, new Item.Settings().group(Metropolis.ITEM_GROUP)));
-    public static final Item BLOCK_TICKET_VENDOR_UP_EV23_YELLOW = register("ticket_vendor_up_ev23_yellow", new BlockItem(MetroBlocks.BLOCK_TICKET_VENDOR_UP_EV23_YELLOW, new Item.Settings().group(Metropolis.ITEM_GROUP)));
+//    public static final Item BLOCK_TICKET_VENDOR_UP_1 = register("ticket_vendor_up_1", new BlockItem(MetroBlocks.BLOCK_TICKET_VENDOR_UP_1, new Item.Settings().group(Metropolis.ITEM_GROUP)));
+//    public static final Item BLOCK_TICKET_VENDOR_UP_EV23 = register("ticket_vendor_up_ev23", new BlockItem(MetroBlocks.BLOCK_TICKET_VENDOR_UP_EV23, new Item.Settings().group(Metropolis.ITEM_GROUP)));
+//    public static final Item BLOCK_TICKET_VENDOR_UP_EV23_GREEN = register("ticket_vendor_up_ev23_green", new BlockItem(MetroBlocks.BLOCK_TICKET_VENDOR_UP_EV23_GREEN, new Item.Settings().group(Metropolis.ITEM_GROUP)));
+//    public static final Item BLOCK_TICKET_VENDOR_UP_EV23_YELLOW = register("ticket_vendor_up_ev23_yellow", new BlockItem(MetroBlocks.BLOCK_TICKET_VENDOR_UP_EV23_YELLOW, new Item.Settings().group(Metropolis.ITEM_GROUP)));
+//    public static final Item BLOCK_TICKET_VENDOR_UP = register("ticket_vendor_up", new BlockItem(MetroBlocks.BLOCK_TICKET_VENDOR_UP_1, new Item.Settings().group(Metropolis.ITEM_GROUP)));
     // Ticker barrier
     // Ceiling
     public static final Item ITEM_CEILING_A = registerDovecotFeature("ceiling_a", new BlockItem(MetroBlocks.BLOCK_CEILING_A, new Item.Settings().group(Metropolis.ITEM_GROUP)));

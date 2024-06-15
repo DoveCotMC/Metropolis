@@ -1,8 +1,22 @@
 package team.dovecotmc.metropolis.metropolis.block;
 
 import net.minecraft.block.*;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemPlacementContext;
+import net.minecraft.item.ItemStack;
+import net.minecraft.sound.SoundCategory;
+import net.minecraft.sound.SoundEvents;
 import net.minecraft.state.StateManager;
+import net.minecraft.util.ActionResult;
+import net.minecraft.util.Hand;
+import net.minecraft.util.hit.BlockHitResult;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.BlockView;
+import net.minecraft.world.World;
+import net.minecraft.world.WorldAccess;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * @author Arrokoth
@@ -10,12 +24,36 @@ import net.minecraft.state.StateManager;
  * @copyright Copyright © 2024 Arrokoth All Rights Reserved.
  */
 public class BlockTicketVendorUp extends HorizontalFacingBlock {
+    public static final Map<Integer, BlockTicketVendorUp> TYPES = new HashMap();
+    public final int id;
+
     public BlockTicketVendorUp() {
         super(Settings.of(Material.METAL).nonOpaque());
+
+        this.id = TYPES.size();
+        System.out.println("baka");
+        System.out.println(this.id);
+        TYPES.put(id, this);
     }
 
     public BlockState getPlacementState(ItemPlacementContext ctx) {
         return this.getDefaultState().with(FACING, ctx.getPlayerFacing().getOpposite());
+    }
+
+    @Override
+    public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
+        if (!hand.equals(Hand.MAIN_HAND)) {
+            return ActionResult.PASS;
+        }
+
+        if (player.getStackInHand(hand).getItem().equals(mtr.Items.BRUSH.get())) {
+            int id = ((BlockTicketVendorUp) state.getBlock()).id;
+            world.setBlockState(pos, TYPES.get((id + 1) % (TYPES.size() - 1)).getDefaultState().with(FACING, state.get(FACING)));
+            world.playSound(null, pos, SoundEvents.BLOCK_COPPER_BREAK, SoundCategory.BLOCKS, 1f, 1f);
+            return ActionResult.SUCCESS;
+        }
+
+        return ActionResult.PASS;
     }
 
     @Override
@@ -26,5 +64,18 @@ public class BlockTicketVendorUp extends HorizontalFacingBlock {
     @Override
     public BlockRenderType getRenderType(BlockState state) {
         return BlockRenderType.MODEL;
+    }
+
+    @Override
+    public void onBroken(WorldAccess world, BlockPos pos, BlockState state) {
+        super.onBroken(world, pos, state);
+        if (world.getBlockState(pos.down()).getBlock() instanceof BlockTicketVendor) {
+            world.breakBlock(pos.down(), true);
+        }
+    }
+
+    @Override
+    public ItemStack getPickStack(BlockView world, BlockPos pos, BlockState state) {
+        return world.getBlockState(pos.down()).getBlock() instanceof BlockTicketVendor ? new ItemStack(world.getBlockState(pos.down()).getBlock()) : ItemStack.EMPTY;
     }
 }
