@@ -1,12 +1,16 @@
 package team.dovecotmc.metropolis.metropolis.block.entity;
 
 import net.fabricmc.fabric.api.object.builder.v1.block.entity.FabricBlockEntityTypeBuilder;
+import net.minecraft.block.Block;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 import team.dovecotmc.metropolis.metropolis.Metropolis;
 import team.dovecotmc.metropolis.metropolis.block.BlockMonitor;
+import team.dovecotmc.metropolis.metropolis.block.BlockTicketVendor;
 import team.dovecotmc.metropolis.metropolis.block.MetroBlocks;
+
+import java.util.Arrays;
 
 /**
  * @author Arrokoth
@@ -18,6 +22,12 @@ public class MetroBlockEntities {
             Registry.BLOCK_ENTITY_TYPE,
             new Identifier(Metropolis.MOD_ID, "ticket_machine"),
             FabricBlockEntityTypeBuilder.create(BlockEntityTicketMachine::new, MetroBlocks.BLOCK_TICKET_MACHINE).build()
+    );
+
+    public static final BlockEntityType<BlockEntityTicketVendor> TICKET_VENDOR_BLOCK_ENTITY = Registry.register(
+            Registry.BLOCK_ENTITY_TYPE,
+            new Identifier(Metropolis.MOD_ID, "ticket_vendor"),
+            FabricBlockEntityTypeBuilder.create(BlockEntityTicketVendor::new, MetroBlocks.BLOCK_TICKET_VENDOR_EM10, MetroBlocks.BLOCK_TICKET_VENDOR_EV23).build()
     );
 
     public static final BlockEntityType<BlockEntityMonitor> MONITOR_BLOCK_ENTITY = Registry.register(

@@ -1,0 +1,7 @@
+{
+	"parent": "metropolis:block/tvmpanel_low",
+	"textures": {
+		"0": "metropolis:block/tvmpanel_low",
+		"particle": "metropolis:block/tvmpanel_low"
+	}
+}

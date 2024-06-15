@@ -1,5 +1,6 @@
 package team.dovecotmc.metropolis.metropolis.block;
 
+import mtr.block.IBlock;
 import net.minecraft.block.*;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemPlacementContext;
@@ -11,6 +12,8 @@ import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Direction;
+import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldAccess;
@@ -28,11 +31,9 @@ public class BlockTicketVendorUp extends HorizontalFacingBlock {
     public final int id;
 
     public BlockTicketVendorUp() {
-        super(Settings.of(Material.METAL).nonOpaque());
+        super(Settings.of(Material.METAL).nonOpaque().luminance(value -> 0));
 
         this.id = TYPES.size();
-        System.out.println("baka");
-        System.out.println(this.id);
         TYPES.put(id, this);
     }
 
@@ -48,7 +49,7 @@ public class BlockTicketVendorUp extends HorizontalFacingBlock {
 
         if (player.getStackInHand(hand).getItem().equals(mtr.Items.BRUSH.get())) {
             int id = ((BlockTicketVendorUp) state.getBlock()).id;
-            world.setBlockState(pos, TYPES.get((id + 1) % (TYPES.size() - 1)).getDefaultState().with(FACING, state.get(FACING)));
+            world.setBlockState(pos, TYPES.get((id + 1) % (TYPES.size())).getDefaultState().with(FACING, state.get(FACING)));
             world.playSound(null, pos, SoundEvents.BLOCK_COPPER_BREAK, SoundCategory.BLOCKS, 1f, 1f);
             return ActionResult.SUCCESS;
         }
@@ -59,6 +60,16 @@ public class BlockTicketVendorUp extends HorizontalFacingBlock {
     @Override
     protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
         builder.add(FACING);
+    }
+
+    @Override
+    public VoxelShape getOutlineShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {
+        Direction facing = IBlock.getStatePropertySafe(state, FACING);
+//        return VoxelShapes.combine(
+//                IBlock.getVoxelShapeByDirection(0.0, 0.0, 10.0, 16.0, 16.0, 16.0, facing),
+//                IBlock.getVoxelShapeByDirection(0.0, 0.0, 4.0, 16.0 , 10.0, 16.0, facing),
+//                BooleanBiFunction.OR);
+        return IBlock.getVoxelShapeByDirection(0.0, 0.0, 9.0, 16.0 , 16.0, 16.0, facing);
     }
 
     @Override

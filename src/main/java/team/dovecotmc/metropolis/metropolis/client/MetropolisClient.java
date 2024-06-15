@@ -1,25 +1,24 @@
 package team.dovecotmc.metropolis.metropolis.client;
 
+import com.mojang.blaze3d.systems.RenderSystem;
+import mtr.render.RenderRailwaySign;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
 import net.fabricmc.fabric.api.client.model.ModelLoadingRegistry;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
-import net.fabricmc.fabric.api.client.rendering.v1.BlockEntityRendererRegistry;
-import net.fabricmc.fabric.api.client.rendering.v1.EntityModelLayerRegistry;
-import net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback;
+import net.fabricmc.fabric.api.client.rendering.v1.*;
 import net.minecraft.block.FlowerPotBlock;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.block.BlockModelRenderer;
 import net.minecraft.client.render.block.BlockRenderManager;
+import net.minecraft.client.render.model.ModelLoader;
+import net.minecraft.client.world.ClientWorld;
 import net.minecraft.item.ItemStack;
 import team.dovecotmc.metropolis.metropolis.Metropolis;
 import team.dovecotmc.metropolis.metropolis.block.MetroBlocks;
 import team.dovecotmc.metropolis.metropolis.block.entity.MetroBlockEntities;
-import team.dovecotmc.metropolis.metropolis.client.block.entity.BumperBlockEntityRenderer;
-import team.dovecotmc.metropolis.metropolis.client.block.entity.MonitorBlockEntityRenderer;
-import team.dovecotmc.metropolis.metropolis.client.block.entity.TicketMachineBlockEntityRenderer;
-import team.dovecotmc.metropolis.metropolis.client.block.entity.TurnstileBlockEntityRenderer;
+import team.dovecotmc.metropolis.metropolis.client.block.entity.*;
 import team.dovecotmc.metropolis.metropolis.client.block.model.provider.MetroModelProvicer;
 import team.dovecotmc.metropolis.metropolis.client.gui.TicketMachineScreen;
 
@@ -42,8 +41,10 @@ public class MetropolisClient implements ClientModInitializer {
         });
 
         BlockRenderLayerMap.INSTANCE.putBlock(MetroBlocks.BLOCK_TICKET_MACHINE, RenderLayer.getCutout());
+
         BlockRenderLayerMap.INSTANCE.putBlock(MetroBlocks.BLOCK_TICKET_VENDOR_EM10, RenderLayer.getCutout());
         BlockRenderLayerMap.INSTANCE.putBlock(MetroBlocks.BLOCK_TICKET_VENDOR_EV23, RenderLayer.getCutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(MetroBlocks.BLOCK_TICKET_VENDOR_PANEL, RenderLayer.getCutout());
 
 
         ModelLoadingRegistry.INSTANCE.registerResourceProvider(rm -> new MetroModelProvicer());
@@ -51,6 +52,7 @@ public class MetropolisClient implements ClientModInitializer {
         BlockEntityRendererRegistry.register(MetroBlockEntities.TICKET_MACHINE_BLOCK_ENTITY, ctx -> new TicketMachineBlockEntityRenderer());
         BlockEntityRendererRegistry.register(MetroBlockEntities.BUMPER_BLOCK_ENTITY, ctx -> new BumperBlockEntityRenderer());
         BlockEntityRendererRegistry.register(MetroBlockEntities.TURNSTILE_BLOCK_ENTITY, TurnstileBlockEntityRenderer::new);
+        BlockEntityRendererRegistry.register(MetroBlockEntities.TICKET_VENDOR_BLOCK_ENTITY, ctx -> new TicketVendorBlockEntityRenderer());
         EntityModelLayerRegistry.registerModelLayer(TurnstileBlockEntityRenderer.MODEL_LAYER, TurnstileBlockEntityRenderer::getTexturedModelData);
 
         // TODO: A new renderer...
@@ -97,7 +99,12 @@ public class MetropolisClient implements ClientModInitializer {
 //            }
 //        });
 
+//        RenderRailwaySign
+
         HudRenderCallback.EVENT.register((matrixStack, tickDelta) -> {
+        });
+
+        WorldRenderEvents.LAST.register(context -> {
         });
     }
 }
