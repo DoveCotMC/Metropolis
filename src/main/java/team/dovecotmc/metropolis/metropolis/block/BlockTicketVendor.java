@@ -1,6 +1,7 @@
 package team.dovecotmc.metropolis.metropolis.block;
 
 import mtr.block.IBlock;
+import mtr.packet.PacketTrainDataGuiServer;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.enums.DoubleBlockHalf;
@@ -8,8 +9,12 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.item.ItemStack;
+import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.state.StateManager;
+import net.minecraft.util.ActionResult;
+import net.minecraft.util.Hand;
 import net.minecraft.util.function.BooleanBiFunction;
+import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.shape.VoxelShape;
@@ -81,6 +86,18 @@ public class BlockTicketVendor extends HorizontalFacingBlock implements BlockEnt
         if (world.getBlockState(pos.up()).getBlock() instanceof BlockTicketVendorUp) {
             world.breakBlock(pos.up(), false);
         }
+    }
+
+    public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand interactionHand, BlockHitResult blockHitResult) {
+        if (!world.isClient) {
+            if (!this.isFunctional) {
+                return ActionResult.PASS;
+            }
+
+            PacketTrainDataGuiServer.openTicketMachineScreenS2C(world, (ServerPlayerEntity)player);
+            return ActionResult.SUCCESS;
+        }
+        return ActionResult.PASS;
     }
 
     @Override
