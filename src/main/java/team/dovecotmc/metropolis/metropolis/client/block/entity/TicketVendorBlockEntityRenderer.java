@@ -43,9 +43,6 @@ public class TicketVendorBlockEntityRenderer implements BlockEntityRenderer<Bloc
     public void render(BlockEntityTicketVendor entity, float tickDelta, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, int overlay) {
         MinecraftClient mc = MinecraftClient.getInstance();
         BlockRenderManager blockRenderManager = mc.getBlockRenderManager();
-        BlockModelRenderer blockModelRenderer = blockRenderManager.getModelRenderer();
-        BakedModel model = blockRenderManager.getModel(entity.getCachedState());
-//        new Identifier(Metropolis.MOD_ID, "textures/block/ticket_vendor_ev23_e.png");
 
         if (((BlockTicketVendor) entity.getCachedState().getBlock()).isFunctional) {
             BlockState block = entity.getCachedState();
