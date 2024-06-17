@@ -1,6 +1,7 @@
 package team.dovecotmc.metropolis.metropolis.block;
 
 import mtr.block.IBlock;
+import mtr.packet.PacketTrainDataGuiClient;
 import mtr.packet.PacketTrainDataGuiServer;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
@@ -26,6 +27,7 @@ import net.minecraft.world.WorldView;
 import org.jetbrains.annotations.Nullable;
 import team.dovecotmc.metropolis.metropolis.block.entity.BlockEntityTicketMachine;
 import team.dovecotmc.metropolis.metropolis.block.entity.BlockEntityTicketVendor;
+import team.dovecotmc.metropolis.metropolis.network.MetroServerNetwork;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -89,15 +91,14 @@ public class BlockTicketVendor extends HorizontalFacingBlock implements BlockEnt
     }
 
     public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand interactionHand, BlockHitResult blockHitResult) {
-        if (!world.isClient) {
-            if (!this.isFunctional) {
-                return ActionResult.PASS;
-            }
-
-            PacketTrainDataGuiServer.openTicketMachineScreenS2C(world, (ServerPlayerEntity)player);
-            return ActionResult.SUCCESS;
+        if (!this.isFunctional) {
+            return ActionResult.PASS;
         }
-        return ActionResult.PASS;
+
+        if (!world.isClient) {
+            MetroServerNetwork.openTicketVendorScreen(world, pos, (ServerPlayerEntity) player);
+        }
+        return ActionResult.SUCCESS;
     }
 
     @Override

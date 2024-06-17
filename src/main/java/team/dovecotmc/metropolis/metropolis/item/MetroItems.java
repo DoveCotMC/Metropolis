@@ -32,6 +32,7 @@ public class MetroItems {
     public static final Item ITEM_TICKET_VENDOR_PANEL = register("ticket_vendor_panel", new BlockItem(MetroBlocks.BLOCK_TICKET_VENDOR_PANEL, new Item.Settings().group(Metropolis.ITEM_GROUP)));
     public static final Item ITEM_TICKET_VENDOR_EM10 = register("ticket_vendor_em10", new BlockItem(MetroBlocks.BLOCK_TICKET_VENDOR_EM10, new Item.Settings().group(Metropolis.ITEM_GROUP)));
     public static final Item ITEM_TICKET_VENDOR_EV23 = register("ticket_vendor_ev23", new BlockItem(MetroBlocks.BLOCK_TICKET_VENDOR_EV23, new Item.Settings().group(Metropolis.ITEM_GROUP)));
+    public static final Item ITEM_TICKET_VENDOR_EV23_YELLOW = register("ticket_vendor_ev23_yellow", new BlockItem(MetroBlocks.BLOCK_TICKET_VENDOR_EV23_YELLOW, new Item.Settings().group(Metropolis.ITEM_GROUP)));
     // byd老闸机
     public static final Item ITEM_TICKET_BARRIER_ENTRANCE_A = registerDovecotFeature("ticket_barrier_entrance_a", new BlockItem(MetroBlocks.BLOCK_TICKET_BARRIER_ENTRANCE_A, new Item.Settings().group(Metropolis.ITEM_GROUP)));
     public static final Item ITEM_TICKET_BARRIER_EXIT_A = registerDovecotFeature("ticket_barrier_exit_a", new BlockItem(MetroBlocks.BLOCK_TICKET_BARRIER_EXIT_A, new Item.Settings().group(Metropolis.ITEM_GROUP)));

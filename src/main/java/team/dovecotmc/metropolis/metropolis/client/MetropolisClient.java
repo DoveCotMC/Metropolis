@@ -21,6 +21,7 @@ import team.dovecotmc.metropolis.metropolis.block.entity.MetroBlockEntities;
 import team.dovecotmc.metropolis.metropolis.client.block.entity.*;
 import team.dovecotmc.metropolis.metropolis.client.block.model.provider.MetroModelProvicer;
 import team.dovecotmc.metropolis.metropolis.client.gui.TicketMachineScreen;
+import team.dovecotmc.metropolis.metropolis.client.network.MetroClientNetwork;
 
 /**
  * @author Arrokoth
@@ -32,18 +33,21 @@ public class MetropolisClient implements ClientModInitializer {
 
     @Override
     public void onInitializeClient() {
-        ClientPlayNetworking.registerGlobalReceiver(Metropolis.ID_SCREEN_OPEN_TICKET_MACHINE, (client, handler, buf, responseSender) -> {
-            ItemStack stack = buf.readItemStack();
-//            System.out.println(buf.readVarInt());
-            client.execute(() -> {
-                client.setScreen(new TicketMachineScreen(stack));
-            });
-        });
+//        ClientPlayNetworking.registerGlobalReceiver(Metropolis.ID_SCREEN_OPEN_TICKET_MACHINE, (client, handler, buf, responseSender) -> {
+//            ItemStack stack = buf.readItemStack();
+////            System.out.println(buf.readVarInt());
+//            client.execute(() -> {
+//                client.setScreen(new TicketMachineScreen());
+//            });
+//        });
+
+        MetroClientNetwork.registerTicketVendorGuiReceiver();
 
         BlockRenderLayerMap.INSTANCE.putBlock(MetroBlocks.BLOCK_TICKET_MACHINE, RenderLayer.getCutout());
 
         BlockRenderLayerMap.INSTANCE.putBlock(MetroBlocks.BLOCK_TICKET_VENDOR_EM10, RenderLayer.getCutout());
         BlockRenderLayerMap.INSTANCE.putBlock(MetroBlocks.BLOCK_TICKET_VENDOR_EV23, RenderLayer.getCutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(MetroBlocks.BLOCK_TICKET_VENDOR_EV23_YELLOW, RenderLayer.getCutout());
         BlockRenderLayerMap.INSTANCE.putBlock(MetroBlocks.BLOCK_TICKET_VENDOR_PANEL, RenderLayer.getCutout());
 
         ModelLoadingRegistry.INSTANCE.registerResourceProvider(rm -> new MetroModelProvicer());

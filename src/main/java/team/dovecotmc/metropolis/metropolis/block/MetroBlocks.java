@@ -33,14 +33,18 @@ public class MetroBlocks {
     public static final Block BLOCK_TICKET_MACHINE_A = registerDovecotFeatures("ticket_machine_a", new BlockSmallerTickerMachine(FabricBlockSettings.of(Material.METAL, MapColor.DIAMOND_BLUE).nonOpaque()));
     public static final Block BLOCK_TICKET_MACHINE_B = registerDovecotFeatures("ticket_machine_b", new BlockTicketMachine(FabricBlockSettings.of(Material.METAL, MapColor.DIAMOND_BLUE).nonOpaque()));
 
+    // Ticket Vendor Decos
     public static final Block BLOCK_TICKET_VENDOR_UP_1 = register("ticket_vendor_up_1", new BlockTicketVendorUp());
     public static final Block BLOCK_TICKET_VENDOR_UP_EV23 = register("ticket_vendor_up_ev23", new BlockTicketVendorUp());
     public static final Block BLOCK_TICKET_VENDOR_UP_EV23_GREEN = register("ticket_vendor_up_ev23_green", new BlockTicketVendorUp());
     public static final Block BLOCK_TICKET_VENDOR_UP_EV23_YELLOW = register("ticket_vendor_up_ev23_yellow", new BlockTicketVendorUp());
 
+    // Ticket Vendor
     public static final Block BLOCK_TICKET_VENDOR_PANEL = register("ticket_vendor_panel", new BlockTicketVendor(false));
     public static final Block BLOCK_TICKET_VENDOR_EM10 = register("ticket_vendor_em10", new BlockTicketVendor(true, BLOCK_TICKET_VENDOR_UP_EV23));
     public static final Block BLOCK_TICKET_VENDOR_EV23 = register("ticket_vendor_ev23", new BlockTicketVendor(true, BLOCK_TICKET_VENDOR_UP_EV23_GREEN));
+    public static final Block BLOCK_TICKET_VENDOR_EV23_YELLOW = register("ticket_vendor_ev23_yellow", new BlockTicketVendor(true, BLOCK_TICKET_VENDOR_UP_EV23_YELLOW));
+
     // Ceiling
     public static final Block BLOCK_TICKET_BARRIER_ENTRANCE_A = registerDovecotFeatures("ticket_barrier_entrance_a", new BlockBeyondTicketBarrier(true));
     public static final Block BLOCK_TICKET_BARRIER_EXIT_A = registerDovecotFeatures("ticket_barrier_exit_a", new BlockBeyondTicketBarrier(false));

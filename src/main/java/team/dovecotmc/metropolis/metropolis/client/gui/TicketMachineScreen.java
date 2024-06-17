@@ -4,6 +4,7 @@ import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
+import net.minecraft.block.BlockState;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.screen.ingame.CraftingScreen;
@@ -22,6 +23,7 @@ import net.minecraft.nbt.NbtCompound;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import team.dovecotmc.metropolis.metropolis.Metropolis;
 import team.dovecotmc.metropolis.metropolis.item.ItemTicket;
@@ -35,18 +37,19 @@ public class TicketMachineScreen extends Screen {
     private static final Identifier BG_TEXTURE_ID = new Identifier(Metropolis.MOD_ID, "textures/gui/ticket_machine.png");
     protected static int IMAGE_WIDTH = 256;
     protected static int IMAGE_HEIGHT = 196;
-    public ItemStack ticketItem;
+//    public ItemStack ticketItem;
 
-    public TicketMachineScreen(ItemStack ticketItem) {
+    public TicketMachineScreen(BlockPos pos, ItemStack ticket) {
         super(Text.translatable("metropolis.title.screen.ticket_machine"));
-        this.ticketItem = ticketItem;
+//        this.ticketItem = ticketItem;
     }
 
     @Override
     protected void init() {
         ButtonWidget buttonTest = new ButtonWidget(0, 0, 128, 20, Text.translatable("metropolis.screen.ticket_machine.button.test"), button -> {
-            NbtCompound nbt = this.ticketItem.getOrCreateNbt();
-            nbt.putInt(ItemTicket.REMAIN_MONEY, nbt.getInt(ItemTicket.REMAIN_MONEY) + 1);
+//            NbtCompound nbt = this.ticketItem.getOrCreateNbt();
+//            nbt.putInt(ItemTicket.REMAIN_MONEY, nbt.getInt(ItemTicket.REMAIN_MONEY) + 1);
+            System.out.println(114514);
         });
         addDrawableChild(buttonTest);
     }
@@ -70,8 +73,8 @@ public class TicketMachineScreen extends Screen {
         matrixStack.scale(16.0F, 16.0F, 16.0F);
         RenderSystem.applyModelViewMatrix();
 
-        VertexConsumerProvider.Immediate immediate = MinecraftClient.getInstance().getBufferBuilders().getEntityVertexConsumers();
-        itemRenderer.renderItem(this.ticketItem, ModelTransformation.Mode.GROUND, 15728880, OverlayTexture.DEFAULT_UV, matrices, immediate, 0);
+//        VertexConsumerProvider.Immediate immediate = MinecraftClient.getInstance().getBufferBuilders().getEntityVertexConsumers();
+//        itemRenderer.renderItem(this.ticketItem, ModelTransformation.Mode.GROUND, 15728880, OverlayTexture.DEFAULT_UV, matrices, immediate, 0);
 
         matrixStack.pop();
 //        RenderSystem.applyModelViewMatrix();
@@ -85,6 +88,6 @@ public class TicketMachineScreen extends Screen {
     @Override
     public void close() {
         super.close();
-        ClientPlayNetworking.send(Metropolis.ID_SCREEN_CLOSE_TICKET_MACHINE, PacketByteBufs.create().writeItemStack(this.ticketItem));
+//        ClientPlayNetworking.send(Metropolis.ID_SCREEN_CLOSE_TICKET_MACHINE, PacketByteBufs.create().writeItemStack(this.ticketItem));
     }
 }
