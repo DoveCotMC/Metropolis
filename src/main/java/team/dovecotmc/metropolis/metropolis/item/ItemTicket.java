@@ -15,7 +15,7 @@ import java.util.List;
  * @project Metropolis
  * @copyright Copyright © 2024 Arrokoth All Rights Reserved.
  */
-public class ItemTicket extends Item {
+public class ItemTicket extends Item implements InterfaceTicket {
     public static final String REMAIN_MONEY = "remain_money";
     public static final String ENTERED = "entered";
     public static final String ENTERED_ZONE = "entered_zone";

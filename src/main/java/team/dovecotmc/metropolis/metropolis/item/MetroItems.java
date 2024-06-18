@@ -59,7 +59,7 @@ public class MetroItems {
     // Ticket
     public static final Item ITEM_TICKET = register("ticket", new ItemTicket(new Item.Settings().group(Metropolis.ITEM_GROUP), true));
     // TODO: 鸽达通 - Dovepus Card (
-    public static final Item ITEM_CARD = register("card", new ItemTicket(new Item.Settings().group(Metropolis.ITEM_GROUP), false));
+    public static final Item ITEM_CARD = register("card", new ItemCard(new Item.Settings().group(Metropolis.ITEM_GROUP)));
     // Monitor
     public static final Item ITEM_MONITOR = register("monitor", new BlockItem(MetroBlocks.BLOCK_MONITOR, new Item.Settings().group(Metropolis.ITEM_GROUP)));
     // Concrete
