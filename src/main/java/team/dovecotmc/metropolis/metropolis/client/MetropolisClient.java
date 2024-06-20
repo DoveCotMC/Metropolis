@@ -10,7 +10,11 @@ import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.fabric.api.client.rendering.v1.*;
 import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
 import net.fabricmc.fabric.api.resource.SimpleSynchronousResourceReloadListener;
+import net.fabricmc.fabric.impl.resource.loader.ModResourcePackUtil;
+import net.fabricmc.fabric.impl.resource.loader.client.pack.ProgrammerArtResourcePack;
 import net.fabricmc.loader.api.FabricLoader;
+import net.fabricmc.loader.api.metadata.ModMetadata;
+import net.fabricmc.loader.impl.metadata.ModMetadataParser;
 import net.minecraft.block.FlowerPotBlock;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.RenderLayer;
@@ -19,6 +23,8 @@ import net.minecraft.client.render.block.BlockRenderManager;
 import net.minecraft.client.render.model.ModelLoader;
 import net.minecraft.client.world.ClientWorld;
 import net.minecraft.item.ItemStack;
+import net.minecraft.resource.FileResourcePackProvider;
+import net.minecraft.resource.Resource;
 import net.minecraft.resource.ResourceManager;
 import net.minecraft.resource.ResourceType;
 import net.minecraft.util.Identifier;
@@ -29,6 +35,8 @@ import team.dovecotmc.metropolis.metropolis.client.block.entity.*;
 import team.dovecotmc.metropolis.metropolis.client.block.model.provider.MetroModelProvicer;
 import team.dovecotmc.metropolis.metropolis.client.gui.TicketMachineScreen;
 import team.dovecotmc.metropolis.metropolis.client.network.MetroClientNetwork;
+
+import java.util.Optional;
 
 /**
  * @author Arrokoth
@@ -89,6 +97,12 @@ public class MetropolisClient implements ClientModInitializer {
         @Override
         public void reload(ResourceManager manager) {
             MetroCustomResources.reload(manager);
+//            ProgrammerArtResourcePack
+//            FileResourcePackProvider
+//            for (Resource resource : manager.getAllResources(new Identifier("mtr", "mtr_custom_resources"))) {
+//                System.out.println(resource);
+//            }
+//            ModResourcePackUtil.openDefault(FabricLoader.getInstance().getModContainer(Metropolis.MOD_ID).get().getMetadata(), ResourceType.CLIENT_RESOURCES, "");
         }
     }
 }

@@ -14,6 +14,9 @@
     "license": "All-Rights-Reserved",
     "icon": "assets/metropolis/icon.png",
     "environment": "*",
+    "mixins": [
+        "metropolis.mixin.json"
+    ],
     "entrypoints": {
         "client": [
             "team.dovecotmc.metropolis.metropolis.client.MetropolisClient"
