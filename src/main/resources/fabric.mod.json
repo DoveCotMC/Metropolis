@@ -19,10 +19,10 @@
     ],
     "entrypoints": {
         "client": [
-            "team.dovecotmc.metropolis.metropolis.client.MetropolisClient"
+            "team.dovecotmc.metropolis.client.MetropolisClient"
         ],
         "main": [
-            "team.dovecotmc.metropolis.metropolis.Metropolis"
+            "team.dovecotmc.metropolis.Metropolis"
         ]
     },
     "depends": {
