@@ -56,6 +56,9 @@ public class MetroItems {
     // Ticket Machine
     public static final Item ITEM_TICKET_MACHINE = register("ticket_machine", new BlockItem(MetroBlocks.BLOCK_TICKET_MACHINE, new Item.Settings().group(Metropolis.ITEM_GROUP)));
 
+    // PIDS
+    public static final Item ITEM_PIDS_1 = register("pids_1", new BlockItem(MetroBlocks.BLOCK_PIDS_1, new Item.Settings().group(Metropolis.ITEM_GROUP)));
+
     // Ticket
     public static final Item ITEM_TICKET = register("ticket", new ItemTicket(new Item.Settings().group(Metropolis.ITEM_GROUP), true));
     // TODO: 鸽达通 - Dovepus Card (

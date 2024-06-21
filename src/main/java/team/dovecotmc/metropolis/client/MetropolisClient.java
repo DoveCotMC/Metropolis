@@ -38,10 +38,10 @@ public class MetropolisClient implements ClientModInitializer {
 //            });
 //        });
 
-        // Load custom trains
+        // Some nte stuff maybe?
         if (FabricLoader.getInstance().isModLoaded("mtrsteamloco")) {
             Metropolis.LOGGER.info("MTR-NTE detected");
-            ResourceManagerHelper.get(ResourceType.CLIENT_RESOURCES).registerReloadListener(new CustomResourcesWrapper());
+            // ??
         }
 
         MetroClientNetwork.registerTicketVendorGuiReceiver();
@@ -67,17 +67,5 @@ public class MetropolisClient implements ClientModInitializer {
 //
 //        WorldRenderEvents.LAST.register(context -> {
 //        });
-    }
-
-    static class CustomResourcesWrapper implements SimpleSynchronousResourceReloadListener {
-        @Override
-        public Identifier getFabricId() {
-            return new Identifier(Metropolis.MOD_ID, CUSTOM_RESOURCE_ID);
-        }
-
-        @Override
-        public void reload(ResourceManager manager) {
-            MetroCustomResources.reload(manager);
-        }
     }
 }

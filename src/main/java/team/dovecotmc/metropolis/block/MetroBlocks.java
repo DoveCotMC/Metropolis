@@ -61,6 +61,9 @@ public class MetroBlocks {
     // Ticket Machine
     public static final Block BLOCK_TICKET_MACHINE = register("ticket_machine", new team.dovecotmc.metropolis.block.BlockTicketMachine());
 
+    // PIDS
+    public static final Block BLOCK_PIDS_1 = register("pids_1", new BlockMetroPIDSOne());
+
     // Monitor
     public static final Block BLOCK_MONITOR = register("monitor", new BlockMonitor());
     // Concrete
