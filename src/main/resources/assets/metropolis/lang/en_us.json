@@ -1,6 +1,15 @@
 {
     "gui.metropolis.ticket_vendor.title": "Ticket Vendor Machine",
     "gui.metropolis.ticket_vendor.subtitle": "Press the item of your operation",
+    "gui.metropolis.ticket_vendor.refund_tips": "᛫ Use [Refund] button to return wrong tickets.",
+    "gui.metropolis.ticket_vendor.button.buy_tickets": "Tickets",
+    "gui.metropolis.ticket_vendor.button.special": "Special",
+    "gui.metropolis.ticket_vendor.button.refund": "Refund",
+    "gui.metropolis.ticket_vendor.button.tickets": "Tickets",
+    "gui.metropolis.ticket_vendor.button.charge": "Charge",
+    "gui.metropolis.ticket_vendor.button.buy_commuter": "Buy commuter",
+    "gui.metropolis.ticket_vendor.button.buy_ic_card": "Buy an IC card",
+
 
     "metropolis.tooltip.ticket.money_remain": "§2Money Remain: %s",
     "metropolis.tooltip.ticket.entered_station_zone": "§7Entered zone %s",

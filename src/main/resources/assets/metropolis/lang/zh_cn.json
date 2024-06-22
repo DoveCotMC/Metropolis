@@ -1,0 +1,16 @@
+{
+    "gui.metropolis.ticket_vendor.title": "多功能售票机",
+    "gui.metropolis.ticket_vendor.subtitle": "请点击想要进行的操作",
+    "gui.metropolis.ticket_vendor.refund_tips": "᛫ 可以使用左下角的“退票”按钮退还单程票",
+    "gui.metropolis.ticket_vendor.button.buy_tickets": "车票",
+    "gui.metropolis.ticket_vendor.button.special": "优惠车票",
+    "gui.metropolis.ticket_vendor.button.refund": "退票",
+    "gui.metropolis.ticket_vendor.button.tickets": "车票",
+    "gui.metropolis.ticket_vendor.button.charge": "充值",
+    "gui.metropolis.ticket_vendor.button.buy_commuter": "购买月票",
+    "gui.metropolis.ticket_vendor.button.buy_ic_card": "购买IC卡",
+
+    "metropolis.tooltip.ticket.money_remain": "§2Money Remain: %s",
+    "metropolis.tooltip.ticket.entered_station_zone": "§7Entered zone %s",
+    "metropolis.tooltip.ticket.no_station_entered": "§7No station entered"
+}

@@ -2,13 +2,16 @@ package team.dovecotmc.metropolis.client.gui;
 
 import com.mojang.blaze3d.platform.TextureUtil;
 import com.mojang.blaze3d.systems.RenderSystem;
+import net.fabricmc.fabric.impl.client.indigo.renderer.render.BlockRenderContext;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.screen.ingame.InventoryScreen;
 import net.minecraft.client.gui.widget.ButtonWidget;
 import net.minecraft.client.gui.widget.SliderWidget;
+import net.minecraft.client.render.GameRenderer;
 import net.minecraft.client.render.Tessellator;
 import net.minecraft.client.render.VertexConsumerProvider;
+import net.minecraft.client.render.WorldRenderer;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.item.ItemStack;
 import net.minecraft.text.Text;
@@ -104,7 +107,8 @@ public class TicketMachineScreen extends Screen {
         int y1 = intoTexturePosY(107);
         // Four big centered buttons
         // Green
-        if (this.mouseX >= x0 && this.mouseY >= y0 && this.mouseX <= x0 + BUTTON_BIG_WIDTH && this.mouseY <= y0 + BUTTON_BIG_HEIGHT) {
+        boolean greenHovering = this.mouseX >= x0 && this.mouseY >= y0 && this.mouseX <= x0 + BUTTON_BIG_WIDTH && this.mouseY <= y0 + BUTTON_BIG_HEIGHT;
+        if (greenHovering) {
             RenderSystem.setShaderTexture(0, BUTTON_GREEN_HOVER_TEXTURE_ID);
         } else {
             RenderSystem.setShaderTexture(0, BUTTON_GREEN_TEXTURE_ID);
@@ -120,7 +124,8 @@ public class TicketMachineScreen extends Screen {
         );
 
         // Purple
-        if (this.mouseX >= x0 && this.mouseY >= y1 && this.mouseX <= x0 + BUTTON_BIG_WIDTH && this.mouseY <= y1 + BUTTON_BIG_HEIGHT) {
+        boolean purpleHovering = this.mouseX >= x0 && this.mouseY >= y1 && this.mouseX <= x0 + BUTTON_BIG_WIDTH && this.mouseY <= y1 + BUTTON_BIG_HEIGHT;
+        if (purpleHovering) {
             RenderSystem.setShaderTexture(0, BUTTON_PURPLE_HOVER_TEXTURE_ID);
         } else {
             RenderSystem.setShaderTexture(0, BUTTON_PURPLE_TEXTURE_ID);
@@ -136,7 +141,8 @@ public class TicketMachineScreen extends Screen {
         );
 
         // Gray Top
-        if (this.mouseX >= x1 && this.mouseY >= y0 && this.mouseX <= x1 + BUTTON_BIG_WIDTH && this.mouseY <= y0 + BUTTON_BIG_HEIGHT) {
+        boolean grayTopHovering = this.mouseX >= x1 && this.mouseY >= y0 && this.mouseX <= x1 + BUTTON_BIG_WIDTH && this.mouseY <= y0 + BUTTON_BIG_HEIGHT;
+        if (grayTopHovering) {
             RenderSystem.setShaderTexture(0, BUTTON_GRAY_1_HOVER_TEXTURE_ID);
         } else {
             RenderSystem.setShaderTexture(0, BUTTON_GRAY_1_TEXTURE_ID);
@@ -152,7 +158,8 @@ public class TicketMachineScreen extends Screen {
         );
 
         // Gray Bottom
-        if (this.mouseX >= x1 && this.mouseY >= y1 && this.mouseX <= x1 + BUTTON_BIG_WIDTH && this.mouseY <= y1 + BUTTON_BIG_HEIGHT) {
+        boolean grayBottomHovering = this.mouseX >= x1 && this.mouseY >= y1 && this.mouseX <= x1 + BUTTON_BIG_WIDTH && this.mouseY <= y1 + BUTTON_BIG_HEIGHT;
+        if (grayBottomHovering) {
             RenderSystem.setShaderTexture(0, BUTTON_GRAY_2_HOVER_TEXTURE_ID);
         } else {
             RenderSystem.setShaderTexture(0, BUTTON_GRAY_2_TEXTURE_ID);
@@ -224,21 +231,14 @@ public class TicketMachineScreen extends Screen {
 
         // Render text
         // Title
-//        this.textRenderer.draw(
-//                matrices,
-//                Text.translatable("gui.metropolis.ticket_vendor.subtitle"),
-//                intoTexturePosX(36),
-//                intoTexturePosY(13),
-//                0xFFFFFF
-//        );
         VertexConsumerProvider.Immediate immediate = VertexConsumerProvider.immediate(Tessellator.getInstance().getBuffer());
-        // 15728880
+//        BlockRenderContext
         this.textRenderer.drawWithOutline(
                 Text.translatable("gui.metropolis.ticket_vendor.title").asOrderedText(),
                 intoTexturePosX(36),
                 intoTexturePosY(12),
                 0xFFFFFF,
-                0x16161B,
+                0x3F3F3F,
                 matrices.peek().getPositionMatrix(),
                 immediate,
                 15728880
@@ -251,8 +251,113 @@ public class TicketMachineScreen extends Screen {
                 Text.translatable("gui.metropolis.ticket_vendor.subtitle"),
                 intoTexturePosX(48),
                 intoTexturePosY(35),
-                0x16161B
+                0x3F3F3F
         );
+
+        // Refund tips
+        matrices.push();
+        float scaleFactor = 10f / 14f;
+        matrices.scale(scaleFactor, scaleFactor, scaleFactor);
+        this.textRenderer.draw(
+                matrices,
+                Text.translatable("gui.metropolis.ticket_vendor.refund_tips"),
+                intoTexturePosX(50) / scaleFactor,
+                intoTexturePosY(175) / scaleFactor,
+                0xFFFFFF
+        );
+        matrices.pop();
+
+        // Buttons
+        // Left bar Buttons
+        matrices.push();
+//        scaleFactor = 10f / 14f;
+        matrices.scale(scaleFactor, scaleFactor, scaleFactor);
+
+        // Buy Tickets
+        this.textRenderer.draw(
+                matrices,
+                Text.translatable("gui.metropolis.ticket_vendor.button.buy_tickets"),
+                intoTexturePosX(11) / scaleFactor,
+                intoTexturePosY(31) / scaleFactor,
+                0x3F3F3F
+        );
+
+        // Special
+        this.textRenderer.draw(
+                matrices,
+                Text.translatable("gui.metropolis.ticket_vendor.button.special"),
+                intoTexturePosX(11) / scaleFactor,
+                intoTexturePosY(44) / scaleFactor,
+                0x3F3F3F
+        );
+
+        // Refund
+        this.textRenderer.draw(
+                matrices,
+                Text.translatable("gui.metropolis.ticket_vendor.button.refund"),
+                intoTexturePosX(11) / scaleFactor,
+                intoTexturePosY(180) / scaleFactor,
+                0xFFFFFF
+        );
+        matrices.pop();
+
+        // Centered
+        matrices.push();
+//        scaleFactor = 14f / 14f;
+        scaleFactor = 1f;
+        matrices.scale(scaleFactor, scaleFactor, scaleFactor);
+        // Tickets/Green
+        this.textRenderer.drawWithOutline(
+                Text.translatable("gui.metropolis.ticket_vendor.button.tickets").asOrderedText(),
+                intoTexturePosX(54) / scaleFactor + (greenHovering ? 1 : 0),
+                intoTexturePosY(58) / scaleFactor + (greenHovering ? 1 : 0),
+                0xFFFFFF,
+                0x5EA919,
+                matrices.peek().getPositionMatrix(),
+                immediate,
+                15728880
+        );
+        immediate.draw();
+
+        // Charge/Purple
+        this.textRenderer.drawWithOutline(
+                Text.translatable("gui.metropolis.ticket_vendor.button.charge").asOrderedText(),
+                intoTexturePosX(54) / scaleFactor + (purpleHovering ? 1 : 0),
+                intoTexturePosY(118) / scaleFactor + (purpleHovering ? 1 : 0),
+                0xFFFFFF,
+                0xA9309F,
+                matrices.peek().getPositionMatrix(),
+                immediate,
+                15728880
+        );
+        immediate.draw();
+
+        // Buy Commuter/Gray top
+        this.textRenderer.drawWithOutline(
+                Text.translatable("gui.metropolis.ticket_vendor.button.buy_commuter").asOrderedText(),
+                intoTexturePosX(152) / scaleFactor + (grayTopHovering ? 1 : 0),
+                intoTexturePosY(58) / scaleFactor + (grayTopHovering ? 1 : 0),
+                0xFFFFFF,
+                0x3F4548,
+                matrices.peek().getPositionMatrix(),
+                immediate,
+                15728880
+        );
+        immediate.draw();
+
+        // Charge/Gray bottom
+        this.textRenderer.drawWithOutline(
+                Text.translatable("gui.metropolis.ticket_vendor.button.buy_ic_card").asOrderedText(),
+                intoTexturePosX(152) / scaleFactor + (grayBottomHovering ? 1 : 0),
+                intoTexturePosY(118) / scaleFactor + (grayBottomHovering ? 1 : 0),
+                0xFFFFFF,
+                0x3F4548,
+                matrices.peek().getPositionMatrix(),
+                immediate,
+                15728880
+        );
+        immediate.draw();
+        matrices.pop();
 
         super.render(matrices, mouseX, mouseY, delta);
 
