@@ -55,7 +55,7 @@ public class TicketMachineScreen extends Screen {
     protected int tipId = 0;
 
     public TicketMachineScreen(BlockPos pos, ItemStack ticket) {
-        super(Text.translatable("metropolis.title.screen.ticket_vendor"));
+        super(Text.translatable("gui.metropolis.ticket_vendor.title"));
 //        this.ticketItem = ticketItem;
 //        InventoryScreen
     }
@@ -237,11 +237,11 @@ public class TicketMachineScreen extends Screen {
         VertexConsumerProvider.Immediate immediate = VertexConsumerProvider.immediate(Tessellator.getInstance().getBuffer());
 //        BlockRenderContext
         this.textRenderer.drawWithOutline(
-                Text.translatable("gui.metropolis.ticket_vendor.title").asOrderedText(),
+                this.getTitle().asOrderedText(),
                 intoTexturePosX(36),
                 intoTexturePosY(12),
                 0xFFFFFF,
-                0x3F3F3F,
+                0x16161B,
                 matrices.peek().getPositionMatrix(),
                 immediate,
                 15728880
