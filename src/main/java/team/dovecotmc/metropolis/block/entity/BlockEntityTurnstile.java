@@ -21,7 +21,8 @@ public class BlockEntityTurnstile extends BlockEntity implements BlockTurnstileI
     private final DefaultedList<ItemStack> items = DefaultedList.ofSize(2, ItemStack.EMPTY);
 
     public BlockEntityTurnstile(BlockPos pos, BlockState state) {
-        super(MetroBlockEntities.TURNSTILE_BLOCK_ENTITY, pos, state);
+//        super(MetroBlockEntities.TURNSTILE_BLOCK_ENTITY, pos, state);
+        super(null, pos, state);
     }
 
     @Nullable

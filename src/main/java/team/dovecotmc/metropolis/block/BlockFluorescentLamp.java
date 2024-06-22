@@ -1,12 +1,12 @@
 package team.dovecotmc.metropolis.block;
 
-import mtr.block.IBlock;
 import net.minecraft.block.*;
 import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.state.StateManager;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.world.BlockView;
+import team.dovecotmc.metropolis.util.MetroBlockUtil;
 
 /**
  * @author Arrokoth
@@ -29,6 +29,6 @@ public class BlockFluorescentLamp extends HorizontalFacingBlock {
 
     @Override
     public VoxelShape getOutlineShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {
-        return IBlock.getVoxelShapeByDirection(4.0, 12.0, 0.0, 12.0, 16.0, 16.0, IBlock.getStatePropertySafe(state, FACING));
+        return MetroBlockUtil.getVoxelShapeByDirection(4.0, 12.0, 0.0, 12.0, 16.0, 16.0, state.get(FACING));
     }
 }

@@ -1,5 +1,5 @@
 plugins {
-    id 'fabric-loom' version '1.6-SNAPSHOT'
+    id 'fabric-loom' version '1.7-SNAPSHOT'
     id 'maven-publish'
 }
 
@@ -30,8 +30,8 @@ dependencies {
     modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
 
     // Minecraft Transit Railway
-//    modImplementation "curse.maven:minecraft-transit-railway-266707:4505539"
     modImplementation "maven.modrinth:minecraft-transit-railway:FABRIC-1.19.2-3.2.2-hotfix-1"
+//    modImplementation "maven.modrinth:minecraft-transit-railway:FABRIC-4.0.0-beta-8+1.19.2"
 
     // NTE
 //    modImplementation "maven.modrinth:mtr-nte:0.5.1+1.19.2"

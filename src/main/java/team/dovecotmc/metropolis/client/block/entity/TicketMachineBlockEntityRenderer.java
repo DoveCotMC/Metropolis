@@ -1,8 +1,8 @@
 package team.dovecotmc.metropolis.client.block.entity;
 
-import mtr.block.IBlock;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.minecraft.block.DoorBlock;
 import net.minecraft.block.enums.DoubleBlockHalf;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.VertexConsumerProvider;
@@ -11,6 +11,7 @@ import net.minecraft.client.render.item.ItemRenderer;
 import net.minecraft.client.render.model.json.ModelTransformation;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.item.ItemStack;
+import net.minecraft.state.property.EnumProperty;
 import net.minecraft.text.Text;
 import net.minecraft.util.math.*;
 import team.dovecotmc.metropolis.block.entity.BlockEntityTicketMachine;
@@ -24,9 +25,11 @@ import team.dovecotmc.metropolis.item.MetroItems;
  */
 @Environment(EnvType.CLIENT)
 public class TicketMachineBlockEntityRenderer implements BlockEntityRenderer<BlockEntityTicketMachine> {
+    public static final EnumProperty<DoubleBlockHalf> HALF = EnumProperty.of("half", DoubleBlockHalf.class);
+
     @Override
     public void render(BlockEntityTicketMachine entity, float tickDelta, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, int overlay) {
-        if (entity.getCachedState().get(IBlock.HALF) == DoubleBlockHalf.LOWER) {
+        if (entity.getCachedState().get(HALF) == DoubleBlockHalf.LOWER) {
             return;
         }
 

@@ -1,6 +1,5 @@
 package team.dovecotmc.metropolis.block;
 
-import mtr.block.IBlock;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.LivingEntity;
@@ -21,6 +20,7 @@ import net.minecraft.world.WorldAccess;
 import org.jetbrains.annotations.Nullable;
 import team.dovecotmc.metropolis.block.entity.BlockEntityTicketVendor;
 import team.dovecotmc.metropolis.network.MetroServerNetwork;
+import team.dovecotmc.metropolis.util.MetroBlockUtil;
 
 /**
  * @author Arrokoth
@@ -52,12 +52,12 @@ public class BlockTicketVendor extends HorizontalFacingBlock implements BlockEnt
 
     @Override
     public VoxelShape getOutlineShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {
-        Direction facing = IBlock.getStatePropertySafe(state, FACING);
+        Direction facing = state.get(FACING);
 //        return VoxelShapes.combine(
 //                IBlock.getVoxelShapeByDirection(0.0, 0.0, 10.0, 16.0, 16.0, 16.0, facing),
 //                IBlock.getVoxelShapeByDirection(0.0, 0.0, 4.0, 16.0 , 10.0, 16.0, facing),
 //                BooleanBiFunction.OR);
-        return IBlock.getVoxelShapeByDirection(0.0, 0.0, 4.0, 16.0 , 16.0, 16.0, facing);
+        return MetroBlockUtil.getVoxelShapeByDirection(0.0, 0.0, 4.0, 16.0 , 16.0, 16.0, facing);
     }
 
 //    public boolean canPlaceAt(BlockState state, WorldView world, BlockPos pos) {

@@ -1,6 +1,5 @@
 package team.dovecotmc.metropolis.block;
 
-import mtr.block.IBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.HorizontalFacingBlock;
@@ -11,6 +10,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.world.BlockView;
+import team.dovecotmc.metropolis.util.MetroBlockUtil;
 
 /**
  * @author Arrokoth
@@ -25,14 +25,14 @@ public class BlockTunnelLight extends HorizontalFacingBlock {
 
     @Override
     public VoxelShape getOutlineShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {
-        Direction facing = IBlock.getStatePropertySafe(state, FACING);
-        return IBlock.getVoxelShapeByDirection(2.0, 6.0, 12.0, 14.0, 10.0, 16.0, facing);
+        Direction facing = state.get(FACING);
+        return MetroBlockUtil.getVoxelShapeByDirection(2.0, 6.0, 12.0, 14.0, 10.0, 16.0, facing);
     }
 
     @Override
     public VoxelShape getCollisionShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {
-        Direction facing = IBlock.getStatePropertySafe(state, FACING);
-        return IBlock.getVoxelShapeByDirection(2.0, 6.0, 12.0, 14.0, 10.0, 16.0, facing);
+        Direction facing = state.get(FACING);
+        return MetroBlockUtil.getVoxelShapeByDirection(2.0, 6.0, 12.0, 14.0, 10.0, 16.0, facing);
     }
 
     public BlockState getPlacementState(ItemPlacementContext ctx) {

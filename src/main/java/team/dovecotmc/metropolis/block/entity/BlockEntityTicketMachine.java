@@ -31,7 +31,8 @@ public class BlockEntityTicketMachine extends BlockEntity implements BlockTicket
     private final DefaultedList<ItemStack> items = DefaultedList.ofSize(2, ItemStack.EMPTY);
 
     public BlockEntityTicketMachine(BlockPos pos, BlockState state) {
-        super(MetroBlockEntities.TICKET_MACHINE_BLOCK_ENTITY, pos, state);
+//        super(MetroBlockEntities.TICKET_MACHINE_BLOCK_ENTITY, pos, state);
+        super(null, pos, state);
     }
 
     @Nullable

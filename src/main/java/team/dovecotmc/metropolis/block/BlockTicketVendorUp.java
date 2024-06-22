@@ -1,6 +1,6 @@
 package team.dovecotmc.metropolis.block;
 
-import mtr.block.IBlock;
+import mtr.Items;
 import net.minecraft.block.*;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemPlacementContext;
@@ -17,6 +17,7 @@ import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldAccess;
+import team.dovecotmc.metropolis.util.MetroBlockUtil;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -47,7 +48,7 @@ public class BlockTicketVendorUp extends HorizontalFacingBlock {
             return ActionResult.PASS;
         }
 
-        if (player.getStackInHand(hand).getItem().equals(mtr.Items.BRUSH.get())) {
+        if (player.getStackInHand(hand).getItem().equals(Items.BRUSH.get())) {
             int id = ((BlockTicketVendorUp) state.getBlock()).id;
             world.setBlockState(pos, TYPES.get((id + 1) % (TYPES.size())).getDefaultState().with(FACING, state.get(FACING)));
             world.playSound(null, pos, SoundEvents.BLOCK_COPPER_BREAK, SoundCategory.BLOCKS, 1f, 1f);
@@ -64,12 +65,12 @@ public class BlockTicketVendorUp extends HorizontalFacingBlock {
 
     @Override
     public VoxelShape getOutlineShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {
-        Direction facing = IBlock.getStatePropertySafe(state, FACING);
+        Direction facing = state.get(FACING);
 //        return VoxelShapes.combine(
 //                IBlock.getVoxelShapeByDirection(0.0, 0.0, 10.0, 16.0, 16.0, 16.0, facing),
 //                IBlock.getVoxelShapeByDirection(0.0, 0.0, 4.0, 16.0 , 10.0, 16.0, facing),
 //                BooleanBiFunction.OR);
-        return IBlock.getVoxelShapeByDirection(0.0, 0.0, 9.0, 16.0 , 16.0, 16.0, facing);
+        return MetroBlockUtil.getVoxelShapeByDirection(0.0, 0.0, 9.0, 16.0 , 16.0, 16.0, facing);
     }
 
     @Override
