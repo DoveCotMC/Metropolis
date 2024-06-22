@@ -52,6 +52,8 @@ public class TicketMachineScreen extends Screen {
     protected double mouseX = 0;
     protected double mouseY = 0;
 
+    protected int tipId = 0;
+
     public TicketMachineScreen(BlockPos pos, ItemStack ticket) {
         super(Text.translatable("metropolis.title.screen.ticket_vendor"));
 //        this.ticketItem = ticketItem;
@@ -60,6 +62,9 @@ public class TicketMachineScreen extends Screen {
 
     @Override
     protected void init() {
+        if (MinecraftClient.getInstance().world != null) {
+            tipId = MinecraftClient.getInstance().world.random.nextInt(3);
+        }
 //        ButtonWidget buttonTest = new ButtonWidget(0, 0, 128, 20, Text.translatable("metropolis.screen.ticket_machine.button.test"), button -> {
 ////            NbtCompound nbt = this.ticketItem.getOrCreateNbt();
 ////            nbt.putInt(ItemTicket.REMAIN_MONEY, nbt.getInt(ItemTicket.REMAIN_MONEY) + 1);
@@ -81,8 +86,6 @@ public class TicketMachineScreen extends Screen {
 
     @Override
     public void render(MatrixStack matrices, int mouseX, int mouseY, float delta) {
-        MinecraftClient mc = MinecraftClient.getInstance();
-
         this.fillGradient(matrices, 0, 0, this.width, this.height, -1072689136, -804253680);
 
         RenderSystem.assertOnRenderThread();
@@ -258,14 +261,22 @@ public class TicketMachineScreen extends Screen {
         matrices.push();
         float scaleFactor = 10f / 14f;
         matrices.scale(scaleFactor, scaleFactor, scaleFactor);
+//        Text tip = Text.translatable("gui.metropolis.ticket_vendor.tips_" + tipId);
+        float tipId = 0;
+        if (this.client != null && this.client.world != null) {
+            tipId = client.world.getTime() / 128f;
+        }
+        Text tip = Text.translatable("gui.metropolis.ticket_vendor.tips_" + ((int) tipId % 3));
         this.textRenderer.draw(
                 matrices,
-                Text.translatable("gui.metropolis.ticket_vendor.refund_tips"),
+                tip,
                 intoTexturePosX(50) / scaleFactor,
                 intoTexturePosY(175) / scaleFactor,
                 0xFFFFFF
         );
         matrices.pop();
+        RenderSystem.colorMask(true, true, true, true);
+        RenderSystem.setShaderColor(1f, 1f, 1f, 1f);
 
         // Buttons
         // Left bar Buttons
