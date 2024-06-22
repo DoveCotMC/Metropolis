@@ -1,8 +1,6 @@
 {
-    "gui.metropolis.info.ticket_machine.default": "Please use Emerald or Card",
-    "gui.metropolis.info.ticket_machine.ticket_selling": "Current price: %d",
-    "gui.metropolis.info.ticket_machine.take_ticket": "Please take the ticket",
-    "gui.metropolis.info.ticket_machine.card_info": "Remain money: %d",
+    "gui.metropolis.ticket_vendor.title": "Ticket Vendor Machine",
+    "gui.metropolis.ticket_vendor.subtitle": "Press the item of your operation",
 
     "metropolis.tooltip.ticket.money_remain": "§2Money Remain: %s",
     "metropolis.tooltip.ticket.entered_station_zone": "§7Entered zone %s",
