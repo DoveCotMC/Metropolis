@@ -24,14 +24,14 @@ import java.util.Set;
  * @project Metropolis
  * @copyright Copyright © 2024 Arrokoth All Rights Reserved.
  */
-public class TicketMachineScreen2 extends Screen {
-    private static final Identifier BG_TEXTURE_ID = new Identifier(Metropolis.MOD_ID, "textures/gui/ticket_vendor_2/ticket_vendor_2_base.png");
+public class TicketMachineScreen3 extends Screen {
+    private static final Identifier BG_TEXTURE_ID = new Identifier(Metropolis.MOD_ID, "textures/gui/ticket_vendor_3/ticket_vendor_3_base.png");
     protected static final int BG_TEXTURE_WIDTH = 256;
     protected static final int BG_TEXTURE_HEIGHT = 196;
 
-    private static final Identifier STATION_TAB_BASE_ID = new Identifier(Metropolis.MOD_ID, "textures/gui/ticket_vendor_2/station_tab_base.png");
-    private static final Identifier STATION_TAB_BASE_HOVER_ID = new Identifier(Metropolis.MOD_ID, "textures/gui/ticket_vendor_2/station_tab_base_hover.png");
-    protected static final int STATION_TAB_BASE_WIDTH = 150;
+    private static final Identifier STATION_TAB_BASE_ID = new Identifier(Metropolis.MOD_ID, "textures/gui/ticket_vendor_3/station_tab_base.png");
+    private static final Identifier STATION_TAB_BASE_HOVER_ID = new Identifier(Metropolis.MOD_ID, "textures/gui/ticket_vendor_3/station_tab_base_hover.png");
+    protected static final int STATION_TAB_BASE_WIDTH = 48;
     protected static final int STATION_TAB_BASE_HEIGHT = 16;
 
     protected static final int MAX_VISIBLE = 8;
@@ -54,7 +54,7 @@ public class TicketMachineScreen2 extends Screen {
 
     protected int tipId = 0;
 
-    public TicketMachineScreen2(BlockPos pos, ItemStack ticket) {
+    public TicketMachineScreen3(BlockPos pos, ItemStack ticket) {
         super(Text.translatable("gui.metropolis.ticket_vendor_2.title"));
         this.pos = pos;
         if (this.client != null && this.client.world != null) {
@@ -92,19 +92,20 @@ public class TicketMachineScreen2 extends Screen {
         );
 
         // Station selection
-        float scaleFactor = 12f / 14f;
+        float scaleFactor = 10f / 14f;
         if (this.client != null && this.client.world != null) {
             stations = MtrStationUtil.getStations(this.client.world);
-            final int maxStrWidth = Objects.equals(stationFrom, "") ? 112 : 96;
+//            final int maxStrWidth = Objects.equals(stationFrom, "") ? 112 : 96;
+            final int maxStrWidth = 32;
             int h0 = 128;
-            int x0 = 48;
+            int x0 = 24;
             int y0 = 51;
             int i0 = -sliderPos;
             int j0 = 0;
 
             // Slider
             int h1 = 119;
-            int x1 = 202;
+            int x1 = 76;
             int y1 = (int) (51 + (float) sliderPos / (float) (stations.size() - MAX_VISIBLE) * h1);
 
             RenderSystem.setShaderTexture(0, SLIDER_ID);
@@ -129,6 +130,10 @@ public class TicketMachineScreen2 extends Screen {
                     break;
                 }
 
+                float r = ColorHelper.Argb.getRed(station.color);
+                float g = ColorHelper.Argb.getGreen(station.color);
+                float b = ColorHelper.Argb.getBlue(station.color);
+                RenderSystem.setShaderColor(r / 256f, g / 256f, b / 255f, 1f);
                 boolean thisTabHovering = this.mouseX >= intoTexturePosX(x0) && this.mouseY >= intoTexturePosY(y0 + STATION_TAB_BASE_HEIGHT * i0) && this.mouseX <= intoTexturePosX(x0 + STATION_TAB_BASE_WIDTH) && this.mouseY <= intoTexturePosY(y0 + STATION_TAB_BASE_HEIGHT * i0 + STATION_TAB_BASE_HEIGHT);
                 if (thisTabHovering) {
                     RenderSystem.setShaderTexture(0, STATION_TAB_BASE_HOVER_ID);
@@ -144,23 +149,24 @@ public class TicketMachineScreen2 extends Screen {
                         STATION_TAB_BASE_WIDTH, STATION_TAB_BASE_HEIGHT,
                         STATION_TAB_BASE_WIDTH, STATION_TAB_BASE_HEIGHT
                 );
-
-                // Station color
-                float r = ColorHelper.Argb.getRed(station.color);
-                float g = ColorHelper.Argb.getGreen(station.color);
-                float b = ColorHelper.Argb.getBlue(station.color);
-                RenderSystem.setShaderColor(r / 256f, g / 256f, b / 255f, 1f);
-                RenderSystem.setShaderTexture(0, new Identifier(Metropolis.MOD_ID, "textures/blanco.png"));
-                drawTexture(
-                        matrices,
-                        intoTexturePosX(x0 + 4),
-                        intoTexturePosY(y0 + STATION_TAB_BASE_HEIGHT * i0 + 4),
-                        0,
-                        0,
-                        8, 8,
-                        8, 8
-                );
                 RenderSystem.setShaderColor(1f, 1f, 1f, 1f);
+
+//                // Station color
+//                float r = ColorHelper.Argb.getRed(station.color);
+//                float g = ColorHelper.Argb.getGreen(station.color);
+//                float b = ColorHelper.Argb.getBlue(station.color);
+//                RenderSystem.setShaderColor(r / 256f, g / 256f, b / 255f, 1f);
+//                RenderSystem.setShaderTexture(0, new Identifier(Metropolis.MOD_ID, "textures/blanco.png"));
+//                drawTexture(
+//                        matrices,
+//                        intoTexturePosX(x0 + 4),
+//                        intoTexturePosY(y0 + STATION_TAB_BASE_HEIGHT * i0 + 4),
+//                        0,
+//                        0,
+//                        8, 8,
+//                        8, 8
+//                );
+//                RenderSystem.setShaderColor(1f, 1f, 1f, 1f);
 
                 // Station name
                 matrices.push();
@@ -181,16 +187,40 @@ public class TicketMachineScreen2 extends Screen {
                     textRenderer.draw(
                             matrices,
                             str0,
-                            intoTexturePosX(x0 + 16) / scaleFactor,
-                            intoTexturePosY(y0 + STATION_TAB_BASE_HEIGHT * i0 + 5) / scaleFactor,
+                            intoTexturePosX(x0 + 4) / scaleFactor,
+                            intoTexturePosY(y0 + STATION_TAB_BASE_HEIGHT * i0 + 6) / scaleFactor,
                             0x3F3F3F
                     );
+//                    VertexConsumerProvider.Immediate immediate = VertexConsumerProvider.immediate(Tessellator.getInstance().getBuffer());
+//                    this.textRenderer.drawWithOutline(
+//                            Text.literal(str0).asOrderedText(),
+//                            intoTexturePosX(x0 + 4) / scaleFactor,
+//                            intoTexturePosY(y0 + STATION_TAB_BASE_HEIGHT * i0 + 5) / scaleFactor,
+//                            0xFFFFFF,
+//                            station.color,
+//                            matrices.peek().getPositionMatrix(),
+//                            immediate,
+//                            15728880
+//                    );
+//                    immediate.draw();
                 } else {
+//                    VertexConsumerProvider.Immediate immediate = VertexConsumerProvider.immediate(Tessellator.getInstance().getBuffer());
+//                    this.textRenderer.drawWithOutline(
+//                            Text.literal(stationName).asOrderedText(),
+//                            intoTexturePosX(x0 + 4) / scaleFactor,
+//                            intoTexturePosY(y0 + STATION_TAB_BASE_HEIGHT * i0 + 5) / scaleFactor,
+//                            0xFFFFFF,
+//                            station.color,
+//                            matrices.peek().getPositionMatrix(),
+//                            immediate,
+//                            15728880
+//                    );
+//                    immediate.draw();
                     textRenderer.draw(
                             matrices,
                             stationName,
-                            intoTexturePosX(x0 + 16) / scaleFactor,
-                            intoTexturePosY(y0 + STATION_TAB_BASE_HEIGHT * i0 + 5) / scaleFactor,
+                            intoTexturePosX(x0 + 4) / scaleFactor,
+                            intoTexturePosY(y0 + STATION_TAB_BASE_HEIGHT * i0 + 6) / scaleFactor,
                             0x3F3F3F
                     );
                 }
@@ -231,7 +261,7 @@ public class TicketMachineScreen2 extends Screen {
         this.textRenderer.draw(
                 matrices,
                 Text.translatable("gui.metropolis.ticket_vendor_2.subtitle"),
-                intoTexturePosX(48),
+                intoTexturePosX(24),
                 intoTexturePosY(35),
                 0x3F3F3F
         );

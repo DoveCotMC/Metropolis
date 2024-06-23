@@ -2,12 +2,9 @@ package team.dovecotmc.metropolis.client.gui;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.gui.screen.GameMenuScreen;
 import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.client.realms.gui.screen.RealmsSettingsScreen;
 import net.minecraft.client.render.Tessellator;
 import net.minecraft.client.render.VertexConsumerProvider;
-import net.minecraft.client.sound.SoundInstance;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.item.ItemStack;
 import net.minecraft.sound.SoundCategory;
@@ -372,7 +369,7 @@ public class TicketMachineScreen1 extends Screen {
         if (greenHovering && pressed) {
             this.client.world.playSound(pos, SoundEvents.UI_BUTTON_CLICK, SoundCategory.MASTER, 1f, 1f, false);
             // TODO: Data transfer
-            this.client.setScreen(new TicketMachineScreen2(pos, ItemStack.EMPTY));
+            this.client.setScreen(new TicketMachineScreen3(pos, ItemStack.EMPTY));
         }
 
         super.render(matrices, mouseX, mouseY, delta);
