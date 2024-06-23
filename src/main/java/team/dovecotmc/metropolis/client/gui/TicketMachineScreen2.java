@@ -16,9 +16,8 @@ import net.minecraft.util.math.ColorHelper;
 import team.dovecotmc.metropolis.Metropolis;
 import team.dovecotmc.metropolis.util.MtrStationUtil;
 
-import java.util.HashSet;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
+import java.util.stream.Stream;
 
 /**
  * @author Arrokoth
@@ -98,119 +97,137 @@ public class TicketMachineScreen2 extends Screen {
         float scaleFactor = 12f / 14f;
         if (this.client != null && this.client.world != null) {
             stations = MtrStationUtil.getStations(this.client.world);
-            final int maxStrWidth = Objects.equals(stationFrom, "") ? 112 : 96;
-            int h0 = 128;
-            int x0 = 48;
-            int y0 = 51;
-            int i0 = -sliderPos;
-            int j0 = 0;
 
-            // Slider
-            int h1 = 119;
-            int x1 = 202;
-            int y1 = (int) (51 + (float) sliderPos / (float) (stations.size() - MAX_VISIBLE) * h1);
+            Station locatedStation = MtrStationUtil.getStationByPos(pos, client.world);
+            int stationsSize = stations.size();
 
-            RenderSystem.setShaderTexture(0, SLIDER_ID);
-            drawTexture(
-                    matrices,
-                    intoTexturePosX(x1),
-                    intoTexturePosY(y1),
-                    0,
-                    0,
-                    SLIDER_WIDTH, SLIDER_HEIGHT,
-                    SLIDER_WIDTH, SLIDER_HEIGHT
-            );
+            List<Station> sortedStations = stations.stream().sorted(Comparator.comparingInt(o -> (Math.abs(o.zone - locatedStation.zone)))).toList();
 
-            for (Station station : stations) {
-                // Station base
-                if (i0 < 0) {
-                    i0++;
-                    continue;
-                }
+            if (locatedStation != null) {
+//            final int maxStrWidth = Objects.equals(stationFrom, "") ? 112 : 96;
+                final int maxStrWidth = 96;
+                int h0 = 128;
+                int x0 = 48;
+                int y0 = 51;
+                int i0 = -sliderPos;
+                int j0 = 0;
 
-                if (i0 >= MAX_VISIBLE) {
-                    break;
-                }
+                // Slider
+                int h1 = 119;
+                int x1 = 202;
+                int y1 = (int) (51 + (float) sliderPos / (float) (stationsSize - MAX_VISIBLE) * h1);
 
-                boolean thisTabHovering = this.mouseX >= intoTexturePosX(x0) && this.mouseY >= intoTexturePosY(y0 + STATION_TAB_BASE_HEIGHT * i0) && this.mouseX <= intoTexturePosX(x0 + STATION_TAB_BASE_WIDTH) && this.mouseY <= intoTexturePosY(y0 + STATION_TAB_BASE_HEIGHT * i0 + STATION_TAB_BASE_HEIGHT);
-                if (thisTabHovering) {
-                    RenderSystem.setShaderTexture(0, STATION_TAB_BASE_HOVER_ID);
-                } else {
-                    RenderSystem.setShaderTexture(0, STATION_TAB_BASE_ID);
-                }
+                RenderSystem.setShaderTexture(0, SLIDER_ID);
                 drawTexture(
                         matrices,
-                        intoTexturePosX(x0),
-                        intoTexturePosY(y0 + STATION_TAB_BASE_HEIGHT * i0),
+                        intoTexturePosX(x1),
+                        intoTexturePosY(y1),
                         0,
                         0,
-                        STATION_TAB_BASE_WIDTH, STATION_TAB_BASE_HEIGHT,
-                        STATION_TAB_BASE_WIDTH, STATION_TAB_BASE_HEIGHT
+                        SLIDER_WIDTH, SLIDER_HEIGHT,
+                        SLIDER_WIDTH, SLIDER_HEIGHT
                 );
 
-                // Station color
-                float r = ColorHelper.Argb.getRed(station.color);
-                float g = ColorHelper.Argb.getGreen(station.color);
-                float b = ColorHelper.Argb.getBlue(station.color);
-                RenderSystem.setShaderColor(r / 256f, g / 256f, b / 255f, 1f);
-                RenderSystem.setShaderTexture(0, new Identifier(Metropolis.MOD_ID, "textures/blanco.png"));
-                drawTexture(
-                        matrices,
-                        intoTexturePosX(x0 + 4),
-                        intoTexturePosY(y0 + STATION_TAB_BASE_HEIGHT * i0 + 4),
-                        0,
-                        0,
-                        8, 8,
-                        8, 8
-                );
-                RenderSystem.setShaderColor(1f, 1f, 1f, 1f);
-
-                // Station name
-                matrices.push();
-                matrices.scale(scaleFactor, scaleFactor, scaleFactor);
-                String stationName = station.name;
-                String[] arr = station.name.split("\\|");
-                if (arr.length > 1) {
-                    stationName = arr[0] + " " + arr[1];
-                }
-                int offset = (int) (this.client.world.getTime() / 5) % (stationName.length() + 1);
-                if (textRenderer.getWidth(stationName) * scaleFactor > maxStrWidth) {
-                    String str0 = stationName.substring(offset) + " " + stationName;
-                    int var0 = str0.length();
-                    while (textRenderer.getWidth(str0) * scaleFactor > maxStrWidth) {
-                        str0 = str0.substring(0, var0);
-                        var0 -= 1;
+                for (Station station : sortedStations) {
+                    // Station base
+                    if (i0 < 0) {
+                        i0++;
+                        continue;
                     }
+
+                    if (i0 >= MAX_VISIBLE) {
+                        break;
+                    }
+
+                    boolean thisTabHovering = this.mouseX >= intoTexturePosX(x0) && this.mouseY >= intoTexturePosY(y0 + STATION_TAB_BASE_HEIGHT * i0) && this.mouseX <= intoTexturePosX(x0 + STATION_TAB_BASE_WIDTH) && this.mouseY <= intoTexturePosY(y0 + STATION_TAB_BASE_HEIGHT * i0 + STATION_TAB_BASE_HEIGHT);
+                    if (thisTabHovering) {
+                        RenderSystem.setShaderTexture(0, STATION_TAB_BASE_HOVER_ID);
+                    } else {
+                        RenderSystem.setShaderTexture(0, STATION_TAB_BASE_ID);
+                    }
+                    drawTexture(
+                            matrices,
+                            intoTexturePosX(x0),
+                            intoTexturePosY(y0 + STATION_TAB_BASE_HEIGHT * i0),
+                            0,
+                            0,
+                            STATION_TAB_BASE_WIDTH, STATION_TAB_BASE_HEIGHT,
+                            STATION_TAB_BASE_WIDTH, STATION_TAB_BASE_HEIGHT
+                    );
+
+                    // Station color
+                    float r = ColorHelper.Argb.getRed(station.color);
+                    float g = ColorHelper.Argb.getGreen(station.color);
+                    float b = ColorHelper.Argb.getBlue(station.color);
+                    RenderSystem.setShaderColor(r / 256f, g / 256f, b / 255f, 1f);
+                    RenderSystem.setShaderTexture(0, new Identifier(Metropolis.MOD_ID, "textures/blanco.png"));
+                    drawTexture(
+                            matrices,
+                            intoTexturePosX(x0 + 4),
+                            intoTexturePosY(y0 + STATION_TAB_BASE_HEIGHT * i0 + 4),
+                            0,
+                            0,
+                            8, 8,
+                            8, 8
+                    );
+                    RenderSystem.setShaderColor(1f, 1f, 1f, 1f);
+
+                    // Station name
+                    matrices.push();
+                    matrices.scale(scaleFactor, scaleFactor, scaleFactor);
+                    String stationName = station.name;
+                    String[] arr = station.name.split("\\|");
+                    if (arr.length > 1) {
+                        stationName = arr[0] + " " + arr[1];
+                    }
+                    int offset = (int) (this.client.world.getTime() / 5) % (stationName.length() + 1);
+                    if (textRenderer.getWidth(stationName) * scaleFactor > maxStrWidth) {
+                        String str0 = stationName.substring(offset) + " " + stationName;
+                        int var0 = str0.length();
+                        while (textRenderer.getWidth(str0) * scaleFactor > maxStrWidth) {
+                            str0 = str0.substring(0, var0);
+                            var0 -= 1;
+                        }
+                        textRenderer.draw(
+                                matrices,
+                                str0,
+                                intoTexturePosX(x0 + 16) / scaleFactor,
+                                intoTexturePosY(y0 + STATION_TAB_BASE_HEIGHT * i0 + 5) / scaleFactor,
+                                0x3F3F3F
+                        );
+                    } else {
+                        textRenderer.draw(
+                                matrices,
+                                stationName,
+                                intoTexturePosX(x0 + 16) / scaleFactor,
+                                intoTexturePosY(y0 + STATION_TAB_BASE_HEIGHT * i0 + 5) / scaleFactor,
+                                0x3F3F3F
+                        );
+                    }
+
+                    // Station cost
+                    Text costText = Text.literal((Math.abs(station.zone - locatedStation.zone) + 1) + "$");
                     textRenderer.draw(
                             matrices,
-                            str0,
-                            intoTexturePosX(x0 + 16) / scaleFactor,
+                            costText,
+                            intoTexturePosX(x0 + STATION_TAB_BASE_WIDTH - 20 - textRenderer.getWidth(costText) / 2f) / scaleFactor,
                             intoTexturePosY(y0 + STATION_TAB_BASE_HEIGHT * i0 + 5) / scaleFactor,
                             0x3F3F3F
                     );
-                } else {
+
+                    // Station right arrow
                     textRenderer.draw(
                             matrices,
-                            stationName,
-                            intoTexturePosX(x0 + 16) / scaleFactor,
+                            Text.literal(">"),
+                            intoTexturePosX(x0 + STATION_TAB_BASE_WIDTH - 8) / scaleFactor,
                             intoTexturePosY(y0 + STATION_TAB_BASE_HEIGHT * i0 + 5) / scaleFactor,
                             0x3F3F3F
                     );
+
+                    matrices.pop();
+
+                    i0++;
                 }
-
-                // Station right arrow
-                textRenderer.draw(
-                        matrices,
-                        Text.literal(">"),
-                        intoTexturePosX(x0 + STATION_TAB_BASE_WIDTH - 8) / scaleFactor,
-                        intoTexturePosY(y0 + STATION_TAB_BASE_HEIGHT * i0 + 5) / scaleFactor,
-                        0x3F3F3F
-                );
-
-                matrices.pop();
-
-                i0++;
-            }
 
 //            // Station base shadow
 //            if (sliderPos > 0) {
@@ -225,7 +242,7 @@ public class TicketMachineScreen2 extends Screen {
 //                        STATION_TAB_BASE_WIDTH, STATION_TAB_BASE_HEIGHT
 //                );
 //            }
-//            if (sliderPos < stations.size() - MAX_VISIBLE) {
+//            if (sliderPos < stationSize - MAX_VISIBLE) {
 //                RenderSystem.setShaderTexture(0, STATION_TAB_END_SHADOW_ID);
 //                drawTexture(
 //                        matrices,
@@ -237,6 +254,7 @@ public class TicketMachineScreen2 extends Screen {
 //                        STATION_TAB_BASE_WIDTH, -STATION_TAB_BASE_HEIGHT
 //                );
 //            }
+            }
         }
 
         RenderSystem.disableBlend();
@@ -321,15 +339,8 @@ public class TicketMachineScreen2 extends Screen {
 
     @Override
     public boolean mouseScrolled(double mouseX, double mouseY, double amount) {
-        System.out.println(amount);
         sliderPos -= amount;
-//        if (stations.size() - MAX_VISIBLE > (sliderPos - amount)) {
-//            sliderPos = stations.size() - MAX_VISIBLE;
-//        } else {
-//            sliderPos += amount;
-//        }
         sliderPos = Math.min(Math.max(0, sliderPos), stations.size() - MAX_VISIBLE);
-        System.out.println(sliderPos);
         return super.mouseScrolled(mouseX, mouseY, amount);
     }
 
@@ -342,8 +353,6 @@ public class TicketMachineScreen2 extends Screen {
     public void close() {
         // TODO: Data transfer
         this.client.setScreen(new TicketMachineScreen1(pos, ItemStack.EMPTY));
-//        super.close();
-//        ClientPlayNetworking.send(Metropolis.ID_SCREEN_CLOSE_TICKET_MACHINE, PacketByteBufs.create().writeItemStack(this.ticketItem));
     }
 
     private int intoTexturePosX(double x) {
