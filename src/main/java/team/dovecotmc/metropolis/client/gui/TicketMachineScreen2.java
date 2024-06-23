@@ -35,6 +35,11 @@ public class TicketMachineScreen2 extends Screen {
     protected static final int STATION_TAB_BASE_WIDTH = 150;
     protected static final int STATION_TAB_BASE_HEIGHT = 16;
 
+    private static final Identifier VALUE_BUTTON_BASE_ID = new Identifier(Metropolis.MOD_ID, "textures/gui/ticket_vendor_2/value_button_base.png");
+    private static final Identifier VALUE_BUTTON_BASE_HOVER_ID = new Identifier(Metropolis.MOD_ID, "textures/gui/ticket_vendor_2/value_button_base_hover.png");
+    protected static final int VALUE_TAB_BASE_WIDTH = 56;
+    protected static final int VALUE_TAB_BASE_HEIGHT = 16;
+
 
     protected static final int MAX_VISIBLE = 8;
 
@@ -93,6 +98,30 @@ public class TicketMachineScreen2 extends Screen {
                 BG_TEXTURE_WIDTH, BG_TEXTURE_HEIGHT
         );
 
+        // Render text
+        // Title
+        VertexConsumerProvider.Immediate immediate = VertexConsumerProvider.immediate(Tessellator.getInstance().getBuffer());
+        this.textRenderer.drawWithOutline(
+                Text.translatable("gui.metropolis.ticket_vendor.title").asOrderedText(),
+                intoTexturePosX(36),
+                intoTexturePosY(12),
+                0xFFFFFF,
+                0x16161B,
+                matrices.peek().getPositionMatrix(),
+                immediate,
+                15728880
+        );
+        immediate.draw();
+
+        // Subtitle
+        this.textRenderer.draw(
+                matrices,
+                Text.translatable("gui.metropolis.ticket_vendor_2.subtitle"),
+                intoTexturePosX(20),
+                intoTexturePosY(35),
+                0x3F3F3F
+        );
+
         // Station selection
         float scaleFactor = 12f / 14f;
         if (this.client != null && this.client.world != null) {
@@ -104,17 +133,15 @@ public class TicketMachineScreen2 extends Screen {
             List<Station> sortedStations = stations.stream().sorted(Comparator.comparingInt(o -> (Math.abs(o.zone - locatedStation.zone)))).toList();
 
             if (locatedStation != null) {
-//            final int maxStrWidth = Objects.equals(stationFrom, "") ? 112 : 96;
                 final int maxStrWidth = 96;
-                int h0 = 128;
-                int x0 = 48;
+//                int h0 = 128;
+                int x0 = 20;
                 int y0 = 51;
                 int i0 = -sliderPos;
-                int j0 = 0;
 
-                // Slider
+                // Slider1
                 int h1 = 119;
-                int x1 = 202;
+                int x1 = 174;
                 int y1 = (int) (51 + (float) sliderPos / (float) (stationsSize - MAX_VISIBLE) * h1);
 
                 RenderSystem.setShaderTexture(0, SLIDER_ID);
@@ -228,60 +255,91 @@ public class TicketMachineScreen2 extends Screen {
 
                     i0++;
                 }
-
-//            // Station base shadow
-//            if (sliderPos > 0) {
-//                RenderSystem.setShaderTexture(0, STATION_TAB_END_SHADOW_ID);
-//                drawTexture(
-//                        matrices,
-//                        intoTexturePosX(x0),
-//                        intoTexturePosY(y0),
-//                        0,
-//                        0,
-//                        STATION_TAB_BASE_WIDTH, STATION_TAB_BASE_HEIGHT,
-//                        STATION_TAB_BASE_WIDTH, STATION_TAB_BASE_HEIGHT
-//                );
-//            }
-//            if (sliderPos < stationSize - MAX_VISIBLE) {
-//                RenderSystem.setShaderTexture(0, STATION_TAB_END_SHADOW_ID);
-//                drawTexture(
-//                        matrices,
-//                        intoTexturePosX(x0),
-//                        intoTexturePosY(y0 + STATION_TAB_BASE_HEIGHT * (MAX_VISIBLE - 1)),
-//                        0,
-//                        0,
-//                        STATION_TAB_BASE_WIDTH, STATION_TAB_BASE_HEIGHT,
-//                        STATION_TAB_BASE_WIDTH, -STATION_TAB_BASE_HEIGHT
-//                );
-//            }
             }
         }
 
-        RenderSystem.disableBlend();
+        // Right part
 
-        // Render text
-        // Title
-        VertexConsumerProvider.Immediate immediate = VertexConsumerProvider.immediate(Tessellator.getInstance().getBuffer());
-        this.textRenderer.drawWithOutline(
-                Text.translatable("gui.metropolis.ticket_vendor.title").asOrderedText(),
-                intoTexturePosX(36),
-                intoTexturePosY(12),
-                0xFFFFFF,
-                0x16161B,
-                matrices.peek().getPositionMatrix(),
-                immediate,
-                15728880
-        );
-        immediate.draw();
-
-        // Subtitle
+        // Subtitle 2
         this.textRenderer.draw(
                 matrices,
-                Text.translatable("gui.metropolis.ticket_vendor_2.subtitle"),
-                intoTexturePosX(48),
+                Text.translatable("gui.metropolis.ticket_vendor_2.subtitle_2"),
+                intoTexturePosX(184),
                 intoTexturePosY(35),
                 0x3F3F3F
         );
+
+        int x1 = 184;
+        int y1 = 51;
+
+        // TODO: Configurable
+        int[] valuesToSelect = {1, 2, 3, 4, 5, 6, 7};
+
+        for (int i = 0; i < 7; i++) {
+            boolean thisTabHovering = this.mouseX >= intoTexturePosX(x1) && this.mouseY >= intoTexturePosY(y1 + VALUE_TAB_BASE_HEIGHT * i) && this.mouseX <= intoTexturePosX(x1 + VALUE_TAB_BASE_WIDTH) && this.mouseY <= intoTexturePosY(y1 + VALUE_TAB_BASE_HEIGHT * i + VALUE_TAB_BASE_HEIGHT);
+            if (thisTabHovering) {
+                RenderSystem.setShaderTexture(0, VALUE_BUTTON_BASE_HOVER_ID);
+            } else {
+                RenderSystem.setShaderColor(32f / 256f, 32f / 256f, 32f / 256f, 1f);
+                RenderSystem.setShaderTexture(0, VALUE_BUTTON_BASE_ID);
+            }
+//            RenderSystem.setShaderTexture(0, VALUE_BUTTON_BASE_ID);
+            drawTexture(
+                    matrices,
+                    intoTexturePosX(x1),
+                    intoTexturePosY(y1 + VALUE_TAB_BASE_HEIGHT * i),
+                    0,
+                    0,
+                    VALUE_TAB_BASE_WIDTH, VALUE_TAB_BASE_HEIGHT,
+                    VALUE_TAB_BASE_WIDTH, VALUE_TAB_BASE_HEIGHT
+            );
+            RenderSystem.setShaderColor(1f, 1f, 1f, 1f);
+
+            matrices.push();
+            matrices.scale(scaleFactor, scaleFactor, scaleFactor);
+            Text cost = Text.literal(valuesToSelect[i] + "$");
+            textRenderer.draw(
+                    matrices,
+                    cost,
+                    intoTexturePosX(x1 + VALUE_TAB_BASE_WIDTH / 2f - textRenderer.getWidth(cost) / 2f) / scaleFactor,
+                    intoTexturePosY(y1 + VALUE_TAB_BASE_HEIGHT * i + 5) / scaleFactor,
+                    0xFFFFFF
+            );
+            matrices.pop();
+        }
+
+        // Custom button
+        boolean thisTabHovering = this.mouseX >= intoTexturePosX(x1) && this.mouseY >= intoTexturePosY(y1 + VALUE_TAB_BASE_HEIGHT * 7) && this.mouseX <= intoTexturePosX(x1 + VALUE_TAB_BASE_WIDTH) && this.mouseY <= intoTexturePosY(y1 + VALUE_TAB_BASE_HEIGHT * 7 + VALUE_TAB_BASE_HEIGHT);
+        if (thisTabHovering) {
+            RenderSystem.setShaderTexture(0, VALUE_BUTTON_BASE_HOVER_ID);
+        } else {
+            RenderSystem.setShaderColor(61f / 256f, 169f / 256f, 58f / 256f, 1f);
+            RenderSystem.setShaderTexture(0, VALUE_BUTTON_BASE_ID);
+        }
+        drawTexture(
+                matrices,
+                intoTexturePosX(x1),
+                intoTexturePosY(y1 + VALUE_TAB_BASE_HEIGHT * 7),
+                0,
+                0,
+                VALUE_TAB_BASE_WIDTH, VALUE_TAB_BASE_HEIGHT,
+                VALUE_TAB_BASE_WIDTH, VALUE_TAB_BASE_HEIGHT
+        );
+        RenderSystem.setShaderColor(1f, 1f, 1f, 1f);
+
+        matrices.push();
+        matrices.scale(scaleFactor, scaleFactor, scaleFactor);
+        Text moreCostOptions = Text.translatable("gui.metropolis.ticket_vendor_2.custom_value_option");
+        textRenderer.draw(
+                matrices,
+                moreCostOptions,
+                intoTexturePosX(x1 + VALUE_TAB_BASE_WIDTH / 2f - textRenderer.getWidth(moreCostOptions) / 2f) / scaleFactor,
+                intoTexturePosY(y1 + VALUE_TAB_BASE_HEIGHT * 7 + 5) / scaleFactor,
+                0xFFFFFF
+        );
+        matrices.pop();
+
+        RenderSystem.disableBlend();
 
         super.render(matrices, mouseX, mouseY, delta);
 

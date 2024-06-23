@@ -16,6 +16,8 @@
 
     "gui.metropolis.ticket_vendor_2.title": "Ticket Vendor Machine",
     "gui.metropolis.ticket_vendor_2.subtitle": "Single trip tickets",
+    "gui.metropolis.ticket_vendor_2.subtitle_2": "Values",
+    "gui.metropolis.ticket_vendor_2.custom_value_option": "Custom",
 
     "metropolis.tooltip.ticket.money_remain": "§2Money Remain: %s",
     "metropolis.tooltip.ticket.entered_station_zone": "§7Entered zone %s",

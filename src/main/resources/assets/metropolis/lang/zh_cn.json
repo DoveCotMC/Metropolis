@@ -16,6 +16,8 @@
 
     "gui.metropolis.ticket_vendor_2.title": "多功能售票机",
     "gui.metropolis.ticket_vendor_2.subtitle": "购买单程票",
+    "gui.metropolis.ticket_vendor_2.subtitle_2": "直接选择金额",
+    "gui.metropolis.ticket_vendor_2.custom_value_option": "自选金额",
 
     "metropolis.tooltip.ticket.money_remain": "§2Money Remain: %s",
     "metropolis.tooltip.ticket.entered_station_zone": "§7Entered zone %s",
