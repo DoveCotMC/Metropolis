@@ -1,32 +1,28 @@
 package team.dovecotmc.metropolis.client.gui;
 
-import com.mojang.blaze3d.platform.TextureUtil;
 import com.mojang.blaze3d.systems.RenderSystem;
-import net.fabricmc.fabric.impl.client.indigo.renderer.render.BlockRenderContext;
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.gui.screen.GameMenuScreen;
 import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.client.gui.screen.ingame.InventoryScreen;
-import net.minecraft.client.gui.widget.ButtonWidget;
-import net.minecraft.client.gui.widget.SliderWidget;
-import net.minecraft.client.render.GameRenderer;
+import net.minecraft.client.realms.gui.screen.RealmsSettingsScreen;
 import net.minecraft.client.render.Tessellator;
 import net.minecraft.client.render.VertexConsumerProvider;
-import net.minecraft.client.render.WorldRenderer;
+import net.minecraft.client.sound.SoundInstance;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.item.ItemStack;
+import net.minecraft.sound.SoundCategory;
+import net.minecraft.sound.SoundEvents;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
 import team.dovecotmc.metropolis.Metropolis;
-import team.dovecotmc.metropolis.item.MetroItems;
 
 /**
  * @author Arrokoth
  * @project Metropolis
  * @copyright Copyright © 2024 Arrokoth All Rights Reserved.
  */
-public class TicketMachineScreen extends Screen {
+public class TicketMachineScreen1 extends Screen {
     private static final Identifier BG_TEXTURE_ID = new Identifier(Metropolis.MOD_ID, "textures/gui/ticket_vendor_1/ticket_vendor_1_base.png");
     protected static final int BG_TEXTURE_WIDTH = 256;
     protected static final int BG_TEXTURE_HEIGHT = 196;
@@ -49,13 +45,19 @@ public class TicketMachineScreen extends Screen {
     protected static final int BUTTON_SMALL_WIDTH = 33;
     protected static final int BUTTON_SMALL_HEIGHT = 12;
 
+    protected final BlockPos pos;
+
     protected double mouseX = 0;
     protected double mouseY = 0;
+    protected boolean pressing = false;
+    private boolean lastPressing = false;
+    protected boolean pressed = false;
 
     protected int tipId = 0;
 
-    public TicketMachineScreen(BlockPos pos, ItemStack ticket) {
-        super(Text.translatable("gui.metropolis.ticket_vendor.title"));
+    public TicketMachineScreen1(BlockPos pos, ItemStack ticket) {
+        super(Text.translatable("gui.metropolis.ticket_vendor_1.title"));
+        this.pos = pos;
 //        this.ticketItem = ticketItem;
 //        InventoryScreen
     }
@@ -237,7 +239,7 @@ public class TicketMachineScreen extends Screen {
         VertexConsumerProvider.Immediate immediate = VertexConsumerProvider.immediate(Tessellator.getInstance().getBuffer());
 //        BlockRenderContext
         this.textRenderer.drawWithOutline(
-                this.getTitle().asOrderedText(),
+                Text.translatable("gui.metropolis.ticket_vendor.title").asOrderedText(),
                 intoTexturePosX(36),
                 intoTexturePosY(12),
                 0xFFFFFF,
@@ -251,7 +253,7 @@ public class TicketMachineScreen extends Screen {
         // Subtitle
         this.textRenderer.draw(
                 matrices,
-                Text.translatable("gui.metropolis.ticket_vendor.subtitle"),
+                Text.translatable("gui.metropolis.ticket_vendor_1.subtitle"),
                 intoTexturePosX(48),
                 intoTexturePosY(35),
                 0x3F3F3F
@@ -261,12 +263,11 @@ public class TicketMachineScreen extends Screen {
         matrices.push();
         float scaleFactor = 10f / 14f;
         matrices.scale(scaleFactor, scaleFactor, scaleFactor);
-//        Text tip = Text.translatable("gui.metropolis.ticket_vendor.tips_" + tipId);
         float tipId = 0;
         if (this.client != null && this.client.world != null) {
             tipId = client.world.getTime() / 128f;
         }
-        Text tip = Text.translatable("gui.metropolis.ticket_vendor.tips_" + ((int) tipId % 3));
+        Text tip = Text.translatable("gui.metropolis.ticket_vendor_1.tips_" + ((int) tipId % 3));
         this.textRenderer.draw(
                 matrices,
                 tip,
@@ -275,8 +276,6 @@ public class TicketMachineScreen extends Screen {
                 0xFFFFFF
         );
         matrices.pop();
-        RenderSystem.colorMask(true, true, true, true);
-        RenderSystem.setShaderColor(1f, 1f, 1f, 1f);
 
         // Buttons
         // Left bar Buttons
@@ -287,7 +286,7 @@ public class TicketMachineScreen extends Screen {
         // Buy Tickets
         this.textRenderer.draw(
                 matrices,
-                Text.translatable("gui.metropolis.ticket_vendor.button.buy_tickets"),
+                Text.translatable("gui.metropolis.ticket_vendor_1.button.buy_tickets"),
                 intoTexturePosX(11) / scaleFactor,
                 intoTexturePosY(31) / scaleFactor,
                 0x3F3F3F
@@ -296,7 +295,7 @@ public class TicketMachineScreen extends Screen {
         // Special
         this.textRenderer.draw(
                 matrices,
-                Text.translatable("gui.metropolis.ticket_vendor.button.special"),
+                Text.translatable("gui.metropolis.ticket_vendor_1.button.special"),
                 intoTexturePosX(11) / scaleFactor,
                 intoTexturePosY(44) / scaleFactor,
                 0x3F3F3F
@@ -305,7 +304,7 @@ public class TicketMachineScreen extends Screen {
         // Refund
         this.textRenderer.draw(
                 matrices,
-                Text.translatable("gui.metropolis.ticket_vendor.button.refund"),
+                Text.translatable("gui.metropolis.ticket_vendor_1.button.refund"),
                 intoTexturePosX(11) / scaleFactor,
                 intoTexturePosY(180) / scaleFactor,
                 0xFFFFFF
@@ -319,7 +318,7 @@ public class TicketMachineScreen extends Screen {
         matrices.scale(scaleFactor, scaleFactor, scaleFactor);
         // Tickets/Green
         this.textRenderer.drawWithOutline(
-                Text.translatable("gui.metropolis.ticket_vendor.button.tickets").asOrderedText(),
+                Text.translatable("gui.metropolis.ticket_vendor_1.button.tickets").asOrderedText(),
                 intoTexturePosX(54) / scaleFactor + (greenHovering ? 1 : 0),
                 intoTexturePosY(58) / scaleFactor + (greenHovering ? 1 : 0),
                 0xFFFFFF,
@@ -332,7 +331,7 @@ public class TicketMachineScreen extends Screen {
 
         // Charge/Purple
         this.textRenderer.drawWithOutline(
-                Text.translatable("gui.metropolis.ticket_vendor.button.charge").asOrderedText(),
+                Text.translatable("gui.metropolis.ticket_vendor_1.button.charge").asOrderedText(),
                 intoTexturePosX(54) / scaleFactor + (purpleHovering ? 1 : 0),
                 intoTexturePosY(118) / scaleFactor + (purpleHovering ? 1 : 0),
                 0xFFFFFF,
@@ -345,7 +344,7 @@ public class TicketMachineScreen extends Screen {
 
         // Buy Commuter/Gray top
         this.textRenderer.drawWithOutline(
-                Text.translatable("gui.metropolis.ticket_vendor.button.buy_commuter").asOrderedText(),
+                Text.translatable("gui.metropolis.ticket_vendor_1.button.buy_commuter").asOrderedText(),
                 intoTexturePosX(152) / scaleFactor + (grayTopHovering ? 1 : 0),
                 intoTexturePosY(58) / scaleFactor + (grayTopHovering ? 1 : 0),
                 0xFFFFFF,
@@ -358,7 +357,7 @@ public class TicketMachineScreen extends Screen {
 
         // Charge/Gray bottom
         this.textRenderer.drawWithOutline(
-                Text.translatable("gui.metropolis.ticket_vendor.button.buy_ic_card").asOrderedText(),
+                Text.translatable("gui.metropolis.ticket_vendor_1.button.buy_ic_card").asOrderedText(),
                 intoTexturePosX(152) / scaleFactor + (grayBottomHovering ? 1 : 0),
                 intoTexturePosY(118) / scaleFactor + (grayBottomHovering ? 1 : 0),
                 0xFFFFFF,
@@ -370,7 +369,24 @@ public class TicketMachineScreen extends Screen {
         immediate.draw();
         matrices.pop();
 
+        if (greenHovering && pressed) {
+            this.client.world.playSound(pos, SoundEvents.UI_BUTTON_CLICK, SoundCategory.MASTER, 1f, 1f, false);
+            // TODO: Data transfer
+            this.client.setScreen(new TicketMachineScreen2(pos, ItemStack.EMPTY));
+        }
+
         super.render(matrices, mouseX, mouseY, delta);
+
+        if (pressing) {
+            if (!lastPressing) {
+                pressed = true;
+            } else {
+                pressed = false;
+            }
+        } else {
+            pressed = false;
+        }
+        lastPressing = pressing;
 
 //        MatrixStack matrixStack = RenderSystem.getModelViewStack();
 //        RenderSystem.applyModelViewMatrix();
@@ -399,6 +415,20 @@ public class TicketMachineScreen extends Screen {
         super.mouseMoved(mouseX, mouseY);
         this.mouseX = mouseX;
         this.mouseY = mouseY;
+    }
+
+    @Override
+    public boolean mouseClicked(double mouseX, double mouseY, int button) {
+        if (button == 0)
+            this.pressing = true;
+        return super.mouseClicked(mouseX, mouseY, button);
+    }
+
+    @Override
+    public boolean mouseReleased(double mouseX, double mouseY, int button) {
+        if (button == 0)
+            this.pressing = false;
+        return super.mouseReleased(mouseX, mouseY, button);
     }
 
     @Override
