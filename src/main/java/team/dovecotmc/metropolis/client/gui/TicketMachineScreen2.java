@@ -1,5 +1,6 @@
 package team.dovecotmc.metropolis.client.gui;
 
+import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;
 import mtr.data.Station;
 import net.minecraft.client.MinecraftClient;
@@ -31,8 +32,10 @@ public class TicketMachineScreen2 extends Screen {
 
     private static final Identifier STATION_TAB_BASE_ID = new Identifier(Metropolis.MOD_ID, "textures/gui/ticket_vendor_2/station_tab_base.png");
     private static final Identifier STATION_TAB_BASE_HOVER_ID = new Identifier(Metropolis.MOD_ID, "textures/gui/ticket_vendor_2/station_tab_base_hover.png");
+    private static final Identifier STATION_TAB_END_SHADOW_ID = new Identifier(Metropolis.MOD_ID, "textures/gui/ticket_vendor_2/station_tab_end_shadow.png");
     protected static final int STATION_TAB_BASE_WIDTH = 150;
     protected static final int STATION_TAB_BASE_HEIGHT = 16;
+
 
     protected static final int MAX_VISIBLE = 8;
 
@@ -208,6 +211,32 @@ public class TicketMachineScreen2 extends Screen {
 
                 i0++;
             }
+
+//            // Station base shadow
+//            if (sliderPos > 0) {
+//                RenderSystem.setShaderTexture(0, STATION_TAB_END_SHADOW_ID);
+//                drawTexture(
+//                        matrices,
+//                        intoTexturePosX(x0),
+//                        intoTexturePosY(y0),
+//                        0,
+//                        0,
+//                        STATION_TAB_BASE_WIDTH, STATION_TAB_BASE_HEIGHT,
+//                        STATION_TAB_BASE_WIDTH, STATION_TAB_BASE_HEIGHT
+//                );
+//            }
+//            if (sliderPos < stations.size() - MAX_VISIBLE) {
+//                RenderSystem.setShaderTexture(0, STATION_TAB_END_SHADOW_ID);
+//                drawTexture(
+//                        matrices,
+//                        intoTexturePosX(x0),
+//                        intoTexturePosY(y0 + STATION_TAB_BASE_HEIGHT * (MAX_VISIBLE - 1)),
+//                        0,
+//                        0,
+//                        STATION_TAB_BASE_WIDTH, STATION_TAB_BASE_HEIGHT,
+//                        STATION_TAB_BASE_WIDTH, -STATION_TAB_BASE_HEIGHT
+//                );
+//            }
         }
 
         RenderSystem.disableBlend();
