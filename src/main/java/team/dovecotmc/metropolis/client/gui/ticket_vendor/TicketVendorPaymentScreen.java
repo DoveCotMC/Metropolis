@@ -4,6 +4,8 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import mtr.data.Station;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.Screen;
+import net.minecraft.client.gui.screen.ingame.CraftingScreen;
+import net.minecraft.client.gui.screen.ingame.InventoryScreen;
 import net.minecraft.client.render.Tessellator;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.util.math.MatrixStack;
@@ -184,15 +186,27 @@ public class TicketVendorPaymentScreen extends Screen {
         matrices.pop();
 
         this.itemRenderer.renderInGui(
-                new ItemStack(Items.EMERALD, 16),
+                new ItemStack(Items.EMERALD),
                 intoTexturePosX(x0 + Math.max(textRenderer.getWidth(balanceText), textRenderer.getWidth(priceText)) + 4 + textRenderer.getWidth(Text.literal("×"))),
                 intoTexturePosY(y1 - 4 + 1)
         );
+//        this.itemRenderer.renderGuiItemOverlay(
+//                textRenderer,
+//                new ItemStack(Items.EMERALD, 16),
+//                intoTexturePosX(x0 + Math.max(textRenderer.getWidth(balanceText), textRenderer.getWidth(priceText)) + 4 + textRenderer.getWidth(Text.literal("×"))),
+//                intoTexturePosY(y1 - 4 + 1)
+//        );
         this.itemRenderer.renderInGui(
-                new ItemStack(Items.EMERALD, 128),
+                new ItemStack(Items.EMERALD),
                 intoTexturePosX(x0 + Math.max(textRenderer.getWidth(balanceText), textRenderer.getWidth(priceText)) + 4 + textRenderer.getWidth(Text.literal("×"))),
                 intoTexturePosY(y1 - 4 + 16 + 1)
         );
+//        this.itemRenderer.renderGuiItemOverlay(
+//                textRenderer,
+//                new ItemStack(Items.EMERALD, 128),
+//                intoTexturePosX(x0 + Math.max(textRenderer.getWidth(balanceText), textRenderer.getWidth(priceText)) + 4 + textRenderer.getWidth(Text.literal("×"))),
+//                intoTexturePosY(y1 - 4 + 16 + 1)
+//        );
 
         // Right part
         int x2 = 176;
