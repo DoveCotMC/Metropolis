@@ -1,6 +1,5 @@
 package team.dovecotmc.metropolis.client.gui;
 
-import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;
 import mtr.data.Station;
 import net.minecraft.client.MinecraftClient;
@@ -16,15 +15,17 @@ import net.minecraft.util.math.ColorHelper;
 import team.dovecotmc.metropolis.Metropolis;
 import team.dovecotmc.metropolis.util.MtrStationUtil;
 
-import java.util.*;
-import java.util.stream.Stream;
+import java.util.Comparator;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 /**
  * @author Arrokoth
  * @project Metropolis
  * @copyright Copyright © 2024 Arrokoth All Rights Reserved.
  */
-public class TicketMachineScreen2 extends Screen {
+public class TicketVendorPaymentScreen extends Screen {
     private static final Identifier BG_TEXTURE_ID = new Identifier(Metropolis.MOD_ID, "textures/gui/ticket_vendor_2/ticket_vendor_2_base.png");
     protected static final int BG_TEXTURE_WIDTH = 256;
     protected static final int BG_TEXTURE_HEIGHT = 196;
@@ -61,7 +62,7 @@ public class TicketMachineScreen2 extends Screen {
 
     protected int tipId = 0;
 
-    public TicketMachineScreen2(BlockPos pos, ItemStack ticket) {
+    public TicketVendorPaymentScreen(BlockPos pos, ItemStack ticket) {
         super(Text.translatable("gui.metropolis.ticket_vendor_2.title"));
         this.pos = pos;
         if (this.client != null && this.client.world != null) {
@@ -410,7 +411,7 @@ public class TicketMachineScreen2 extends Screen {
     @Override
     public void close() {
         // TODO: Data transfer
-        this.client.setScreen(new TicketMachineScreen1(pos, ItemStack.EMPTY));
+        this.client.setScreen(new TicketVendorScreen1(pos, ItemStack.EMPTY));
     }
 
     private int intoTexturePosX(double x) {

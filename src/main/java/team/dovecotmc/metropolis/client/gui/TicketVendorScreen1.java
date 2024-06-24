@@ -19,7 +19,7 @@ import team.dovecotmc.metropolis.Metropolis;
  * @project Metropolis
  * @copyright Copyright © 2024 Arrokoth All Rights Reserved.
  */
-public class TicketMachineScreen1 extends Screen {
+public class TicketVendorScreen1 extends Screen {
     private static final Identifier BG_TEXTURE_ID = new Identifier(Metropolis.MOD_ID, "textures/gui/ticket_vendor_1/ticket_vendor_1_base.png");
     protected static final int BG_TEXTURE_WIDTH = 256;
     protected static final int BG_TEXTURE_HEIGHT = 196;
@@ -52,7 +52,7 @@ public class TicketMachineScreen1 extends Screen {
 
     protected int tipId = 0;
 
-    public TicketMachineScreen1(BlockPos pos, ItemStack ticket) {
+    public TicketVendorScreen1(BlockPos pos, ItemStack ticket) {
         super(Text.translatable("gui.metropolis.ticket_vendor_1.title"));
         this.pos = pos;
 //        this.ticketItem = ticketItem;
@@ -369,7 +369,7 @@ public class TicketMachineScreen1 extends Screen {
         if (greenHovering && pressed) {
             this.client.world.playSound(pos, SoundEvents.UI_BUTTON_CLICK, SoundCategory.MASTER, 1f, 1f, false);
             // TODO: Data transfer
-            this.client.setScreen(new TicketMachineScreen2(pos, ItemStack.EMPTY));
+            this.client.setScreen(new TicketVendorScreen2(pos, ItemStack.EMPTY));
         }
 
         super.render(matrices, mouseX, mouseY, delta);
