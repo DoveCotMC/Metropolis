@@ -367,7 +367,9 @@ public class TicketVendorScreen1 extends Screen {
         matrices.pop();
 
         if (greenHovering && pressed) {
-            this.client.world.playSound(pos, SoundEvents.UI_BUTTON_CLICK, SoundCategory.MASTER, 1f, 1f, false);
+            if (this.client.world != null) {
+                this.client.world.playSound(pos, SoundEvents.UI_BUTTON_CLICK, SoundCategory.MASTER, 1f, 1f, false);
+            }
             // TODO: Data transfer
             this.client.setScreen(new TicketVendorScreen2(pos, ItemStack.EMPTY));
         }

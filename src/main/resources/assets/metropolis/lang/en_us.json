@@ -26,6 +26,7 @@
     "gui.metropolis.ticket_vendor_payment.balance": "Balance: %s",
 
     "gui.metropolis.ticket_vendor_payment.single_trip.title": "Single trip",
+    "gui.metropolis.ticket_vendor_payment.single_trip.from_and_to": "  %s ⥋ %s",
     "gui.metropolis.ticket_vendor_payment.single_trip.ticket_value": "  Value: %s",
     "gui.metropolis.ticket_vendor_payment.single_trip.amount": "  Amount: %s",
 

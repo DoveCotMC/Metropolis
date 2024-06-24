@@ -26,6 +26,7 @@
     "gui.metropolis.ticket_vendor_payment.balance": "余额：%s",
 
     "gui.metropolis.ticket_vendor_payment.single_trip.title": "单程票",
+    "gui.metropolis.ticket_vendor_payment.single_trip.from_and_to": "  %s ⥋ %s",
     "gui.metropolis.ticket_vendor_payment.single_trip.ticket_value": "  价格：%s",
     "gui.metropolis.ticket_vendor_payment.single_trip.amount": "  %s 人",
 

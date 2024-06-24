@@ -8,6 +8,8 @@ import net.minecraft.client.render.Tessellator;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.item.ItemStack;
+import net.minecraft.sound.SoundCategory;
+import net.minecraft.sound.SoundEvents;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
@@ -201,9 +203,9 @@ public class TicketVendorScreen2 extends Screen {
                     matrices.push();
                     matrices.scale(scaleFactor, scaleFactor, scaleFactor);
                     String stationName = station.name;
-                    String[] arr = station.name.split("\\|");
-                    if (arr.length > 1) {
-                        stationName = arr[0] + " " + arr[1];
+                    String[] arr0 = station.name.split("\\|");
+                    if (arr0.length > 1) {
+                        stationName = arr0[0] + " " + arr0[1];
                     }
                     int offset = (int) (this.client.world.getTime() / 5) % (stationName.length() + 1);
                     if (textRenderer.getWidth(stationName) * scaleFactor > maxStrWidth) {
@@ -231,7 +233,8 @@ public class TicketVendorScreen2 extends Screen {
                     }
 
                     // Station cost
-                    Text costText = Text.literal((Math.abs(station.zone - locatedStation.zone) + 1) + "$");
+                    int cost = Math.abs(station.zone - locatedStation.zone) + 1;
+                    Text costText = Text.literal(cost + "$");
                     textRenderer.draw(
                             matrices,
                             costText,
@@ -250,6 +253,37 @@ public class TicketVendorScreen2 extends Screen {
                     );
 
                     matrices.pop();
+
+                    // Go to payment
+                    if (thisTabHovering && pressed) {
+                        if (this.client.world != null) {
+                            this.client.world.playSound(pos, SoundEvents.UI_BUTTON_CLICK, SoundCategory.MASTER, 1f, 1f, false);
+                        }
+                        String locatedStationFirstName = station.name;
+                        String[] arr1 = locatedStation.name.split("\\|");
+                        if (arr1.length > 1) {
+                            locatedStationFirstName = arr1[0];
+                        }
+                        String stationFirstName = station.name;
+                        String[] arr2 = station.name.split("\\|");
+                        if (arr2.length > 1) {
+                            stationFirstName = arr2[0];
+                        }
+
+                        this.client.setScreen(new TicketVendorPaymentScreen(
+                                pos,
+                                new TicketVendorPaymentData(
+                                        TicketVendorPaymentData.EnumTicketVendorPaymentType.SINGLE_TRIP,
+                                         cost,
+                                        new Text[] {
+                                                Text.translatable("gui.metropolis.ticket_vendor_payment.single_trip.title"),
+                                                Text.translatable("gui.metropolis.ticket_vendor_payment.single_trip.from_and_to", locatedStationFirstName, stationFirstName),
+                                                Text.translatable("gui.metropolis.ticket_vendor_payment.single_trip.ticket_value", cost + "$"),
+                                                Text.translatable("gui.metropolis.ticket_vendor_payment.single_trip.amount", 1),
+                                        }
+                                )
+                        ));
+                    }
 
                     i0++;
                 }
@@ -305,7 +339,12 @@ public class TicketVendorScreen2 extends Screen {
             );
             matrices.pop();
 
+            // Go to payment
             if (thisTabHovering && pressed) {
+                if (this.client.world != null) {
+                    this.client.world.playSound(pos, SoundEvents.UI_BUTTON_CLICK, SoundCategory.MASTER, 1f, 1f, false);
+                }
+
                 this.client.setScreen(new TicketVendorPaymentScreen(
                         pos,
                         new TicketVendorPaymentData(
