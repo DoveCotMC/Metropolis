@@ -248,7 +248,7 @@ public class TicketVendorPaymentScreen extends Screen {
 
         if (thisTabHovering && pressed && ableToPay) {
             client.setScreen(null);
-            MetroClientNetwork.ticketVendorResult(pos, paymentData.resultStack, 0);
+            MetroClientNetwork.ticketVendorResult(pos, paymentData.resultStack, 0, paymentData.value);
         }
 
         RenderSystem.disableBlend();

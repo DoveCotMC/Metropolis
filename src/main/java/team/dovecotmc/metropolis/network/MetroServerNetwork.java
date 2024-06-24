@@ -3,7 +3,9 @@ package team.dovecotmc.metropolis.network;
 import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.server.network.ServerPlayerEntity;
@@ -14,6 +16,8 @@ import team.dovecotmc.metropolis.Metropolis;
 import team.dovecotmc.metropolis.block.entity.BlockEntityTicketVendor;
 import team.dovecotmc.metropolis.block.entity.MetroBlockEntities;
 import team.dovecotmc.metropolis.client.block.entity.TicketVendorBlockEntityRenderer;
+
+import java.util.function.Predicate;
 
 /**
  * @author Arrokoth
@@ -45,7 +49,16 @@ public class MetroServerNetwork {
 
             // Slot definitions: 0 = Ticket, 1 = IC Card
             int slot = buf.readInt();
+            int balance = buf.readInt();
+
+            Item item = Items.EMERALD;
             server.execute(() -> {
+                int balance1 = balance;
+                for (int i = 0; i < balance1 / item.getMaxCount(); i++) {
+                    player.getInventory().setStack(player.getInventory().getSlotWithStack(new ItemStack(item)), ItemStack.EMPTY);
+                }
+                player.getInventory().removeStack(player.getInventory().getSlotWithStack(new ItemStack(item)), balance1 % item.getMaxCount());
+
                 World world = player.getWorld();
                 if (world != null) {
                     BlockEntity entityRaw = world.getBlockEntity(pos);

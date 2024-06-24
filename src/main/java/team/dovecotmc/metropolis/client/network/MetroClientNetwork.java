@@ -19,11 +19,12 @@ import team.dovecotmc.metropolis.network.MetroServerNetwork;
  */
 public class MetroClientNetwork {
     // Slot definitions: 0 = Ticket, 1 = IC Card
-    public static void ticketVendorResult(BlockPos pos, ItemStack stack, int slot) {
+    public static void ticketVendorResult(BlockPos pos, ItemStack stack, int slot, int balance) {
         PacketByteBuf buf = PacketByteBufs.create();
         buf.writeBlockPos(pos);
         buf.writeItemStack(stack);
         buf.writeInt(slot);
+        buf.writeInt(balance);
         ClientPlayNetworking.send(MetroServerNetwork.TICKET_VENDOR_RESULT, buf);
     }
 
