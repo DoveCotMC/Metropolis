@@ -280,7 +280,7 @@ public class TicketMachineScreen2 extends Screen {
             if (thisTabHovering) {
                 RenderSystem.setShaderTexture(0, VALUE_BUTTON_BASE_HOVER_ID);
             } else {
-                RenderSystem.setShaderColor(32f / 256f, 32f / 256f, 32f / 256f, 1f);
+                RenderSystem.setShaderColor(96f / 256f, 96f / 256f, 96f / 256f, 1f);
                 RenderSystem.setShaderTexture(0, VALUE_BUTTON_BASE_ID);
             }
 //            RenderSystem.setShaderTexture(0, VALUE_BUTTON_BASE_ID);
