@@ -1,4 +1,4 @@
-package team.dovecotmc.metropolis.client.gui;
+package team.dovecotmc.metropolis.client.gui.ticket_vendor;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import mtr.data.Station;
@@ -15,17 +15,14 @@ import net.minecraft.util.math.ColorHelper;
 import team.dovecotmc.metropolis.Metropolis;
 import team.dovecotmc.metropolis.util.MtrStationUtil;
 
-import java.util.Comparator;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 /**
  * @author Arrokoth
  * @project Metropolis
  * @copyright Copyright © 2024 Arrokoth All Rights Reserved.
  */
-public class TicketVendorPaymentScreen extends Screen {
+public class TicketVendorScreen2 extends Screen {
     private static final Identifier BG_TEXTURE_ID = new Identifier(Metropolis.MOD_ID, "textures/gui/ticket_vendor_2/ticket_vendor_2_base.png");
     protected static final int BG_TEXTURE_WIDTH = 256;
     protected static final int BG_TEXTURE_HEIGHT = 196;
@@ -62,7 +59,7 @@ public class TicketVendorPaymentScreen extends Screen {
 
     protected int tipId = 0;
 
-    public TicketVendorPaymentScreen(BlockPos pos, ItemStack ticket) {
+    public TicketVendorScreen2(BlockPos pos, ItemStack ticket) {
         super(Text.translatable("gui.metropolis.ticket_vendor_2.title"));
         this.pos = pos;
         if (this.client != null && this.client.world != null) {
@@ -307,6 +304,21 @@ public class TicketVendorPaymentScreen extends Screen {
                     0xFFFFFF
             );
             matrices.pop();
+
+            if (thisTabHovering && pressed) {
+                this.client.setScreen(new TicketVendorPaymentScreen(
+                        pos,
+                        new TicketVendorPaymentData(
+                                TicketVendorPaymentData.EnumTicketVendorPaymentType.SINGLE_TRIP,
+                                i + 1,
+                                new Text[] {
+                                        Text.translatable("gui.metropolis.ticket_vendor_payment.single_trip.title"),
+                                        Text.translatable("gui.metropolis.ticket_vendor_payment.single_trip.ticket_value", (i + 1) + "$"),
+                                        Text.translatable("gui.metropolis.ticket_vendor_payment.single_trip.amount", 1),
+                                }
+                        )
+                ));
+            }
         }
 
         // Custom button

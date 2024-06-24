@@ -3,7 +3,7 @@ package team.dovecotmc.metropolis.client.network;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
-import team.dovecotmc.metropolis.client.gui.TicketVendorScreen1;
+import team.dovecotmc.metropolis.client.gui.ticket_vendor.TicketVendorScreen1;
 import team.dovecotmc.metropolis.network.MetroServerNetwork;
 
 /**

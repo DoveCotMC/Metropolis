@@ -1,4 +1,4 @@
-package team.dovecotmc.metropolis.client.gui;
+package team.dovecotmc.metropolis.client.gui.ticket_vendor;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.MinecraftClient;
