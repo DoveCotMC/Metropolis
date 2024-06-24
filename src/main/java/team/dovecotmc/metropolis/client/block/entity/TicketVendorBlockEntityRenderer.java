@@ -7,7 +7,9 @@ import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.*;
 import net.minecraft.client.render.block.BlockRenderManager;
 import net.minecraft.client.render.block.entity.BlockEntityRenderer;
+import net.minecraft.client.render.model.json.ModelTransformation;
 import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.Quaternion;
@@ -55,7 +57,6 @@ public class TicketVendorBlockEntityRenderer implements BlockEntityRenderer<Bloc
             builder.vertex(matrices.peek().getPositionMatrix(), 0f, 15.9343f, 9.3576f).texture(1, 0).next();
             builder.vertex(matrices.peek().getPositionMatrix(), 16f, 15.9343f, 9.3576f).texture(0, 0).next();
             builder.vertex(matrices.peek().getPositionMatrix(), 16f, 3f, 4f).texture(0, 1).next();
-//        builder.end();
 
             RenderSystem.setShader(GameRenderer::getPositionTexShader);
             RenderSystem.setShaderColor(1, 1, 1, 1);
@@ -65,6 +66,29 @@ public class TicketVendorBlockEntityRenderer implements BlockEntityRenderer<Bloc
             RenderSystem.disableBlend();
             RenderSystem.disableDepthTest();
 
+            matrices.pop();
+
+            matrices.push();
+            matrices.translate(0.5f, 0.5f, 0.5f);
+            matrices.multiply(Quaternion.fromEulerXyzDegrees(new Vec3f(0, -facing.asRotation() - 180, 0)));
+            matrices.translate(-0.5f, -0.5f, -0.5f);
+            if (!entity.getStack(0).isEmpty()) {
+                matrices.push();
+
+                double ticketOffset = 0;
+                if (mc.world != null) {
+                    double time = (double) (mc.world.getTime() - entity.ticket_animation_begin_time) + tickDelta;
+                    if (time < 10) {
+                        ticketOffset = 1 - Math.pow(time / 10d, 2);
+                    }
+                }
+
+                matrices.translate(9.25d / 16d, 2.25d / 16d, (6 + ticketOffset * 3) / 16d);
+                matrices.scale(0.5f, 0.5f, 0.5f);
+                matrices.multiply(Quaternion.fromEulerXyzDegrees(new Vec3f(-90, 0, 90)));
+                mc.getItemRenderer().renderItem(entity.getStack(0), ModelTransformation.Mode.GROUND, light, overlay, matrices, vertexConsumers, 0);
+                matrices.pop();
+            }
             matrices.pop();
         }
     }

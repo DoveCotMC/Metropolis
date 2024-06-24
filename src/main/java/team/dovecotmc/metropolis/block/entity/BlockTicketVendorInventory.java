@@ -11,7 +11,7 @@ import net.minecraft.util.collection.DefaultedList;
  * @project Metropolis
  * @copyright Copyright © 2024 Arrokoth All Rights Reserved.
  */
-public interface BlockTicketMachineInventory extends Inventory {
+public interface BlockTicketVendorInventory extends Inventory {
     DefaultedList<ItemStack> getItems();
 
     @Override

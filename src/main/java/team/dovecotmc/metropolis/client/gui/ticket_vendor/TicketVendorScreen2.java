@@ -8,6 +8,7 @@ import net.minecraft.client.render.Tessellator;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NbtCompound;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.text.Text;
@@ -15,6 +16,8 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.ColorHelper;
 import team.dovecotmc.metropolis.Metropolis;
+import team.dovecotmc.metropolis.item.ItemTicket;
+import team.dovecotmc.metropolis.item.MetroItems;
 import team.dovecotmc.metropolis.util.MtrStationUtil;
 
 import java.util.*;
@@ -234,7 +237,7 @@ public class TicketVendorScreen2 extends Screen {
 
                     // Station cost
                     int cost = Math.abs(station.zone - locatedStation.zone) + 1;
-                    Text costText = Text.literal(cost + "$");
+                    Text costText = Text.translatable("misc.metropolis.cost", cost);
                     textRenderer.draw(
                             matrices,
                             costText,
@@ -270,6 +273,12 @@ public class TicketVendorScreen2 extends Screen {
                             stationFirstName = arr2[0];
                         }
 
+                        ItemStack ticketStack = new ItemStack(MetroItems.ITEM_TICKET);
+                        NbtCompound nbt = ticketStack.getOrCreateNbt();
+                        nbt.putInt(ItemTicket.BALANCE, cost);
+                        nbt.putString(ItemTicket.START_STATION, locatedStationFirstName);
+                        nbt.putString(ItemTicket.END_STATION, stationFirstName);
+
                         this.client.setScreen(new TicketVendorPaymentScreen(
                                 pos,
                                 new TicketVendorPaymentData(
@@ -278,9 +287,10 @@ public class TicketVendorScreen2 extends Screen {
                                         new Text[] {
                                                 Text.translatable("gui.metropolis.ticket_vendor_payment.single_trip.title"),
                                                 Text.translatable("gui.metropolis.ticket_vendor_payment.single_trip.from_and_to", locatedStationFirstName, stationFirstName),
-                                                Text.translatable("gui.metropolis.ticket_vendor_payment.single_trip.ticket_value", cost + "$"),
+                                                Text.translatable("gui.metropolis.ticket_vendor_payment.single_trip.ticket_value", cost),
                                                 Text.translatable("gui.metropolis.ticket_vendor_payment.single_trip.amount", 1),
-                                        }
+                                        },
+                                        ticketStack
                                 )
                         ));
                     }
@@ -329,7 +339,7 @@ public class TicketVendorScreen2 extends Screen {
 
             matrices.push();
             matrices.scale(scaleFactor, scaleFactor, scaleFactor);
-            Text cost = Text.literal(valuesToSelect[i] + "$");
+            Text cost = Text.literal(Text.translatable("misc.metropolis.cost", valuesToSelect[i]).getString());
             textRenderer.draw(
                     matrices,
                     cost,
@@ -345,6 +355,10 @@ public class TicketVendorScreen2 extends Screen {
                     this.client.world.playSound(pos, SoundEvents.UI_BUTTON_CLICK, SoundCategory.MASTER, 1f, 1f, false);
                 }
 
+                ItemStack ticketStack = new ItemStack(MetroItems.ITEM_TICKET);
+                NbtCompound nbt = ticketStack.getOrCreateNbt();
+                nbt.putInt(ItemTicket.BALANCE, i + 1);
+
                 this.client.setScreen(new TicketVendorPaymentScreen(
                         pos,
                         new TicketVendorPaymentData(
@@ -352,9 +366,10 @@ public class TicketVendorScreen2 extends Screen {
                                 i + 1,
                                 new Text[] {
                                         Text.translatable("gui.metropolis.ticket_vendor_payment.single_trip.title"),
-                                        Text.translatable("gui.metropolis.ticket_vendor_payment.single_trip.ticket_value", (i + 1) + "$"),
+                                        Text.translatable("gui.metropolis.ticket_vendor_payment.single_trip.ticket_value", Text.translatable("misc.metropolis.cost", i + 1).getString()),
                                         Text.translatable("gui.metropolis.ticket_vendor_payment.single_trip.amount", 1),
-                                }
+                                },
+                                ticketStack
                         )
                 ));
             }

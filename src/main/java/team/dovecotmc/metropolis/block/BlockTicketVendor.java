@@ -2,6 +2,7 @@ package team.dovecotmc.metropolis.block;
 
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemPlacementContext;
@@ -19,6 +20,7 @@ import net.minecraft.world.World;
 import net.minecraft.world.WorldAccess;
 import org.jetbrains.annotations.Nullable;
 import team.dovecotmc.metropolis.block.entity.BlockEntityTicketVendor;
+import team.dovecotmc.metropolis.block.entity.MetroBlockEntities;
 import team.dovecotmc.metropolis.network.MetroServerNetwork;
 import team.dovecotmc.metropolis.util.MetroBlockUtil;
 
@@ -86,8 +88,24 @@ public class BlockTicketVendor extends HorizontalFacingBlock implements BlockEnt
         }
 
         if (!world.isClient) {
+            BlockEntityTicketVendor blockEntity = world.getBlockEntity(pos, MetroBlockEntities.TICKET_VENDOR_BLOCK_ENTITY).orElse(null);
+            if (blockEntity != null && !blockEntity.getStack(0).isEmpty()) {
+                ServerPlayerEntity serverPlayer = (ServerPlayerEntity) player;
+                serverPlayer.getInventory().insertStack(blockEntity.getStack(0));
+                blockEntity.removeStack(0);
+                serverPlayer.networkHandler.sendPacket(blockEntity.toUpdatePacket());
+                MetroServerNetwork.removeInventoryItem(0, pos, serverPlayer);
+                return ActionResult.SUCCESS;
+            }
             MetroServerNetwork.openTicketVendorScreen(world, pos, (ServerPlayerEntity) player);
-        }
+        }/* else {
+            BlockEntityTicketVendor blockEntity = world.getBlockEntity(pos, MetroBlockEntities.TICKET_VENDOR_BLOCK_ENTITY).orElse(null);
+            if (blockEntity != null && !blockEntity.getStack(0).isEmpty()) {
+                blockEntity.removeStack(0);
+                ClientPlayerEntity clientPlayer = (ClientPlayerEntity) player;
+//                clientPlayer.networkHandler.sendPacket(blockEntity.toUpdatePacket());
+            }
+        }*/
         return ActionResult.SUCCESS;
     }
 

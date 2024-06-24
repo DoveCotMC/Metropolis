@@ -30,7 +30,11 @@
     "gui.metropolis.ticket_vendor_payment.single_trip.ticket_value": "  Value: %s",
     "gui.metropolis.ticket_vendor_payment.single_trip.amount": "  Amount: %s",
 
+    "tooltip.metropolis.ticket.from_and_to": "§7%s ⥋ %s",
+    "tooltip.metropolis.ticket.balance": "§2Balance: %s",
     "metropolis.tooltip.ticket.money_remain": "§2Money Remain: %s",
     "metropolis.tooltip.ticket.entered_station_zone": "§7Entered zone %s",
-    "metropolis.tooltip.ticket.no_station_entered": "§7No station entered"
+    "metropolis.tooltip.ticket.no_station_entered": "§7No station entered",
+
+    "misc.metropolis.cost": "$%s"
 }

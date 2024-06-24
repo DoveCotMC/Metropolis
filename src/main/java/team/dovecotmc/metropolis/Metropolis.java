@@ -12,7 +12,9 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import team.dovecotmc.metropolis.block.MetroBlocks;
 import team.dovecotmc.metropolis.block.entity.MetroBlockEntities;
+import team.dovecotmc.metropolis.client.network.MetroClientNetwork;
 import team.dovecotmc.metropolis.item.MetroItems;
+import team.dovecotmc.metropolis.network.MetroServerNetwork;
 
 /**
  * @author Arrokoth
@@ -34,6 +36,7 @@ public class Metropolis implements ModInitializer {
         MetroBlocks.initialize();
         MetroBlockEntities.initialize();
         MetroItems.initialize();
+        MetroServerNetwork.registerAll();
 
         ServerPlayNetworking.registerGlobalReceiver(ID_SCREEN_CLOSE_TICKET_MACHINE, (server, player, handler, buf, responseSender) -> {
             ItemStack stack = buf.readItemStack();

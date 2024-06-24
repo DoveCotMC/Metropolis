@@ -16,9 +16,10 @@ import java.util.List;
  * @copyright Copyright © 2024 Arrokoth All Rights Reserved.
  */
 public class ItemTicket extends Item implements InterfaceTicket {
-    public static final String REMAIN_MONEY = "remain_money";
+    public static final String BALANCE = "balance";
     public static final String ENTERED = "entered";
-    public static final String ENTERED_ZONE = "entered_zone";
+    public static final String START_STATION = "start_station";
+    public static final String END_STATION = "end_station";
     public final boolean disposable;
 
     public ItemTicket(Settings settings, boolean disposable) {
@@ -29,13 +30,11 @@ public class ItemTicket extends Item implements InterfaceTicket {
     @Override
     public void appendTooltip(ItemStack stack, @Nullable World world, List<Text> tooltip, TooltipContext context) {
         NbtCompound nbt = stack.getOrCreateNbt();
-        tooltip.add(Text.translatable("metropolis.tooltip.ticket.money_remain", nbt.getInt(ItemTicket.REMAIN_MONEY)));
 
-        if (nbt.getBoolean(ItemTicket.ENTERED)) {
-            tooltip.add(Text.translatable("metropolis.tooltip.ticket.entered_station_zone", nbt.getInt(ItemTicket.ENTERED_ZONE)));
-        } else {
-            tooltip.add(Text.translatable("metropolis.tooltip.ticket.no_station_entered"));
-        }
+        if (nbt.contains(START_STATION) && nbt.contains(END_STATION))
+            tooltip.add(Text.translatable("tooltip.metropolis.ticket.from_and_to", nbt.getString(START_STATION), nbt.getString(END_STATION)));
+
+        tooltip.add(Text.translatable("tooltip.metropolis.ticket.balance", nbt.getInt(BALANCE)));
 
         super.appendTooltip(stack, world, tooltip, context);
     }

@@ -44,7 +44,7 @@ public class MetropolisClient implements ClientModInitializer {
             // ??
         }
 
-        MetroClientNetwork.registerTicketVendorGuiReceiver();
+        MetroClientNetwork.registerAll();
 
 //        BlockRenderLayerMap.INSTANCE.putBlock(MetroBlocks.BLOCK_TICKET_MACHINE, RenderLayer.getCutout());
 

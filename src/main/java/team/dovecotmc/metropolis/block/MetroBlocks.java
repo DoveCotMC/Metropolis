@@ -29,8 +29,6 @@ public class MetroBlocks {
 //    public static final Block BLOCK_CABLE_A_9 = registerDovecotFeatures("cable_a_9", new BlockCable(FabricBlockSettings.of(Material.METAL, MapColor.STONE_GRAY).noCollision().nonOpaque()));
     // Tunnel light
     public static final Block BLOCK_TUNNEL_LIGHT_A = registerDovecotFeatures("tunnel_light_a", new BlockTunnelLight(FabricBlockSettings.of(Material.METAL, MapColor.STONE_GRAY).nonOpaque()));
-//    public static final Block BLOCK_TICKET_MACHINE_A = registerDovecotFeatures("ticket_machine_a", new BlockSmallerTickerMachine(FabricBlockSettings.of(Material.METAL, MapColor.DIAMOND_BLUE).nonOpaque()));
-//    public static final Block BLOCK_TICKET_MACHINE_B = registerDovecotFeatures("ticket_machine_b", new BlockTicketMachine(FabricBlockSettings.of(Material.METAL, MapColor.DIAMOND_BLUE).nonOpaque()));
 
     // Ticket Vendor Decos
     public static final Block BLOCK_TICKET_VENDOR_UP_1 = register("ticket_vendor_up_1", new BlockTicketVendorUp());

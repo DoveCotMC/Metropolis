@@ -15,6 +15,7 @@ import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import team.dovecotmc.metropolis.Metropolis;
+import team.dovecotmc.metropolis.client.network.MetroClientNetwork;
 import team.dovecotmc.metropolis.util.MtrStationUtil;
 
 import java.util.HashSet;
@@ -30,8 +31,8 @@ public class TicketVendorPaymentScreen extends Screen {
     protected static final int BG_TEXTURE_WIDTH = 256;
     protected static final int BG_TEXTURE_HEIGHT = 196;
 
-    private static final Identifier CONTINUE_BUTTON_BASE_ID = new Identifier(Metropolis.MOD_ID, "textures/gui/ticket_vendor_2/value_button_base.png");
-    private static final Identifier CONTINUE_BUTTON_BASE_HOVER_ID = new Identifier(Metropolis.MOD_ID, "textures/gui/ticket_vendor_2/value_button_base_hover.png");
+    private static final Identifier CONTINUE_BUTTON_BASE_ID = new Identifier(Metropolis.MOD_ID, "textures/gui/ticket_vendor_payment/continue_button.png");
+    private static final Identifier CONTINUE_BUTTON_BASE_HOVER_ID = new Identifier(Metropolis.MOD_ID, "textures/gui/ticket_vendor_payment/continue_button_hover.png");
     protected static final int CONTINUE_BUTTON_BASE_WIDTH = 56;
     protected static final int CONTINUE_BUTTON_BASE_HEIGHT = 16;
 
@@ -119,7 +120,8 @@ public class TicketVendorPaymentScreen extends Screen {
         );
 
         // Description ticket
-        float scaleFactor = 8f / textRenderer.fontHeight;
+//        float scaleFactor = 8f / textRenderer.fontHeight;
+        float scaleFactor = 1f;
         int x0 = 36 + 4;
         int y0 = 51 + 4;
         int y1 = 138 + 4;
@@ -132,7 +134,7 @@ public class TicketVendorPaymentScreen extends Screen {
                     matrices,
                     text,
                     intoTexturePosX(x0) / scaleFactor,
-                    intoTexturePosY(y0 + 10 * i0) / scaleFactor,
+                    intoTexturePosY(y0 + (textRenderer.fontHeight + 2) * i0) / scaleFactor,
                     0xFFFFFF
             );
             i0++;
@@ -141,6 +143,7 @@ public class TicketVendorPaymentScreen extends Screen {
 
         // Description price
         Text priceText = Text.translatable("gui.metropolis.ticket_vendor_payment.price", paymentData.value);
+        scaleFactor = 1f;
         matrices.push();
         matrices.scale(scaleFactor, scaleFactor, scaleFactor);
         this.textRenderer.drawWithShadow(
@@ -157,7 +160,7 @@ public class TicketVendorPaymentScreen extends Screen {
             balance = client.player.getInventory().count(Items.EMERALD);
         }
 
-        boolean canPay = balance >= paymentData.value;
+        boolean ableToPay = balance >= paymentData.value;
 
         Text balanceText = Text.translatable("gui.metropolis.ticket_vendor_payment.balance", balance);
         this.textRenderer.drawWithShadow(
@@ -165,7 +168,7 @@ public class TicketVendorPaymentScreen extends Screen {
                 balanceText,
                 intoTexturePosX(x0) / scaleFactor,
                 intoTexturePosY(y1 + 18) / scaleFactor,
-                canPay ? 0xFFFFFF : 0xFF3F3F
+                ableToPay ? 0xFFFFFF : 0xFF3F3F
         );
 
         // Item unit
@@ -181,7 +184,7 @@ public class TicketVendorPaymentScreen extends Screen {
                 Text.literal("×"),
                 intoTexturePosX(x0 + Math.max(textRenderer.getWidth(balanceText), textRenderer.getWidth(priceText)) + 4) / scaleFactor,
                 intoTexturePosY(y1 + 18) / scaleFactor,
-                canPay ? 0xFFFFFF : 0xFF3F3F
+                ableToPay ? 0xFFFFFF : 0xFF3F3F
         );
         matrices.pop();
 
@@ -242,6 +245,11 @@ public class TicketVendorPaymentScreen extends Screen {
                 0xFFFFFF
         );
         matrices.pop();
+
+        if (thisTabHovering && pressed && ableToPay) {
+            client.setScreen(null);
+            MetroClientNetwork.ticketVendorResult(pos, paymentData.resultStack, 0);
+        }
 
         RenderSystem.disableBlend();
 
