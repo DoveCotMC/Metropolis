@@ -19,6 +19,8 @@
     "gui.metropolis.ticket_vendor_2.subtitle_2": "Values",
     "gui.metropolis.ticket_vendor_2.custom_value_option": "Custom",
 
+    "gui.metropolis.ticket_vendor_4.title": "Ticket Vendor Machine",
+
     "gui.metropolis.ticket_vendor_payment.title": "Ticket Vendor Machine",
     "gui.metropolis.ticket_vendor_payment.subtitle": "Review payment",
     "gui.metropolis.ticket_vendor_payment.continue_button": "Continue",

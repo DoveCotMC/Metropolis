@@ -16,6 +16,8 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import team.dovecotmc.metropolis.Metropolis;
 
+import java.util.List;
+
 /**
  * @author Arrokoth
  * @project Metropolis
@@ -66,6 +68,12 @@ public class TicketVendorScreen1 extends Screen {
         if (MinecraftClient.getInstance().world != null) {
             tipId = MinecraftClient.getInstance().world.random.nextInt(3);
         }
+
+        this.pressed = false;
+        this.pressing = false;
+        this.lastPressing = false;
+        this.mouseX = 0;
+        this.mouseY = 0;
 //        ButtonWidget buttonTest = new ButtonWidget(0, 0, 128, 20, Text.translatable("metropolis.screen.ticket_machine.button.test"), button -> {
 ////            NbtCompound nbt = this.ticketItem.getOrCreateNbt();
 ////            nbt.putInt(ItemTicket.REMAIN_MONEY, nbt.getInt(ItemTicket.REMAIN_MONEY) + 1);
@@ -374,6 +382,13 @@ public class TicketVendorScreen1 extends Screen {
             }
             // TODO: Data transfer
             this.client.setScreen(new TicketVendorScreen2(pos, ItemStack.EMPTY));
+        }
+
+        if (purpleHovering && pressed) {
+            if (this.client.world != null) {
+                playDownSound(MinecraftClient.getInstance().getSoundManager());
+            }
+            this.client.setScreen(new TicketVendorScreen4(pos, List.of(this)));
         }
 
         super.render(matrices, mouseX, mouseY, delta);
