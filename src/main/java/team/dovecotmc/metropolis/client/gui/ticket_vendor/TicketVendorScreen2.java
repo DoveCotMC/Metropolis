@@ -6,6 +6,8 @@ import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.render.Tessellator;
 import net.minecraft.client.render.VertexConsumerProvider;
+import net.minecraft.client.sound.PositionedSoundInstance;
+import net.minecraft.client.sound.SoundManager;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
@@ -260,7 +262,7 @@ public class TicketVendorScreen2 extends Screen {
                     // Go to payment
                     if (thisTabHovering && pressed) {
                         if (this.client.world != null) {
-                            this.client.world.playSound(pos, SoundEvents.UI_BUTTON_CLICK, SoundCategory.MASTER, 1f, 1f, false);
+                            playDownSound(MinecraftClient.getInstance().getSoundManager());
                         }
                         String locatedStationFirstName = station.name;
                         String[] arr1 = locatedStation.name.split("\\|");
@@ -352,7 +354,7 @@ public class TicketVendorScreen2 extends Screen {
             // Go to payment
             if (thisTabHovering && pressed) {
                 if (this.client.world != null) {
-                    this.client.world.playSound(pos, SoundEvents.UI_BUTTON_CLICK, SoundCategory.MASTER, 1f, 1f, false);
+                    playDownSound(MinecraftClient.getInstance().getSoundManager());
                 }
 
                 ItemStack ticketStack = new ItemStack(MetroItems.ITEM_TICKET);
@@ -486,5 +488,9 @@ public class TicketVendorScreen2 extends Screen {
 
     private int intoTexturePosY(double y) {
         return (int) (this.height / 2 - BG_TEXTURE_HEIGHT / 2 + y);
+    }
+
+    public void playDownSound(SoundManager soundManager) {
+        soundManager.play(PositionedSoundInstance.master(SoundEvents.UI_BUTTON_CLICK, 1.0F));
     }
 }

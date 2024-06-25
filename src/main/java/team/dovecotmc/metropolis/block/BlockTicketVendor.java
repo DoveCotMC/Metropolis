@@ -8,6 +8,8 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.item.ItemStack;
 import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.sound.SoundCategory;
+import net.minecraft.sound.SoundEvents;
 import net.minecraft.state.StateManager;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
@@ -90,6 +92,7 @@ public class BlockTicketVendor extends HorizontalFacingBlock implements BlockEnt
         if (!world.isClient) {
             BlockEntityTicketVendor blockEntity = world.getBlockEntity(pos, MetroBlockEntities.TICKET_VENDOR_BLOCK_ENTITY).orElse(null);
             if (blockEntity != null && !blockEntity.getStack(0).isEmpty()) {
+                world.playSound(null, pos, SoundEvents.BLOCK_WOOL_BREAK, SoundCategory.BLOCKS, 1f, 1f);
                 ServerPlayerEntity serverPlayer = (ServerPlayerEntity) player;
                 serverPlayer.getInventory().insertStack(blockEntity.getStack(0));
                 blockEntity.removeStack(0);
@@ -98,14 +101,7 @@ public class BlockTicketVendor extends HorizontalFacingBlock implements BlockEnt
                 return ActionResult.SUCCESS;
             }
             MetroServerNetwork.openTicketVendorScreen(world, pos, (ServerPlayerEntity) player);
-        }/* else {
-            BlockEntityTicketVendor blockEntity = world.getBlockEntity(pos, MetroBlockEntities.TICKET_VENDOR_BLOCK_ENTITY).orElse(null);
-            if (blockEntity != null && !blockEntity.getStack(0).isEmpty()) {
-                blockEntity.removeStack(0);
-                ClientPlayerEntity clientPlayer = (ClientPlayerEntity) player;
-//                clientPlayer.networkHandler.sendPacket(blockEntity.toUpdatePacket());
-            }
-        }*/
+        }
         return ActionResult.SUCCESS;
     }
 

@@ -8,9 +8,12 @@ import net.minecraft.client.gui.screen.ingame.CraftingScreen;
 import net.minecraft.client.gui.screen.ingame.InventoryScreen;
 import net.minecraft.client.render.Tessellator;
 import net.minecraft.client.render.VertexConsumerProvider;
+import net.minecraft.client.sound.PositionedSoundInstance;
+import net.minecraft.client.sound.SoundManager;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
+import net.minecraft.sound.SoundEvents;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
@@ -247,8 +250,9 @@ public class TicketVendorPaymentScreen extends Screen {
         matrices.pop();
 
         if (thisTabHovering && pressed && ableToPay) {
+            playDownSound(MinecraftClient.getInstance().getSoundManager());
             client.setScreen(null);
-            MetroClientNetwork.ticketVendorResult(pos, paymentData.resultStack, 0, paymentData.value);
+            MetroClientNetwork.ticketVendorResult(client.world, pos, paymentData.resultStack, 0, paymentData.value);
         }
 
         RenderSystem.disableBlend();
@@ -310,5 +314,9 @@ public class TicketVendorPaymentScreen extends Screen {
 
     private int intoTexturePosY(double y) {
         return (int) (this.height / 2 - BG_TEXTURE_HEIGHT / 2 + y);
+    }
+
+    public void playDownSound(SoundManager soundManager) {
+        soundManager.play(PositionedSoundInstance.master(SoundEvents.UI_BUTTON_CLICK, 1.0F));
     }
 }

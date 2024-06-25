@@ -3,12 +3,18 @@ package team.dovecotmc.metropolis.network;
 import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.client.gui.screen.ingame.CreativeInventoryScreen;
+import net.minecraft.client.gui.widget.ButtonWidget;
+import net.minecraft.client.sound.PositionedSoundInstance;
+import net.minecraft.client.sound.SoundManager;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.sound.SoundCategory;
+import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -61,6 +67,7 @@ public class MetroServerNetwork {
 
                 World world = player.getWorld();
                 if (world != null) {
+                    world.playSound(null, pos, SoundEvents.BLOCK_WOOL_PLACE, SoundCategory.BLOCKS, 1f, 1f);
                     BlockEntity entityRaw = world.getBlockEntity(pos);
                     if (entityRaw instanceof BlockEntityTicketVendor blockEntity) {
                         blockEntity.setStack(slot, stack);
@@ -69,6 +76,7 @@ public class MetroServerNetwork {
                         blockEntity.readNbt(nbt);
                         player.networkHandler.sendPacket(blockEntity.toUpdatePacket());
                     }
+//                    ButtonWidget
                 }
 //                player.getInventory().insertStack(stack);
             });

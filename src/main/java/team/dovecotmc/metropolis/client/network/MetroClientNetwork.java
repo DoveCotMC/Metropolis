@@ -7,7 +7,10 @@ import net.minecraft.client.MinecraftClient;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.PacketByteBuf;
+import net.minecraft.sound.SoundCategory;
+import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
 import team.dovecotmc.metropolis.block.entity.BlockEntityTicketVendor;
 import team.dovecotmc.metropolis.client.gui.ticket_vendor.TicketVendorScreen1;
 import team.dovecotmc.metropolis.network.MetroServerNetwork;
@@ -19,7 +22,7 @@ import team.dovecotmc.metropolis.network.MetroServerNetwork;
  */
 public class MetroClientNetwork {
     // Slot definitions: 0 = Ticket, 1 = IC Card
-    public static void ticketVendorResult(BlockPos pos, ItemStack stack, int slot, int balance) {
+    public static void ticketVendorResult(World world, BlockPos pos, ItemStack stack, int slot, int balance) {
         PacketByteBuf buf = PacketByteBufs.create();
         buf.writeBlockPos(pos);
         buf.writeItemStack(stack);
