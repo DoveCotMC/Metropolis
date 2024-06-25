@@ -14,12 +14,14 @@
     "gui.metropolis.ticket_vendor_1.tips_1": "᛫ 鸽舍是一个一个一个？",
     "gui.metropolis.ticket_vendor_1.tips_2": "᛫ 这个GUI是由Arrokoth233与Radekemia制做的",
 
-    "gui.metropolis.ticket_vendor_2.title": "多功能售票机",
+    "gui.metropolis.ticket_vendor_2.title": "购票",
     "gui.metropolis.ticket_vendor_2.subtitle": "购买单程票",
     "gui.metropolis.ticket_vendor_2.subtitle_2": "直接选择金额",
     "gui.metropolis.ticket_vendor_2.custom_value_option": "自选金额",
 
-    "gui.metropolis.ticket_vendor_payment.title": "多功能售票机",
+    "gui.metropolis.ticket_vendor_4.title": "充值",
+
+    "gui.metropolis.ticket_vendor_payment.title": "付款",
     "gui.metropolis.ticket_vendor_payment.subtitle": "订单详情",
     "gui.metropolis.ticket_vendor_payment.continue_button": "继续支付",
     "gui.metropolis.ticket_vendor_payment.price": "价格：%s",
@@ -33,6 +35,8 @@
     "metropolis.tooltip.ticket.money_remain": "§2Money Remain: %s",
     "metropolis.tooltip.ticket.entered_station_zone": "§7Entered zone %s",
     "metropolis.tooltip.ticket.no_station_entered": "§7No station entered",
+    "tooltip.metropolis.ticket.from_and_to": "§7%s ⥋ %s",
+    "tooltip.metropolis.ticket.balance": "§2余额: %s",
 
-    "misc.metropolis.cost": "%s￥"
+    "misc.metropolis.cost": "￥%s"
 }

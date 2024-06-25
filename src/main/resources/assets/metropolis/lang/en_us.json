@@ -14,14 +14,14 @@
     "gui.metropolis.ticket_vendor_1.tips_1": "᛫ Dovecot is a Dovecot?",
     "gui.metropolis.ticket_vendor_1.tips_2": "᛫ This GUI is made by Arrokoth233 and Radekemia.",
 
-    "gui.metropolis.ticket_vendor_2.title": "Ticket Vendor Machine",
+    "gui.metropolis.ticket_vendor_2.title": "Tickets",
     "gui.metropolis.ticket_vendor_2.subtitle": "Single trip tickets",
     "gui.metropolis.ticket_vendor_2.subtitle_2": "Values",
     "gui.metropolis.ticket_vendor_2.custom_value_option": "Custom",
 
-    "gui.metropolis.ticket_vendor_4.title": "Ticket Vendor Machine",
+    "gui.metropolis.ticket_vendor_4.title": "Charge",
 
-    "gui.metropolis.ticket_vendor_payment.title": "Ticket Vendor Machine",
+    "gui.metropolis.ticket_vendor_payment.title": "Payment",
     "gui.metropolis.ticket_vendor_payment.subtitle": "Review payment",
     "gui.metropolis.ticket_vendor_payment.continue_button": "Continue",
     "gui.metropolis.ticket_vendor_payment.price": "Price: %s",

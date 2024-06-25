@@ -107,7 +107,7 @@ public class TicketVendorScreen2 extends Screen {
         // Title
         VertexConsumerProvider.Immediate immediate = VertexConsumerProvider.immediate(Tessellator.getInstance().getBuffer());
         this.textRenderer.drawWithOutline(
-                Text.translatable("gui.metropolis.ticket_vendor.title").asOrderedText(),
+                Text.translatable("gui.metropolis.ticket_vendor_2.title").asOrderedText(),
                 intoTexturePosX(36),
                 intoTexturePosY(12),
                 0xFFFFFF,
