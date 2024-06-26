@@ -16,7 +16,7 @@ import java.util.List;
  */
 public class ItemCard extends Item implements InterfaceTicket {
     public ItemCard(Settings settings) {
-        super(settings);
+        super(settings.maxCount(1));
     }
 
     @Override

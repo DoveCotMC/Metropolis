@@ -81,13 +81,33 @@ public class TicketVendorBlockEntityRenderer implements BlockEntityRenderer<Bloc
                     if (time < 10) {
                         ticketOffset = 1 - Math.pow(time / 10d, 2);
                     }
+                    matrices.translate(9.25d / 16d, 2.25d / 16d, (6 + ticketOffset * 3) / 16d);
+                    matrices.scale(0.5f, 0.5f, 0.5f);
+                    matrices.multiply(Quaternion.fromEulerXyzDegrees(new Vec3f(-90, 0, 90)));
+                    mc.getItemRenderer().renderItem(entity.getStack(0), ModelTransformation.Mode.GROUND, light, overlay, matrices, vertexConsumers, 0);
+                    matrices.pop();
                 }
+            }
+            if (!entity.getStack(1).isEmpty()) {
+                if (mc.world != null) {
+                    double time = (double) (mc.world.getTime() - entity.card_animation_begin_time) + tickDelta;
+                    if (time < 10) {
+                        double ticketOffset = Math.pow(time / 10d, 2);
 
-                matrices.translate(9.25d / 16d, 2.25d / 16d, (6 + ticketOffset * 3) / 16d);
-                matrices.scale(0.5f, 0.5f, 0.5f);
-                matrices.multiply(Quaternion.fromEulerXyzDegrees(new Vec3f(-90, 0, 90)));
-                mc.getItemRenderer().renderItem(entity.getStack(0), ModelTransformation.Mode.GROUND, light, overlay, matrices, vertexConsumers, 0);
-                matrices.pop();
+                        matrices.push();
+                        matrices.translate(9.25d / 16d, 2.25d / 16d, (6 + ticketOffset * 3) / 16d);
+                        matrices.scale(0.5f, 0.5f, 0.5f);
+                        matrices.multiply(Quaternion.fromEulerXyzDegrees(new Vec3f(-90, 0, 90)));
+                        mc.getItemRenderer().renderItem(entity.getStack(1), ModelTransformation.Mode.GROUND, light, overlay, matrices, vertexConsumers, 0);
+                        matrices.pop();
+                    }
+//                    matrices.push();
+//                    matrices.translate((13.25d + 0.0625f) / 16d, 4.25d / 16d, 6 / 16d);
+//                    matrices.scale(0.25f + 0.03125f, 0.25f + 0.03125f, 0.25f + 0.03125f);
+//                    matrices.multiply(Quaternion.fromEulerXyzDegrees(new Vec3f(-90, 0, 90)));
+//                    mc.getItemRenderer().renderItem(entity.getStack(1), ModelTransformation.Mode.GROUND, light, overlay, matrices, vertexConsumers, 0);
+//                    matrices.pop();
+                }
             }
             matrices.pop();
         }

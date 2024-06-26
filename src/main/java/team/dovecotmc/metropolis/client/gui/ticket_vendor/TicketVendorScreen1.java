@@ -15,6 +15,8 @@ import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import team.dovecotmc.metropolis.Metropolis;
+import team.dovecotmc.metropolis.block.entity.BlockEntityTicketVendor;
+import team.dovecotmc.metropolis.block.entity.MetroBlockEntities;
 
 import java.util.List;
 
@@ -388,7 +390,13 @@ public class TicketVendorScreen1 extends Screen {
             if (this.client.world != null) {
                 playDownSound(MinecraftClient.getInstance().getSoundManager());
             }
-            this.client.setScreen(new TicketVendorScreen4(pos, List.of(this)));
+
+            if (client.world.getBlockEntity(pos, MetroBlockEntities.TICKET_VENDOR_BLOCK_ENTITY).get().getStack(1).isEmpty()) {
+                // TODO: Warning screen
+                this.client.setScreen(null);
+            } else {
+                this.client.setScreen(new TicketVendorScreen4(pos, List.of(this)));
+            }
         }
 
         super.render(matrices, mouseX, mouseY, delta);

@@ -33,6 +33,9 @@
     "gui.metropolis.ticket_vendor_payment.single_trip.ticket_value": "  Value: %s",
     "gui.metropolis.ticket_vendor_payment.single_trip.amount": "  Amount: %s",
 
+    "gui.metropolis.ticket_vendor_payment.ic_charge.title": "IC Card charge",
+    "gui.metropolis.ticket_vendor_payment.ic_charge.ticket_value": "  Value: %s",
+
     "tooltip.metropolis.ticket.from_and_to": "§7%s ⥋ %s",
     "tooltip.metropolis.ticket.balance": "§2Balance: %s",
     "metropolis.tooltip.ticket.money_remain": "§2Money Remain: %s",

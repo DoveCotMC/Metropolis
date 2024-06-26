@@ -7,6 +7,7 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NbtCompound;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
@@ -16,6 +17,7 @@ import net.minecraft.util.Hand;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
@@ -23,6 +25,7 @@ import net.minecraft.world.WorldAccess;
 import org.jetbrains.annotations.Nullable;
 import team.dovecotmc.metropolis.block.entity.BlockEntityTicketVendor;
 import team.dovecotmc.metropolis.block.entity.MetroBlockEntities;
+import team.dovecotmc.metropolis.item.MetroItems;
 import team.dovecotmc.metropolis.network.MetroServerNetwork;
 import team.dovecotmc.metropolis.util.MetroBlockUtil;
 
@@ -89,18 +92,48 @@ public class BlockTicketVendor extends HorizontalFacingBlock implements BlockEnt
             return ActionResult.PASS;
         }
 
+        Vec3d clickPos = blockHitResult.getPos().add(new Vec3d(-pos.getX(), -pos.getY(), -pos.getZ()));
+//        System.out.println(blockHitResult.getPos().add(new Vec3d(-pos.getX(), -pos.getY(), -pos.getZ())));
+
         if (!world.isClient) {
             BlockEntityTicketVendor blockEntity = world.getBlockEntity(pos, MetroBlockEntities.TICKET_VENDOR_BLOCK_ENTITY).orElse(null);
-            if (blockEntity != null && !blockEntity.getStack(0).isEmpty()) {
-                world.playSound(null, pos, SoundEvents.BLOCK_WOOL_BREAK, SoundCategory.BLOCKS, 1f, 1f);
-                ServerPlayerEntity serverPlayer = (ServerPlayerEntity) player;
-                serverPlayer.getInventory().insertStack(blockEntity.getStack(0));
-                blockEntity.removeStack(0);
-                serverPlayer.networkHandler.sendPacket(blockEntity.toUpdatePacket());
-                MetroServerNetwork.removeInventoryItem(0, pos, serverPlayer);
-                return ActionResult.SUCCESS;
+
+            System.out.println(clickPos.y);
+            if (clickPos.y > 0.4d) {
+                MetroServerNetwork.openTicketVendorScreen(world, pos, (ServerPlayerEntity) player);
+            } else {
+                if (blockEntity != null && !blockEntity.getStack(0).isEmpty()) {
+                    world.playSound(null, pos, SoundEvents.BLOCK_WOOL_BREAK, SoundCategory.BLOCKS, 1f, 1f);
+                    ServerPlayerEntity serverPlayer = (ServerPlayerEntity) player;
+                    serverPlayer.getInventory().insertStack(blockEntity.getStack(0));
+                    blockEntity.removeStack(0);
+                    serverPlayer.networkHandler.sendPacket(blockEntity.toUpdatePacket());
+                    MetroServerNetwork.removeInventoryItem(0, pos, serverPlayer);
+                    return ActionResult.SUCCESS;
+                } else if (blockEntity != null && player.getStackInHand(Hand.MAIN_HAND).getItem().equals(MetroItems.ITEM_CARD)) {
+                    world.playSound(null, pos, SoundEvents.BLOCK_WOOL_PLACE, SoundCategory.BLOCKS, 1f, 1f);
+                    ServerPlayerEntity serverPlayer = (ServerPlayerEntity) player;
+                    blockEntity.setStack(1, player.getStackInHand(Hand.MAIN_HAND));
+                    serverPlayer.setStackInHand(Hand.MAIN_HAND, ItemStack.EMPTY);
+
+                    NbtCompound nbt = blockEntity.createNbt();
+                    nbt.putLong(BlockEntityTicketVendor.CARD_ANIMATION_BEGIN_TIME, world.getTime());
+                    blockEntity.readNbt(nbt);
+
+                    serverPlayer.networkHandler.sendPacket(blockEntity.toUpdatePacket());
+                    return ActionResult.SUCCESS;
+                } else if (blockEntity != null && !blockEntity.getStack(1).isEmpty()) {
+                    world.playSound(null, pos, SoundEvents.BLOCK_WOOL_BREAK, SoundCategory.BLOCKS, 1f, 1f);
+                    ServerPlayerEntity serverPlayer = (ServerPlayerEntity) player;
+                    serverPlayer.getInventory().insertStack(blockEntity.getStack(1));
+                    blockEntity.removeStack(1);
+                    serverPlayer.networkHandler.sendPacket(blockEntity.toUpdatePacket());
+                    MetroServerNetwork.removeInventoryItem(1, pos, serverPlayer);
+                    return ActionResult.SUCCESS;
+                }else {
+                    MetroServerNetwork.openTicketVendorScreen(world, pos, (ServerPlayerEntity) player);
+                }
             }
-            MetroServerNetwork.openTicketVendorScreen(world, pos, (ServerPlayerEntity) player);
         }
         return ActionResult.SUCCESS;
     }

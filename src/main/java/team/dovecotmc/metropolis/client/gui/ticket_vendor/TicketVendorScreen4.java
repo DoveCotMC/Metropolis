@@ -10,11 +10,14 @@ import net.minecraft.client.sound.SoundManager;
 import net.minecraft.client.util.InputUtil;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NbtCompound;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import team.dovecotmc.metropolis.Metropolis;
+import team.dovecotmc.metropolis.item.ItemTicket;
+import team.dovecotmc.metropolis.item.MetroItems;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -178,6 +181,23 @@ public class TicketVendorScreen4 extends Screen {
         if (continueHovering && pressed) {
             playButtonSound(MinecraftClient.getInstance().getSoundManager());
             // TODO: Continue
+
+            ItemStack ticketStack = new ItemStack(MetroItems.ITEM_TICKET);
+            NbtCompound nbt = ticketStack.getOrCreateNbt();
+            nbt.putInt(ItemTicket.BALANCE, Integer.parseInt(value));
+
+            this.client.setScreen(new TicketVendorPaymentScreen(
+                    pos,
+                    new TicketVendorPaymentData(
+                            TicketVendorPaymentData.EnumTicketVendorPaymentType.IC_CARD_CHARGE,
+                            Integer.parseInt(value),
+                            new Text[] {
+                                    Text.translatable("gui.metropolis.ticket_vendor_payment.ic_charge.title"),
+                                    Text.translatable("gui.metropolis.ticket_vendor_payment.ic_charge.ticket_value", this.value),
+                            },
+                            ticketStack
+                    )
+            ));
         }
 
 //        scaleFactor = 8f / this.textRenderer.fontHeight;
