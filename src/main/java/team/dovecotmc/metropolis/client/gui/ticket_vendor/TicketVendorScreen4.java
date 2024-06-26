@@ -31,10 +31,12 @@ public class TicketVendorScreen4 extends Screen {
     protected static final int BG_TEXTURE_HEIGHT = 196;
 
     private static final Identifier BUTTON_UPPER_TEXTURE_ID = new Identifier(Metropolis.MOD_ID, "textures/gui/ticket_vendor_4/button_upper.png");
+    private static final Identifier BUTTON_UPPER_TEXTURE_HOVER_ID = new Identifier(Metropolis.MOD_ID, "textures/gui/ticket_vendor_4/button_upper_hover.png");
     protected static final int BUTTON_UPPER_TEXTURE_WIDTH = 64;
     protected static final int BUTTON_UPPER_TEXTURE_HEIGHT = 14;
 
     private static final Identifier BUTTON_CONTINUE_TEXTURE_ID = new Identifier(Metropolis.MOD_ID, "textures/gui/ticket_vendor_4/button_continue.png");
+    private static final Identifier BUTTON_CONTINUE_TEXTURE_HOVER_ID = new Identifier(Metropolis.MOD_ID, "textures/gui/ticket_vendor_4/button_continue_hover.png");
     protected static final int BUTTON_CONTINUE_TEXTURE_WIDTH = 60;
     protected static final int BUTTON_CONTINUE_TEXTURE_HEIGHT = 16;
 
@@ -88,13 +90,26 @@ public class TicketVendorScreen4 extends Screen {
                 BG_TEXTURE_WIDTH, BG_TEXTURE_HEIGHT
         );
 
+        float scaleFactor = 8f / this.textRenderer.fontHeight;
+
         // Given prices
         int x0 = 31;
         int y0 = 35;
-        for (int i = 0; i < 3; i++) {
-            for (int j = 0; j < 3; j++) {
-                RenderSystem.setShaderColor(64f / 256f, 64f / 256f, 64f / 256f, 1f);
-                RenderSystem.setShaderTexture(0, BUTTON_UPPER_TEXTURE_ID);
+        int i0 = 0;
+        // TODO: Configurable
+        int[] givenPrices = {1, 2, 4, 8, 16, 24, 32, 48, 64};
+        for (int j = 0; j < 3; j++) {
+            for (int i = 0; i < 3; i++) {
+                int x1a = intoTexturePosX(x0 + (BUTTON_UPPER_TEXTURE_WIDTH + 1) * i);
+                int y1a = intoTexturePosY(y0 + (BUTTON_UPPER_TEXTURE_HEIGHT + 2) * j);
+                boolean hovering = mouseX >= x1a && mouseY >= y1a && mouseX < x1a + BUTTON_CONTINUE_TEXTURE_WIDTH && mouseY < y1a + BUTTON_CONTINUE_TEXTURE_HEIGHT;
+                if (hovering) {
+                    RenderSystem.setShaderTexture(0, BUTTON_UPPER_TEXTURE_HOVER_ID);
+                } else {
+                    RenderSystem.setShaderTexture(0, BUTTON_UPPER_TEXTURE_ID);
+                    RenderSystem.setShaderColor(96f / 256f, 96f / 256f, 96f / 256f, 1f);
+                }
+
                 drawTexture(
                         matrices,
                         intoTexturePosX(x0 + (BUTTON_UPPER_TEXTURE_WIDTH + 1) * i),
@@ -105,14 +120,38 @@ public class TicketVendorScreen4 extends Screen {
                         BUTTON_UPPER_TEXTURE_WIDTH, BUTTON_UPPER_TEXTURE_HEIGHT
                 );
                 RenderSystem.setShaderColor(1f, 1f, 1f, 1f);
+
+                matrices.push();
+                matrices.scale(scaleFactor, scaleFactor, scaleFactor);
+                Text price = Text.translatable("misc.metropolis.cost", String.valueOf(givenPrices[i0]));
+                textRenderer.draw(
+                        matrices,
+                        price,
+                        intoTexturePosX(x0 + (BUTTON_UPPER_TEXTURE_WIDTH + 1) * i + (BUTTON_UPPER_TEXTURE_WIDTH / 2f - textRenderer.getWidth(price) * scaleFactor / 2f)) / scaleFactor,
+                        intoTexturePosY(y0 + (BUTTON_UPPER_TEXTURE_HEIGHT + 2) * j + (BUTTON_UPPER_TEXTURE_HEIGHT / 2f - textRenderer.fontHeight * scaleFactor / 2f) + 1) / scaleFactor,
+                        0xFFFFFF
+                );
+                matrices.pop();
+
+                if (hovering && pressed) {
+                    playButtonSound(MinecraftClient.getInstance().getSoundManager());
+                    this.value = String.valueOf(givenPrices[i0]);
+                }
+
+                i0++;
             }
         }
 
         // Continue button
         int x1 = 165;
         int y1 = 85;
-        RenderSystem.setShaderTexture(0, BUTTON_CONTINUE_TEXTURE_ID);
-        RenderSystem.setShaderColor(241f / 256f, 175f / 256f, 21f / 256f, 1f);
+        boolean continueHovering = mouseX >= intoTexturePosX(x1) && mouseY >= intoTexturePosY(y1) && mouseX < intoTexturePosX(x1) + BUTTON_CONTINUE_TEXTURE_WIDTH && mouseY < intoTexturePosY(y1) + BUTTON_CONTINUE_TEXTURE_HEIGHT;
+        if (continueHovering) {
+            RenderSystem.setShaderTexture(0, BUTTON_CONTINUE_TEXTURE_HOVER_ID);
+        } else {
+            RenderSystem.setShaderTexture(0, BUTTON_CONTINUE_TEXTURE_ID);
+            RenderSystem.setShaderColor(241f / 256f, 175f / 256f, 21f / 256f, 1f);
+        }
         drawTexture(
                 matrices,
                 intoTexturePosX(x1),
@@ -124,11 +163,29 @@ public class TicketVendorScreen4 extends Screen {
         );
         RenderSystem.setShaderColor(1f, 1f, 1f, 1f);
 
+        matrices.push();
+        matrices.scale(scaleFactor, scaleFactor, scaleFactor);
+        Text continueText = Text.translatable("gui.metropolis.ticket_vendor_4.continue");
+        textRenderer.draw(
+                matrices,
+                continueText,
+                intoTexturePosX(x1 + (BUTTON_CONTINUE_TEXTURE_WIDTH / 2f - textRenderer.getWidth(continueText) * scaleFactor / 2f)) / scaleFactor,
+                intoTexturePosY(y1 + (BUTTON_CONTINUE_TEXTURE_HEIGHT / 2f - textRenderer.fontHeight * scaleFactor / 2f) + 1) / scaleFactor,
+                0xFFFFFF
+        );
+        matrices.pop();
+
+        if (continueHovering && pressed) {
+            playButtonSound(MinecraftClient.getInstance().getSoundManager());
+            // TODO: Continue
+        }
+
+//        scaleFactor = 8f / this.textRenderer.fontHeight;
+
         // Numbers
         int x2 = 32;
         int y2 = 128;
-        int i0 = 1;
-        float scaleFactor = 8f / this.textRenderer.fontHeight;
+        int i1 = 1;
         for (int i = 0; i < 4; i++) {
             for (int j = 0; j < 3; j++) {
                 boolean thisHover =
@@ -146,9 +203,9 @@ public class TicketVendorScreen4 extends Screen {
                     RenderSystem.setShaderTexture(0, BUTTON_NUMBER_TEXTURE_ID);
                 }
 
-                if (i0 <= 9 && inputToHandle2.contains(i0)) {
+                if (i1 <= 9 && inputToHandle2.contains(i1)) {
                     RenderSystem.setShaderTexture(0, BUTTON_NUMBER_TEXTURE_DOWN_ID);
-                } else if (i0 == 11 && inputToHandle2.contains(0)) {
+                } else if (i1 == 11 && inputToHandle2.contains(0)) {
                     RenderSystem.setShaderTexture(0, BUTTON_NUMBER_TEXTURE_DOWN_ID);
                 }
 
@@ -164,13 +221,13 @@ public class TicketVendorScreen4 extends Screen {
 
                 matrices.push();
                 matrices.scale(scaleFactor, scaleFactor, scaleFactor);
-                Text text = Text.literal(String.valueOf(i0));
+                Text text = Text.literal(String.valueOf(i1));
 
-                if (i0 == 10) {
+                if (i1 == 10) {
                     text = Text.literal("#");
-                } else if (i0 == 11) {
+                } else if (i1 == 11) {
                     text = Text.literal("0");
-                } else if (i0 == 12) {
+                } else if (i1 == 12) {
                     text = Text.literal("←");
                 }
 
@@ -187,17 +244,17 @@ public class TicketVendorScreen4 extends Screen {
                     playButtonSound(MinecraftClient.getInstance().getSoundManager());
                     String buffer = this.value;
                     if (Long.parseLong(this.value) < Integer.MAX_VALUE) {
-                        if (i0 <= 9) {
+                        if (i1 <= 9) {
                             if (Objects.equals(this.value, "0"))
-                                buffer = String.valueOf(i0);
+                                buffer = String.valueOf(i1);
                             else
-                                buffer += String.valueOf(i0);
-                        } if (i0 == 10) {
+                                buffer += String.valueOf(i1);
+                        } if (i1 == 10) {
                             // TODO: What the hashtag
-                        } else if (i0 == 11) {
+                        } else if (i1 == 11) {
                             if (!Objects.equals(buffer, "0"))
                                 buffer += "0";
-                        } else if (i0 == 12) {
+                        } else if (i1 == 12) {
                             if (this.value.length() > 1) {
                                 buffer = buffer.substring(0, buffer.length() - 1);
                             } else if (this.value.length() == 1) {
@@ -213,19 +270,19 @@ public class TicketVendorScreen4 extends Screen {
                         }
                     }
                 }
-                i0++;
+                i1++;
             }
         }
 
         // Keyboard number input
         if (inputToHandle.size() > 0) {
-            int i1 = inputToHandle.get(0);
+            int k0 = inputToHandle.get(0);
             String buffer = this.value;
             playButtonSound(MinecraftClient.getInstance().getSoundManager());
             if (Objects.equals(buffer, "0"))
-                buffer = String.valueOf(i1);
+                buffer = String.valueOf(k0);
             else
-                buffer += String.valueOf(i1);
+                buffer += String.valueOf(k0);
             try {
                 if (!(Long.parseLong(buffer) > Integer.MAX_VALUE)) {
                     this.value = buffer;
