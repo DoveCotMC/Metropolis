@@ -122,7 +122,7 @@ public class BlockTicketVendor extends HorizontalFacingBlock implements BlockEnt
 
                     serverPlayer.networkHandler.sendPacket(blockEntity.toUpdatePacket());
                     return ActionResult.SUCCESS;
-                } else if (blockEntity != null && !blockEntity.getStack(1).isEmpty()) {
+                }/* else if (blockEntity != null && !blockEntity.getStack(1).isEmpty()) {
                     world.playSound(null, pos, SoundEvents.BLOCK_WOOL_BREAK, SoundCategory.BLOCKS, 1f, 1f);
                     ServerPlayerEntity serverPlayer = (ServerPlayerEntity) player;
                     serverPlayer.getInventory().insertStack(blockEntity.getStack(1));
@@ -130,7 +130,7 @@ public class BlockTicketVendor extends HorizontalFacingBlock implements BlockEnt
                     serverPlayer.networkHandler.sendPacket(blockEntity.toUpdatePacket());
                     MetroServerNetwork.removeInventoryItem(1, pos, serverPlayer);
                     return ActionResult.SUCCESS;
-                }else {
+                }*/ else {
                     MetroServerNetwork.openTicketVendorScreen(world, pos, (ServerPlayerEntity) player);
                 }
             }
