@@ -51,7 +51,7 @@ public class MetroItems {
     public static final Item ITEM_BUMPER = register("bumper", new BlockItem(MetroBlocks.BLOCK_BUMPER, new Item.Settings().group(Metropolis.ITEM_GROUP)));
 
     // Turnstile
-//    public static final Item ITEM_TURNSTILE_A_ENTRANCE = register("turnstile", new BlockItem(MetroBlocks.BLOCK_TURNSTILE, new Item.Settings().group(Metropolis.ITEM_GROUP)));
+    public static final Item ITEM_TURNSTILE = register("turnstile", new BlockItem(MetroBlocks.BLOCK_TURNSTILE, new Item.Settings().group(Metropolis.ITEM_GROUP)));
 
     // Ticket Machine
 //    public static final Item ITEM_TICKET_MACHINE = register("ticket_machine", new BlockItem(MetroBlocks.BLOCK_TICKET_MACHINE, new Item.Settings().group(Metropolis.ITEM_GROUP)));

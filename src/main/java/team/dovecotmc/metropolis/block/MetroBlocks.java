@@ -43,8 +43,6 @@ public class MetroBlocks {
     public static final Block BLOCK_TICKET_VENDOR_EV23_YELLOW = register("ticket_vendor_ev23_yellow", new BlockTicketVendor(true, BLOCK_TICKET_VENDOR_UP_EV23_YELLOW));
 
     // Ceiling
-//    public static final Block BLOCK_TICKET_BARRIER_ENTRANCE_A = registerDovecotFeatures("ticket_barrier_entrance_a", new BlockBeyondTicketBarrier(true));
-//    public static final Block BLOCK_TICKET_BARRIER_EXIT_A = registerDovecotFeatures("ticket_barrier_exit_a", new BlockBeyondTicketBarrier(false));
     public static final Block BLOCK_CEILING_A = registerDovecotFeatures("ceiling_a", new BlockCeilingA(FabricBlockSettings.of(Material.METAL, MapColor.GRAY).nonOpaque().luminance(1)));
 
     // Lamp
@@ -53,10 +51,7 @@ public class MetroBlocks {
     public static final Block BLOCK_BUMPER = register("bumper", new BlockBumper());
 
     // Turnstile
-//    public static final Block BLOCK_TURNSTILE = register("turnstile", new BlockTurnstile());
-
-    // Ticket Machine
-//    public static final Block BLOCK_TICKET_MACHINE = register("ticket_machine", new team.dovecotmc.metropolis.block.BlockTicketMachine());
+    public static final Block BLOCK_TURNSTILE = register("turnstile", new BlockTurnstile());
 
     // PIDS
     public static final Block BLOCK_PIDS_1 = register("pids_1", new BlockMetroPIDSOne());
