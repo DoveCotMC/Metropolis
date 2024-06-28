@@ -417,7 +417,6 @@ public class TicketVendorScreen2 extends Screen {
             pressed = false;
         }
         lastPressing = pressing;
-
     }
 
     @Override
