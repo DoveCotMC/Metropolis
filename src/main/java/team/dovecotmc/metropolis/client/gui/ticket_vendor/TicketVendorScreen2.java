@@ -11,7 +11,6 @@ import net.minecraft.client.sound.SoundManager;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
-import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
@@ -36,7 +35,6 @@ public class TicketVendorScreen2 extends Screen {
 
     private static final Identifier STATION_TAB_BASE_ID = new Identifier(Metropolis.MOD_ID, "textures/gui/ticket_vendor_2/station_tab_base.png");
     private static final Identifier STATION_TAB_BASE_HOVER_ID = new Identifier(Metropolis.MOD_ID, "textures/gui/ticket_vendor_2/station_tab_base_hover.png");
-    private static final Identifier STATION_TAB_END_SHADOW_ID = new Identifier(Metropolis.MOD_ID, "textures/gui/ticket_vendor_2/station_tab_end_shadow.png");
     protected static final int STATION_TAB_BASE_WIDTH = 150;
     protected static final int STATION_TAB_BASE_HEIGHT = 16;
 
@@ -62,7 +60,6 @@ public class TicketVendorScreen2 extends Screen {
 
     protected Set<Station> stations;
     protected int sliderPos = 0;
-    protected String stationFrom = "";
 
     protected int tipId = 0;
 
@@ -415,36 +412,12 @@ public class TicketVendorScreen2 extends Screen {
         super.render(matrices, mouseX, mouseY, delta);
 
         if (pressing) {
-            if (!lastPressing) {
-                pressed = true;
-            } else {
-                pressed = false;
-            }
+            pressed = !lastPressing;
         } else {
             pressed = false;
         }
         lastPressing = pressing;
 
-//        MatrixStack matrixStack = RenderSystem.getModelViewStack();
-//        RenderSystem.applyModelViewMatrix();
-//        matrixStack.push();
-//
-//        float time = 0;
-//        if (mc.world != null) {
-//            time = mc.world.getTime();
-//        }
-//
-//        matrixStack.translate(0f, MathHelper.sin((time + mc.getTickDelta()) / 4f) * 4f, 0f);
-//        int scaleFactor = 4;
-//        matrixStack.scale(scaleFactor, scaleFactor, scaleFactor);
-//
-//        ItemStack stack = new ItemStack(MetroItems.ITEM_TICKET);
-//        itemRenderer.renderInGui(stack, (width / 2 - 16 * scaleFactor / 2) / scaleFactor, (height / 2 - 16 * scaleFactor / 2) / scaleFactor);
-//
-//        itemRenderer.renderGuiItemOverlay(textRenderer, stack, (width / 2 - 16 * scaleFactor / 2) / scaleFactor, (height / 2 - 16 * scaleFactor / 2) / scaleFactor);
-//
-//        matrixStack.pop();
-//        RenderSystem.applyModelViewMatrix();
     }
 
     @Override
@@ -481,7 +454,9 @@ public class TicketVendorScreen2 extends Screen {
     @Override
     public void close() {
         // TODO: Data transfer
-        this.client.setScreen(new TicketVendorScreen1(pos, ItemStack.EMPTY));
+        if (this.client != null) {
+            this.client.setScreen(new TicketVendorScreen1(pos, ItemStack.EMPTY));
+        }
     }
 
     private int intoTexturePosX(double x) {

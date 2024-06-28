@@ -1,8 +1,6 @@
 package team.dovecotmc.metropolis.client.gui.ticket_vendor;
 
 import com.mojang.blaze3d.systems.RenderSystem;
-import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
-import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.render.Tessellator;
@@ -12,17 +10,13 @@ import net.minecraft.client.sound.SoundManager;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NbtCompound;
-import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import team.dovecotmc.metropolis.Metropolis;
-import team.dovecotmc.metropolis.block.entity.BlockEntityTicketVendor;
 import team.dovecotmc.metropolis.block.entity.MetroBlockEntities;
 import team.dovecotmc.metropolis.client.network.MetroClientNetwork;
-import team.dovecotmc.metropolis.item.ItemCard;
 
 import java.util.List;
 
@@ -474,7 +468,7 @@ public class TicketVendorScreen1 extends Screen {
             if (client.world.getBlockEntity(pos) instanceof Inventory inventory) {
                 if (!inventory.getStack(1).isEmpty()) {
 //                    NbtCompound nbt = inventory.getStack(1).getOrCreateNbt();
-                    MetroClientNetwork.ticketVendorClose(client.world, pos, inventory.getStack(1), 0);
+                    MetroClientNetwork.ticketVendorClose(pos, inventory.getStack(1), 0);
                 }
             }
         }

@@ -107,7 +107,7 @@ public class TicketVendorScreenWarning extends Screen {
         if (client != null && client.world != null) {
             if (client.world.getBlockEntity(pos) instanceof Inventory inventory) {
                 if (!inventory.getStack(1).isEmpty()) {
-                    MetroClientNetwork.ticketVendorClose(client.world, pos, inventory.getStack(1), 0);
+                    MetroClientNetwork.ticketVendorClose(pos, inventory.getStack(1), 0);
                 }
             }
         }

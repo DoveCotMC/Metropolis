@@ -24,7 +24,7 @@ import team.dovecotmc.metropolis.block.entity.BlockEntityTicketVendor;
  */
 public class MetroServerNetwork {
     public static final Identifier TICKET_VENDOR_GUI = new Identifier(Metropolis.MOD_ID, "ticket_vendor_gui");
-    public static void openTicketVendorScreen(World world, BlockPos pos, ServerPlayerEntity player) {
+    public static void openTicketVendorScreen(BlockPos pos, ServerPlayerEntity player) {
         PacketByteBuf packet = PacketByteBufs.create();
         packet.writeBlockPos(pos);
         packet.writeItemStack(ItemStack.EMPTY);
@@ -32,7 +32,7 @@ public class MetroServerNetwork {
     }
 
     public static final Identifier TICKET_VENDOR_CHARGE_GUI = new Identifier(Metropolis.MOD_ID, "ticket_vendor_charge_gui");
-    public static void openTicketVendorChargeScreen(World world, BlockPos pos, ServerPlayerEntity player) {
+    public static void openTicketVendorChargeScreen(BlockPos pos, ServerPlayerEntity player) {
         PacketByteBuf packet = PacketByteBufs.create();
         packet.writeBlockPos(pos);
         packet.writeItemStack(ItemStack.EMPTY);
@@ -59,8 +59,7 @@ public class MetroServerNetwork {
             Item item = Items.EMERALD;
             server.execute(() -> {
                 if (balance > 0) {
-                    int balance1 = balance;
-                    for (int i = 0; i < balance1 / item.getMaxCount(); i++) {
+                    for (int i = 0; i < balance / item.getMaxCount(); i++) {
                         player.getInventory().setStack(player.getInventory().getSlotWithStack(new ItemStack(item)), ItemStack.EMPTY);
                     }
                     if (balance % item.getMaxCount() > 0) {

@@ -2,16 +2,10 @@ package team.dovecotmc.metropolis.client.network;
 
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
-import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.client.MinecraftClient;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.PacketByteBuf;
-import net.minecraft.sound.SoundCategory;
-import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
-import team.dovecotmc.metropolis.block.entity.BlockEntityTicketVendor;
 import team.dovecotmc.metropolis.client.gui.ticket_vendor.TicketVendorScreen1;
 import team.dovecotmc.metropolis.client.gui.ticket_vendor.TicketVendorScreen4;
 import team.dovecotmc.metropolis.network.MetroServerNetwork;
@@ -22,7 +16,7 @@ import team.dovecotmc.metropolis.network.MetroServerNetwork;
  * @copyright Copyright © 2024 Arrokoth All Rights Reserved.
  */
 public class MetroClientNetwork {
-    public static void ticketVendorClose(World world, BlockPos pos, ItemStack stack, int balance) {
+    public static void ticketVendorClose(BlockPos pos, ItemStack stack, int balance) {
         PacketByteBuf buf = PacketByteBufs.create();
         buf.writeBlockPos(pos);
         buf.writeItemStack(stack);
@@ -31,7 +25,7 @@ public class MetroClientNetwork {
     }
 
     // Slot definitions: 0 = Ticket, 1 = IC Card
-    public static void ticketVendorResult(World world, BlockPos pos, ItemStack stack, int slot, int balance) {
+    public static void ticketVendorResult(BlockPos pos, ItemStack stack, int balance) {
         PacketByteBuf buf = PacketByteBufs.create();
         buf.writeBlockPos(pos);
         buf.writeItemStack(stack);

@@ -1,11 +1,8 @@
 package team.dovecotmc.metropolis.client.gui.ticket_vendor;
 
 import com.mojang.blaze3d.systems.RenderSystem;
-import mtr.data.Station;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.client.gui.screen.ingame.CraftingScreen;
-import net.minecraft.client.gui.screen.ingame.InventoryScreen;
 import net.minecraft.client.render.Tessellator;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.sound.PositionedSoundInstance;
@@ -19,10 +16,6 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import team.dovecotmc.metropolis.Metropolis;
 import team.dovecotmc.metropolis.client.network.MetroClientNetwork;
-import team.dovecotmc.metropolis.util.MtrStationUtil;
-
-import java.util.HashSet;
-import java.util.Set;
 
 /**
  * @author Arrokoth
@@ -39,13 +32,6 @@ public class TicketVendorPaymentScreen extends Screen {
     protected static final int CONTINUE_BUTTON_BASE_WIDTH = 56;
     protected static final int CONTINUE_BUTTON_BASE_HEIGHT = 16;
 
-
-    protected static final int MAX_VISIBLE = 8;
-
-    private static final Identifier SLIDER_ID = new Identifier(Metropolis.MOD_ID, "textures/gui/ticket_vendor_2/slider.png");
-    protected static final int SLIDER_WIDTH = 6;
-    protected static final int SLIDER_HEIGHT = 9;
-
     protected final BlockPos pos;
     protected final TicketVendorPaymentData paymentData;
     protected final Screen parentScreen;
@@ -56,9 +42,6 @@ public class TicketVendorPaymentScreen extends Screen {
     private boolean lastPressing = true;
     protected boolean pressed = false;
 
-    protected Set<Station> stations;
-    protected int sliderPos = 0;
-
     protected int tipId = 0;
 
     public TicketVendorPaymentScreen(BlockPos pos, TicketVendorPaymentData paymentData, Screen parentScreen) {
@@ -66,11 +49,6 @@ public class TicketVendorPaymentScreen extends Screen {
         this.pos = pos;
         this.paymentData = paymentData;
         this.parentScreen = parentScreen;
-        if (this.client != null && this.client.world != null) {
-            this.stations = MtrStationUtil.getStations(this.client.world);
-        } else {
-            this.stations = new HashSet<>();
-        }
     }
 
     @Override
@@ -198,23 +176,11 @@ public class TicketVendorPaymentScreen extends Screen {
                 intoTexturePosX(x0 + Math.max(textRenderer.getWidth(balanceText), textRenderer.getWidth(priceText)) + 4 + textRenderer.getWidth(Text.literal("×"))),
                 intoTexturePosY(y1 - 4 + 1)
         );
-//        this.itemRenderer.renderGuiItemOverlay(
-//                textRenderer,
-//                new ItemStack(Items.EMERALD, 16),
-//                intoTexturePosX(x0 + Math.max(textRenderer.getWidth(balanceText), textRenderer.getWidth(priceText)) + 4 + textRenderer.getWidth(Text.literal("×"))),
-//                intoTexturePosY(y1 - 4 + 1)
-//        );
         this.itemRenderer.renderInGui(
                 new ItemStack(Items.EMERALD),
                 intoTexturePosX(x0 + Math.max(textRenderer.getWidth(balanceText), textRenderer.getWidth(priceText)) + 4 + textRenderer.getWidth(Text.literal("×"))),
                 intoTexturePosY(y1 - 4 + 16 + 1)
         );
-//        this.itemRenderer.renderGuiItemOverlay(
-//                textRenderer,
-//                new ItemStack(Items.EMERALD, 128),
-//                intoTexturePosX(x0 + Math.max(textRenderer.getWidth(balanceText), textRenderer.getWidth(priceText)) + 4 + textRenderer.getWidth(Text.literal("×"))),
-//                intoTexturePosY(y1 - 4 + 16 + 1)
-//        );
 
         // Right part
         int x2 = 176;
@@ -255,9 +221,9 @@ public class TicketVendorPaymentScreen extends Screen {
             playDownSound(MinecraftClient.getInstance().getSoundManager());
             client.setScreen(null);
             if (paymentData.type == TicketVendorPaymentData.EnumTicketVendorPaymentType.SINGLE_TRIP) {
-                MetroClientNetwork.ticketVendorResult(client.world, pos, paymentData.resultStack, 0, paymentData.value);
+                MetroClientNetwork.ticketVendorResult(pos, paymentData.resultStack, paymentData.value);
             } else {
-                MetroClientNetwork.ticketVendorClose(client.world, pos, paymentData.resultStack, paymentData.value);
+                MetroClientNetwork.ticketVendorClose(pos, paymentData.resultStack, paymentData.value);
             }
         }
 
@@ -266,11 +232,7 @@ public class TicketVendorPaymentScreen extends Screen {
         super.render(matrices, mouseX, mouseY, delta);
 
         if (pressing) {
-            if (!lastPressing) {
-                pressed = true;
-            } else {
-                pressed = false;
-            }
+            pressed = !lastPressing;
         } else {
             pressed = false;
         }
@@ -297,13 +259,6 @@ public class TicketVendorPaymentScreen extends Screen {
     }
 
     @Override
-    public boolean mouseScrolled(double mouseX, double mouseY, double amount) {
-        sliderPos -= amount;
-        sliderPos = Math.min(Math.max(0, sliderPos), stations.size() - MAX_VISIBLE);
-        return super.mouseScrolled(mouseX, mouseY, amount);
-    }
-
-    @Override
     public boolean shouldPause() {
         return false;
     }
@@ -311,7 +266,9 @@ public class TicketVendorPaymentScreen extends Screen {
     @Override
     public void close() {
         // TODO: Data transfer
-        this.client.setScreen(this.parentScreen);
+        if (this.client != null) {
+            this.client.setScreen(this.parentScreen);
+        }
     }
 
     private int intoTexturePosX(double x) {
