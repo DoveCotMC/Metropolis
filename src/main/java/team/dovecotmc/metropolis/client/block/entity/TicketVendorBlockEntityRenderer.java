@@ -89,28 +89,28 @@ public class TicketVendorBlockEntityRenderer implements BlockEntityRenderer<Bloc
                     matrices.pop();
                 }
             }
-            if (!entity.getStack(1).isEmpty()) {
-                if (mc.world != null) {
-                    double time0 = (double) (mc.world.getTime() - entity.card_animation_in_begin_time) + tickDelta;
-                    double time1 = (double) (mc.world.getTime() - entity.card_animation_out_begin_time) + tickDelta;
-                    double ticketOffset = 3;
-
-                    if (entity.card_animation_out_begin_time >= 0) {
-                        ticketOffset = Math.max(1 - Math.pow(time1 / 10d, 2), 0);
-                    }
-                    if (entity.card_animation_in_begin_time >= 0 && time0 < 10) {
-                        ticketOffset = Math.pow(time0 / 10d, 2);
-                    }
-
-                    matrices.push();
-                    matrices.translate(9.25d / 16d, 2.25d / 16d, (6 + ticketOffset * 3) / 16d);
-//                    matrices.scale(0.25f + 0.03125f, 0.25f + 0.03125f, 0.25f + 0.03125f);
-                    matrices.scale(0.5f, 0.5f, 0.5f);
-                    matrices.multiply(Quaternion.fromEulerXyzDegrees(new Vec3f(-90, 0, 90)));
-                    mc.getItemRenderer().renderItem(entity.getStack(1), ModelTransformation.Mode.GROUND, light, overlay, matrices, vertexConsumers, 0);
-                    matrices.pop();
-                }
-            }
+//            if (!entity.getStack(1).isEmpty()) {
+//                if (mc.world != null) {
+//                    double time0 = (double) (mc.world.getTime() - entity.card_animation_in_begin_time) + tickDelta;
+//                    double time1 = (double) (mc.world.getTime() - entity.card_animation_out_begin_time) + tickDelta;
+//                    double ticketOffset = 3;
+//
+//                    if (entity.card_animation_out_begin_time >= 0) {
+//                        ticketOffset = Math.max(1 - Math.pow(time1 / 10d, 2), 0);
+//                    }
+//                    if (entity.card_animation_in_begin_time >= 0 && time0 < 10) {
+//                        ticketOffset = Math.pow(time0 / 10d, 2);
+//                    }
+//
+//                    matrices.push();
+//                    matrices.translate(9.25d / 16d, 2.25d / 16d, (6 + ticketOffset * 3) / 16d);
+////                    matrices.scale(0.25f + 0.03125f, 0.25f + 0.03125f, 0.25f + 0.03125f);
+//                    matrices.scale(0.5f, 0.5f, 0.5f);
+//                    matrices.multiply(Quaternion.fromEulerXyzDegrees(new Vec3f(-90, 0, 90)));
+//                    mc.getItemRenderer().renderItem(entity.getStack(1), ModelTransformation.Mode.GROUND, light, overlay, matrices, vertexConsumers, 0);
+//                    matrices.pop();
+//                }
+//            }
             matrices.pop();
         }
     }

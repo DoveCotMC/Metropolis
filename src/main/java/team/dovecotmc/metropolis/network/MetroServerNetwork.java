@@ -105,10 +105,10 @@ public class MetroServerNetwork {
                     if (world.getBlockEntity(pos) instanceof BlockEntityTicketVendor blockEntity) {
                         blockEntity.setStack(1, stack);
                         NbtCompound nbt = blockEntity.createNbt();
-                        nbt.putLong(BlockEntityTicketVendor.CARD_ANIMATION_OUT_BEGIN_TIME, world.getTime());
+//                        nbt.putLong(BlockEntityTicketVendor.CARD_ANIMATION_OUT_BEGIN_TIME, world.getTime());
                         blockEntity.readNbt(nbt);
                         player.networkHandler.sendPacket(blockEntity.toUpdatePacket());
-//                        MetroServerNetwork.removeInventoryItem(1, pos, player);
+                        MetroServerNetwork.removeInventoryItem(1, pos, player);
                     }
                 }
             });

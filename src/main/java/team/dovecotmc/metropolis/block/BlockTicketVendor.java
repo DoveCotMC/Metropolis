@@ -113,29 +113,33 @@ public class BlockTicketVendor extends HorizontalFacingBlock implements BlockEnt
                 blockEntity.removeStack(0);
                 serverPlayer.networkHandler.sendPacket(blockEntity.toUpdatePacket());
                 MetroServerNetwork.removeInventoryItem(0, pos, serverPlayer);
-            } else if (blockEntity != null && !blockEntity.getStack(1).isEmpty()) {
+            } /*else if (blockEntity != null && !blockEntity.getStack(1).isEmpty()) {
                 world.playSound(null, pos, SoundEvents.BLOCK_WOOL_BREAK, SoundCategory.BLOCKS, 1f, 1f);
                 ServerPlayerEntity serverPlayer = (ServerPlayerEntity) player;
                 serverPlayer.getInventory().insertStack(blockEntity.getStack(1));
                 blockEntity.removeStack(1);
                 serverPlayer.networkHandler.sendPacket(blockEntity.toUpdatePacket());
                 MetroServerNetwork.removeInventoryItem(1, pos, serverPlayer);
-            } else if (blockEntity != null && player.getStackInHand(Hand.MAIN_HAND).getItem().equals(MetroItems.ITEM_CARD)) {
+            }*/ else if (blockEntity != null && player.getStackInHand(Hand.MAIN_HAND).getItem().equals(MetroItems.ITEM_CARD)) {
                 world.playSound(null, pos, SoundEvents.BLOCK_WOOL_PLACE, SoundCategory.BLOCKS, 1f, 1f);
                 ServerPlayerEntity serverPlayer = (ServerPlayerEntity) player;
                 blockEntity.setStack(1, player.getStackInHand(Hand.MAIN_HAND));
-                serverPlayer.setStackInHand(Hand.MAIN_HAND, ItemStack.EMPTY);
-
-                NbtCompound nbt = blockEntity.createNbt();
-                nbt.putLong(BlockEntityTicketVendor.CARD_ANIMATION_OUT_BEGIN_TIME, -1);
-                nbt.putLong(BlockEntityTicketVendor.CARD_ANIMATION_IN_BEGIN_TIME, world.getTime());
-                blockEntity.readNbt(nbt);
-
+//                serverPlayer.setStackInHand(Hand.MAIN_HAND, ItemStack.EMPTY);
+//
+//                NbtCompound nbt = blockEntity.createNbt();
+//                nbt.putLong(BlockEntityTicketVendor.CARD_ANIMATION_OUT_BEGIN_TIME, -1);
+//                nbt.putLong(BlockEntityTicketVendor.CARD_ANIMATION_IN_BEGIN_TIME, world.getTime());
+//                blockEntity.readNbt(nbt);
+//
                 serverPlayer.networkHandler.sendPacket(blockEntity.toUpdatePacket());
                 MetroServerNetwork.openTicketVendorScreen(world, pos, (ServerPlayerEntity) player);
-
-                world.createAndScheduleBlockTick(pos, state.getBlock(), 20 * 120);
+//
+//                world.createAndScheduleBlockTick(pos, state.getBlock(), 20 * 120);
             } else {
+                if (blockEntity != null) {
+                    blockEntity.removeStack(1);
+                    MetroServerNetwork.removeInventoryItem(1, pos, (ServerPlayerEntity) player);
+                }
                 MetroServerNetwork.openTicketVendorScreen(world, pos, (ServerPlayerEntity) player);
             }
         }
