@@ -54,23 +54,24 @@ public class MetroServerNetwork {
             ItemStack stack = buf.readItemStack();
 
             // Slot definitions: 0 = Ticket, 1 = IC Card
-            int slot = buf.readInt();
+//            int slot = buf.readInt();
             int balance = buf.readInt();
 
             Item item = Items.EMERALD;
             server.execute(() -> {
-                int balance1 = balance;
-                for (int i = 0; i < balance1 / item.getMaxCount(); i++) {
-                    player.getInventory().setStack(player.getInventory().getSlotWithStack(new ItemStack(item)), ItemStack.EMPTY);
+                if (balance > 0) {
+                    int balance1 = balance;
+                    for (int i = 0; i < balance1 / item.getMaxCount(); i++) {
+                        player.getInventory().setStack(player.getInventory().getSlotWithStack(new ItemStack(item)), ItemStack.EMPTY);
+                    }
+                    player.getInventory().removeStack(player.getInventory().getSlotWithStack(new ItemStack(item)), balance1 % item.getMaxCount());
                 }
-                player.getInventory().removeStack(player.getInventory().getSlotWithStack(new ItemStack(item)), balance1 % item.getMaxCount());
 
                 World world = player.getWorld();
                 if (world != null) {
                     world.playSound(null, pos, SoundEvents.BLOCK_WOOL_PLACE, SoundCategory.BLOCKS, 1f, 1f);
-                    BlockEntity entityRaw = world.getBlockEntity(pos);
-                    if (entityRaw instanceof BlockEntityTicketVendor blockEntity) {
-                        blockEntity.setStack(slot, stack);
+                    if (world.getBlockEntity(pos) instanceof BlockEntityTicketVendor blockEntity) {
+                        blockEntity.setStack(0, stack);
                         NbtCompound nbt = blockEntity.createNbt();
                         nbt.putLong(BlockEntityTicketVendor.TICKET_ANIMATION_BEGIN_TIME, world.getTime());
                         blockEntity.readNbt(nbt);
@@ -83,7 +84,39 @@ public class MetroServerNetwork {
         });
     }
 
+    public static final Identifier TICKET_VENDOR_CLOSE = new Identifier(Metropolis.MOD_ID, "ticket_vendor_close");
+    private static void registerTicketVendorCloseReceiver() {
+        ServerPlayNetworking.registerGlobalReceiver(TICKET_VENDOR_CLOSE, (server, player, handler, buf, responseSender) -> {
+            BlockPos pos = buf.readBlockPos();
+            ItemStack stack = buf.readItemStack();
+            int balance = buf.readInt();
+            Item item = Items.EMERALD;
+            server.execute(() -> {
+                if (balance > 0) {
+                    for (int i = 0; i < balance / item.getMaxCount(); i++) {
+                        player.getInventory().setStack(player.getInventory().getSlotWithStack(new ItemStack(item)), ItemStack.EMPTY);
+                    }
+                    player.getInventory().removeStack(player.getInventory().getSlotWithStack(new ItemStack(item)), balance % item.getMaxCount());
+                }
+
+                World world = player.getWorld();
+                if (world != null) {
+                    world.playSound(null, pos, SoundEvents.BLOCK_WOOL_PLACE, SoundCategory.BLOCKS, 1f, 1f);
+                    if (world.getBlockEntity(pos) instanceof BlockEntityTicketVendor blockEntity) {
+                        blockEntity.setStack(1, stack);
+                        NbtCompound nbt = blockEntity.createNbt();
+                        nbt.putLong(BlockEntityTicketVendor.CARD_ANIMATION_OUT_BEGIN_TIME, world.getTime());
+                        blockEntity.readNbt(nbt);
+                        player.networkHandler.sendPacket(blockEntity.toUpdatePacket());
+//                        MetroServerNetwork.removeInventoryItem(1, pos, player);
+                    }
+                }
+            });
+        });
+    }
+
     public static void registerAll() {
         registerTicketVendorResultReceiver();
+        registerTicketVendorCloseReceiver();
     }
 }

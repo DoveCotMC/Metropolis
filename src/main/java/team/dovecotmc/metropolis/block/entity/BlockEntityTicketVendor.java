@@ -22,8 +22,10 @@ import team.dovecotmc.metropolis.Metropolis;
 public class BlockEntityTicketVendor extends BlockEntity implements BlockTicketVendorInventory {
     public static final String TICKET_ANIMATION_BEGIN_TIME = "ticket_animation_begin_time";
     public long ticket_animation_begin_time = 0;
-    public static final String CARD_ANIMATION_BEGIN_TIME = "card_animation_begin_time";
-    public long card_animation_begin_time = 0;
+    public static final String CARD_ANIMATION_IN_BEGIN_TIME = "card_animation_in_begin_time";
+    public long card_animation_in_begin_time = 0;
+    public static final String CARD_ANIMATION_OUT_BEGIN_TIME = "card_animation_out_begin_time";
+    public long card_animation_out_begin_time = 0;
 
     private final DefaultedList<ItemStack> items = DefaultedList.ofSize(2, ItemStack.EMPTY);
 
@@ -47,7 +49,8 @@ public class BlockEntityTicketVendor extends BlockEntity implements BlockTicketV
         super.readNbt(nbt);
 
         this.ticket_animation_begin_time = nbt.getLong(TICKET_ANIMATION_BEGIN_TIME);
-        this.card_animation_begin_time = nbt.getLong(CARD_ANIMATION_BEGIN_TIME);
+        this.card_animation_in_begin_time = nbt.getLong(CARD_ANIMATION_IN_BEGIN_TIME);
+        this.card_animation_out_begin_time = nbt.getLong(CARD_ANIMATION_OUT_BEGIN_TIME);
 
         Inventories.readNbt(nbt, items);
     }
@@ -57,7 +60,8 @@ public class BlockEntityTicketVendor extends BlockEntity implements BlockTicketV
         super.writeNbt(nbt);
 
         nbt.putLong(TICKET_ANIMATION_BEGIN_TIME, ticket_animation_begin_time);
-        nbt.putLong(CARD_ANIMATION_BEGIN_TIME, card_animation_begin_time);
+        nbt.putLong(CARD_ANIMATION_IN_BEGIN_TIME, card_animation_in_begin_time);
+        nbt.putLong(CARD_ANIMATION_OUT_BEGIN_TIME, card_animation_out_begin_time);
 
         Inventories.writeNbt(nbt, items);
     }

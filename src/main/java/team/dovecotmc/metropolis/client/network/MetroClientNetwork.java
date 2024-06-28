@@ -21,12 +21,20 @@ import team.dovecotmc.metropolis.network.MetroServerNetwork;
  * @copyright Copyright © 2024 Arrokoth All Rights Reserved.
  */
 public class MetroClientNetwork {
+    public static void ticketVendorClose(World world, BlockPos pos, ItemStack stack, int balance) {
+        PacketByteBuf buf = PacketByteBufs.create();
+        buf.writeBlockPos(pos);
+        buf.writeItemStack(stack);
+        buf.writeInt(balance);
+        ClientPlayNetworking.send(MetroServerNetwork.TICKET_VENDOR_CLOSE, buf);
+    }
+
     // Slot definitions: 0 = Ticket, 1 = IC Card
     public static void ticketVendorResult(World world, BlockPos pos, ItemStack stack, int slot, int balance) {
         PacketByteBuf buf = PacketByteBufs.create();
         buf.writeBlockPos(pos);
         buf.writeItemStack(stack);
-        buf.writeInt(slot);
+//        buf.writeInt(slot);
         buf.writeInt(balance);
         ClientPlayNetworking.send(MetroServerNetwork.TICKET_VENDOR_RESULT, buf);
     }
