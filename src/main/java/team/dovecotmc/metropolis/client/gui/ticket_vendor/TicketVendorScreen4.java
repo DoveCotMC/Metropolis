@@ -9,6 +9,7 @@ import net.minecraft.client.sound.PositionedSoundInstance;
 import net.minecraft.client.sound.SoundManager;
 import net.minecraft.client.util.InputUtil;
 import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.sound.SoundEvents;
@@ -16,7 +17,7 @@ import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import team.dovecotmc.metropolis.Metropolis;
-import team.dovecotmc.metropolis.item.ItemTicket;
+import team.dovecotmc.metropolis.item.ItemCard;
 import team.dovecotmc.metropolis.item.MetroItems;
 
 import java.util.ArrayList;
@@ -61,7 +62,7 @@ public class TicketVendorScreen4 extends Screen {
     protected boolean pressed = false;
     protected String value = "0";
 
-    protected TicketVendorScreen4(BlockPos pos, List<Screen> screens) {
+    public TicketVendorScreen4(BlockPos pos, List<Screen> screens) {
         super(Text.translatable("gui.metropolis.ticket_vendor_4.title"));
         this.pos = pos;
         this.screens = screens;
@@ -182,9 +183,15 @@ public class TicketVendorScreen4 extends Screen {
             playButtonSound(MinecraftClient.getInstance().getSoundManager());
             // TODO: Continue
 
-            ItemStack ticketStack = new ItemStack(MetroItems.ITEM_TICKET);
+            ItemStack ticketStack;
+            if (client != null && client.world != null && client.world.getBlockEntity(pos) instanceof Inventory inventory) {
+                ticketStack = inventory.getStack(1);
+            } else {
+                ticketStack = new ItemStack(MetroItems.ITEM_CARD);
+            }
             NbtCompound nbt = ticketStack.getOrCreateNbt();
-            nbt.putInt(ItemTicket.BALANCE, Integer.parseInt(value));
+            nbt.putInt(ItemCard.BALANCE, nbt.getInt(ItemCard.BALANCE) + Integer.parseInt(value));
+            nbt.putInt(ItemCard.MAX_VALUE, nbt.getInt(ItemCard.BALANCE));
 
             this.client.setScreen(new TicketVendorPaymentScreen(
                     pos,
@@ -414,7 +421,11 @@ public class TicketVendorScreen4 extends Screen {
     @Override
     public void close() {
         if (this.client != null) {
-            this.client.setScreen(screens.get(this.screens.size() - 1));
+            if (this.screens != null) {
+                this.client.setScreen(screens.get(this.screens.size() - 1));
+            } else {
+                this.client.setScreen(null);
+            }
         }
     }
 

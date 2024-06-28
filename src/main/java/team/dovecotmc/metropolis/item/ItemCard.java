@@ -17,6 +17,7 @@ import java.util.List;
  */
 public class ItemCard extends Item implements InterfaceTicket {
     public static final String BALANCE = "balance";
+    public static final String MAX_VALUE = "max_value";
 
     public ItemCard(Settings settings) {
         super(settings.maxCount(1));
@@ -26,7 +27,9 @@ public class ItemCard extends Item implements InterfaceTicket {
     public void appendTooltip(ItemStack stack, @Nullable World world, List<Text> tooltip, TooltipContext context) {
         NbtCompound nbt = stack.getOrCreateNbt();
 
-        tooltip.add(Text.translatable("tooltip.metropolis.card.balance", nbt.getInt(BALANCE)));
+        String value = Text.translatable("misc.metropolis.cost", nbt.getInt(BALANCE)).getString();
+        String maxValue = Text.translatable("misc.metropolis.cost", nbt.getInt(MAX_VALUE)).getString();
+        tooltip.add(Text.translatable("tooltip.metropolis.card.balance", value, maxValue));
 
         super.appendTooltip(stack, world, tooltip, context);
     }

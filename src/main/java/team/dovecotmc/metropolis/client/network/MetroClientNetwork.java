@@ -13,6 +13,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import team.dovecotmc.metropolis.block.entity.BlockEntityTicketVendor;
 import team.dovecotmc.metropolis.client.gui.ticket_vendor.TicketVendorScreen1;
+import team.dovecotmc.metropolis.client.gui.ticket_vendor.TicketVendorScreen4;
 import team.dovecotmc.metropolis.network.MetroServerNetwork;
 
 /**
@@ -49,6 +50,16 @@ public class MetroClientNetwork {
         });
     }
 
+    private static void registerTicketVendorChargeGuiReceiver() {
+        ClientPlayNetworking.registerGlobalReceiver(MetroServerNetwork.TICKET_VENDOR_CHARGE_GUI, (client, handler, buf, responseSender) -> {
+            BlockPos pos = buf.readBlockPos();
+            ItemStack itemStack = buf.readItemStack();
+            client.execute(() -> {
+                client.setScreen(new TicketVendorScreen4(pos, null));
+            });
+        });
+    }
+
     private static void registerRemoveInventoryItem() {
         ClientPlayNetworking.registerGlobalReceiver(MetroServerNetwork.REMOVE_INVENTORY_ITEM, (client, handler, buf, responseSender) -> {
             BlockPos pos = buf.readBlockPos();
@@ -65,6 +76,7 @@ public class MetroClientNetwork {
 
     public static void registerAll() {
         registerTicketVendorGuiReceiver();
+        registerTicketVendorChargeGuiReceiver();
         registerRemoveInventoryItem();
     }
 }

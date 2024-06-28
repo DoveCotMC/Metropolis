@@ -132,7 +132,8 @@ public class BlockTicketVendor extends HorizontalFacingBlock implements BlockEnt
 //                blockEntity.readNbt(nbt);
 //
                 serverPlayer.networkHandler.sendPacket(blockEntity.toUpdatePacket());
-                MetroServerNetwork.openTicketVendorScreen(world, pos, (ServerPlayerEntity) player);
+//                MetroServerNetwork.openTicketVendorScreen(world, pos, (ServerPlayerEntity) player);
+                MetroServerNetwork.openTicketVendorChargeScreen(world, pos, (ServerPlayerEntity) player);
 //
 //                world.createAndScheduleBlockTick(pos, state.getBlock(), 20 * 120);
             } else {

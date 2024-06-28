@@ -146,7 +146,7 @@ public class TicketVendorPaymentScreen extends Screen {
 
         // Description price
         Text priceText = Text.translatable("gui.metropolis.ticket_vendor_payment.price", paymentData.value);
-        scaleFactor = 1f;
+//        scaleFactor = 1f;
         matrices.push();
         matrices.scale(scaleFactor, scaleFactor, scaleFactor);
         this.textRenderer.drawWithShadow(
@@ -252,7 +252,11 @@ public class TicketVendorPaymentScreen extends Screen {
         if (thisTabHovering && pressed && ableToPay) {
             playDownSound(MinecraftClient.getInstance().getSoundManager());
             client.setScreen(null);
-            MetroClientNetwork.ticketVendorResult(client.world, pos, paymentData.resultStack, 0, paymentData.value);
+            if (paymentData.type == TicketVendorPaymentData.EnumTicketVendorPaymentType.SINGLE_TRIP) {
+                MetroClientNetwork.ticketVendorResult(client.world, pos, paymentData.resultStack, 0, paymentData.value);
+            } else {
+                MetroClientNetwork.ticketVendorClose(client.world, pos, paymentData.resultStack, paymentData.value);
+            }
         }
 
         RenderSystem.disableBlend();
