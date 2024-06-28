@@ -48,6 +48,7 @@ public class TicketVendorPaymentScreen extends Screen {
 
     protected final BlockPos pos;
     protected final TicketVendorPaymentData paymentData;
+    protected final Screen parentScreen;
 
     protected double mouseX = 0;
     protected double mouseY = 0;
@@ -60,10 +61,11 @@ public class TicketVendorPaymentScreen extends Screen {
 
     protected int tipId = 0;
 
-    public TicketVendorPaymentScreen(BlockPos pos, TicketVendorPaymentData paymentData) {
+    public TicketVendorPaymentScreen(BlockPos pos, TicketVendorPaymentData paymentData, Screen parentScreen) {
         super(Text.translatable("gui.metropolis.ticket_vendor_payment.title"));
         this.pos = pos;
         this.paymentData = paymentData;
+        this.parentScreen = parentScreen;
         if (this.client != null && this.client.world != null) {
             this.stations = MtrStationUtil.getStations(this.client.world);
         } else {
@@ -309,7 +311,7 @@ public class TicketVendorPaymentScreen extends Screen {
     @Override
     public void close() {
         // TODO: Data transfer
-        this.client.setScreen(new TicketVendorScreen1(pos, ItemStack.EMPTY));
+        this.client.setScreen(this.parentScreen);
     }
 
     private int intoTexturePosX(double x) {

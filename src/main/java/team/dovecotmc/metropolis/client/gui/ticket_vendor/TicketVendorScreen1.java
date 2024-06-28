@@ -398,8 +398,8 @@ public class TicketVendorScreen1 extends Screen {
             }
 
             if (client.world.getBlockEntity(pos, MetroBlockEntities.TICKET_VENDOR_BLOCK_ENTITY).get().getStack(1).isEmpty()) {
-                // TODO: Warning screen
-                this.client.setScreen(null);
+                this.client.setScreen(new TicketVendorScreenWarning(pos));
+//                this.client.setScreen(null);
             } else {
                 this.client.setScreen(new TicketVendorScreen4(pos, List.of(this)));
             }

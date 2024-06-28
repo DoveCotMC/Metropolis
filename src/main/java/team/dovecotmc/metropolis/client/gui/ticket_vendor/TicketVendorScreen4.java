@@ -203,7 +203,8 @@ public class TicketVendorScreen4 extends Screen {
                                     Text.translatable("gui.metropolis.ticket_vendor_payment.ic_charge.ticket_value", this.value),
                             },
                             ticketStack
-                    )
+                    ),
+                    this
             ));
         }
 

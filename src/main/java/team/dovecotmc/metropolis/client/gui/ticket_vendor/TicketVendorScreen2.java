@@ -293,7 +293,8 @@ public class TicketVendorScreen2 extends Screen {
                                                 Text.translatable("gui.metropolis.ticket_vendor_payment.single_trip.amount", 1),
                                         },
                                         ticketStack
-                                )
+                                ),
+                                this
                         ));
                     }
 
@@ -372,7 +373,8 @@ public class TicketVendorScreen2 extends Screen {
                                         Text.translatable("gui.metropolis.ticket_vendor_payment.single_trip.amount", 1),
                                 },
                                 ticketStack
-                        )
+                        ),
+                        this
                 ));
             }
         }

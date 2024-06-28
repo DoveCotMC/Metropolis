@@ -22,6 +22,10 @@
     "gui.metropolis.ticket_vendor_4.title": "Charge",
     "gui.metropolis.ticket_vendor_4.continue": "Continue",
 
+    "gui.metropolis.ticket_vendor_warning.title": "Warning",
+    "gui.metropolis.ticket_vendor_warning.title_warning": "Warning",
+    "gui.metropolis.ticket_vendor_warning.warning_no_card": "Please insert your IC Card.",
+
     "gui.metropolis.ticket_vendor_payment.title": "Payment",
     "gui.metropolis.ticket_vendor_payment.subtitle": "Review payment",
     "gui.metropolis.ticket_vendor_payment.continue_button": "Continue",

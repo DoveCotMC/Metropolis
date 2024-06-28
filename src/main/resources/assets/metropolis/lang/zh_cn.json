@@ -22,6 +22,10 @@
     "gui.metropolis.ticket_vendor_4.title": "充值",
     "gui.metropolis.ticket_vendor_4.continue": "确定",
 
+    "gui.metropolis.ticket_vendor_warning.title": "警告",
+    "gui.metropolis.ticket_vendor_warning.title_warning": "警告",
+    "gui.metropolis.ticket_vendor_warning.warning_no_card": "请插入您的IC卡",
+
     "gui.metropolis.ticket_vendor_payment.title": "付款",
     "gui.metropolis.ticket_vendor_payment.subtitle": "订单详情",
     "gui.metropolis.ticket_vendor_payment.continue_button": "继续支付",
