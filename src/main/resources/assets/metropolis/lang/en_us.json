@@ -19,6 +19,9 @@
     "gui.metropolis.ticket_vendor_2.subtitle_2": "Values",
     "gui.metropolis.ticket_vendor_2.custom_value_option": "Custom",
 
+    "gui.metropolis.ticket_vendor_3.title": "Tickets",
+    "gui.metropolis.ticket_vendor_3.continue": "Continue",
+
     "gui.metropolis.ticket_vendor_4.title": "Charge",
     "gui.metropolis.ticket_vendor_4.continue": "Continue",
 

@@ -377,8 +377,8 @@ public class TicketVendorScreen2 extends Screen {
         }
 
         // Custom button
-        boolean thisTabHovering = this.mouseX >= intoTexturePosX(x1) && this.mouseY >= intoTexturePosY(y1 + VALUE_TAB_BASE_HEIGHT * 7) && this.mouseX <= intoTexturePosX(x1 + VALUE_TAB_BASE_WIDTH) && this.mouseY <= intoTexturePosY(y1 + VALUE_TAB_BASE_HEIGHT * 7 + VALUE_TAB_BASE_HEIGHT);
-        if (thisTabHovering) {
+        boolean customHovering = this.mouseX >= intoTexturePosX(x1) && this.mouseY >= intoTexturePosY(y1 + VALUE_TAB_BASE_HEIGHT * 7) && this.mouseX <= intoTexturePosX(x1 + VALUE_TAB_BASE_WIDTH) && this.mouseY <= intoTexturePosY(y1 + VALUE_TAB_BASE_HEIGHT * 7 + VALUE_TAB_BASE_HEIGHT);
+        if (customHovering) {
             RenderSystem.setShaderTexture(0, VALUE_BUTTON_BASE_HOVER_ID);
         } else {
             RenderSystem.setShaderColor(61f / 256f, 169f / 256f, 58f / 256f, 1f);
@@ -406,6 +406,11 @@ public class TicketVendorScreen2 extends Screen {
                 0xFFFFFF
         );
         matrices.pop();
+
+        if (customHovering && pressed) {
+            playDownSound(this.client.getSoundManager());
+            this.client.setScreen(new TicketVendorScreen3(pos, this));
+        }
 
         RenderSystem.disableBlend();
 

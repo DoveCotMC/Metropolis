@@ -19,6 +19,9 @@
     "gui.metropolis.ticket_vendor_2.subtitle_2": "直接选择金额",
     "gui.metropolis.ticket_vendor_2.custom_value_option": "自选金额",
 
+    "gui.metropolis.ticket_vendor_3.title": "充值",
+    "gui.metropolis.ticket_vendor_3.continue": "确定",
+
     "gui.metropolis.ticket_vendor_4.title": "充值",
     "gui.metropolis.ticket_vendor_4.continue": "确定",
 
