@@ -7,6 +7,7 @@ import net.fabricmc.fabric.api.client.rendering.v1.*;
 import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
 import net.fabricmc.fabric.api.resource.SimpleSynchronousResourceReloadListener;
 import net.fabricmc.loader.api.FabricLoader;
+import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.resource.ResourceManager;
 import net.minecraft.resource.ResourceType;
@@ -17,6 +18,7 @@ import team.dovecotmc.metropolis.Metropolis;
 import team.dovecotmc.metropolis.block.MetroBlocks;
 import team.dovecotmc.metropolis.client.block.entity.*;
 import team.dovecotmc.metropolis.client.block.model.provider.MetroModelProvicer;
+import team.dovecotmc.metropolis.client.gui.MetroBlockPlaceHud;
 import team.dovecotmc.metropolis.client.network.MetroClientNetwork;
 
 /**
@@ -27,6 +29,7 @@ import team.dovecotmc.metropolis.client.network.MetroClientNetwork;
 public class MetropolisClient implements ClientModInitializer {
     public static final String RECEIVER_TICKET_MACHINE_NBT_UPDATE = "ticket_machine_nbt_update";
     public static final String CUSTOM_RESOURCE_ID = "metropolis_custom_resources";
+    public static final MetroBlockPlaceHud BLOCK_PLACE_HUD = new MetroBlockPlaceHud();
 
     @Override
     public void onInitializeClient() {
@@ -61,6 +64,8 @@ public class MetropolisClient implements ClientModInitializer {
         BlockEntityRendererRegistry.register(MetroBlockEntities.TICKET_VENDOR_BLOCK_ENTITY, ctx -> new TicketVendorBlockEntityRenderer());
         EntityModelLayerRegistry.registerModelLayer(TurnstileBlockEntityRenderer.MODEL_LAYER, TurnstileBlockEntityRenderer::getTexturedModelData);
         BlockEntityRendererRegistry.register(MetroBlockEntities.MONITOR_BLOCK_ENTITY, ctx -> new MonitorBlockEntityRenderer());
+
+        HudRenderCallback.EVENT.register(BLOCK_PLACE_HUD::render);
 
 //        HudRenderCallback.EVENT.register((matrixStack, tickDelta) -> {
 //        });

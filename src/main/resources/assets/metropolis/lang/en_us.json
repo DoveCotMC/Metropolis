@@ -51,5 +51,7 @@
     "metropolis.tooltip.ticket.entered_station_zone": "§7Entered zone %s",
     "metropolis.tooltip.ticket.no_station_entered": "§7No station entered",
 
+    "hud.title.pointed_station": "Pointed Station",
+
     "misc.metropolis.cost": "$%s"
 }

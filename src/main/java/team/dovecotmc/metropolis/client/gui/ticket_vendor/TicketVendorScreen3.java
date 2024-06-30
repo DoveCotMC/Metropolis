@@ -78,6 +78,7 @@ public class TicketVendorScreen3 extends Screen {
     @Override
     public void render(MatrixStack matrices, int mouseX, int mouseY, float delta) {
         this.fillGradient(matrices, 0, 0, this.width, this.height, -1072689136, -804253680);
+//        renderTooltip();
 
         RenderSystem.assertOnRenderThread();
         RenderSystem.setShaderColor(1, 1, 1, 1);

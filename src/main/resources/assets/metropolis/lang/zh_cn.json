@@ -46,5 +46,7 @@
     "tooltip.metropolis.ticket.from_and_to": "§7%s ⥋ %s",
     "tooltip.metropolis.ticket.balance": "§2余额: %s",
 
+    "hud.title.pointed_station": "此处的车站",
+
     "misc.metropolis.cost": "￥%s"
 }

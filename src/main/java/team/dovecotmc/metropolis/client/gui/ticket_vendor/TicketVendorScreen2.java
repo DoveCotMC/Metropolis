@@ -51,6 +51,7 @@ public class TicketVendorScreen2 extends Screen {
     protected static final int SLIDER_HEIGHT = 9;
 
     protected final BlockPos pos;
+    protected final Screen parentScreen;
 
     protected double mouseX = 0;
     protected double mouseY = 0;
@@ -63,9 +64,10 @@ public class TicketVendorScreen2 extends Screen {
 
     protected int tipId = 0;
 
-    public TicketVendorScreen2(BlockPos pos, ItemStack ticket) {
+    public TicketVendorScreen2(BlockPos pos, Screen parentScreen, ItemStack ticket) {
         super(Text.translatable("gui.metropolis.ticket_vendor_2.title"));
         this.pos = pos;
+        this.parentScreen = parentScreen;
         if (this.client != null && this.client.world != null) {
             this.stations = MtrStationUtil.getStations(this.client.world);
         } else {
@@ -130,6 +132,10 @@ public class TicketVendorScreen2 extends Screen {
             stations = MtrStationUtil.getStations(this.client.world);
 
             Station locatedStation = MtrStationUtil.getStationByPos(pos, client.world);
+            if (locatedStation == null) {
+                client.setScreen(new TicketVendorScreen3(pos, this.parentScreen));
+                return;
+            }
             int stationsSize = stations.size();
 
             List<Station> sortedStations = stations.stream().sorted(Comparator.comparingInt(o -> (Math.abs(o.zone - locatedStation.zone)))).toList();

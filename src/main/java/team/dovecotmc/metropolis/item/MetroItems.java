@@ -30,9 +30,9 @@ public class MetroItems {
     // TODO: Tunnel light
     public static final Item ITEM_TUNNEL_LIGHT_A = registerDovecotFeature("tunnel_light_a", new BlockItem(MetroBlocks.BLOCK_TUNNEL_LIGHT_A, new Item.Settings().group(Metropolis.ITEM_GROUP)));
     public static final Item ITEM_TICKET_VENDOR_PANEL = register("ticket_vendor_panel", new BlockItem(MetroBlocks.BLOCK_TICKET_VENDOR_PANEL, new Item.Settings().group(Metropolis.ITEM_GROUP)));
-    public static final Item ITEM_TICKET_VENDOR_EM10 = register("ticket_vendor_em10", new BlockItem(MetroBlocks.BLOCK_TICKET_VENDOR_EM10, new Item.Settings().group(Metropolis.ITEM_GROUP)));
-    public static final Item ITEM_TICKET_VENDOR_EV23 = register("ticket_vendor_ev23", new BlockItem(MetroBlocks.BLOCK_TICKET_VENDOR_EV23, new Item.Settings().group(Metropolis.ITEM_GROUP)));
-    public static final Item ITEM_TICKET_VENDOR_EV23_YELLOW = register("ticket_vendor_ev23_yellow", new BlockItem(MetroBlocks.BLOCK_TICKET_VENDOR_EV23_YELLOW, new Item.Settings().group(Metropolis.ITEM_GROUP)));
+    public static final Item ITEM_TICKET_VENDOR_EM10 = register("ticket_vendor_em10", new ItemBlockShowStationHUD(MetroBlocks.BLOCK_TICKET_VENDOR_EM10, new Item.Settings().group(Metropolis.ITEM_GROUP)));
+    public static final Item ITEM_TICKET_VENDOR_EV23 = register("ticket_vendor_ev23", new ItemBlockShowStationHUD(MetroBlocks.BLOCK_TICKET_VENDOR_EV23, new Item.Settings().group(Metropolis.ITEM_GROUP)));
+    public static final Item ITEM_TICKET_VENDOR_EV23_YELLOW = register("ticket_vendor_ev23_yellow", new ItemBlockShowStationHUD(MetroBlocks.BLOCK_TICKET_VENDOR_EV23_YELLOW, new Item.Settings().group(Metropolis.ITEM_GROUP)));
     // Ceiling
     public static final Item ITEM_CEILING_A = registerDovecotFeature("ceiling_a", new BlockItem(MetroBlocks.BLOCK_CEILING_A, new Item.Settings().group(Metropolis.ITEM_GROUP)));
 
@@ -42,13 +42,13 @@ public class MetroItems {
     public static final Item ITEM_BUMPER = register("bumper", new BlockItem(MetroBlocks.BLOCK_BUMPER, new Item.Settings().group(Metropolis.ITEM_GROUP)));
 
     // Turnstile
-    public static final Item ITEM_TURNSTILE = register("turnstile", new BlockItem(MetroBlocks.BLOCK_TURNSTILE, new Item.Settings().group(Metropolis.ITEM_GROUP)));
+    public static final Item ITEM_TURNSTILE = register("turnstile", new ItemBlockShowStationHUD(MetroBlocks.BLOCK_TURNSTILE, new Item.Settings().group(Metropolis.ITEM_GROUP)));
 
     // Ticket Machine
 //    public static final Item ITEM_TICKET_MACHINE = register("ticket_machine", new BlockItem(MetroBlocks.BLOCK_TICKET_MACHINE, new Item.Settings().group(Metropolis.ITEM_GROUP)));
 
     // PIDS
-    public static final Item ITEM_PIDS_1 = register("pids_1", new BlockItem(MetroBlocks.BLOCK_PIDS_1, new Item.Settings().group(Metropolis.ITEM_GROUP)));
+    public static final Item ITEM_PIDS_1 = register("pids_1", new ItemBlockShowStationHUD(MetroBlocks.BLOCK_PIDS_1, new Item.Settings().group(Metropolis.ITEM_GROUP)));
 
     // Ticket
     public static final Item ITEM_TICKET = register("ticket", new ItemTicket(new Item.Settings().group(Metropolis.ITEM_GROUP), true));

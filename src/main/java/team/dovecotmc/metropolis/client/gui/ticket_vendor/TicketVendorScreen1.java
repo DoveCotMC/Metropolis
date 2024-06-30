@@ -383,7 +383,7 @@ public class TicketVendorScreen1 extends Screen {
                 playDownSound(MinecraftClient.getInstance().getSoundManager());
             }
             // TODO: Data transfer
-            this.client.setScreen(new TicketVendorScreen2(pos, ItemStack.EMPTY));
+            this.client.setScreen(new TicketVendorScreen2(pos, this, ItemStack.EMPTY));
         }
 
         if (purpleHovering && pressed) {
