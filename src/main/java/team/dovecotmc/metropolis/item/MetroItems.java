@@ -1,5 +1,6 @@
 package team.dovecotmc.metropolis.item;
 
+import mtr.item.ItemBridgeCreator;
 import mtr.item.ItemRailModifier;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
@@ -51,14 +52,15 @@ public class MetroItems {
 
     // Ticket
     public static final Item ITEM_TICKET = register("ticket", new ItemTicket(new Item.Settings().group(Metropolis.ITEM_GROUP), true));
-    // TODO: 鸽达通 - Dovepus Card (
     public static final Item ITEM_CARD = register("card", new ItemCard(new Item.Settings().group(Metropolis.ITEM_GROUP)));
     // Monitor
     public static final Item ITEM_MONITOR = register("monitor", new BlockItem(MetroBlocks.BLOCK_MONITOR, new Item.Settings().group(Metropolis.ITEM_GROUP)));
     // Concrete
     public static final Item ITEM_CONCRETE = register("concrete", new BlockItem(MetroBlocks.BLOCK_CONCRETE, new Item.Settings().group(Metropolis.ITEM_GROUP)));
     // Rails
-    public static final Item ITEM_RAIL_CONNECTOR_5 = register("rail_connector_5", new ItemRailModifier());
+//    public static final Item ITEM_RAIL_CONNECTOR_5 = register("rail_connector_5", new ItemRailModifier());
+    // Bridge creator
+    public static final Item ITEM_BRIDGE_CREATOR = register("bridge_creator", new ItemBridgeCreator(1));
 
     public static Item registerDovecotFeature(String id, Item item) {
         return Registry.register(Registry.ITEM, new Identifier(Metropolis.MOD_ID, id), item);

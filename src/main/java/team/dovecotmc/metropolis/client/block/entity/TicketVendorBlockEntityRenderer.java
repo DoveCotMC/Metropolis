@@ -30,7 +30,7 @@ public class TicketVendorBlockEntityRenderer implements BlockEntityRenderer<Bloc
     @Override
     public void render(BlockEntityTicketVendor entity, float tickDelta, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, int overlay) {
         MinecraftClient mc = MinecraftClient.getInstance();
-        BlockRenderManager blockRenderManager = mc.getBlockRenderManager();
+        BlockRenderManager blockRenderManasger = mc.getBlockRenderManager();
 
         if (((BlockTicketVendor) entity.getCachedState().getBlock()).isFunctional) {
             BlockState block = entity.getCachedState();
@@ -51,6 +51,9 @@ public class TicketVendorBlockEntityRenderer implements BlockEntityRenderer<Bloc
 
             matrices.translate(0f, 0f, -0.1f);
 
+            float lightFactor = Math.min(Math.max((Math.max(LightmapTextureManager.getSkyLightCoordinates(light), LightmapTextureManager.getBlockLightCoordinates(light))) / 15f, 7f / 15f), 13f / 15f);
+//            float lightFactor = Math.max(1f / 15f, Math.max(LightmapTextureManager.getSkyLightCoordinates(light), LightmapTextureManager.getBlockLightCoordinates(light)) / 15f);
+            System.out.println(lightFactor * 15f);
             Tessellator tessellator = Tessellator.getInstance();
             BufferBuilder builder = tessellator.getBuffer();
             builder.begin(VertexFormat.DrawMode.QUADS, VertexFormats.POSITION_TEXTURE);
@@ -60,7 +63,7 @@ public class TicketVendorBlockEntityRenderer implements BlockEntityRenderer<Bloc
             builder.vertex(matrices.peek().getPositionMatrix(), 16f, 3f, 4f).texture(0, 1).next();
 
             RenderSystem.setShader(GameRenderer::getPositionTexShader);
-            RenderSystem.setShaderColor(1, 1, 1, 1);
+            RenderSystem.setShaderColor(lightFactor, lightFactor, lightFactor, 1f);
 
             tessellator.draw();
 
