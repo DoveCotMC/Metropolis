@@ -53,7 +53,6 @@ public class TicketVendorBlockEntityRenderer implements BlockEntityRenderer<Bloc
 
             float lightFactor = Math.min(Math.max((Math.max(LightmapTextureManager.getSkyLightCoordinates(light), LightmapTextureManager.getBlockLightCoordinates(light))) / 15f, 7f / 15f), 13f / 15f);
 //            float lightFactor = Math.max(1f / 15f, Math.max(LightmapTextureManager.getSkyLightCoordinates(light), LightmapTextureManager.getBlockLightCoordinates(light)) / 15f);
-            System.out.println(lightFactor * 15f);
             Tessellator tessellator = Tessellator.getInstance();
             BufferBuilder builder = tessellator.getBuffer();
             builder.begin(VertexFormat.DrawMode.QUADS, VertexFormats.POSITION_TEXTURE);

@@ -60,7 +60,7 @@ public class MetroItems {
     // Rails
 //    public static final Item ITEM_RAIL_CONNECTOR_5 = register("rail_connector_5", new ItemRailModifier());
     // Bridge creator
-    public static final Item ITEM_BRIDGE_CREATOR = register("bridge_creator", new ItemBridgeCreator(1));
+    public static final Item ITEM_BRIDGE_CREATOR = register("bridge_creator", new ItemDynamicBridgeCreator());
 
     public static Item registerDovecotFeature(String id, Item item) {
         return Registry.register(Registry.ITEM, new Identifier(Metropolis.MOD_ID, id), item);
