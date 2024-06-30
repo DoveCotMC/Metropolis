@@ -15,7 +15,7 @@ import team.dovecotmc.metropolis.util.MetroBlockUtil;
  */
 public class BlockFluorescentLamp extends HorizontalFacingBlock {
     public BlockFluorescentLamp() {
-        super(Settings.of(Material.METAL).nonOpaque().luminance(value -> 14));
+        super(Settings.of(Material.METAL).nonOpaque().luminance(value -> 15));
     }
 
     public BlockState getPlacementState(ItemPlacementContext ctx) {
