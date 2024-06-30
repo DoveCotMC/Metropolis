@@ -64,7 +64,7 @@ public class MetroBlockPlaceHud extends DrawableHelper {
         HitResult hitResult = client.crosshairTarget;
         TextRenderer textRenderer = client.textRenderer;
 
-        if (player.isSpectator() && !(player.getStackInHand(Hand.MAIN_HAND).getItem() instanceof IItemShowStationHUD) && player.getStackInHand(Hand.MAIN_HAND).getItem() != Items.BRUSH.get()) {
+        if (player.isSpectator() || !(player.getStackInHand(Hand.MAIN_HAND).getItem() instanceof IItemShowStationHUD) && player.getStackInHand(Hand.MAIN_HAND).getItem() != Items.BRUSH.get()) {
             shouldRender = false;
             return;
         }
