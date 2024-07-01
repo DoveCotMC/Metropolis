@@ -1,14 +1,29 @@
 package team.dovecotmc.metropolis.block;
 
 import net.minecraft.block.*;
+import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemPlacementContext;
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NbtCompound;
+import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.BooleanProperty;
+import net.minecraft.util.ActionResult;
+import net.minecraft.util.Hand;
+import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.util.shape.VoxelShapes;
 import net.minecraft.world.BlockView;
+import net.minecraft.world.World;
+import org.jetbrains.annotations.Nullable;
+import team.dovecotmc.metropolis.block.entity.BlockEntityTicketVendor;
+import team.dovecotmc.metropolis.block.entity.BlockEntityTurnstile;
+import team.dovecotmc.metropolis.item.ItemCard;
+import team.dovecotmc.metropolis.item.ItemTicket;
+import team.dovecotmc.metropolis.network.MetroServerNetwork;
 import team.dovecotmc.metropolis.util.MetroBlockUtil;
 
 /**
@@ -16,11 +31,56 @@ import team.dovecotmc.metropolis.util.MetroBlockUtil;
  * @project Metropolis
  * @copyright Copyright © 2024 Arrokoth All Rights Reserved.
  */
-public class BlockTurnstile extends HorizontalFacingBlock {
+public class BlockTurnstile extends HorizontalFacingBlock implements BlockEntityProvider {
     public static final BooleanProperty OPEN = BooleanProperty.of("open");
 
     public BlockTurnstile() {
         super(Settings.of(Material.METAL));
+    }
+
+    @Override
+    public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
+        if (world.isClient()) {
+            return ActionResult.SUCCESS;
+        }
+
+        if (world.getBlockEntity(pos) instanceof BlockEntityTurnstile blockEntity && !state.get(OPEN)) {
+            ItemStack stack = player.getStackInHand(Hand.MAIN_HAND);
+            NbtCompound nbt = blockEntity.createNbt();
+            if (!blockEntity.getStack(0).isEmpty()) {
+                System.out.println(nbt.getLong(BlockEntityTurnstile.TICKET_ANIMATION_IN_TIME));
+                if (world.getTime() - nbt.getLong(BlockEntityTurnstile.TICKET_ANIMATION_IN_TIME) >= 20) {
+                    System.out.println("waa");
+                    // TODO: Take ticket and open the gate
+
+                    state.with(OPEN, true);
+                    world.createAndScheduleBlockTick(pos, state.getBlock(), 10);
+                    nbt.putLong(BlockEntityTurnstile.TICKET_ANIMATION_IN_TIME, -1);
+                    nbt.putLong(BlockEntityTurnstile.TICKET_ANIMATION_OUT_TIME, world.getTime());
+
+                    player.giveItemStack(blockEntity.getStack(0));
+                    blockEntity.removeStack(0);
+                    blockEntity.readNbt(nbt);
+
+                    ((ServerPlayerEntity) player).networkHandler.sendPacket(blockEntity.toUpdatePacket());
+                    MetroServerNetwork.removeInventoryItem(0, pos, (ServerPlayerEntity) player);
+                }
+            } else {
+                if (stack.getItem() instanceof ItemTicket) {
+                    blockEntity.setStack(0, stack);
+                    player.setStackInHand(Hand.MAIN_HAND, ItemStack.EMPTY);
+
+                    nbt.putLong(BlockEntityTurnstile.TICKET_ANIMATION_OUT_TIME, -1);
+                    nbt.putLong(BlockEntityTurnstile.TICKET_ANIMATION_IN_TIME, world.getTime());
+                    blockEntity.readNbt(nbt);
+                    ((ServerPlayerEntity) player).networkHandler.sendPacket(blockEntity.toUpdatePacket());
+                } else if (stack.getItem() instanceof ItemCard) {
+                }
+            }
+
+        }
+
+        return ActionResult.SUCCESS;
     }
 
     @Override
@@ -49,5 +109,11 @@ public class BlockTurnstile extends HorizontalFacingBlock {
     @Override
     protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
         builder.add(FACING).add(OPEN);
+    }
+
+    @Nullable
+    @Override
+    public BlockEntity createBlockEntity(BlockPos pos, BlockState state) {
+        return new BlockEntityTurnstile(pos, state);
     }
 }
