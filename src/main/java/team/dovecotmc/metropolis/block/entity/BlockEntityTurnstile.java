@@ -18,8 +18,8 @@ import org.jetbrains.annotations.Nullable;
  * @copyright Copyright © 2024 Arrokoth All Rights Reserved.
  */
 public class BlockEntityTurnstile extends BlockEntity implements BlockTurnstileInventory {
-    public static final String TICKET_ANIMATION_IN_TIME = "ticket_animation_in_time";
-    public static final String TICKET_ANIMATION_OUT_TIME = "ticket_animation_out_time";
+    public static final String TICKET_ANIMATION_START = "ticket_animation_start_time";
+    public long ticketAnimationStartTime;
 
     private final DefaultedList<ItemStack> items = DefaultedList.ofSize(1, ItemStack.EMPTY);
 
@@ -41,12 +41,14 @@ public class BlockEntityTurnstile extends BlockEntity implements BlockTurnstileI
     @Override
     public void readNbt(NbtCompound nbt) {
         super.readNbt(nbt);
+        this.ticketAnimationStartTime = nbt.getLong(TICKET_ANIMATION_START);
         Inventories.readNbt(nbt, items);
     }
 
     @Override
     protected void writeNbt(NbtCompound nbt) {
         super.writeNbt(nbt);
+        nbt.putLong(TICKET_ANIMATION_START, this.ticketAnimationStartTime);
         Inventories.writeNbt(nbt, items);
     }
 

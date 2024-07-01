@@ -7,6 +7,7 @@ import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.BooleanProperty;
 import net.minecraft.util.ActionResult;
@@ -14,12 +15,12 @@ import net.minecraft.util.Hand;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
+import net.minecraft.util.math.random.Random;
 import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.util.shape.VoxelShapes;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
-import team.dovecotmc.metropolis.block.entity.BlockEntityTicketVendor;
 import team.dovecotmc.metropolis.block.entity.BlockEntityTurnstile;
 import team.dovecotmc.metropolis.item.ItemCard;
 import team.dovecotmc.metropolis.item.ItemTicket;
@@ -35,7 +36,7 @@ public class BlockTurnstile extends HorizontalFacingBlock implements BlockEntity
     public static final BooleanProperty OPEN = BooleanProperty.of("open");
 
     public BlockTurnstile() {
-        super(Settings.of(Material.METAL));
+        super(Settings.of(Material.METAL).nonOpaque());
     }
 
     @Override
@@ -47,40 +48,39 @@ public class BlockTurnstile extends HorizontalFacingBlock implements BlockEntity
         if (world.getBlockEntity(pos) instanceof BlockEntityTurnstile blockEntity && !state.get(OPEN)) {
             ItemStack stack = player.getStackInHand(Hand.MAIN_HAND);
             NbtCompound nbt = blockEntity.createNbt();
+            System.out.println(nbt.getLong(BlockEntityTurnstile.TICKET_ANIMATION_START));
             if (!blockEntity.getStack(0).isEmpty()) {
-                System.out.println(nbt.getLong(BlockEntityTurnstile.TICKET_ANIMATION_IN_TIME));
-                if (world.getTime() - nbt.getLong(BlockEntityTurnstile.TICKET_ANIMATION_IN_TIME) >= 20) {
-                    System.out.println("waa");
+                if (world.getTime() - nbt.getLong(BlockEntityTurnstile.TICKET_ANIMATION_START) >= 7) {
                     // TODO: Take ticket and open the gate
-
-                    state.with(OPEN, true);
-                    world.createAndScheduleBlockTick(pos, state.getBlock(), 10);
-                    nbt.putLong(BlockEntityTurnstile.TICKET_ANIMATION_IN_TIME, -1);
-                    nbt.putLong(BlockEntityTurnstile.TICKET_ANIMATION_OUT_TIME, world.getTime());
-
                     player.giveItemStack(blockEntity.getStack(0));
                     blockEntity.removeStack(0);
-                    blockEntity.readNbt(nbt);
 
                     ((ServerPlayerEntity) player).networkHandler.sendPacket(blockEntity.toUpdatePacket());
                     MetroServerNetwork.removeInventoryItem(0, pos, (ServerPlayerEntity) player);
+
+                    world.setBlockState(pos, state.with(OPEN, true));
+                    world.createAndScheduleBlockTick(pos, this, 40);
                 }
             } else {
                 if (stack.getItem() instanceof ItemTicket) {
                     blockEntity.setStack(0, stack);
                     player.setStackInHand(Hand.MAIN_HAND, ItemStack.EMPTY);
 
-                    nbt.putLong(BlockEntityTurnstile.TICKET_ANIMATION_OUT_TIME, -1);
-                    nbt.putLong(BlockEntityTurnstile.TICKET_ANIMATION_IN_TIME, world.getTime());
+                    nbt = blockEntity.createNbt();
+                    nbt.putLong(BlockEntityTurnstile.TICKET_ANIMATION_START, world.getTime());
                     blockEntity.readNbt(nbt);
                     ((ServerPlayerEntity) player).networkHandler.sendPacket(blockEntity.toUpdatePacket());
                 } else if (stack.getItem() instanceof ItemCard) {
                 }
             }
-
         }
 
         return ActionResult.SUCCESS;
+    }
+
+    @Override
+    public void scheduledTick(BlockState state, ServerWorld world, BlockPos pos, Random random) {
+        world.setBlockState(pos, state.with(OPEN, false));
     }
 
     @Override
