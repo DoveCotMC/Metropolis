@@ -25,11 +25,12 @@ public class MetroBlockEntities {
             FabricBlockEntityTypeBuilder.create(BlockEntityMonitor::new, MetroBlocks.BLOCK_MONITOR).build()
     );
 
-//    public static final BlockEntityType<BlockEntityTurnstile> TURNSTILE_BLOCK_ENTITY = Registry.register(
-//            Registry.BLOCK_ENTITY_TYPE,
-//            new Identifier(Metropolis.MOD_ID, "turnstile"),
-//            FabricBlockEntityTypeBuilder.create(BlockEntityTurnstile::new, MetroBlocks.BLOCK_TURNSTILE).build()
-//    );
+    public static final BlockEntityType<BlockEntityTurnstile> TURNSTILE_BLOCK_ENTITY = Registry.register(
+            Registry.BLOCK_ENTITY_TYPE,
+            new Identifier(Metropolis.MOD_ID, "turnstile"),
+            FabricBlockEntityTypeBuilder.create(BlockEntityTurnstile::new, MetroBlocks.BLOCK_TURNSTILE).build()
+    );
+
     public static final BlockEntityType<BlockEntityBumper> BUMPER_BLOCK_ENTITY = Registry.register(
             Registry.BLOCK_ENTITY_TYPE,
             new Identifier(Metropolis.MOD_ID, "bumper"),

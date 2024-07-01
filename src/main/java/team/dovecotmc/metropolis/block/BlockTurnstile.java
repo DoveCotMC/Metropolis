@@ -27,8 +27,8 @@ public class BlockTurnstile extends HorizontalFacingBlock {
     public VoxelShape getOutlineShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {
         Direction facing = state.get(FACING);
         return VoxelShapes.union(
-                MetroBlockUtil.getVoxelShapeByDirection(0, 0, -2, 2, 16, 18, facing),
-                MetroBlockUtil.getVoxelShapeByDirection(14, 0, -2, 16, 16, 18, facing)
+                MetroBlockUtil.getVoxelShapeByDirection(0, 0, -4, 3, 17, 20, facing),
+                MetroBlockUtil.getVoxelShapeByDirection(15, 0, -4, 16, 17, 20, facing)
         );
     }
 
@@ -36,8 +36,8 @@ public class BlockTurnstile extends HorizontalFacingBlock {
     public VoxelShape getCollisionShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {
         Direction facing = state.get(FACING);
         VoxelShape shape = VoxelShapes.union(
-                MetroBlockUtil.getVoxelShapeByDirection(0, 0, -2, 2, 24, 18, facing),
-                MetroBlockUtil.getVoxelShapeByDirection(14, 0, -2, 16, 24, 18, facing)
+                MetroBlockUtil.getVoxelShapeByDirection(0, 0, -4, 2, 24, 20, facing),
+                MetroBlockUtil.getVoxelShapeByDirection(15, 0, -4, 16, 24, 20, facing)
         );
         return state.get(OPEN) ? shape : VoxelShapes.union(shape, MetroBlockUtil.getVoxelShapeByDirection(0, 0, 9, 16, 24, 11, facing));
     }

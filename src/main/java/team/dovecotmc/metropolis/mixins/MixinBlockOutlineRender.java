@@ -1,7 +1,8 @@
 package team.dovecotmc.metropolis.mixins;
 
-import com.mojang.blaze3d.systems.RenderSystem;
 import mtr.data.Station;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.ShapeContext;
 import net.minecraft.client.render.*;
@@ -9,11 +10,8 @@ import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.client.world.ClientWorld;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Box;
 import net.minecraft.util.math.ColorHelper;
-import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.shape.VoxelShape;
-import net.minecraft.util.shape.VoxelShapes;
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -28,6 +26,7 @@ import team.dovecotmc.metropolis.util.MtrStationUtil;
  * @project Metropolis
  * @copyright Copyright © 2024 Arrokoth All Rights Reserved.
  */
+@Environment(EnvType.CLIENT)
 @Mixin(WorldRenderer.class)
 public abstract class MixinBlockOutlineRender {
     @Shadow

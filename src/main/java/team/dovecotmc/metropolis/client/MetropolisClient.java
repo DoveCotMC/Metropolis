@@ -62,7 +62,6 @@ public class MetropolisClient implements ClientModInitializer {
         BlockEntityRendererRegistry.register(MetroBlockEntities.BUMPER_BLOCK_ENTITY, ctx -> new BumperBlockEntityRenderer());
 //        BlockEntityRendererRegistry.register(MetroBlockEntities.TURNSTILE_BLOCK_ENTITY, TurnstileBlockEntityRenderer::new);
         BlockEntityRendererRegistry.register(MetroBlockEntities.TICKET_VENDOR_BLOCK_ENTITY, ctx -> new TicketVendorBlockEntityRenderer());
-        EntityModelLayerRegistry.registerModelLayer(TurnstileBlockEntityRenderer.MODEL_LAYER, TurnstileBlockEntityRenderer::getTexturedModelData);
         BlockEntityRendererRegistry.register(MetroBlockEntities.MONITOR_BLOCK_ENTITY, ctx -> new MonitorBlockEntityRenderer());
 
         HudRenderCallback.EVENT.register(BLOCK_PLACE_HUD::render);

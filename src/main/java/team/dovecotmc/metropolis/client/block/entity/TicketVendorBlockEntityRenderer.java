@@ -30,7 +30,6 @@ public class TicketVendorBlockEntityRenderer implements BlockEntityRenderer<Bloc
     @Override
     public void render(BlockEntityTicketVendor entity, float tickDelta, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, int overlay) {
         MinecraftClient mc = MinecraftClient.getInstance();
-        BlockRenderManager blockRenderManasger = mc.getBlockRenderManager();
 
         if (((BlockTicketVendor) entity.getCachedState().getBlock()).isFunctional) {
             BlockState block = entity.getCachedState();
