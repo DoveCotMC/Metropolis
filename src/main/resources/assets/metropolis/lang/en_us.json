@@ -43,13 +43,15 @@
     "gui.metropolis.ticket_vendor_payment.ic_charge.title": "IC Card charge",
     "gui.metropolis.ticket_vendor_payment.ic_charge.ticket_value": "  Value: %s",
 
-    "tooltip.metropolis.ticket.from_and_to": "§7%s ⥋ %s",
-    "tooltip.metropolis.ticket.balance": "§2Balance: %s",
-    "tooltip.metropolis.card.balance": "§2Balance: %s/%s",
+    "tooltip.metropolis.ticket.from_and_to": "%s ⥋ %s",
+    "tooltip.metropolis.ticket.balance": "Balance: %s",
+    "tooltip.metropolis.ticket.entered_station": "Entered station: %s",
+    "tooltip.metropolis.card.balance": "Balance: %s/%s",
 
-    "metropolis.tooltip.ticket.money_remain": "§2Money Remain: %s",
-    "metropolis.tooltip.ticket.entered_station_zone": "§7Entered zone %s",
-    "metropolis.tooltip.ticket.no_station_entered": "§7No station entered",
+    "info.metropolis.turnstile_type": "Turnstile type: %s",
+    "info.metropolis.unable_switch_turnstile_type": "Unable to switch turnstile type",
+    "info.metropolis.turnstile_error": "Turnstile error",
+    "info.metropolis.to_service_center": "Please go to the service center",
 
     "hud.title.pointed_station": "Pointed Station",
 

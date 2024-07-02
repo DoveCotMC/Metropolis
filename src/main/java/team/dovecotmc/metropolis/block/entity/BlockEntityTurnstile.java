@@ -20,11 +20,15 @@ import org.jetbrains.annotations.Nullable;
 public class BlockEntityTurnstile extends BlockEntity implements BlockTurnstileInventory {
     public static final String TICKET_ANIMATION_START = "ticket_animation_start_time";
     public long ticketAnimationStartTime;
+    public static final String TURNSTILE_TYPE = "turnstile_type";
+    public EnumTurnstileType type;
 
     private final DefaultedList<ItemStack> items = DefaultedList.ofSize(1, ItemStack.EMPTY);
 
     public BlockEntityTurnstile(BlockPos pos, BlockState state) {
         super(MetroBlockEntities.TURNSTILE_BLOCK_ENTITY, pos, state);
+        this.ticketAnimationStartTime = 0;
+        this.type = EnumTurnstileType.ENTER;
     }
 
     @Nullable
@@ -42,6 +46,7 @@ public class BlockEntityTurnstile extends BlockEntity implements BlockTurnstileI
     public void readNbt(NbtCompound nbt) {
         super.readNbt(nbt);
         this.ticketAnimationStartTime = nbt.getLong(TICKET_ANIMATION_START);
+        this.type = EnumTurnstileType.get(nbt.getInt(TURNSTILE_TYPE));
         Inventories.readNbt(nbt, items);
     }
 
@@ -49,6 +54,7 @@ public class BlockEntityTurnstile extends BlockEntity implements BlockTurnstileI
     protected void writeNbt(NbtCompound nbt) {
         super.writeNbt(nbt);
         nbt.putLong(TICKET_ANIMATION_START, this.ticketAnimationStartTime);
+        nbt.putInt(TURNSTILE_TYPE, this.type.index);
         Inventories.writeNbt(nbt, items);
     }
 
@@ -60,5 +66,26 @@ public class BlockEntityTurnstile extends BlockEntity implements BlockTurnstileI
     @Override
     public void setStack(int slot, ItemStack stack) {
         BlockTurnstileInventory.super.setStack(slot, stack);
+    }
+
+    public enum EnumTurnstileType {
+        ENTER(0),
+        EXIT(1),
+        DIRECT_DEBIT(2);
+
+        public final int index;
+
+        EnumTurnstileType(int index) {
+            this.index = index;
+        }
+
+        public static EnumTurnstileType get(int index) {
+            return switch (index) {
+                case 0 -> ENTER;
+                case 1 -> EXIT;
+                case 2 -> DIRECT_DEBIT;
+                default -> null;
+            };
+        }
     }
 }

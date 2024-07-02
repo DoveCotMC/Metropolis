@@ -40,11 +40,18 @@
     "gui.metropolis.ticket_vendor_payment.single_trip.ticket_value": "  价格：%s",
     "gui.metropolis.ticket_vendor_payment.single_trip.amount": "  %s 人",
 
-    "metropolis.tooltip.ticket.money_remain": "§2Money Remain: %s",
-    "metropolis.tooltip.ticket.entered_station_zone": "§7Entered zone %s",
-    "metropolis.tooltip.ticket.no_station_entered": "§7No station entered",
-    "tooltip.metropolis.ticket.from_and_to": "§7%s ⥋ %s",
-    "tooltip.metropolis.ticket.balance": "§2余额: %s",
+    "gui.metropolis.ticket_vendor_payment.ic_charge.title": "IC Card charge",
+    "gui.metropolis.ticket_vendor_payment.ic_charge.ticket_value": "  Value: %s",
+
+    "tooltip.metropolis.ticket.from_and_to": "%s ⥋ %s",
+    "tooltip.metropolis.ticket.balance": "余额: %s",
+    "tooltip.metropolis.ticket.entered_station": "已进站: %s",
+    "tooltip.metropolis.card.balance": "余额: %s/%s",
+
+    "info.metropolis.turnstile_type": "闸机类型：%s",
+    "info.metropolis.unable_switch_turnstile_type": "无法切换闸机类型",
+    "info.metropolis.turnstile_error": "机器错误",
+    "info.metropolis.to_service_center": "请去客服中心",
 
     "hud.title.pointed_station": "此处的车站",
 
