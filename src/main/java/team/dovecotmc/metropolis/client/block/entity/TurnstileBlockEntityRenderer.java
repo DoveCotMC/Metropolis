@@ -1,30 +1,16 @@
 package team.dovecotmc.metropolis.client.block.entity;
 
-import com.mojang.blaze3d.systems.RenderSystem;
-import mtr.data.Station;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.HorizontalFacingBlock;
 import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.model.*;
-import net.minecraft.client.network.ClientPlayerEntity;
-import net.minecraft.client.render.RenderLayers;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.block.entity.BlockEntityRenderer;
-import net.minecraft.client.render.block.entity.BlockEntityRendererFactory;
-import net.minecraft.client.render.entity.model.EntityModelLayer;
 import net.minecraft.client.render.item.ItemRenderer;
 import net.minecraft.client.render.model.json.ModelTransformation;
-import net.minecraft.client.util.SpriteIdentifier;
 import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.text.Text;
-import net.minecraft.util.Hand;
-import net.minecraft.util.Identifier;
 import net.minecraft.util.math.*;
 import net.minecraft.world.World;
-import team.dovecotmc.metropolis.block.BlockMonitor;
 import team.dovecotmc.metropolis.block.entity.BlockEntityTurnstile;
-import team.dovecotmc.metropolis.Metropolis;
-import team.dovecotmc.metropolis.util.MtrStationUtil;
 
 /**
  * @author Arrokoth

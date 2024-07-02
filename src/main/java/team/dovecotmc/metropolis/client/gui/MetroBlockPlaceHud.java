@@ -2,47 +2,32 @@ package team.dovecotmc.metropolis.client.gui;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import mtr.Items;
-import mtr.client.ClientCache;
 import mtr.data.Station;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.fabricmc.fabric.api.client.rendering.v1.WorldRenderContext;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.font.TextRenderer;
 import net.minecraft.client.gui.DrawableHelper;
-import net.minecraft.client.gui.hud.ChatHud;
-import net.minecraft.client.gui.hud.DebugHud;
-import net.minecraft.client.gui.tooltip.TooltipComponent;
 import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.client.render.*;
-import net.minecraft.client.render.debug.BlockOutlineDebugRenderer;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.client.world.ClientWorld;
-import net.minecraft.entity.Entity;
 import net.minecraft.text.Text;
 import net.minecraft.util.Hand;
-import net.minecraft.util.Identifier;
 import net.minecraft.util.hit.HitResult;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Box;
 import net.minecraft.util.math.ColorHelper;
-import net.minecraft.util.math.Matrix4f;
-import team.dovecotmc.metropolis.Metropolis;
-import team.dovecotmc.metropolis.block.IBlockStationOverlayShouldRender;
 import team.dovecotmc.metropolis.item.IItemShowStationHUD;
 import team.dovecotmc.metropolis.util.MtrStationUtil;
-
-import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * @author Arrokoth
  * @project Metropolis
  * @copyright Copyright © 2024 Arrokoth All Rights Reserved.
  */
+@SuppressWarnings("unused")
 @Environment(EnvType.CLIENT)
 public class MetroBlockPlaceHud extends DrawableHelper {
-    public static final Identifier BACKGROUND_TEXTURE_ID = new Identifier(Metropolis.MOD_ID, "textures/blanco.png");
     public boolean shouldRender = false;
     public MatrixStack matricesWorld;
     public VertexConsumer vertexConsumerWorld;
@@ -89,10 +74,6 @@ public class MetroBlockPlaceHud extends DrawableHelper {
 
             boolean shouldRenderName = shouldRender;
 
-//            if (world.getBlockState(pos).getBlock() instanceof IBlockStationOverlayShouldRender config) {
-//                shouldRenderName &= config.shouldRenderName();
-//            }
-
             if (shouldRenderName) {
                 int r = ColorHelper.Argb.getRed(station.color);
                 int g = ColorHelper.Argb.getGreen(station.color);
@@ -135,34 +116,6 @@ public class MetroBlockPlaceHud extends DrawableHelper {
                             0x545454
                     );
                 }
-
-                if (matricesWorld != null && vertexConsumerWorld != null) {
-                    int x = pos.getX();
-                    int y = pos.getY();
-                    int z = pos.getZ();
-
-//                    RenderSystem.
-
-                    matricesWorld.push();
-
-//                    Tessellator tessellator = Tessellator.getInstance();
-//                    BufferBuilder builder = tessellator.getBuffer();
-//                    builder.begin(VertexFormat.DrawMode.QUADS, VertexFormats.POSITION_COLOR);
-//
-//                    builder.begin(VertexFormat.DrawMode.QUADS, VertexFormats.POSITION_COLOR);
-//                    builder.vertex(matricesWorld.peek().getPositionMatrix(), x, y, z).color(1f, 0f, 0f, 0.5f).next();
-//                    builder.vertex(matricesWorld.peek().getPositionMatrix(), x + 1, y, z).color(1f, 0f, 0f, 0.5f).next();
-//                    builder.vertex(matricesWorld.peek().getPositionMatrix(), x + 1, y + 1, z).color(1f, 0f, 0f, 0.5f).next();
-//                    builder.vertex(matricesWorld.peek().getPositionMatrix(), x, y + 1, z).color(1f, 0f, 0f, 0.5f).next();
-//
-//                    RenderSystem.setShader(GameRenderer::getPositionColorShader);
-////                    RenderSystem.setShaderColor(lightFactor, lightFactor, lightFactor, 1f);
-//
-//                    builder.end();
-//                    tessellator.draw();
-
-                    matricesWorld.pop();
-                }
             }
 
             matrices.pop();
@@ -170,40 +123,4 @@ public class MetroBlockPlaceHud extends DrawableHelper {
             shouldRender = false;
         }
     }
-
-    private void fillRectSimple(MatrixStack matrices, int x, int y, int w, int h, int color) {
-        fillGradientSimple(
-                matrices,
-                x,
-                y,
-                w,
-                h,
-                color,
-                color
-        );
-    }
-
-    private void fillGradientSimple(MatrixStack matrices, int x, int y, int w, int h, int colorStart, int colorEnd) {
-        fillGradient(
-                matrices,
-                x,
-                y,
-                x + w,
-                y + h,
-                colorStart,
-                colorEnd
-        );
-    }
-
-//    private static void fillRect(MatrixStack matrices, int x, int y, int w, int h, int color) {
-//        fillGradient(
-//                matrices,
-//                centerX + 16,
-//                centerY - textRenderer.fontHeight / 2,
-//                centerX + stationFirstNameWidth + 4,
-//                centerY + textRenderer.fontHeight + 4,
-//                color,
-//                color
-//        );
-//    }
 }

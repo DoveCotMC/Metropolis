@@ -24,12 +24,10 @@ public class MetroClientNetwork {
         ClientPlayNetworking.send(MetroServerNetwork.TICKET_VENDOR_CLOSE, buf);
     }
 
-    // Slot definitions: 0 = Ticket, 1 = IC Card
     public static void ticketVendorResult(BlockPos pos, ItemStack stack, int balance) {
         PacketByteBuf buf = PacketByteBufs.create();
         buf.writeBlockPos(pos);
         buf.writeItemStack(stack);
-//        buf.writeInt(slot);
         buf.writeInt(balance);
         ClientPlayNetworking.send(MetroServerNetwork.TICKET_VENDOR_RESULT, buf);
     }
@@ -38,9 +36,7 @@ public class MetroClientNetwork {
         ClientPlayNetworking.registerGlobalReceiver(MetroServerNetwork.TICKET_VENDOR_GUI, (client, handler, buf, responseSender) -> {
             BlockPos pos = buf.readBlockPos();
             ItemStack itemStack = buf.readItemStack();
-            client.execute(() -> {
-                client.setScreen(new TicketVendorScreen1(pos, itemStack));
-            });
+            client.execute(() -> client.setScreen(new TicketVendorScreen1(pos, itemStack)));
         });
     }
 
@@ -48,9 +44,7 @@ public class MetroClientNetwork {
         ClientPlayNetworking.registerGlobalReceiver(MetroServerNetwork.TICKET_VENDOR_CHARGE_GUI, (client, handler, buf, responseSender) -> {
             BlockPos pos = buf.readBlockPos();
             ItemStack itemStack = buf.readItemStack();
-            client.execute(() -> {
-                client.setScreen(new TicketVendorScreen4(pos, null));
-            });
+            client.execute(() -> client.setScreen(new TicketVendorScreen4(pos, null)));
         });
     }
 
