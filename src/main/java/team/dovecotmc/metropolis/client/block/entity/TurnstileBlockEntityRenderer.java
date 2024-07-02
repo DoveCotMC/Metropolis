@@ -16,10 +16,12 @@ import net.minecraft.client.render.item.ItemRenderer;
 import net.minecraft.client.render.model.json.ModelTransformation;
 import net.minecraft.client.util.SpriteIdentifier;
 import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.text.Text;
 import net.minecraft.util.Hand;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.*;
 import net.minecraft.world.World;
+import team.dovecotmc.metropolis.block.BlockMonitor;
 import team.dovecotmc.metropolis.block.entity.BlockEntityTurnstile;
 import team.dovecotmc.metropolis.Metropolis;
 import team.dovecotmc.metropolis.util.MtrStationUtil;
@@ -43,36 +45,12 @@ public class TurnstileBlockEntityRenderer implements BlockEntityRenderer<BlockEn
         if (world != null) {
             BlockState block = entity.getCachedState();
             Direction facing = block.get(HorizontalFacingBlock.FACING);
+
             matrices.scale(1f / 16f, 1f / 16f, 1f / 16f);
             matrices.translate(8f, 8f, 8f);
             matrices.multiply(Quaternion.fromEulerXyzDegrees(new Vec3f(0, -facing.asRotation() - 180, 0)));
             matrices.translate(-8f, -8f, -8f);
             matrices.scale(16f, 16f, 16f);
-
-            if (mc.player != null) {
-                ClientPlayerEntity player = mc.player;
-                if (player.getStackInHand(Hand.MAIN_HAND).getItem() == mtr.Items.BRUSH.get()) {
-                    Station station = MtrStationUtil.getStationByPos(entity.getPos(), world);
-                    RenderSystem.setShaderColor(ColorHelper.Argb.getRed(station.color) / 255f, ColorHelper.Argb.getGreen(station.color) / 255f, ColorHelper.Argb.getBlue(station.color) / 255f, 1f);
-                }
-            }
-
-            RenderSystem.enableBlend();
-            RenderSystem.enableDepthTest();
-            RenderSystem.enableTexture();
-            mc.getBlockRenderManager().getModelRenderer().render(
-                    world,
-                    mc.getBlockRenderManager().getModel(block),
-                    block,
-                    entity.getPos(),
-                    matrices,
-                    vertexConsumers.getBuffer(RenderLayers.getBlockLayer(block)),
-                    false,
-                    entity.getWorld().getRandom(),
-                    0,
-                    overlay
-            );
-            RenderSystem.setShaderColor(1f, 1f, 1f, 1f);
 
             if (entity.type == BlockEntityTurnstile.EnumTurnstileType.ENTER) {
                 if (!entity.getStack(0).isEmpty()) {

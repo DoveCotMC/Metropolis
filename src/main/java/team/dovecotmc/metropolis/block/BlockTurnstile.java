@@ -35,7 +35,7 @@ import team.dovecotmc.metropolis.util.MtrStationUtil;
  * @project Metropolis
  * @copyright Copyright © 2024 Arrokoth All Rights Reserved.
  */
-public class BlockTurnstile extends HorizontalFacingBlock implements BlockEntityProvider {
+public class BlockTurnstile extends HorizontalFacingBlock implements BlockEntityProvider, IBlockStationOverlayShouldRender {
     public static final BooleanProperty OPEN = BooleanProperty.of("open");
 
     public BlockTurnstile() {
@@ -173,7 +173,7 @@ public class BlockTurnstile extends HorizontalFacingBlock implements BlockEntity
     }
 
     @Override
-    public BlockRenderType getRenderType(BlockState state) {
-        return BlockRenderType.INVISIBLE;
+    public boolean shouldRenderName() {
+        return false;
     }
 }

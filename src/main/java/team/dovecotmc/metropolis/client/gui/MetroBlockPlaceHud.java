@@ -28,6 +28,7 @@ import net.minecraft.util.math.Box;
 import net.minecraft.util.math.ColorHelper;
 import net.minecraft.util.math.Matrix4f;
 import team.dovecotmc.metropolis.Metropolis;
+import team.dovecotmc.metropolis.block.IBlockStationOverlayShouldRender;
 import team.dovecotmc.metropolis.item.IItemShowStationHUD;
 import team.dovecotmc.metropolis.util.MtrStationUtil;
 
@@ -45,6 +46,7 @@ public class MetroBlockPlaceHud extends DrawableHelper {
     public boolean shouldRender = false;
     public MatrixStack matricesWorld;
     public VertexConsumer vertexConsumerWorld;
+    public BlockPos pos = null;
 
     public MetroBlockPlaceHud() {
         matricesWorld = null;
@@ -85,7 +87,13 @@ public class MetroBlockPlaceHud extends DrawableHelper {
             Station station = MtrStationUtil.getStationByPos(pos, world);
             shouldRender = station != null;
 
-            if (shouldRender) {
+            boolean shouldRenderName = shouldRender;
+
+//            if (world.getBlockState(pos).getBlock() instanceof IBlockStationOverlayShouldRender config) {
+//                shouldRenderName &= config.shouldRenderName();
+//            }
+
+            if (shouldRenderName) {
                 int r = ColorHelper.Argb.getRed(station.color);
                 int g = ColorHelper.Argb.getGreen(station.color);
                 int b = ColorHelper.Argb.getBlue(station.color);
