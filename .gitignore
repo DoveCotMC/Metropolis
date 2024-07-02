@@ -116,3 +116,6 @@ run/
 
 # Avoid ignoring Gradle wrapper jar file (.jar files are usually ignored)
 !gradle-wrapper.jar
+
+# A folder that you can put your reference inside
+cache
