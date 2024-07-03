@@ -13,6 +13,7 @@ import team.dovecotmc.metropolis.util.MetroBlockUtil;
  * @project Metropolis
  * @copyright Copyright © 2024 Arrokoth All Rights Reserved.
  */
+@SuppressWarnings("deprecation")
 public class BlockFluorescentLamp extends HorizontalFacingBlock {
     public BlockFluorescentLamp() {
         super(Settings.of(Material.METAL).nonOpaque().luminance(value -> 15));

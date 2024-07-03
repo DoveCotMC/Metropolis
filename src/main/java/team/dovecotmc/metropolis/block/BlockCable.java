@@ -12,6 +12,7 @@ import net.minecraft.util.math.Direction;
  * @project DovecotRailwayDeco-1.19.2
  * @copyright Copyright © 2023 Arrokoth All Rights Reserved.
  */
+@SuppressWarnings("unused")
 public class BlockCable extends HorizontalFacingBlock {
     protected BlockCable(Settings settings) {
         super(settings);

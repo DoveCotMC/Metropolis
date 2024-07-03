@@ -3,7 +3,6 @@ package team.dovecotmc.metropolis.block;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.client.world.ClientWorld;
 import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.IntProperty;
@@ -23,6 +22,7 @@ import team.dovecotmc.metropolis.block.entity.BlockEntityBumper;
  * @project Metropolis
  * @copyright Copyright © 2024 Arrokoth All Rights Reserved.
  */
+@SuppressWarnings("deprecation")
 public class BlockBumper extends BlockWithEntity {
     public static final IntProperty ROTATION;
 
@@ -32,7 +32,7 @@ public class BlockBumper extends BlockWithEntity {
 
     public BlockBumper() {
         super(FabricBlockSettings.of(Material.METAL, MapColor.YELLOW).nonOpaque());
-        this.setDefaultState((BlockState)((BlockState)this.stateManager.getDefaultState()).with(ROTATION, 0));
+        this.setDefaultState(this.stateManager.getDefaultState().with(ROTATION, 0));
     }
 
     public VoxelShape getCullingShape(BlockState state, BlockView world, BlockPos pos) {
@@ -40,15 +40,15 @@ public class BlockBumper extends BlockWithEntity {
     }
 
     public BlockState getPlacementState(ItemPlacementContext ctx) {
-        return (BlockState)this.getDefaultState().with(ROTATION, MathHelper.floor((double)(ctx.getPlayerYaw() * 16.0F / 360.0F) + 0.5) & 15);
+        return this.getDefaultState().with(ROTATION, MathHelper.floor((double)(ctx.getPlayerYaw() * 16.0F / 360.0F) + 0.5) & 15);
     }
 
     public BlockState rotate(BlockState state, BlockRotation rotation) {
-        return (BlockState)state.with(ROTATION, rotation.rotate((Integer)state.get(ROTATION), 16));
+        return state.with(ROTATION, rotation.rotate(state.get(ROTATION), 16));
     }
 
     public BlockState mirror(BlockState state, BlockMirror mirror) {
-        return (BlockState)state.with(ROTATION, mirror.mirror((Integer)state.get(ROTATION), 16));
+        return state.with(ROTATION, mirror.mirror(state.get(ROTATION), 16));
     }
 
     protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {

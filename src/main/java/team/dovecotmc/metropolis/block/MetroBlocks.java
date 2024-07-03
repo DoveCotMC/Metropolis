@@ -9,7 +9,6 @@ import net.minecraft.util.DyeColor;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 import team.dovecotmc.metropolis.Metropolis;
-import team.dovecotmc.metropolis.block.entity.BlockEntityTurnstile;
 
 /**
  * @author Arrokoth

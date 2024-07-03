@@ -27,8 +27,9 @@ import java.util.Map;
  * @project Metropolis
  * @copyright Copyright © 2024 Arrokoth All Rights Reserved.
  */
+@SuppressWarnings("deprecation")
 public class BlockTicketVendorUp extends HorizontalFacingBlock {
-    public static final Map<Integer, BlockTicketVendorUp> TYPES = new HashMap();
+    public static final Map<Integer, BlockTicketVendorUp> TYPES = new HashMap<>();
     public final int id;
 
     public BlockTicketVendorUp() {
