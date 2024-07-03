@@ -13,7 +13,6 @@ import net.minecraft.text.Text;
 import net.minecraft.util.Hand;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.*;
-import net.minecraft.util.registry.Registry;
 import net.minecraft.world.World;
 import team.dovecotmc.metropolis.Metropolis;
 import team.dovecotmc.metropolis.block.BlockTurnstile;
@@ -120,7 +119,6 @@ public class TurnstileBlockEntityRenderer implements BlockEntityRenderer<BlockEn
             RenderSystem.disableDepthTest();
 
             BlockEntityTurnstile.EnumTurnstileType type = BlockEntityTurnstile.EnumTurnstileType.get(block.get(BlockTurnstile.TYPE));
-//            BlockEntityTurnstile.EnumTurnstileType type = ((BlockTurnstile) block.getBlock()).type;
             if (type == BlockEntityTurnstile.EnumTurnstileType.ENTER) {
                 if (!entity.getStack(0).isEmpty()) {
 
