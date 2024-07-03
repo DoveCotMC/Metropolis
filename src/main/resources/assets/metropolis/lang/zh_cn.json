@@ -56,5 +56,7 @@
 
     "hud.title.pointed_station": "此处的车站",
 
-    "misc.metropolis.cost": "￥%s"
+    "misc.metropolis.cost": "￥%s",
+    "misc.metropolis.turnstile_mode.enter": "入",
+    "misc.metropolis.turnstile_mode.exit": "出"
 }

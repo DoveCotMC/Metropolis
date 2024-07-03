@@ -33,7 +33,7 @@ public class ItemTicket extends Item implements InterfaceTicket {
         NbtCompound nbt = stack.getOrCreateNbt();
 
         String stationName = nbt.getString(ENTERED_STATION).split("\\|")[0];
-        if (nbt.contains(ENTERED_ZONE))
+        if (nbt.contains(ENTERED_ZONE) && nbt.contains(ENTERED_STATION))
             tooltip.add(Text.translatable("tooltip.metropolis.ticket.entered_station", stationName));
 
         if (nbt.contains(START_STATION) && nbt.contains(END_STATION))

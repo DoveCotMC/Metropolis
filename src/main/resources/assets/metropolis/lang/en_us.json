@@ -56,5 +56,7 @@
 
     "hud.title.pointed_station": "Pointed Station",
 
-    "misc.metropolis.cost": "$%s"
+    "misc.metropolis.cost": "$%s",
+    "misc.metropolis.turnstile_mode.enter": "Enter",
+    "misc.metropolis.turnstile_mode.exit": "Exit"
 }

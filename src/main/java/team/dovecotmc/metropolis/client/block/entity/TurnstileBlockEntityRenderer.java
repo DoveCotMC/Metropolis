@@ -8,6 +8,8 @@ import net.minecraft.client.render.block.entity.BlockEntityRenderer;
 import net.minecraft.client.render.item.ItemRenderer;
 import net.minecraft.client.render.model.json.ModelTransformation;
 import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.text.Text;
+import net.minecraft.util.Hand;
 import net.minecraft.util.math.*;
 import net.minecraft.world.World;
 import team.dovecotmc.metropolis.block.BlockTurnstile;
@@ -32,6 +34,31 @@ public class TurnstileBlockEntityRenderer implements BlockEntityRenderer<BlockEn
         if (world != null) {
             BlockState block = entity.getCachedState();
             Direction facing = block.get(HorizontalFacingBlock.FACING);
+
+            if (mc.player != null && mc.player.getStackInHand(Hand.MAIN_HAND).getItem() == mtr.Items.BRUSH.get()) {
+                matrices.push();
+
+                Text text = Text.translatable("misc.metropolis.turnstile_mode." + BlockEntityTurnstile.EnumTurnstileType.get(block.get(BlockTurnstile.TYPE)).name().toLowerCase());
+
+                matrices.translate(0, 1.25, 0);
+                matrices.scale(1f / 16f, 1f / 16f, 1f / 16f);
+//                matrices.translate(mc.textRenderer.getWidth(text) / 2f, 8, 8);
+                matrices.translate(8, 8, 8);
+                matrices.multiply(Quaternion.fromEulerXyzDegrees(new Vec3f(0, -mc.player.getRotationClient().y, 0)));
+                matrices.multiply(Quaternion.fromEulerXyzDegrees(new Vec3f(mc.player.getRotationClient().x, 0, 0)));
+                matrices.multiply(Quaternion.fromEulerXyzDegrees(new Vec3f(0, 0, 180)));
+                matrices.translate(-mc.textRenderer.getWidth(text) / 2f, 0, 0);
+//                matrices.scale(1f / 2f, 1f / 2f, 1f / 2f);
+
+                mc.textRenderer.draw(
+                        matrices,
+                        text,
+                        0,
+                        0,
+                        0xFFFFFF
+                );
+                matrices.pop();
+            }
 
             matrices.scale(1f / 16f, 1f / 16f, 1f / 16f);
             matrices.translate(8f, 8f, 8f);

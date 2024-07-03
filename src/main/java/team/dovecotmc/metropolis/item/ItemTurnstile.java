@@ -43,9 +43,10 @@ public class ItemTurnstile extends BlockItem implements IItemShowStationHUD {
     @Override
     public void appendTooltip(ItemStack stack, @Nullable World world, List<Text> tooltip, TooltipContext context) {
         // TODO: Translatable
-        if (stack.getItem() instanceof ItemTurnstile item) {
-            tooltip.add(Text.literal("Type: " + item.type));
-        }
+//        if (stack.getItem() instanceof ItemTurnstile item) {
+//            tooltip.add(Text.literal("Type: " + item.type));
+//        }
+        super.appendTooltip(stack, world, tooltip, context);
     }
 
     @Override

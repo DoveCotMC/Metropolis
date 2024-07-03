@@ -5,6 +5,7 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.ShapeContext;
+import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.*;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.client.world.ClientWorld;
@@ -49,7 +50,8 @@ public abstract class MixinBlockOutlineRender {
                     float red = ColorHelper.Argb.getRed(station.color) / 255f;
                     float green = ColorHelper.Argb.getGreen(station.color) / 255f;
                     float blue = ColorHelper.Argb.getBlue(station.color) / 255f;
-                    drawCuboidShapeOutline(matrices, vertexConsumer, state.getOutlineShape(world, pos, ShapeContext.of(entity)), (double)pos.getX() - cameraX, (double)pos.getY() - cameraY, (double)pos.getZ() - cameraZ, red, green, blue, 0.4F);
+                    float alpha = (float) Math.abs((Math.sin((world.getTime() + MinecraftClient.getInstance().getTickDelta()) / 4f) / 2f));
+                    drawCuboidShapeOutline(matrices, vertexConsumer, state.getOutlineShape(world, pos, ShapeContext.of(entity)), (double)pos.getX() - cameraX, (double)pos.getY() - cameraY, (double)pos.getZ() - cameraZ, red, green, blue, alpha);
                 }
             }
         }
