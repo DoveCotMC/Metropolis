@@ -42,13 +42,11 @@ public class TurnstileBlockEntityRenderer implements BlockEntityRenderer<BlockEn
 
                 matrices.translate(0, 1.25, 0);
                 matrices.scale(1f / 16f, 1f / 16f, 1f / 16f);
-//                matrices.translate(mc.textRenderer.getWidth(text) / 2f, 8, 8);
                 matrices.translate(8, 8, 8);
                 matrices.multiply(Quaternion.fromEulerXyzDegrees(new Vec3f(0, -mc.player.getRotationClient().y, 0)));
                 matrices.multiply(Quaternion.fromEulerXyzDegrees(new Vec3f(mc.player.getRotationClient().x, 0, 0)));
                 matrices.multiply(Quaternion.fromEulerXyzDegrees(new Vec3f(0, 0, 180)));
                 matrices.translate(-mc.textRenderer.getWidth(text) / 2f, 0, 0);
-//                matrices.scale(1f / 2f, 1f / 2f, 1f / 2f);
 
                 mc.textRenderer.draw(
                         matrices,

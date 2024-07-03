@@ -1,14 +1,8 @@
 package team.dovecotmc.metropolis.block;
 
-import mtr.MTR;
-import mtr.MTRFabric;
-import mtr.block.BlockGlassFence;
-import mtr.block.BlockTicketBarrier;
 import mtr.data.Station;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.input.KeyboardInput;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.item.ItemStack;
@@ -175,7 +169,7 @@ public class BlockTurnstile extends HorizontalFacingBlock implements BlockEntity
                     world.setBlockState(pos, state.with(OPEN, true));
                     world.createAndScheduleBlockTick(pos, this, 40);
                 }
-            } else if (type == BlockEntityTurnstile.EnumTurnstileType.DIRECT_DEBIT) {
+            }/* else if (type == BlockEntityTurnstile.EnumTurnstileType.DIRECT_DEBIT) {
                 NbtCompound stackNbt = stack.getOrCreateNbt();
 
                 int cost = Math.abs(station.zone - stackNbt.getInt(ItemTicket.ENTERED_ZONE)) + 1;
@@ -200,7 +194,7 @@ public class BlockTurnstile extends HorizontalFacingBlock implements BlockEntity
                 } else if (stack.getItem() instanceof ItemCard) {
                     // TODO: Cards
                 }
-            }
+            }*/
 
             ((ServerPlayerEntity) player).networkHandler.sendPacket(blockEntity.toUpdatePacket());
         }
