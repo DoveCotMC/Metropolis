@@ -53,7 +53,6 @@ public class MetroBlocks {
 
     // Turnstile
     public static final Block BLOCK_TURNSTILE_ENTER = register("turnstile", new BlockTurnstile());
-//    public static final Block BLOCK_TURNSTILE_EXIT = register("turnstile", new BlockTurnstile());
 
     // PIDS
     public static final Block BLOCK_PIDS_1 = register("pids_1", new BlockMetroPIDSOne());
