@@ -1,5 +1,8 @@
 package team.dovecotmc.metropolis.block;
 
+import mtr.MTR;
+import mtr.MTRFabric;
+import mtr.block.BlockGlassFence;
 import mtr.data.Station;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
@@ -11,6 +14,7 @@ import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.BooleanProperty;
+import net.minecraft.state.property.IntProperty;
 import net.minecraft.text.Text;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
@@ -26,17 +30,23 @@ import org.jetbrains.annotations.Nullable;
 import team.dovecotmc.metropolis.block.entity.BlockEntityTurnstile;
 import team.dovecotmc.metropolis.item.ItemCard;
 import team.dovecotmc.metropolis.item.ItemTicket;
+import team.dovecotmc.metropolis.item.MetroItems;
 import team.dovecotmc.metropolis.network.MetroServerNetwork;
 import team.dovecotmc.metropolis.util.MetroBlockUtil;
 import team.dovecotmc.metropolis.util.MtrStationUtil;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author Arrokoth
  * @project Metropolis
  * @copyright Copyright © 2024 Arrokoth All Rights Reserved.
  */
+@SuppressWarnings("deprecation")
 public class BlockTurnstile extends HorizontalFacingBlock implements BlockEntityProvider, IBlockStationOverlayShouldRender {
     public static final BooleanProperty OPEN = BooleanProperty.of("open");
+    public static final IntProperty TYPE = IntProperty.of("type", 0, 2);
 
     public BlockTurnstile() {
         super(Settings.of(Material.METAL).nonOpaque());
@@ -58,13 +68,14 @@ public class BlockTurnstile extends HorizontalFacingBlock implements BlockEntity
             ItemStack stack = player.getStackInHand(Hand.MAIN_HAND);
             NbtCompound nbt = blockEntity.createNbt();
 
+            BlockEntityTurnstile.EnumTurnstileType type = BlockEntityTurnstile.EnumTurnstileType.get(state.get(TYPE));
             if (stack.getItem() == mtr.Items.BRUSH.get()) {
-                if (blockEntity.type != BlockEntityTurnstile.EnumTurnstileType.ENTER && blockEntity.getItems().isEmpty()) {
+                if (type != BlockEntityTurnstile.EnumTurnstileType.ENTER && blockEntity.getItems().isEmpty()) {
                     player.sendMessage(Text.translatable("info.metropolis.unable_switch_turnstile_type"), true);
                     return ActionResult.SUCCESS;
                 }
-                nbt.putInt(BlockEntityTurnstile.TURNSTILE_TYPE, (nbt.getInt(BlockEntityTurnstile.TURNSTILE_TYPE) + 1) % 3);
-                player.sendMessage(Text.translatable("info.metropolis.turnstile_type", nbt.getInt(BlockEntityTurnstile.TURNSTILE_TYPE)), true);
+                world.setBlockState(pos, state.with(TYPE, (type.index + 1) % 3));
+                player.sendMessage(Text.translatable("info.metropolis.turnstile_type", type), true);
                 blockEntity.readNbt(nbt);
                 blockEntity.clear();
                 ((ServerPlayerEntity) player).networkHandler.sendPacket(blockEntity.toUpdatePacket());
@@ -74,7 +85,7 @@ public class BlockTurnstile extends HorizontalFacingBlock implements BlockEntity
                 return ActionResult.SUCCESS;
             }
 
-            if (blockEntity.type == BlockEntityTurnstile.EnumTurnstileType.ENTER) {
+            if (type == BlockEntityTurnstile.EnumTurnstileType.ENTER) {
                 if (!blockEntity.getStack(0).isEmpty()) {
                     if (world.getTime() - nbt.getLong(BlockEntityTurnstile.TICKET_ANIMATION_START) >= 7) {
                         // TODO: Take ticket and open the gate
@@ -107,12 +118,21 @@ public class BlockTurnstile extends HorizontalFacingBlock implements BlockEntity
                 } else if (stack.getItem() instanceof ItemCard) {
                     // TODO: Cards
                 }
-            } else if (blockEntity.type == BlockEntityTurnstile.EnumTurnstileType.EXIT) {
+            } else if (type == BlockEntityTurnstile.EnumTurnstileType.EXIT) {
                 NbtCompound stackNbt = stack.getOrCreateNbt();
-                if (!stackNbt.contains(ItemTicket.ENTERED_STATION) && !stackNbt.contains(ItemTicket.ENTERED_ZONE) || Math.abs(station.zone - stackNbt.getInt(ItemTicket.ENTERED_ZONE)) + 1 < stackNbt.getInt(ItemTicket.BALANCE)) {
+                if (!stackNbt.contains(ItemTicket.ENTERED_STATION) && !stackNbt.contains(ItemTicket.ENTERED_ZONE)) {
                     player.sendMessage(Text.translatable("info.metropolis.to_service_center"), true);
                     return ActionResult.SUCCESS;
                 }
+
+                int cost = Math.abs(station.zone - stackNbt.getInt(ItemTicket.ENTERED_ZONE)) + 1;
+                int balance = stackNbt.getInt(ItemTicket.BALANCE);
+
+                if (balance < cost) {
+                    player.sendMessage(Text.translatable("info.metropolis.no_enough_balance"), true);
+                    return ActionResult.SUCCESS;
+                }
+
                 if (stack.getItem() instanceof ItemTicket) {
                     blockEntity.setStack(0, stack);
                     player.setStackInHand(Hand.MAIN_HAND, ItemStack.EMPTY);
@@ -158,18 +178,28 @@ public class BlockTurnstile extends HorizontalFacingBlock implements BlockEntity
     }
 
     public BlockState getPlacementState(ItemPlacementContext ctx) {
-        return this.getDefaultState().with(FACING, ctx.getPlayerFacing().getOpposite()).with(OPEN, false);
+        return this.getDefaultState().with(FACING, ctx.getPlayerFacing().getOpposite()).with(OPEN, false).with(TYPE, 0);
     }
 
     @Override
     protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
-        builder.add(FACING).add(OPEN);
+        builder.add(FACING).add(OPEN).add(TYPE);
     }
 
     @Nullable
     @Override
     public BlockEntity createBlockEntity(BlockPos pos, BlockState state) {
         return new BlockEntityTurnstile(pos, state);
+    }
+
+    @Override
+    public ItemStack getPickStack(BlockView world, BlockPos pos, BlockState state) {
+        BlockEntityTurnstile.EnumTurnstileType type = BlockEntityTurnstile.EnumTurnstileType.get(state.get(TYPE));
+        return switch (type) {
+            case ENTER -> new ItemStack(MetroItems.ITEM_TURNSTILE_ENTER);
+            case EXIT -> new ItemStack(MetroItems.ITEM_TURNSTILE_EXIT);
+            default -> ItemStack.EMPTY;
+        };
     }
 
     @Override

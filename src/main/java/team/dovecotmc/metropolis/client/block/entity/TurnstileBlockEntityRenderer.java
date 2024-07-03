@@ -10,6 +10,7 @@ import net.minecraft.client.render.model.json.ModelTransformation;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.math.*;
 import net.minecraft.world.World;
+import team.dovecotmc.metropolis.block.BlockTurnstile;
 import team.dovecotmc.metropolis.block.entity.BlockEntityTurnstile;
 
 /**
@@ -38,7 +39,9 @@ public class TurnstileBlockEntityRenderer implements BlockEntityRenderer<BlockEn
             matrices.translate(-8f, -8f, -8f);
             matrices.scale(16f, 16f, 16f);
 
-            if (entity.type == BlockEntityTurnstile.EnumTurnstileType.ENTER) {
+            BlockEntityTurnstile.EnumTurnstileType type = BlockEntityTurnstile.EnumTurnstileType.get(block.get(BlockTurnstile.TYPE));
+//            BlockEntityTurnstile.EnumTurnstileType type = ((BlockTurnstile) block.getBlock()).type;
+            if (type == BlockEntityTurnstile.EnumTurnstileType.ENTER) {
                 if (!entity.getStack(0).isEmpty()) {
 
                     float animTime = (float) (world.getTime() - entity.ticketAnimationStartTime) + tickDelta;
@@ -88,7 +91,7 @@ public class TurnstileBlockEntityRenderer implements BlockEntityRenderer<BlockEn
                         matrices.pop();
                     }
                 }
-            } else if (entity.type == BlockEntityTurnstile.EnumTurnstileType.EXIT){
+            } else if (type == BlockEntityTurnstile.EnumTurnstileType.EXIT) {
                 float animTime = (float) (world.getTime() - entity.ticketAnimationStartTime) + tickDelta;
                 if (animTime < 3) {
                     matrices.push();

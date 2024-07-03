@@ -9,6 +9,7 @@ import net.minecraft.util.DyeColor;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 import team.dovecotmc.metropolis.Metropolis;
+import team.dovecotmc.metropolis.block.entity.BlockEntityTurnstile;
 
 /**
  * @author Arrokoth
@@ -51,7 +52,8 @@ public class MetroBlocks {
     public static final Block BLOCK_BUMPER = register("bumper", new BlockBumper());
 
     // Turnstile
-    public static final Block BLOCK_TURNSTILE = register("turnstile", new BlockTurnstile());
+    public static final Block BLOCK_TURNSTILE_ENTER = register("turnstile", new BlockTurnstile());
+//    public static final Block BLOCK_TURNSTILE_EXIT = register("turnstile", new BlockTurnstile());
 
     // PIDS
     public static final Block BLOCK_PIDS_1 = register("pids_1", new BlockMetroPIDSOne());
