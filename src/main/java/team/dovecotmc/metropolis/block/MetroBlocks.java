@@ -16,18 +16,15 @@ import team.dovecotmc.metropolis.Metropolis;
  * @copyright Copyright © 2023 Arrokoth All Rights Reserved.
  */
 public class MetroBlocks {
-    // TODO: Merge Cables into a single block c
+    // TODO: Merge Cables into a single block
     public static final Block BLOCK_CABLE = registerDovecotFeatures("cable", new BlockCable(FabricBlockSettings.of(Material.METAL, MapColor.STONE_GRAY).noCollision().nonOpaque()));
+    public static final Block BLOCK_CABLE_HORIZONTAL = registerDovecotFeatures("cable_horizontal", new BlockCable(FabricBlockSettings.of(Material.METAL, MapColor.STONE_GRAY).noCollision().nonOpaque()));
     public static final Block BLOCK_CABLE_INNER_CORNER = registerDovecotFeatures("cable_inner_corner", new BlockCable(FabricBlockSettings.of(Material.METAL, MapColor.STONE_GRAY).noCollision().nonOpaque()));
     public static final Block BLOCK_CABLE_OUTER_CORNER = registerDovecotFeatures("cable_outer_corner", new BlockCable(FabricBlockSettings.of(Material.METAL, MapColor.STONE_GRAY).noCollision().nonOpaque()));
-    public static final Block BLOCK_CABLE_2 = registerDovecotFeatures("cable_2", new BlockCable(FabricBlockSettings.of(Material.METAL, MapColor.STONE_GRAY).noCollision().nonOpaque()));
-    public static final Block BLOCK_CABLE_3 = registerDovecotFeatures("cable_3", new BlockCable(FabricBlockSettings.of(Material.METAL, MapColor.STONE_GRAY).noCollision().nonOpaque()));
-    public static final Block BLOCK_CABLE_4 = registerDovecotFeatures("cable_4", new BlockCable(FabricBlockSettings.of(Material.METAL, MapColor.STONE_GRAY).noCollision().nonOpaque()));
-    public static final Block BLOCK_CABLE_5 = registerDovecotFeatures("cable_5", new BlockCable(FabricBlockSettings.of(Material.METAL, MapColor.STONE_GRAY).noCollision().nonOpaque()));
-    public static final Block BLOCK_CABLE_6 = registerDovecotFeatures("cable_6", new BlockCable(FabricBlockSettings.of(Material.METAL, MapColor.STONE_GRAY).noCollision().nonOpaque()));
-    public static final Block BLOCK_CABLE_7 = registerDovecotFeatures("cable_7", new BlockCable(FabricBlockSettings.of(Material.METAL, MapColor.STONE_GRAY).noCollision().nonOpaque()));
-    public static final Block BLOCK_CABLE_8 = registerDovecotFeatures("cable_8", new BlockCable(FabricBlockSettings.of(Material.METAL, MapColor.STONE_GRAY).noCollision().nonOpaque()));
-    public static final Block BLOCK_CABLE_9 = registerDovecotFeatures("cable_9", new BlockCable(FabricBlockSettings.of(Material.METAL, MapColor.STONE_GRAY).noCollision().nonOpaque()));
+    public static final Block BLOCK_CABLE_DOWN_LEFT = registerDovecotFeatures("cable_down_left", new BlockCable(FabricBlockSettings.of(Material.METAL, MapColor.STONE_GRAY).noCollision().nonOpaque()));
+    public static final Block BLOCK_CABLE_DOWN_RIGHT = registerDovecotFeatures("cable_down_right", new BlockCable(FabricBlockSettings.of(Material.METAL, MapColor.STONE_GRAY).noCollision().nonOpaque()));
+    public static final Block BLOCK_CABLE_UP_LEFT = registerDovecotFeatures("cable_up_left", new BlockCable(FabricBlockSettings.of(Material.METAL, MapColor.STONE_GRAY).noCollision().nonOpaque()));
+    public static final Block BLOCK_CABLE_UP_RIGHT = registerDovecotFeatures("cable_up_right", new BlockCable(FabricBlockSettings.of(Material.METAL, MapColor.STONE_GRAY).noCollision().nonOpaque()));
     // Tunnel light
     public static final Block BLOCK_TUNNEL_LIGHT_A = registerDovecotFeatures("tunnel_light_a", new BlockTunnelLight(FabricBlockSettings.of(Material.METAL, MapColor.STONE_GRAY).nonOpaque()));
 
@@ -59,8 +56,10 @@ public class MetroBlocks {
 
     // Monitor
     public static final Block BLOCK_MONITOR = register("monitor", new BlockMonitor());
-    // Concrete
+    // Decorations
     public static final Block BLOCK_CONCRETE = register("concrete", new Block(AbstractBlock.Settings.of(Material.STONE, DyeColor.LIGHT_GRAY)));
+    public static final Block BLOCK_BLIND_PATH_STRIP = register("blind_path_strip", new BlockHorizontalAxis(AbstractBlock.Settings.of(Material.STONE, DyeColor.YELLOW)));
+    public static final Block BLOCK_BLIND_PATH_POINT = register("blind_path_point", new Block(AbstractBlock.Settings.of(Material.STONE, DyeColor.YELLOW)));
 
     private static Block registerDovecotFeatures(String id, Block block) {
         return Registry.register(Registry.BLOCK, new Identifier(Metropolis.MOD_ID, id), block);
