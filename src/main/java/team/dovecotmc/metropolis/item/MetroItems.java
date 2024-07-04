@@ -20,7 +20,7 @@ import team.dovecotmc.metropolis.block.entity.BlockEntityTurnstile;
 @SuppressWarnings("unused")
 public class MetroItems {
     // Experimental features in other mods
-//    public static final Item ITEM_CABLE_A = registerDovecotFeature("cable_a", new BlockItem(MetroBlocks.BLOCK_CABLE_A, new Item.Settings().group(Metropolis.ITEM_GROUP)));
+    public static final Item ITEM_CABLE = registerDovecotFeature("cable", new BlockItem(MetroBlocks.BLOCK_CABLE, new Item.Settings().group(Metropolis.ITEM_GROUP)));
 //    public static final Item ITEM_CABLE_A_1 = registerDovecotFeature("cable_a_1", new BlockItem(MetroBlocks.BLOCK_CABLE_A_1, new Item.Settings().group(Metropolis.ITEM_GROUP)));
 //    public static final Item ITEM_CABLE_A_2 = registerDovecotFeature("cable_a_2", new BlockItem(MetroBlocks.BLOCK_CABLE_A_2, new Item.Settings().group(Metropolis.ITEM_GROUP)));
 //    public static final Item ITEM_CABLE_A_3 = registerDovecotFeature("cable_a_3", new BlockItem(MetroBlocks.BLOCK_CABLE_A_3, new Item.Settings().group(Metropolis.ITEM_GROUP)));
