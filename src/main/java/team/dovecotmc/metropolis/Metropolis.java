@@ -1,5 +1,9 @@
 package team.dovecotmc.metropolis;
 
+import mtr.MTRClient;
+import mtr.MTRFabricClient;
+import mtr.ModMenuConfig;
+import mtr.client.Config;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.client.itemgroup.FabricItemGroupBuilder;
 import net.minecraft.block.Blocks;
@@ -10,6 +14,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import team.dovecotmc.metropolis.block.MetroBlocks;
 import team.dovecotmc.metropolis.block.entity.MetroBlockEntities;
+import team.dovecotmc.metropolis.config.MetroConfig;
 import team.dovecotmc.metropolis.item.MetroItems;
 import team.dovecotmc.metropolis.network.MetroServerNetwork;
 
@@ -24,9 +29,11 @@ public class Metropolis implements ModInitializer {
     public static final ItemGroup ITEM_GROUP = FabricItemGroupBuilder.create(new Identifier(MOD_ID, "decorations"))
             .icon(() -> new ItemStack(Blocks.TNT))
             .build();
+    public static final MetroConfig config = new MetroConfig();
 
     @Override
     public void onInitialize() {
+        MetroConfig.save(config);
         MetroBlocks.initialize();
         MetroBlockEntities.initialize();
         MetroItems.initialize();
