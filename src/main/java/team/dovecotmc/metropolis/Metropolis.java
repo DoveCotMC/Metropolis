@@ -1,10 +1,5 @@
 package team.dovecotmc.metropolis;
 
-import mtr.MTR;
-import mtr.MTRClient;
-import mtr.MTRFabricClient;
-import mtr.ModMenuConfig;
-import mtr.client.Config;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.client.itemgroup.FabricItemGroupBuilder;
 import net.minecraft.block.Blocks;
