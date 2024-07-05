@@ -52,6 +52,7 @@ public class TicketVendorScreen2 extends Screen {
 
     protected final BlockPos pos;
     protected final Screen parentScreen;
+    protected final TicketVendorData data;
 
     protected double mouseX = 0;
     protected double mouseY = 0;
@@ -64,10 +65,11 @@ public class TicketVendorScreen2 extends Screen {
 
     protected int tipId = 0;
 
-    public TicketVendorScreen2(BlockPos pos, Screen parentScreen, ItemStack ticket) {
+    public TicketVendorScreen2(BlockPos pos, Screen parentScreen, TicketVendorData data) {
         super(Text.translatable("gui.metropolis.ticket_vendor_2.title"));
         this.pos = pos;
         this.parentScreen = parentScreen;
+        this.data = data;
         if (this.client != null && this.client.world != null) {
             this.stations = MtrStationUtil.getStations(this.client.world);
         } else {
@@ -133,7 +135,7 @@ public class TicketVendorScreen2 extends Screen {
 
             Station locatedStation = MtrStationUtil.getStationByPos(pos, client.world);
             if (locatedStation == null) {
-                client.setScreen(new TicketVendorScreen3(pos, this.parentScreen));
+                client.setScreen(new TicketVendorScreen3(pos, this.parentScreen, this.data));
                 return;
             }
             int stationsSize = stations.size();
@@ -415,7 +417,7 @@ public class TicketVendorScreen2 extends Screen {
 
         if (customHovering && pressed) {
             playDownSound(this.client.getSoundManager());
-            this.client.setScreen(new TicketVendorScreen3(pos, this));
+            this.client.setScreen(new TicketVendorScreen3(pos, this, this.data));
         }
 
         RenderSystem.disableBlend();
@@ -463,9 +465,8 @@ public class TicketVendorScreen2 extends Screen {
 
     @Override
     public void close() {
-        // TODO: Data transfer
         if (this.client != null) {
-            this.client.setScreen(new TicketVendorScreen1(pos, ItemStack.EMPTY));
+            this.client.setScreen(new TicketVendorScreen1(pos, this.data));
         }
     }
 

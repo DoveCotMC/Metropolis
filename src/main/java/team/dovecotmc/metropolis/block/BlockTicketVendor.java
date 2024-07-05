@@ -108,13 +108,13 @@ public class BlockTicketVendor extends HorizontalFacingBlock implements BlockEnt
                 blockEntity.setStack(1, player.getStackInHand(Hand.MAIN_HAND));
 
                 serverPlayer.networkHandler.sendPacket(blockEntity.toUpdatePacket());
-                MetroServerNetwork.openTicketVendorChargeScreen(pos, (ServerPlayerEntity) player);
+                MetroServerNetwork.openTicketVendorChargeScreen(pos, (ServerPlayerEntity) player, blockEntity.getStack(1));
             } else {
                 if (blockEntity != null) {
                     blockEntity.removeStack(1);
                     MetroServerNetwork.removeInventoryItem(1, pos, (ServerPlayerEntity) player);
                 }
-                MetroServerNetwork.openTicketVendorScreen(pos, (ServerPlayerEntity) player);
+                MetroServerNetwork.openTicketVendorScreen(pos, (ServerPlayerEntity) player, blockEntity.getStack(1));
             }
         }
         return ActionResult.SUCCESS;

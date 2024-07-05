@@ -63,7 +63,7 @@ public class TicketVendorScreen3 extends Screen {
     protected boolean pressed = false;
     protected String value = "0";
 
-    public TicketVendorScreen3(BlockPos pos, Screen parentScreen) {
+    public TicketVendorScreen3(BlockPos pos, Screen parentScreen, TicketVendorData data) {
         super(Text.translatable("gui.metropolis.ticket_vendor_3.title"));
         this.pos = pos;
         this.parentScreen = parentScreen;
@@ -421,7 +421,6 @@ public class TicketVendorScreen3 extends Screen {
 
     @Override
     public void close() {
-        // TODO: Data transfer
         if (this.client != null) {
             this.client.setScreen(this.parentScreen);
         }

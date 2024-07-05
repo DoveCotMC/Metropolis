@@ -49,6 +49,7 @@ public class TicketVendorScreen1 extends Screen {
     protected static final int BUTTON_SMALL_HEIGHT = 12;
 
     protected final BlockPos pos;
+    protected final TicketVendorData data;
 
     protected double mouseX = 0;
     protected double mouseY = 0;
@@ -58,9 +59,10 @@ public class TicketVendorScreen1 extends Screen {
 
     protected int tipId = 0;
 
-    public TicketVendorScreen1(BlockPos pos, ItemStack ticket) {
+    public TicketVendorScreen1(BlockPos pos, TicketVendorData data) {
         super(Text.translatable("gui.metropolis.ticket_vendor_1.title"));
         this.pos = pos;
+        this.data = data;
 //        this.ticketItem = ticketItem;
 //        InventoryScreen
     }
@@ -382,8 +384,7 @@ public class TicketVendorScreen1 extends Screen {
             if (this.client.world != null) {
                 playDownSound(MinecraftClient.getInstance().getSoundManager());
             }
-            // TODO: Data transfer
-            this.client.setScreen(new TicketVendorScreen2(pos, this, ItemStack.EMPTY));
+            this.client.setScreen(new TicketVendorScreen2(pos, this, this.data));
         }
 
         if (purpleHovering && pressed) {
@@ -391,11 +392,11 @@ public class TicketVendorScreen1 extends Screen {
                 playDownSound(MinecraftClient.getInstance().getSoundManager());
             }
 
-            if (client.world.getBlockEntity(pos, MetroBlockEntities.TICKET_VENDOR_BLOCK_ENTITY).get().getStack(1).isEmpty()) {
+//            if (client.world.getBlockEntity(pos, MetroBlockEntities.TICKET_VENDOR_BLOCK_ENTITY).get().getStack(1).isEmpty()) {
+            if (this.data.cardStack.isEmpty()) {
                 this.client.setScreen(new TicketVendorScreenWarning(pos));
-//                this.client.setScreen(null);
             } else {
-                this.client.setScreen(new TicketVendorScreen4(pos, List.of(this)));
+                this.client.setScreen(new TicketVendorScreen4(pos, List.of(this), this.data));
             }
         }
 
@@ -465,14 +466,10 @@ public class TicketVendorScreen1 extends Screen {
         super.close();
 
         if (client != null && client.world != null) {
-            if (client.world.getBlockEntity(pos) instanceof Inventory inventory) {
-                if (!inventory.getStack(1).isEmpty()) {
-//                    NbtCompound nbt = inventory.getStack(1).getOrCreateNbt();
-                    MetroClientNetwork.ticketVendorClose(pos, inventory.getStack(1), 0);
-                }
+            if (!data.cardStack.isEmpty()) {
+                MetroClientNetwork.ticketVendorClose(pos, data.cardStack, 0);
             }
         }
-//        ClientPlayNetworking.send(Metropolis.ID_SCREEN_CLOSE_TICKET_MACHINE, PacketByteBufs.create().writeItemStack(this.ticketItem));
     }
 
     private int intoTexturePosX(double x) {

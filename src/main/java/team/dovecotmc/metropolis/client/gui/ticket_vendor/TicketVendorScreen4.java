@@ -52,6 +52,7 @@ public class TicketVendorScreen4 extends Screen {
 
     public final List<Screen> screens;
     protected final BlockPos pos;
+    protected final TicketVendorData data;
     public final List<Integer> inputToHandle;
     public final List<Integer> inputToHandle2;
 
@@ -62,9 +63,10 @@ public class TicketVendorScreen4 extends Screen {
     protected boolean pressed = false;
     protected String value = "0";
 
-    public TicketVendorScreen4(BlockPos pos, List<Screen> screens) {
+    public TicketVendorScreen4(BlockPos pos, List<Screen> screens, TicketVendorData data) {
         super(Text.translatable("gui.metropolis.ticket_vendor_4.title"));
         this.pos = pos;
+        this.data = data;
         this.screens = screens;
         this.inputToHandle = new ArrayList<>();
         this.inputToHandle2 = new ArrayList<>();
@@ -181,14 +183,8 @@ public class TicketVendorScreen4 extends Screen {
 
         if (continueHovering && pressed) {
             playButtonSound(MinecraftClient.getInstance().getSoundManager());
-            // TODO: Continue
 
-            ItemStack ticketStack;
-            if (client != null && client.world != null && client.world.getBlockEntity(pos) instanceof Inventory inventory) {
-                ticketStack = inventory.getStack(1);
-            } else {
-                ticketStack = new ItemStack(MetroItems.ITEM_CARD);
-            }
+            ItemStack ticketStack = data.cardStack;
             NbtCompound nbt = ticketStack.getOrCreateNbt();
             nbt.putInt(ItemCard.BALANCE, nbt.getInt(ItemCard.BALANCE) + Integer.parseInt(value));
             nbt.putInt(ItemCard.MAX_VALUE, nbt.getInt(ItemCard.BALANCE));
