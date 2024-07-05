@@ -15,9 +15,20 @@ import java.nio.file.Path;
 public class MetroConfig {
     public static final Path CONFIG_FILE_PATH;
     public JsonObject json;
+    public boolean enableGlowingTexture;
 
     public MetroConfig() {
         this.json = new JsonObject();
+        this.enableGlowingTexture = true;
+    }
+
+    public void refresh() {
+        // Add default properties
+        if (!json.has("enable_glowing_texture")) {
+            json.addProperty("enable_glowing_texture", true);
+        }
+        // Write
+        this.enableGlowingTexture = json.get("enable_glowing_texture").getAsBoolean();
     }
 
     public static void save(MetroConfig config) {
@@ -29,6 +40,6 @@ public class MetroConfig {
     }
 
     static {
-        CONFIG_FILE_PATH = MinecraftClient.getInstance().runDirectory.toPath().resolve("config").resolve("mtr.json");
+        CONFIG_FILE_PATH = MinecraftClient.getInstance().runDirectory.toPath().resolve("config").resolve("metropolis.json");
     }
 }

@@ -1,5 +1,6 @@
 package team.dovecotmc.metropolis;
 
+import mtr.MTR;
 import mtr.MTRClient;
 import mtr.MTRFabricClient;
 import mtr.ModMenuConfig;
@@ -33,7 +34,7 @@ public class Metropolis implements ModInitializer {
 
     @Override
     public void onInitialize() {
-        MetroConfig.save(config);
+//        MetroConfig.save(config);
         MetroBlocks.initialize();
         MetroBlockEntities.initialize();
         MetroItems.initialize();
