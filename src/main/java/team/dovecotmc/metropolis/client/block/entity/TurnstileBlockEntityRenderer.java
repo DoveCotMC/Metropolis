@@ -43,9 +43,11 @@ public class TurnstileBlockEntityRenderer implements BlockEntityRenderer<BlockEn
 
                 Text text = Text.translatable("misc.metropolis.turnstile_mode." + BlockEntityTurnstile.EnumTurnstileType.get(block.get(BlockTurnstile.TYPE)).name().toLowerCase());
 
+                float textScale = (float) (mc.textRenderer.fontHeight) / (float) mc.textRenderer.getWidth(text);
                 matrices.translate(0, 1.25, 0);
                 matrices.scale(1f / 16f, 1f / 16f, 1f / 16f);
                 matrices.translate(8, 8, 8);
+                matrices.scale(textScale, textScale, textScale);
                 matrices.multiply(Quaternion.fromEulerXyzDegrees(new Vec3f(0, -mc.player.getRotationClient().y, 0)));
                 matrices.multiply(Quaternion.fromEulerXyzDegrees(new Vec3f(mc.player.getRotationClient().x, 0, 0)));
                 matrices.multiply(Quaternion.fromEulerXyzDegrees(new Vec3f(0, 0, 180)));

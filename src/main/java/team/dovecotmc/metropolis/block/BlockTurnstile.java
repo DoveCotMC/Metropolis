@@ -25,6 +25,7 @@ import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.util.shape.VoxelShapes;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
+import net.minecraft.world.WorldAccess;
 import org.jetbrains.annotations.Nullable;
 import team.dovecotmc.metropolis.block.entity.BlockEntityTurnstile;
 import team.dovecotmc.metropolis.item.ItemCard;
@@ -43,6 +44,7 @@ import team.dovecotmc.metropolis.util.MtrStationUtil;
 public class BlockTurnstile extends HorizontalFacingBlock implements BlockEntityProvider, IBlockStationOverlayShouldRender {
     public static final BooleanProperty OPEN = BooleanProperty.of("open");
     public static final IntProperty TYPE = IntProperty.of("type", 0, 2);
+    public static final BooleanProperty CONNECTED = BooleanProperty.of("connected");
 
     public BlockTurnstile() {
         super(Settings.of(Material.METAL).nonOpaque());
@@ -87,6 +89,7 @@ public class BlockTurnstile extends HorizontalFacingBlock implements BlockEntity
             if (type == BlockEntityTurnstile.EnumTurnstileType.ENTER) {
                 if (!blockEntity.getStack(0).isEmpty()) {
                     if (world.getTime() - nbt.getLong(BlockEntityTurnstile.TICKET_ANIMATION_START) >= 7) {
+                        world.playSound(null, pos, mtr.SoundEvents.TICKET_BARRIER_CONCESSIONARY, SoundCategory.BLOCKS, 1f, 1f);
                         world.playSound(null, pos, SoundEvents.BLOCK_WOOL_BREAK, SoundCategory.BLOCKS, 1f, 1f);
                         player.giveItemStack(blockEntity.getStack(0));
                         blockEntity.removeStack(0);
@@ -105,7 +108,7 @@ public class BlockTurnstile extends HorizontalFacingBlock implements BlockEntity
                     return ActionResult.SUCCESS;
                 }
                 if (stack.getItem() instanceof ItemTicket) {
-                    world.playSound(null, pos, mtr.SoundEvents.TICKET_BARRIER_CONCESSIONARY, SoundCategory.BLOCKS, 1f, 1f);
+//                    world.playSound(null, pos, mtr.SoundEvents.TICKET_BARRIER_CONCESSIONARY, SoundCategory.BLOCKS, 1f, 1f);
                     world.playSound(null, pos, SoundEvents.BLOCK_WOOL_BREAK, SoundCategory.BLOCKS, 1f, 1f);
 
                     NbtCompound stackNbt = stack.getOrCreateNbt();
@@ -209,6 +212,16 @@ public class BlockTurnstile extends HorizontalFacingBlock implements BlockEntity
     }
 
     @Override
+    public BlockState getStateForNeighborUpdate(BlockState state, Direction direction, BlockState neighborState, WorldAccess world, BlockPos pos, BlockPos neighborPos) {
+        Direction facing = state.get(FACING).rotateYClockwise();
+        if (world.getBlockState(pos.offset(facing)).getBlock() instanceof BlockTurnstile) {
+            return state.with(CONNECTED, true);
+        } else {
+            return state.with(CONNECTED, false);
+        }
+    }
+
+    @Override
     public void scheduledTick(BlockState state, ServerWorld world, BlockPos pos, Random random) {
         world.setBlockState(pos, state.with(OPEN, false));
     }
@@ -233,12 +246,12 @@ public class BlockTurnstile extends HorizontalFacingBlock implements BlockEntity
     }
 
     public BlockState getPlacementState(ItemPlacementContext ctx) {
-        return this.getDefaultState().with(FACING, ctx.getPlayerFacing().getOpposite()).with(OPEN, false).with(TYPE, 0);
+        return this.getDefaultState().with(FACING, ctx.getPlayerFacing().getOpposite()).with(OPEN, false).with(TYPE, 0).with(CONNECTED, false);
     }
 
     @Override
     protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
-        builder.add(FACING).add(OPEN).add(TYPE);
+        builder.add(FACING).add(OPEN).add(TYPE).add(CONNECTED);
     }
 
     @Nullable

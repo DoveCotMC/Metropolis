@@ -15,17 +15,7 @@ import team.dovecotmc.metropolis.block.entity.BlockEntityTurnstile;
  */
 @SuppressWarnings("unused")
 public class MetroItems {
-    // Experimental features in other mods
     public static final Item ITEM_CABLE = registerDovecotFeature("cable", new BlockItem(MetroBlocks.BLOCK_CABLE, new Item.Settings().group(Metropolis.ITEM_GROUP)));
-//    public static final Item ITEM_CABLE_A_1 = registerDovecotFeature("cable_a_1", new BlockItem(MetroBlocks.BLOCK_CABLE_A_1, new Item.Settings().group(Metropolis.ITEM_GROUP)));
-//    public static final Item ITEM_CABLE_A_2 = registerDovecotFeature("cable_a_2", new BlockItem(MetroBlocks.BLOCK_CABLE_A_2, new Item.Settings().group(Metropolis.ITEM_GROUP)));
-//    public static final Item ITEM_CABLE_A_3 = registerDovecotFeature("cable_a_3", new BlockItem(MetroBlocks.BLOCK_CABLE_A_3, new Item.Settings().group(Metropolis.ITEM_GROUP)));
-//    public static final Item ITEM_CABLE_A_4 = registerDovecotFeature("cable_a_4", new BlockItem(MetroBlocks.BLOCK_CABLE_A_4, new Item.Settings().group(Metropolis.ITEM_GROUP)));
-//    public static final Item ITEM_CABLE_A_5 = registerDovecotFeature("cable_a_5", new BlockItem(MetroBlocks.BLOCK_CABLE_A_5, new Item.Settings().group(Metropolis.ITEM_GROUP)));
-//    public static final Item ITEM_CABLE_A_6 = registerDovecotFeature("cable_a_6", new BlockItem(MetroBlocks.BLOCK_CABLE_A_6, new Item.Settings().group(Metropolis.ITEM_GROUP)));
-//    public static final Item ITEM_CABLE_A_7 = registerDovecotFeature("cable_a_7", new BlockItem(MetroBlocks.BLOCK_CABLE_A_7, new Item.Settings().group(Metropolis.ITEM_GROUP)));
-//    public static final Item ITEM_CABLE_A_8 = registerDovecotFeature("cable_a_8", new BlockItem(MetroBlocks.BLOCK_CABLE_A_8, new Item.Settings().group(Metropolis.ITEM_GROUP)));
-//    public static final Item ITEM_CABLE_A_9 = registerDovecotFeature("cable_a_9", new BlockItem(MetroBlocks.BLOCK_CABLE_A_9, new Item.Settings().group(Metropolis.ITEM_GROUP)));
     // TODO: Tunnel light
     public static final Item ITEM_TUNNEL_LIGHT_A = registerDovecotFeature("tunnel_light_a", new BlockItem(MetroBlocks.BLOCK_TUNNEL_LIGHT_A, new Item.Settings().group(Metropolis.ITEM_GROUP)));
     public static final Item ITEM_TICKET_VENDOR_PANEL = register("ticket_vendor_panel", new BlockItem(MetroBlocks.BLOCK_TICKET_VENDOR_PANEL, new Item.Settings().group(Metropolis.ITEM_GROUP)));
