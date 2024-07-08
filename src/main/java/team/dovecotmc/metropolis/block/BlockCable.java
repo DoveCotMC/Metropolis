@@ -52,24 +52,84 @@ public class BlockCable extends HorizontalFacingBlock {
     }
 
     public BlockState getStateForUpdate(WorldAccess world, BlockPos pos, BlockState state, Direction facing) {
-        // TODO: Get state
+        // TODO: State
         Block finalBlock = MetroBlocks.BLOCK_CABLE;
 
-        if (world.getBlockState(pos.up()).getBlock() instanceof BlockCable && world.getBlockState(pos.down()).getBlock() instanceof BlockCable) {
-            finalBlock = MetroBlocks.BLOCK_CABLE_HORIZONTAL;
-        } else if (world.getBlockState(pos.up()).getBlock() instanceof BlockCable) {
-            if (world.getBlockState(pos.offset(facing.rotateYCounterclockwise())).getBlock() instanceof BlockCable) {
-                finalBlock = MetroBlocks.BLOCK_CABLE_UP_RIGHT;
-            } else if (world.getBlockState(pos.offset(facing.rotateYClockwise())).getBlock() instanceof BlockCable) {
-                finalBlock = MetroBlocks.BLOCK_CABLE_UP_LEFT;
+        BlockState up = world.getBlockState(pos.up());
+        BlockState down = world.getBlockState(pos.down());
+        BlockState right = world.getBlockState(pos.offset(facing.rotateYCounterclockwise()));
+        BlockState left = world.getBlockState(pos.offset(facing.rotateYClockwise()));
+        BlockState front = world.getBlockState(pos.offset(facing.rotateYCounterclockwise().rotateYCounterclockwise()));
+        BlockState end = world.getBlockState(pos.offset(facing.rotateYCounterclockwise().rotateYCounterclockwise().getOpposite()));
+
+        int connectedCount = 0;
+        if (up.getBlock() instanceof BlockCable && up.get(FACING) == facing) {
+            connectedCount++;
+        }
+        if (down.getBlock() instanceof BlockCable && down.get(FACING) == facing) {
+            connectedCount++;
+        }
+        if (right.getBlock() instanceof BlockCable && right.get(FACING) == facing) {
+            connectedCount++;
+        }
+        if (left.getBlock() instanceof BlockCable && left.get(FACING) == facing) {
+            connectedCount++;
+        }
+
+        if (front.getBlock() instanceof BlockCable && front.get(FACING) == facing.rotateYCounterclockwise()) {
+            finalBlock = MetroBlocks.BLOCK_CABLE_OUTER_CORNER_LEFT;
+        } else if (front.getBlock() instanceof BlockCable && front.get(FACING) == facing.rotateYClockwise()) {
+            finalBlock = MetroBlocks.BLOCK_CABLE_OUTER_CORNER_RIGHT;
+        } else if (end.getBlock() instanceof BlockCable && end.get(FACING) == facing.rotateYCounterclockwise()) {
+            finalBlock = MetroBlocks.BLOCK_CABLE_INNER_CORNER_RIGHT;
+        } else if (end.getBlock() instanceof BlockCable && end.get(FACING) == facing.rotateYClockwise()) {
+            finalBlock = MetroBlocks.BLOCK_CABLE_INNER_CORNER_LEFT;
+        } else if (connectedCount == 1) {
+             if (
+                    (up.getBlock() instanceof BlockCable && up.get(FACING) == facing) ||
+                            (down.getBlock() instanceof BlockCable && down.get(FACING) == facing)
+            ) {
+                finalBlock = MetroBlocks.BLOCK_CABLE_HORIZONTAL;
+            } else if (
+                    (left.getBlock() instanceof BlockCable && left.get(FACING) == facing) ||
+                            (right.getBlock() instanceof BlockCable && right.get(FACING) == facing)) {
+                finalBlock = MetroBlocks.BLOCK_CABLE;
             }
-        } else if (world.getBlockState(pos.down()).getBlock() instanceof BlockCable) {
-            if (world.getBlockState(pos.offset(facing.rotateYCounterclockwise())).getBlock() instanceof BlockCable) {
-                finalBlock = MetroBlocks.BLOCK_CABLE_DOWN_RIGHT;
-            } else if (world.getBlockState(pos.offset(facing.rotateYClockwise())).getBlock() instanceof BlockCable) {
-                finalBlock = MetroBlocks.BLOCK_CABLE_DOWN_LEFT;
+        } else if (connectedCount == 2) {
+            if (up.getBlock() instanceof BlockCable && down.getBlock() instanceof BlockCable && up.get(FACING) == facing && down.get(FACING) == facing) {
+                finalBlock = MetroBlocks.BLOCK_CABLE_HORIZONTAL;
+            } else if (right.getBlock() instanceof BlockCable && left.getBlock() instanceof BlockCable && right.get(FACING) == facing && left.get(FACING) == facing) {
+                finalBlock = MetroBlocks.BLOCK_CABLE;
+            } else if (up.getBlock() instanceof BlockCable && up.get(FACING) == facing) {
+                if (right.getBlock() instanceof BlockCable) {
+                    finalBlock = MetroBlocks.BLOCK_CABLE_UP_RIGHT;
+                } else if (left.getBlock() instanceof BlockCable) {
+                    finalBlock = MetroBlocks.BLOCK_CABLE_UP_LEFT;
+                }
+            } else if (down.getBlock() instanceof BlockCable) {
+                if (world.getBlockState(pos.offset(facing.rotateYCounterclockwise())).getBlock() instanceof BlockCable) {
+                    finalBlock = MetroBlocks.BLOCK_CABLE_DOWN_RIGHT;
+                } else if (left.getBlock() instanceof BlockCable) {
+                    finalBlock = MetroBlocks.BLOCK_CABLE_DOWN_LEFT;
+                }
             }
         }
+
+//        if (up.getBlock() instanceof BlockCable && down.getBlock() instanceof BlockCable) {
+//            finalBlock = MetroBlocks.BLOCK_CABLE_HORIZONTAL;
+//        } else if (up.getBlock() instanceof BlockCable) {
+//            if (right.getBlock() instanceof BlockCable) {
+//                finalBlock = MetroBlocks.BLOCK_CABLE_UP_RIGHT;
+//            } else if (left.getBlock() instanceof BlockCable) {
+//                finalBlock = MetroBlocks.BLOCK_CABLE_UP_LEFT;
+//            }
+//        } else if (down.getBlock() instanceof BlockCable) {
+//            if (world.getBlockState(pos.offset(facing.rotateYCounterclockwise())).getBlock() instanceof BlockCable) {
+//                finalBlock = MetroBlocks.BLOCK_CABLE_DOWN_RIGHT;
+//            } else if (left.getBlock() instanceof BlockCable) {
+//                finalBlock = MetroBlocks.BLOCK_CABLE_DOWN_LEFT;
+//            }
+//        }
 
         return finalBlock.getStateWithProperties(state);
     }
