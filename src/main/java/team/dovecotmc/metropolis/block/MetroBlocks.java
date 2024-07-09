@@ -16,7 +16,7 @@ import team.dovecotmc.metropolis.Metropolis;
  * @copyright Copyright © 2023 Arrokoth All Rights Reserved.
  */
 public class MetroBlocks {
-    // TODO: Merge Cables into a single block
+    // Cables
     public static final Block BLOCK_CABLE = registerDovecotFeatures("cable", new BlockCable(FabricBlockSettings.of(Material.METAL, MapColor.STONE_GRAY).noCollision().nonOpaque()));
     public static final Block BLOCK_CABLE_HORIZONTAL = registerDovecotFeatures("cable_horizontal", new BlockCable(FabricBlockSettings.of(Material.METAL, MapColor.STONE_GRAY).noCollision().nonOpaque()));
     public static final Block BLOCK_CABLE_INNER_CORNER_LEFT = registerDovecotFeatures("cable_inner_corner_left", new BlockCable(FabricBlockSettings.of(Material.METAL, MapColor.STONE_GRAY).noCollision().nonOpaque()));
@@ -35,6 +35,8 @@ public class MetroBlocks {
     public static final Block BLOCK_TICKET_VENDOR_UP_EV23 = register("ticket_vendor_up_ev23", new BlockTicketVendorUp());
     public static final Block BLOCK_TICKET_VENDOR_UP_EV23_GREEN = register("ticket_vendor_up_ev23_green", new BlockTicketVendorUp());
     public static final Block BLOCK_TICKET_VENDOR_UP_EV23_YELLOW = register("ticket_vendor_up_ev23_yellow", new BlockTicketVendorUp());
+
+    public static final Block BLOCK_TICKET_VENDOR_TOP = register("ticket_vendor_top", new BlockTicketVendorTop());
 
     // Ticket Vendor
     public static final Block BLOCK_TICKET_VENDOR_PANEL = register("ticket_vendor_panel", new BlockTicketVendor(false));
