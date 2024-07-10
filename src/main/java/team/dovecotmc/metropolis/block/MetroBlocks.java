@@ -60,12 +60,24 @@ public class MetroBlocks {
 
     // Monitor
     public static final Block BLOCK_MONITOR = register("monitor", new BlockMonitor());
-    // Decorations
+
+    /* =========== *
+     * Decorations *
+     * =========== */
+    // Concrete
     public static final Block BLOCK_CONCRETE = register("concrete", new Block(AbstractBlock.Settings.of(Material.STONE, DyeColor.LIGHT_GRAY)));
+
+    // Tiles
+    // White
     public static final Block BLOCK_TILES_WHITE = register("tiles_white", new Block(AbstractBlock.Settings.of(Material.STONE, DyeColor.WHITE)));
-    public static final Block BLOCK_TILES_WHITE_HORIZONTAL = register("tiles_white_horizontal", new Block(AbstractBlock.Settings.of(Material.STONE, DyeColor.WHITE)));
+    public static final Block BLOCK_TILES_HORIZONTAL_WHITE = register("tiles_horizontal_white", new Block(AbstractBlock.Settings.of(Material.STONE, DyeColor.WHITE)));
     public static final Block BLOCK_TILES_SMALL_WHITE = register("tiles_small_white", new Block(AbstractBlock.Settings.of(Material.STONE, DyeColor.WHITE)));
+    // Gray
     public static final Block BLOCK_TILES_GRAY = register("tiles_gray", new Block(AbstractBlock.Settings.of(Material.STONE, DyeColor.GRAY)));
+    public static final Block BLOCK_TILES_HORIZONTAL_GRAY = register("tiles_horizontal_gray", new Block(AbstractBlock.Settings.of(Material.STONE, DyeColor.GRAY)));
+    public static final Block BLOCK_TILES_SMALL_GRAY = register("tiles_small_gray", new Block(AbstractBlock.Settings.of(Material.STONE, DyeColor.GRAY)));
+
+    // Blind path
     public static final Block BLOCK_BLIND_PATH_STRIP = register("blind_path_strip", new BlockHorizontalAxis(AbstractBlock.Settings.of(Material.STONE, DyeColor.YELLOW)));
     public static final Block BLOCK_BLIND_PATH_POINT = register("blind_path_point", new Block(AbstractBlock.Settings.of(Material.STONE, DyeColor.YELLOW)));
 

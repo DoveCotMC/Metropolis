@@ -46,12 +46,24 @@ public class MetroItems {
     public static final Item ITEM_CARD = register("card", new ItemCard(new Item.Settings().group(Metropolis.ITEM_GROUP)));
     // Monitor
     public static final Item ITEM_MONITOR = register("monitor", new BlockItem(MetroBlocks.BLOCK_MONITOR, new Item.Settings().group(Metropolis.ITEM_GROUP)));
-    // Decorations
+
+    /* =========== *
+     * Decorations *
+     * =========== */
+    // Concrete
     public static final Item ITEM_CONCRETE = register("concrete", new BlockItem(MetroBlocks.BLOCK_CONCRETE, new Item.Settings().group(Metropolis.ITEM_GROUP)));
+
+    // Tiles
+    // White
     public static final Item ITEM_TILES_WHITE = register("tiles_white", new BlockItem(MetroBlocks.BLOCK_TILES_WHITE, new Item.Settings().group(Metropolis.ITEM_GROUP)));
-    public static final Item ITEM_TILES_WHITE_HORIZONTAL = register("tiles_white_horizontal", new BlockItem(MetroBlocks.BLOCK_TILES_WHITE_HORIZONTAL, new Item.Settings().group(Metropolis.ITEM_GROUP)));
+    public static final Item ITEM_TILES_HORIZONTAL_WHITE = register("tiles_horizontal_white", new BlockItem(MetroBlocks.BLOCK_TILES_HORIZONTAL_WHITE, new Item.Settings().group(Metropolis.ITEM_GROUP)));
     public static final Item ITEM_TILES_SMALL_WHITE = register("tiles_small_white", new BlockItem(MetroBlocks.BLOCK_TILES_SMALL_WHITE, new Item.Settings().group(Metropolis.ITEM_GROUP)));
+    // Gray
     public static final Item ITEM_TILES_GRAY = register("tiles_gray", new BlockItem(MetroBlocks.BLOCK_TILES_GRAY, new Item.Settings().group(Metropolis.ITEM_GROUP)));
+    public static final Item ITEM_TILES_HORIZONTAL_GRAY = register("tiles_horizontal_gray", new BlockItem(MetroBlocks.BLOCK_TILES_HORIZONTAL_GRAY, new Item.Settings().group(Metropolis.ITEM_GROUP)));
+    public static final Item ITEM_TILES_SMALL_GRAY = register("tiles_small_gray", new BlockItem(MetroBlocks.BLOCK_TILES_SMALL_GRAY, new Item.Settings().group(Metropolis.ITEM_GROUP)));
+
+    // Blind path
     public static final Item ITEM_BLIND_PATH_STRIP = register("blind_path_strip", new BlockItem(MetroBlocks.BLOCK_BLIND_PATH_STRIP, new Item.Settings().group(Metropolis.ITEM_GROUP)));
     public static final Item ITEM_BLIND_PATH_POINT = register("blind_path_point", new BlockItem(MetroBlocks.BLOCK_BLIND_PATH_POINT, new Item.Settings().group(Metropolis.ITEM_GROUP)));
 
