@@ -17,18 +17,18 @@ import team.dovecotmc.metropolis.Metropolis;
  */
 public class MetroBlocks {
     // Cables
-    public static final Block BLOCK_CABLE = registerDovecotFeatures("cable", new BlockCable(FabricBlockSettings.of(Material.METAL, MapColor.STONE_GRAY).noCollision().nonOpaque(), false, false, false));
-    public static final Block BLOCK_CABLE_HORIZONTAL = registerDovecotFeatures("cable_horizontal", new BlockCable(FabricBlockSettings.of(Material.METAL, MapColor.STONE_GRAY).noCollision().nonOpaque(), false, false, false));
-    public static final Block BLOCK_CABLE_INNER_CORNER_LEFT = registerDovecotFeatures("cable_inner_corner_left", new BlockCable(FabricBlockSettings.of(Material.METAL, MapColor.STONE_GRAY).noCollision().nonOpaque(), true, false, false));
-    public static final Block BLOCK_CABLE_INNER_CORNER_RIGHT = registerDovecotFeatures("cable_inner_corner_right", new BlockCable(FabricBlockSettings.of(Material.METAL, MapColor.STONE_GRAY).noCollision().nonOpaque(), true, false, true));
-    public static final Block BLOCK_CABLE_OUTER_CORNER_LEFT = registerDovecotFeatures("cable_outer_corner_left", new BlockCable(FabricBlockSettings.of(Material.METAL, MapColor.STONE_GRAY).noCollision().nonOpaque(), false, true, false));
-    public static final Block BLOCK_CABLE_OUTER_CORNER_RIGHT = registerDovecotFeatures("cable_outer_corner_right", new BlockCable(FabricBlockSettings.of(Material.METAL, MapColor.STONE_GRAY).noCollision().nonOpaque(), false, true, true));
-    public static final Block BLOCK_CABLE_DOWN_LEFT = registerDovecotFeatures("cable_down_left", new BlockCable(FabricBlockSettings.of(Material.METAL, MapColor.STONE_GRAY).noCollision().nonOpaque(), false, false, false));
-    public static final Block BLOCK_CABLE_DOWN_RIGHT = registerDovecotFeatures("cable_down_right", new BlockCable(FabricBlockSettings.of(Material.METAL, MapColor.STONE_GRAY).noCollision().nonOpaque(), false, false, false));
-    public static final Block BLOCK_CABLE_UP_LEFT = registerDovecotFeatures("cable_up_left", new BlockCable(FabricBlockSettings.of(Material.METAL, MapColor.STONE_GRAY).noCollision().nonOpaque(), false, false, false));
-    public static final Block BLOCK_CABLE_UP_RIGHT = registerDovecotFeatures("cable_up_right", new BlockCable(FabricBlockSettings.of(Material.METAL, MapColor.STONE_GRAY).noCollision().nonOpaque(), false, false, false));
+    public static final Block BLOCK_CABLE = register("cable", new BlockCable(FabricBlockSettings.of(Material.METAL, MapColor.STONE_GRAY).noCollision().nonOpaque(), false, false, false));
+    public static final Block BLOCK_CABLE_HORIZONTAL = register("cable_horizontal", new BlockCable(FabricBlockSettings.of(Material.METAL, MapColor.STONE_GRAY).noCollision().nonOpaque(), false, false, false));
+    public static final Block BLOCK_CABLE_INNER_CORNER_LEFT = register("cable_inner_corner_left", new BlockCable(FabricBlockSettings.of(Material.METAL, MapColor.STONE_GRAY).noCollision().nonOpaque(), true, false, false));
+    public static final Block BLOCK_CABLE_INNER_CORNER_RIGHT = register("cable_inner_corner_right", new BlockCable(FabricBlockSettings.of(Material.METAL, MapColor.STONE_GRAY).noCollision().nonOpaque(), true, false, true));
+    public static final Block BLOCK_CABLE_OUTER_CORNER_LEFT = register("cable_outer_corner_left", new BlockCable(FabricBlockSettings.of(Material.METAL, MapColor.STONE_GRAY).noCollision().nonOpaque(), false, true, false));
+    public static final Block BLOCK_CABLE_OUTER_CORNER_RIGHT = register("cable_outer_corner_right", new BlockCable(FabricBlockSettings.of(Material.METAL, MapColor.STONE_GRAY).noCollision().nonOpaque(), false, true, true));
+    public static final Block BLOCK_CABLE_DOWN_LEFT = register("cable_down_left", new BlockCable(FabricBlockSettings.of(Material.METAL, MapColor.STONE_GRAY).noCollision().nonOpaque(), false, false, false));
+    public static final Block BLOCK_CABLE_DOWN_RIGHT = register("cable_down_right", new BlockCable(FabricBlockSettings.of(Material.METAL, MapColor.STONE_GRAY).noCollision().nonOpaque(), false, false, false));
+    public static final Block BLOCK_CABLE_UP_LEFT = register("cable_up_left", new BlockCable(FabricBlockSettings.of(Material.METAL, MapColor.STONE_GRAY).noCollision().nonOpaque(), false, false, false));
+    public static final Block BLOCK_CABLE_UP_RIGHT = register("cable_up_right", new BlockCable(FabricBlockSettings.of(Material.METAL, MapColor.STONE_GRAY).noCollision().nonOpaque(), false, false, false));
     // Tunnel light
-    public static final Block BLOCK_TUNNEL_LIGHT_A = registerDovecotFeatures("tunnel_light_a", new BlockTunnelLight(FabricBlockSettings.of(Material.METAL, MapColor.STONE_GRAY).nonOpaque()));
+    public static final Block BLOCK_TUNNEL_LIGHT_A = register("tunnel_light_a", new BlockTunnelLight(FabricBlockSettings.of(Material.METAL, MapColor.STONE_GRAY).nonOpaque()));
 
     // Ticket Vendor Decos
     public static final Block BLOCK_TICKET_VENDOR_UP_1 = register("ticket_vendor_up_1", new BlockTicketVendorUp());
@@ -45,7 +45,7 @@ public class MetroBlocks {
     public static final Block BLOCK_TICKET_VENDOR_EV23_YELLOW = register("ticket_vendor_ev23_yellow", new BlockTicketVendor(true, BLOCK_TICKET_VENDOR_UP_EV23_YELLOW));
 
     // Ceiling
-    public static final Block BLOCK_CEILING_A = registerDovecotFeatures("ceiling_a", new BlockCeilingA(FabricBlockSettings.of(Material.METAL, MapColor.GRAY).nonOpaque().luminance(1)));
+    public static final Block BLOCK_CEILING_A = register("ceiling_a", new BlockCeilingA(FabricBlockSettings.of(Material.METAL, MapColor.GRAY).nonOpaque().luminance(1)));
 
     // Lamp
     public static final Block BLOCK_FLUORESCENT_LAMP = register("fluorescent_lamp", new BlockFluorescentLamp());
@@ -77,11 +77,11 @@ public class MetroBlocks {
     public static final Block BLOCK_TILES_HORIZONTAL_GRAY = register("tiles_horizontal_gray", new Block(AbstractBlock.Settings.of(Material.STONE, DyeColor.GRAY)));
     public static final Block BLOCK_TILES_SMALL_GRAY = register("tiles_small_gray", new Block(AbstractBlock.Settings.of(Material.STONE, DyeColor.GRAY)));
 
-    // Blind path
-    public static final Block BLOCK_BLIND_PATH_STRIP = register("blind_path_strip", new BlockHorizontalAxis(AbstractBlock.Settings.of(Material.STONE, DyeColor.YELLOW)));
-    public static final Block BLOCK_BLIND_PATH_POINT = register("blind_path_point", new Block(AbstractBlock.Settings.of(Material.STONE, DyeColor.YELLOW)));
+    // TODO: Blind path
+//    public static final Block BLOCK_BLIND_PATH_STRIP = register("blind_path_strip", new BlockHorizontalAxis(AbstractBlock.Settings.of(Material.STONE, DyeColor.YELLOW)));
+//    public static final Block BLOCK_BLIND_PATH_POINT = register("blind_path_point", new Block(AbstractBlock.Settings.of(Material.STONE, DyeColor.YELLOW)));
 
-    private static Block registerDovecotFeatures(String id, Block block) {
+    private static Block registerWIPFeature(String id, Block block) {
         return Registry.register(Registry.BLOCK, new Identifier(Metropolis.MOD_ID, id), block);
     }
 

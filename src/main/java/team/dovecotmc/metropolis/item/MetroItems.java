@@ -15,16 +15,16 @@ import team.dovecotmc.metropolis.block.entity.BlockEntityTurnstile;
  */
 @SuppressWarnings("unused")
 public class MetroItems {
-    public static final Item ITEM_CABLE = registerDovecotFeature("cable", new BlockItem(MetroBlocks.BLOCK_CABLE, new Item.Settings().group(Metropolis.ITEM_GROUP)));
+    public static final Item ITEM_CABLE = register("cable", new BlockItem(MetroBlocks.BLOCK_CABLE, new Item.Settings().group(Metropolis.ITEM_GROUP)));
     // TODO: Tunnel light
-    public static final Item ITEM_TUNNEL_LIGHT_A = registerDovecotFeature("tunnel_light_a", new BlockItem(MetroBlocks.BLOCK_TUNNEL_LIGHT_A, new Item.Settings().group(Metropolis.ITEM_GROUP)));
+    public static final Item ITEM_TUNNEL_LIGHT_A = register("tunnel_light_a", new BlockItem(MetroBlocks.BLOCK_TUNNEL_LIGHT_A, new Item.Settings().group(Metropolis.ITEM_GROUP)));
     public static final Item ITEM_TICKET_VENDOR_TOP = register("ticket_vendor_top", new BlockItem(MetroBlocks.BLOCK_TICKET_VENDOR_TOP, new Item.Settings().group(Metropolis.ITEM_GROUP)));
     public static final Item ITEM_TICKET_VENDOR_PANEL = register("ticket_vendor_panel", new BlockItem(MetroBlocks.BLOCK_TICKET_VENDOR_PANEL, new Item.Settings().group(Metropolis.ITEM_GROUP)));
     public static final Item ITEM_TICKET_VENDOR_EM10 = register("ticket_vendor_em10", new ItemBlockShowStationHUD(MetroBlocks.BLOCK_TICKET_VENDOR_EM10, new Item.Settings().group(Metropolis.ITEM_GROUP)));
     public static final Item ITEM_TICKET_VENDOR_EV23 = register("ticket_vendor_ev23", new ItemBlockShowStationHUD(MetroBlocks.BLOCK_TICKET_VENDOR_EV23, new Item.Settings().group(Metropolis.ITEM_GROUP)));
     public static final Item ITEM_TICKET_VENDOR_EV23_YELLOW = register("ticket_vendor_ev23_yellow", new ItemBlockShowStationHUD(MetroBlocks.BLOCK_TICKET_VENDOR_EV23_YELLOW, new Item.Settings().group(Metropolis.ITEM_GROUP)));
     // Ceiling
-    public static final Item ITEM_CEILING_A = registerDovecotFeature("ceiling_a", new BlockItem(MetroBlocks.BLOCK_CEILING_A, new Item.Settings().group(Metropolis.ITEM_GROUP)));
+    public static final Item ITEM_CEILING_A = register("ceiling_a", new BlockItem(MetroBlocks.BLOCK_CEILING_A, new Item.Settings().group(Metropolis.ITEM_GROUP)));
 
     // Lamp
     public static final Item ITEM_FLUORESCENT_LAMP = register("fluorescent_lamp", new BlockItem(MetroBlocks.BLOCK_FLUORESCENT_LAMP, new Item.Settings().group(Metropolis.ITEM_GROUP)));
@@ -63,16 +63,16 @@ public class MetroItems {
     public static final Item ITEM_TILES_HORIZONTAL_GRAY = register("tiles_horizontal_gray", new BlockItem(MetroBlocks.BLOCK_TILES_HORIZONTAL_GRAY, new Item.Settings().group(Metropolis.ITEM_GROUP)));
     public static final Item ITEM_TILES_SMALL_GRAY = register("tiles_small_gray", new BlockItem(MetroBlocks.BLOCK_TILES_SMALL_GRAY, new Item.Settings().group(Metropolis.ITEM_GROUP)));
 
-    // Blind path
-    public static final Item ITEM_BLIND_PATH_STRIP = register("blind_path_strip", new BlockItem(MetroBlocks.BLOCK_BLIND_PATH_STRIP, new Item.Settings().group(Metropolis.ITEM_GROUP)));
-    public static final Item ITEM_BLIND_PATH_POINT = register("blind_path_point", new BlockItem(MetroBlocks.BLOCK_BLIND_PATH_POINT, new Item.Settings().group(Metropolis.ITEM_GROUP)));
+    // TODO: Blind path
+//    public static final Item ITEM_BLIND_PATH_STRIP = register("blind_path_strip", new BlockItem(MetroBlocks.BLOCK_BLIND_PATH_STRIP, new Item.Settings().group(Metropolis.ITEM_GROUP)));
+//    public static final Item ITEM_BLIND_PATH_POINT = register("blind_path_point", new BlockItem(MetroBlocks.BLOCK_BLIND_PATH_POINT, new Item.Settings().group(Metropolis.ITEM_GROUP)));
 
-    // Rails
+    // TODO?: Rails
 //    public static final Item ITEM_RAIL_CONNECTOR_5 = register("rail_connector_5", new ItemRailModifier());
-    // Bridge creator
+    // TODO: Bridge creator
     public static final Item ITEM_BRIDGE_CREATOR = register("bridge_creator", new ItemDynamicBridgeCreator());
 
-    public static Item registerDovecotFeature(String id, Item item) {
+    public static Item registerWIPFeature(String id, Item item) {
         return Registry.register(Registry.ITEM, new Identifier(Metropolis.MOD_ID, id), item);
     }
 
