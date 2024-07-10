@@ -10,6 +10,7 @@ import net.minecraft.state.StateManager;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.shape.VoxelShape;
+import net.minecraft.util.shape.VoxelShapes;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.WorldAccess;
 import team.dovecotmc.metropolis.item.MetroItems;
@@ -22,9 +23,17 @@ import team.dovecotmc.metropolis.util.MetroBlockUtil;
  */
 @SuppressWarnings({"unused", "deprecation"})
 public class BlockCable extends HorizontalFacingBlock {
-    protected BlockCable(Settings settings) {
+    public final boolean isInnerCorner;
+    public final boolean isOuterCorner;
+    // False: left, True: right
+    public final boolean cornerDirection;
+
+    protected BlockCable(Settings settings, boolean isInnerCorner, boolean isOuterCorner, boolean cornerDirection) {
         super(settings);
         this.setDefaultState((this.stateManager.getDefaultState()).with(FACING, Direction.NORTH));
+        this.isInnerCorner = isInnerCorner;
+        this.isOuterCorner = isOuterCorner;
+        this.cornerDirection = cornerDirection;
     }
 
     @Override
@@ -39,6 +48,25 @@ public class BlockCable extends HorizontalFacingBlock {
 
     @Override
     public VoxelShape getOutlineShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {
+        if (isInnerCorner) {
+            if (cornerDirection) {
+                return VoxelShapes.union(
+                        MetroBlockUtil.getVoxelShapeByDirection(0, 0, 8, 16, 16, 16, state.get(FACING)),
+                        MetroBlockUtil.getVoxelShapeByDirection(0, 0, 8, 16, 16, 16, state.get(FACING).rotateYCounterclockwise())
+                );
+            } else {
+                return VoxelShapes.union(
+                        MetroBlockUtil.getVoxelShapeByDirection(0, 0, 8, 16, 16, 16, state.get(FACING)),
+                        MetroBlockUtil.getVoxelShapeByDirection(0, 0, 8, 16, 16, 16, state.get(FACING).rotateYClockwise())
+                );
+            }
+        } else if (isOuterCorner) {
+            if (cornerDirection) {
+                return MetroBlockUtil.getVoxelShapeByDirection(0, 0, 8, 8, 16, 16, state.get(FACING));
+            } else {
+                return MetroBlockUtil.getVoxelShapeByDirection(8, 0, 8, 16, 16, 16, state.get(FACING));
+            }
+        }
         return MetroBlockUtil.getVoxelShapeByDirection(0, 0, 8, 16, 16, 16, state.get(FACING));
     }
 
