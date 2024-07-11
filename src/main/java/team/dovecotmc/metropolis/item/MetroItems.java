@@ -46,8 +46,9 @@ public class MetroItems {
     public static final Item ITEM_CARD = register("card", new ItemCard(new Item.Settings().group(Metropolis.ITEM_GROUP)));
     // Monitor
     public static final Item ITEM_MONITOR = register("monitor", new BlockItem(MetroBlocks.BLOCK_MONITOR, new Item.Settings().group(Metropolis.ITEM_GROUP)));
-    // Security door
+    // Security instruments
     public static final Item ITEM_SECURITY_DOOR = register("security_door", new BlockItem(MetroBlocks.BLOCK_SECURITY_DOOR, new Item.Settings().group(Metropolis.ITEM_GROUP)));
+    public static final Item ITEM_SECURITY_INSPECTION_MACHINE = register("security_inspection_machine", new BlockItem(MetroBlocks.BLOCK_SECURITY_INSPECTION_MACHINE, new Item.Settings().group(Metropolis.ITEM_GROUP)));
 
     /* =========== *
      * Decorations *

@@ -61,8 +61,9 @@ public class MetroBlocks {
     // Monitor
     public static final Block BLOCK_MONITOR = register("monitor", new BlockMonitor());
 
-    // Security door
+    // Security instruments
     public static final Block BLOCK_SECURITY_DOOR = register("security_door", new BlockSecurityDoor());
+    public static final Block BLOCK_SECURITY_INSPECTION_MACHINE = register("security_inspection_machine", new BlockSecurityInspectionMachine());
 
     /* =========== *
      * Decorations *
