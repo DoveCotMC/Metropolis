@@ -58,6 +58,7 @@ public class MetroItems {
     // Tiles
     // White
     public static final Item ITEM_TILES_WHITE = register("tiles_white", new BlockItem(MetroBlocks.BLOCK_TILES_WHITE, new Item.Settings().group(Metropolis.ITEM_GROUP)));
+    public static final Item ITEM_TILES_LARGE_WHITE = register("tiles_large_white", new BlockItem(MetroBlocks.BLOCK_TILES_LARGE_WHITE, new Item.Settings().group(Metropolis.ITEM_GROUP)));
     public static final Item ITEM_TILES_HORIZONTAL_WHITE = register("tiles_horizontal_white", new BlockItem(MetroBlocks.BLOCK_TILES_HORIZONTAL_WHITE, new Item.Settings().group(Metropolis.ITEM_GROUP)));
     public static final Item ITEM_TILES_SMALL_WHITE = register("tiles_small_white", new BlockItem(MetroBlocks.BLOCK_TILES_SMALL_WHITE, new Item.Settings().group(Metropolis.ITEM_GROUP)));
     // Gray

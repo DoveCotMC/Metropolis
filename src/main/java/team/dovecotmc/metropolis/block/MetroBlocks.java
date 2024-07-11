@@ -73,6 +73,7 @@ public class MetroBlocks {
     // Tiles
     // White
     public static final Block BLOCK_TILES_WHITE = register("tiles_white", new Block(AbstractBlock.Settings.of(Material.STONE, DyeColor.WHITE)));
+    public static final Block BLOCK_TILES_LARGE_WHITE = register("tiles_large_white", new Block(AbstractBlock.Settings.of(Material.STONE, DyeColor.WHITE)));
     public static final Block BLOCK_TILES_HORIZONTAL_WHITE = register("tiles_horizontal_white", new Block(AbstractBlock.Settings.of(Material.STONE, DyeColor.WHITE)));
     public static final Block BLOCK_TILES_SMALL_WHITE = register("tiles_small_white", new Block(AbstractBlock.Settings.of(Material.STONE, DyeColor.WHITE)));
     // Gray
