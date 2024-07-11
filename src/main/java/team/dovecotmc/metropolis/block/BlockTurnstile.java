@@ -33,6 +33,8 @@ import team.dovecotmc.metropolis.item.ItemTicket;
 import team.dovecotmc.metropolis.item.MetroItems;
 import team.dovecotmc.metropolis.network.MetroServerNetwork;
 import team.dovecotmc.metropolis.util.MetroBlockUtil;
+import team.dovecotmc.metropolis.util.MtrCommonUtil;
+import team.dovecotmc.metropolis.util.MtrSoundUtil;
 import team.dovecotmc.metropolis.util.MtrStationUtil;
 
 /**
@@ -67,7 +69,7 @@ public class BlockTurnstile extends HorizontalFacingBlock implements BlockEntity
             NbtCompound nbt = blockEntity.createNbt();
 
             BlockEntityTurnstile.EnumTurnstileType type = BlockEntityTurnstile.EnumTurnstileType.get(state.get(TYPE));
-            if (stack.getItem() == mtr.Items.BRUSH.get()) {
+            if (stack.getItem() == MtrCommonUtil.getBrushItem()) {
                 if (type != BlockEntityTurnstile.EnumTurnstileType.ENTER && blockEntity.getItems().isEmpty()) {
                     player.sendMessage(Text.translatable("info.metropolis.unable_switch_turnstile_type"), true);
                     return ActionResult.SUCCESS;
@@ -89,7 +91,7 @@ public class BlockTurnstile extends HorizontalFacingBlock implements BlockEntity
             if (type == BlockEntityTurnstile.EnumTurnstileType.ENTER) {
                 if (!blockEntity.getStack(0).isEmpty()) {
                     if (world.getTime() - nbt.getLong(BlockEntityTurnstile.TICKET_ANIMATION_START) >= 7) {
-                        world.playSound(null, pos, mtr.SoundEvents.TICKET_BARRIER_CONCESSIONARY, SoundCategory.BLOCKS, 1f, 1f);
+                        world.playSound(null, pos, MtrSoundUtil.TICKET_BARRIER_CONCESSIONARY, SoundCategory.BLOCKS, 1f, 1f);
                         world.playSound(null, pos, SoundEvents.BLOCK_WOOL_BREAK, SoundCategory.BLOCKS, 1f, 1f);
                         player.giveItemStack(blockEntity.getStack(0));
                         blockEntity.removeStack(0);
@@ -103,12 +105,12 @@ public class BlockTurnstile extends HorizontalFacingBlock implements BlockEntity
                 }
 
                 if (stack.getOrCreateNbt().contains(ItemTicket.ENTERED_STATION) || stack.getOrCreateNbt().contains(ItemTicket.ENTERED_ZONE)) {
-                    world.playSound(null, pos, mtr.SoundEvents.TICKET_BARRIER, SoundCategory.BLOCKS, 1f, 1f);
+                    world.playSound(null, pos, MtrSoundUtil.TICKET_BARRIER, SoundCategory.BLOCKS, 1f, 1f);
                     player.sendMessage(Text.translatable("info.metropolis.to_service_center"), true);
                     return ActionResult.SUCCESS;
                 }
                 if (stack.getItem() instanceof ItemTicket) {
-//                    world.playSound(null, pos, mtr.SoundEvents.TICKET_BARRIER_CONCESSIONARY, SoundCategory.BLOCKS, 1f, 1f);
+//                    world.playSound(null, pos, MtrSoundUtil.TICKET_BARRIER_CONCESSIONARY, SoundCategory.BLOCKS, 1f, 1f);
                     world.playSound(null, pos, SoundEvents.BLOCK_WOOL_BREAK, SoundCategory.BLOCKS, 1f, 1f);
 
                     NbtCompound stackNbt = stack.getOrCreateNbt();
@@ -126,7 +128,7 @@ public class BlockTurnstile extends HorizontalFacingBlock implements BlockEntity
                     NbtCompound stackNbt = stack.getOrCreateNbt();
                     stackNbt.putString(ItemCard.ENTERED_STATION, station.name);
                     stackNbt.putInt(ItemCard.ENTERED_ZONE, station.zone);
-                    world.playSound(null, pos, mtr.SoundEvents.TICKET_BARRIER_CONCESSIONARY, SoundCategory.BLOCKS, 1f, 1f);
+                    world.playSound(null, pos, MtrSoundUtil.TICKET_BARRIER_CONCESSIONARY, SoundCategory.BLOCKS, 1f, 1f);
 
                     world.setBlockState(pos, state.with(OPEN, true));
                     world.createAndScheduleBlockTick(pos, this, 40);
@@ -134,7 +136,7 @@ public class BlockTurnstile extends HorizontalFacingBlock implements BlockEntity
             } else if (type == BlockEntityTurnstile.EnumTurnstileType.EXIT) {
                 NbtCompound stackNbt = stack.getOrCreateNbt();
                 if (!stackNbt.contains(ItemTicket.ENTERED_STATION) && !stackNbt.contains(ItemTicket.ENTERED_ZONE)) {
-                    world.playSound(null, pos, mtr.SoundEvents.TICKET_BARRIER, SoundCategory.BLOCKS, 1f, 1f);
+                    world.playSound(null, pos, MtrSoundUtil.TICKET_BARRIER, SoundCategory.BLOCKS, 1f, 1f);
                     player.sendMessage(Text.translatable("info.metropolis.to_service_center"), true);
                     return ActionResult.SUCCESS;
                 }
@@ -148,7 +150,7 @@ public class BlockTurnstile extends HorizontalFacingBlock implements BlockEntity
                         return ActionResult.SUCCESS;
                     }
 
-                    world.playSound(null, pos, mtr.SoundEvents.TICKET_BARRIER_CONCESSIONARY, SoundCategory.BLOCKS, 1f, 1f);
+                    world.playSound(null, pos, MtrSoundUtil.TICKET_BARRIER_CONCESSIONARY, SoundCategory.BLOCKS, 1f, 1f);
                     world.playSound(null, pos, SoundEvents.BLOCK_WOOL_BREAK, SoundCategory.BLOCKS, 1f, 1f);
 
                     blockEntity.setStack(0, stack);
@@ -173,7 +175,7 @@ public class BlockTurnstile extends HorizontalFacingBlock implements BlockEntity
                     stackNbt.remove(ItemCard.ENTERED_STATION);
                     stackNbt.remove(ItemCard.ENTERED_ZONE);
                     stackNbt.putInt(ItemCard.BALANCE, balance - cost);
-                    world.playSound(null, pos, mtr.SoundEvents.TICKET_BARRIER_CONCESSIONARY, SoundCategory.BLOCKS, 1f, 1f);
+                    world.playSound(null, pos, MtrSoundUtil.TICKET_BARRIER_CONCESSIONARY, SoundCategory.BLOCKS, 1f, 1f);
 
                     world.setBlockState(pos, state.with(OPEN, true));
                     world.createAndScheduleBlockTick(pos, this, 40);

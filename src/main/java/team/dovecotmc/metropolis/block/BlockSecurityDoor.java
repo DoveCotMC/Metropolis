@@ -1,13 +1,10 @@
 package team.dovecotmc.metropolis.block;
 
-import mtr.SoundEvents;
-import mtr.block.BlockTicketBarrier;
 import net.minecraft.block.*;
 import net.minecraft.block.enums.DoubleBlockHalf;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
@@ -28,6 +25,7 @@ import net.minecraft.world.World;
 import net.minecraft.world.WorldAccess;
 import org.jetbrains.annotations.Nullable;
 import team.dovecotmc.metropolis.util.MetroBlockUtil;
+import team.dovecotmc.metropolis.util.MtrSoundUtil;
 
 /**
  * @author Arrokoth
@@ -62,7 +60,7 @@ public class BlockSecurityDoor extends HorizontalFacingBlock {
                     }
                 }
                 if (open) {
-                    world.playSound(null, pos, SoundEvents.TICKET_BARRIER_CONCESSIONARY, SoundCategory.BLOCKS, 1f, 1f);
+                    world.playSound(null, pos, MtrSoundUtil.TICKET_BARRIER_CONCESSIONARY, SoundCategory.BLOCKS, 1f, 1f);
                 } else {
                     player.sendMessage(Text.translatable("info.metropolis.has_danger_item"), true);
                 }

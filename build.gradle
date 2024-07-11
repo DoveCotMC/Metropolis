@@ -3,6 +3,8 @@ plugins {
     id 'maven-publish'
 }
 
+boolean mtr4 = false
+
 version = project.mod_version
 group = project.maven_group
 
@@ -30,8 +32,10 @@ dependencies {
     modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
 
     // Minecraft Transit Railway
-    modImplementation "maven.modrinth:minecraft-transit-railway:FABRIC-1.19.2-3.2.2-hotfix-1"
-//    modImplementation "maven.modrinth:minecraft-transit-railway:FABRIC-4.0.0-beta-8+1.19.2"
+    if (mtr4)
+        modImplementation "maven.modrinth:minecraft-transit-railway:FABRIC-4.0.0-beta-8+1.19.2"
+    else
+        modImplementation "maven.modrinth:minecraft-transit-railway:FABRIC-1.19.2-3.2.2-hotfix-1"
 
     // NTE
 //    modImplementation "maven.modrinth:mtr-nte:0.5.1+1.19.2"
