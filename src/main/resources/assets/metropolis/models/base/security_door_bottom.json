@@ -1,0 +1,36 @@
+{
+	"credit": "Made with Blockbench",
+	"texture_size": [128, 128],
+	"textures": {
+		"0": "metropolis:block/security_door",
+		"particle": "metropolis:block/security_door"
+	},
+	"elements": [
+		{
+			"from": [0, 0, -1],
+			"to": [1, 16, 17],
+			"rotation": {"angle": 0, "axis": "y", "origin": [0, -16, 0]},
+			"faces": {
+				"north": {"uv": [1.125, 7, 1.25, 9], "texture": "#0"},
+				"east": {"uv": [4.5, 4, 6.75, 6], "texture": "#0"},
+				"south": {"uv": [1.25, 7, 1.375, 9], "texture": "#0"},
+				"west": {"uv": [0, 5, 2.25, 7], "texture": "#0"},
+				"up": {"uv": [0.375, 9.25, 0.25, 7], "texture": "#0"},
+				"down": {"uv": [0.5, 7, 0.375, 9.25], "texture": "#0"}
+			}
+		},
+		{
+			"from": [15, 0, -1],
+			"to": [16, 16, 17],
+			"rotation": {"angle": 0, "axis": "y", "origin": [16, -16, 0]},
+			"faces": {
+				"north": {"uv": [1.25, 7, 1.125, 9], "texture": "#0"},
+				"east": {"uv": [2.25, 5, 0, 7], "texture": "#0"},
+				"south": {"uv": [1.375, 7, 1.25, 9], "texture": "#0"},
+				"west": {"uv": [6.75, 4, 4.5, 6], "texture": "#0"},
+				"up": {"uv": [0.25, 9.25, 0.375, 7], "texture": "#0"},
+				"down": {"uv": [0.375, 7, 0.5, 9.25], "texture": "#0"}
+			}
+		}
+	]
+}
