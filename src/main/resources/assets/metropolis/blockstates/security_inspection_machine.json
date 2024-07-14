@@ -1,19 +1,51 @@
 {
     "variants": {
-        "facing=north": {
+        "facing=north,part=center": {
             "model": "metropolis:base/security_inspection_machine",
             "y": 0
         },
-        "facing=east": {
+        "facing=east,part=center": {
             "model": "metropolis:base/security_inspection_machine",
             "y": 90
         },
-        "facing=south": {
+        "facing=south,part=center": {
             "model": "metropolis:base/security_inspection_machine",
             "y": 180
         },
-        "facing=west": {
+        "facing=west,part=center": {
             "model": "metropolis:base/security_inspection_machine",
+            "y": 270
+        },
+        "facing=north,part=head": {
+            "model": "minecraft:block/air",
+            "y": 0
+        },
+        "facing=east,part=head": {
+            "model": "minecraft:block/air",
+            "y": 90
+        },
+        "facing=south,part=head": {
+            "model": "minecraft:block/air",
+            "y": 180
+        },
+        "facing=west,part=head": {
+            "model": "minecraft:block/air",
+            "y": 270
+        },
+        "facing=north,part=tail": {
+            "model": "minecraft:block/air",
+            "y": 0
+        },
+        "facing=east,part=tail": {
+            "model": "minecraft:block/air",
+            "y": 90
+        },
+        "facing=south,part=tail": {
+            "model": "minecraft:block/air",
+            "y": 180
+        },
+        "facing=west,part=tail": {
+            "model": "minecraft:block/air",
             "y": 270
         }
     }
