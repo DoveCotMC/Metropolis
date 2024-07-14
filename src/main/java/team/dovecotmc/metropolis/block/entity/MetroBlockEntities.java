@@ -37,6 +37,12 @@ public class MetroBlockEntities {
             FabricBlockEntityTypeBuilder.create(BlockEntityBumper::new, MetroBlocks.BLOCK_BUMPER).build()
     );
 
+    public static final BlockEntityType<BlockEntitySecurityInspectionMachine> SECURITY_INSPECTION_MACHINE_BLOCK_ENTITY = Registry.register(
+            Registry.BLOCK_ENTITY_TYPE,
+            new Identifier(Metropolis.MOD_ID, "security_inspection_machine"),
+            FabricBlockEntityTypeBuilder.create(BlockEntitySecurityInspectionMachine::new, MetroBlocks.BLOCK_SECURITY_INSPECTION_MACHINE).build()
+    );
+
     public static void initialize() {
         Metropolis.LOGGER.info("Registering Block entities");
     }

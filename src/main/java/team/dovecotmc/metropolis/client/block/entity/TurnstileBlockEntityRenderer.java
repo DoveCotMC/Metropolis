@@ -24,9 +24,6 @@ import team.dovecotmc.metropolis.block.entity.BlockEntityTurnstile;
  * @copyright Copyright © 2024 Arrokoth All Rights Reserved.
  */
 public class TurnstileBlockEntityRenderer implements BlockEntityRenderer<BlockEntityTurnstile> {
-    public TurnstileBlockEntityRenderer() {
-    }
-
     @Override
     public void render(BlockEntityTurnstile entity, float tickDelta, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, int overlay) {
         MinecraftClient mc = MinecraftClient.getInstance();
