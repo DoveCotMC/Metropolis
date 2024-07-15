@@ -40,7 +40,7 @@ public class SecurityInspectionMachineBlockEntityRenderer implements BlockEntity
             matrices.translate(8, 11, -8);
 
             if (MinecraftClient.getInstance().world != null) {
-                matrices.translate(0, 0, 32 * ((MinecraftClient.getInstance().world.getTime() - entity.itemAnimationTime + tickDelta) / 40f));
+                matrices.translate(0, 0, 32 * Math.min(1, (MinecraftClient.getInstance().world.getTime() - entity.itemAnimationTime + tickDelta) / 40f));
             }
 
 //            matrices.translate(8, 8, 8);

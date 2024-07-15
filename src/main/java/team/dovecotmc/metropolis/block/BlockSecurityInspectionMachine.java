@@ -9,6 +9,7 @@ import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.EnumProperty;
 import net.minecraft.util.ActionResult;
@@ -18,6 +19,7 @@ import net.minecraft.util.StringIdentifiable;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
+import net.minecraft.util.math.random.Random;
 import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.util.shape.VoxelShapes;
 import net.minecraft.world.BlockView;
@@ -25,6 +27,7 @@ import net.minecraft.world.World;
 import net.minecraft.world.WorldAccess;
 import org.jetbrains.annotations.Nullable;
 import team.dovecotmc.metropolis.block.entity.BlockEntitySecurityInspectionMachine;
+import team.dovecotmc.metropolis.network.MetroServerNetwork;
 import team.dovecotmc.metropolis.util.MetroBlockUtil;
 
 /**
@@ -62,10 +65,31 @@ public class BlockSecurityInspectionMachine extends HorizontalFacingBlock implem
                 entity.setStack(0, player.getStackInHand(Hand.MAIN_HAND));
                 ((ServerPlayerEntity) player).networkHandler.sendPacket(entity.toUpdatePacket());
                 player.setStackInHand(Hand.MAIN_HAND, ItemStack.EMPTY);
+                world.createAndScheduleBlockTick(entityRaw.getPos(), entityRaw.getCachedState().getBlock(), 40);
             }
         }
 
         return ActionResult.SUCCESS;
+    }
+
+    @Override
+    public void scheduledTick(BlockState state, ServerWorld world, BlockPos pos, Random random) {
+        BlockEntity entityRaw = world.getBlockEntity(pos);
+        if (entityRaw instanceof BlockEntitySecurityInspectionMachine entity) {
+            if (!entity.getStack(0).isEmpty()) {
+                // TODO: Improve drop
+                BlockPos dropPos = pos.offset(state.get(FACING).getOpposite());
+                ItemEntity itemEntity = new ItemEntity(world, dropPos.getX(), dropPos.getY(), dropPos.getZ(), entity.getStack(0));
+                itemEntity.setPos(itemEntity.getX() + 0.5, itemEntity.getY() + 0.5, itemEntity.getZ() + 0.5);
+                world.spawnEntity(itemEntity);
+
+                for (ServerPlayerEntity player : world.getPlayers()) {
+                    entity.removeStack(0);
+                    player.networkHandler.sendPacket(entity.toUpdatePacket());
+                    MetroServerNetwork.removeInventoryItem(0, pos, player);
+                }
+            }
+        }
     }
 
     @Override
