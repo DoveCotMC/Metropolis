@@ -2,6 +2,8 @@ package team.dovecotmc.metropolis.block;
 
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.block.entity.BlockEntityTicker;
+import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.entity.ItemEntity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -65,31 +67,38 @@ public class BlockSecurityInspectionMachine extends HorizontalFacingBlock implem
                 entity.setStack(0, player.getStackInHand(Hand.MAIN_HAND));
                 ((ServerPlayerEntity) player).networkHandler.sendPacket(entity.toUpdatePacket());
                 player.setStackInHand(Hand.MAIN_HAND, ItemStack.EMPTY);
-                world.createAndScheduleBlockTick(entityRaw.getPos(), entityRaw.getCachedState().getBlock(), 40);
             }
         }
 
         return ActionResult.SUCCESS;
     }
 
+    @Nullable
     @Override
-    public void scheduledTick(BlockState state, ServerWorld world, BlockPos pos, Random random) {
-        BlockEntity entityRaw = world.getBlockEntity(pos);
-        if (entityRaw instanceof BlockEntitySecurityInspectionMachine entity) {
-            if (!entity.getStack(0).isEmpty()) {
-                // TODO: Improve drop
-                BlockPos dropPos = pos.offset(state.get(FACING).getOpposite());
-                ItemEntity itemEntity = new ItemEntity(world, dropPos.getX(), dropPos.getY(), dropPos.getZ(), entity.getStack(0));
-                itemEntity.setPos(itemEntity.getX() + 0.5, itemEntity.getY() + 0.5, itemEntity.getZ() + 0.5);
-                world.spawnEntity(itemEntity);
+    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(World world, BlockState state, BlockEntityType<T> type) {
+        return (world1, pos, state1, blockEntity) -> {
+            if (!world1.isClient() && blockEntity instanceof BlockEntitySecurityInspectionMachine entity) {
+                NbtCompound nbt = entity.createNbt();
+                if (world1.getTime() - nbt.getLong(BlockEntitySecurityInspectionMachine.ITEM_ANIMATION_TIME) > 40) {
+                    if (!entity.getStack(0).isEmpty()) {
+                        // TODO: Improve drop
+                        Direction facing = state.get(FACING);
+                        BlockPos dropPos = pos.offset(facing.getOpposite());
+                        ItemEntity itemEntity = new ItemEntity(world, dropPos.getX(), dropPos.getY(), dropPos.getZ(), entity.getStack(0));
+                        itemEntity.setPos(itemEntity.getX() + 0.5, itemEntity.getY() + 0.5, itemEntity.getZ() + 0.5);
+                        facing = facing.getOpposite();
+                        itemEntity.addVelocity(facing.getOffsetX() * 0.1, 0, facing.getOffsetZ() * 0.1);
+                        world.spawnEntity(itemEntity);
 
-                for (ServerPlayerEntity player : world.getPlayers()) {
-                    entity.removeStack(0);
-                    player.networkHandler.sendPacket(entity.toUpdatePacket());
-                    MetroServerNetwork.removeInventoryItem(0, pos, player);
+                        for (ServerPlayerEntity player : ((ServerWorld) world1).getPlayers()) {
+                            entity.removeStack(0);
+                            player.networkHandler.sendPacket(entity.toUpdatePacket());
+                            MetroServerNetwork.removeInventoryItem(0, pos, player);
+                        }
+                    }
                 }
             }
-        }
+        };
     }
 
     @Override
