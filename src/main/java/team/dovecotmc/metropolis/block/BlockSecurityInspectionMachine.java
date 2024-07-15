@@ -7,6 +7,7 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NbtCompound;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.EnumProperty;
@@ -55,6 +56,9 @@ public class BlockSecurityInspectionMachine extends HorizontalFacingBlock implem
 
         if (entityRaw instanceof BlockEntitySecurityInspectionMachine entity) {
             if (entity.getStack(0).isEmpty()) {
+                NbtCompound nbt = entity.createNbt();
+                nbt.putLong(BlockEntitySecurityInspectionMachine.ITEM_ANIMATION_TIME, world.getTime());
+                entity.readNbt(nbt);
                 entity.setStack(0, player.getStackInHand(Hand.MAIN_HAND));
                 ((ServerPlayerEntity) player).networkHandler.sendPacket(entity.toUpdatePacket());
                 player.setStackInHand(Hand.MAIN_HAND, ItemStack.EMPTY);

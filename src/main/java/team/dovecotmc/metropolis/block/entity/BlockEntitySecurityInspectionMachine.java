@@ -20,8 +20,12 @@ import org.jetbrains.annotations.Nullable;
 public class BlockEntitySecurityInspectionMachine extends BlockEntity implements BlockSecurityInspectionMachineInventory {
     private final DefaultedList<ItemStack> items = DefaultedList.ofSize(1, ItemStack.EMPTY);
 
+    public static final String ITEM_ANIMATION_TIME = "item_animation_time";
+    public long itemAnimationTime;
+
     public BlockEntitySecurityInspectionMachine(BlockPos pos, BlockState state) {
         super(MetroBlockEntities.SECURITY_INSPECTION_MACHINE_BLOCK_ENTITY, pos, state);
+        this.itemAnimationTime = 0;
     }
 
     @Nullable
@@ -38,12 +42,14 @@ public class BlockEntitySecurityInspectionMachine extends BlockEntity implements
     @Override
     public void readNbt(NbtCompound nbt) {
         super.readNbt(nbt);
+        this.itemAnimationTime = nbt.getLong(ITEM_ANIMATION_TIME);
         Inventories.readNbt(nbt, items);
     }
 
     @Override
     protected void writeNbt(NbtCompound nbt) {
         super.writeNbt(nbt);
+        nbt.putLong(ITEM_ANIMATION_TIME, this.itemAnimationTime);
         Inventories.writeNbt(nbt, items);
     }
 
