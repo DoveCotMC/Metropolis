@@ -56,7 +56,7 @@ public class MetroBlocks {
     public static final Block BLOCK_TURNSTILE_ENTER = register("turnstile", new BlockTurnstile());
 
     // PIDS
-    public static final Block BLOCK_PIDS_1 = register("pids_1", new BlockMetroPIDSOne());
+//    public static final Block BLOCK_PIDS_1 = register("pids_1", new BlockMetroPIDSOne());
 
     // Monitor
     public static final Block BLOCK_MONITOR = register("monitor", new BlockMonitor());
@@ -81,6 +81,11 @@ public class MetroBlocks {
     public static final Block BLOCK_TILES_GRAY = register("tiles_gray", new Block(AbstractBlock.Settings.of(Material.STONE, DyeColor.GRAY)));
     public static final Block BLOCK_TILES_HORIZONTAL_GRAY = register("tiles_horizontal_gray", new Block(AbstractBlock.Settings.of(Material.STONE, DyeColor.GRAY)));
     public static final Block BLOCK_TILES_SMALL_GRAY = register("tiles_small_gray", new Block(AbstractBlock.Settings.of(Material.STONE, DyeColor.GRAY)));
+    // Cordon line
+    public static final Block BLOCK_CORDON_YELLOW_BLACK = register("cordon_yellow_black", new Block(AbstractBlock.Settings.of(Material.STONE, DyeColor.YELLOW)));
+    public static final Block BLOCK_CORDON_YELLOW_WHITE = register("cordon_yellow_white", new Block(AbstractBlock.Settings.of(Material.STONE, DyeColor.YELLOW)));
+    public static final Block BLOCK_CORDON_RED_BLACK = register("cordon_red_black", new Block(AbstractBlock.Settings.of(Material.STONE, DyeColor.RED)));
+    public static final Block BLOCK_CORDON_RED_WHITE = register("cordon_red_white", new Block(AbstractBlock.Settings.of(Material.STONE, DyeColor.RED)));
 
     // TODO: Blind path
 //    public static final Block BLOCK_BLIND_PATH_STRIP = register("blind_path_strip", new BlockHorizontalAxis(AbstractBlock.Settings.of(Material.STONE, DyeColor.YELLOW)));

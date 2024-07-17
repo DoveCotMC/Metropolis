@@ -1,19 +1,23 @@
 package team.dovecotmc.metropolis.client.block.entity;
 
 import net.minecraft.block.HorizontalFacingBlock;
+import net.minecraft.block.WallBlock;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.RenderLayers;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.block.entity.BlockEntityRenderer;
+import net.minecraft.client.render.entity.ItemEntityRenderer;
 import net.minecraft.client.render.item.ItemRenderer;
 import net.minecraft.client.render.model.BakedModel;
 import net.minecraft.client.render.model.ModelLoader;
 import net.minecraft.client.render.model.json.ModelTransformation;
 import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Quaternion;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.math.Vec3f;
+import team.dovecotmc.metropolis.block.BlockSecurityInspectionMachine;
 import team.dovecotmc.metropolis.block.entity.BlockEntitySecurityInspectionMachine;
 
 /**
@@ -35,20 +39,23 @@ public class SecurityInspectionMachineBlockEntityRenderer implements BlockEntity
         matrices.push();
         if (!entity.getStack(0).isEmpty()) {
             ItemRenderer itemRenderer = MinecraftClient.getInstance().getItemRenderer();
-            BakedModel model = itemRenderer.getModels().getModel(entity.getStack(0));
 
             matrices.scale(1f / 16f, 1f / 16f, 1f / 16f);
 
-            matrices.translate(8, 14, -8);
+            matrices.translate(7, 14, -8);
 
             if (MinecraftClient.getInstance().world != null) {
                 matrices.scale(0.75f, 0.75f, 0.75f);
-                matrices.translate(0, 0, 32 * Math.min(1, (MinecraftClient.getInstance().world.getTime() - entity.itemAnimationTime + tickDelta) / 40f));
-            }
+                matrices.translate(
+                        0,
+                        MathHelper.sin((MinecraftClient.getInstance().world.getTime() + tickDelta) / 10f),
+                        40 * Math.min(1, (MinecraftClient.getInstance().world.getTime() - entity.itemAnimationTime + tickDelta) / BlockSecurityInspectionMachine.PROCESS_DURATION)
+                );
 
-//            matrices.translate(8, 8, 8);
-//            matrices.multiply(Quaternion.fromEulerXyzDegrees(new Vec3f(0, 0, 90)));
-//            matrices.translate(-8, -8, -8);
+                matrices.translate(1, 1, 1);
+                matrices.multiply(Quaternion.fromEulerXyzDegrees(new Vec3f(0, MinecraftClient.getInstance().world.getTime() * 3, 0)));
+                matrices.translate(-1, -1, -1);
+            }
 
             matrices.scale(16f, 16f, 16f);
             itemRenderer.renderItem(entity.getStack(0), ModelTransformation.Mode.GROUND, light, overlay, matrices, vertexConsumers, 0);

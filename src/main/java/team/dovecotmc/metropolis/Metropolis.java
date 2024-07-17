@@ -26,17 +26,7 @@ public class Metropolis implements ModInitializer {
     public static final String MOD_ID = "metropolis";
     public static final Logger LOGGER = LogManager.getLogger("Metropolis");
     public static final ItemGroup ITEM_GROUP = FabricItemGroupBuilder.create(new Identifier(MOD_ID, "decorations"))
-            .icon(() -> {
-                Random random = new Random(System.currentTimeMillis());
-//                return switch (random.nextInt(4)) {
-//                    case 0 -> MetroItems.ITEM_CARD.getDefaultStack();
-//                    case 1 -> MetroItems.ITEM_TICKET.getDefaultStack();
-//                    case 2 -> MetroItems.ITEM_TILES_SMALL_WHITE.getDefaultStack();
-//                    case 3 -> MetroItems.ITEM_TICKET_VENDOR_EV23.getDefaultStack();
-//                    default -> MetroItems.ITEM_CABLE.getDefaultStack();
-//                };
-                return MetroItems.ITEM_TICKET_VENDOR_EV23.getDefaultStack();
-            })
+            .icon(() -> new ItemStack(MetroItems.ITEM_TICKET_VENDOR_EV23))
             .build();
     public static final MetroConfig config = new MetroConfig();
 

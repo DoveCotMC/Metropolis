@@ -39,7 +39,7 @@ public class MetroItems {
 //    public static final Item ITEM_TICKET_MACHINE = register("ticket_machine", new BlockItem(MetroBlocks.BLOCK_TICKET_MACHINE, new Item.Settings().group(Metropolis.ITEM_GROUP)));
 
     // PIDS
-    public static final Item ITEM_PIDS_1 = register("pids_1", new ItemBlockShowStationHUD(MetroBlocks.BLOCK_PIDS_1, new Item.Settings().group(Metropolis.ITEM_GROUP)));
+//    public static final Item ITEM_PIDS_1 = register("pids_1", new ItemBlockShowStationHUD(MetroBlocks.BLOCK_PIDS_1, new Item.Settings().group(Metropolis.ITEM_GROUP)));
 
     // Ticket
     public static final Item ITEM_TICKET = register("ticket", new ItemTicket(new Item.Settings().group(Metropolis.ITEM_GROUP), true));
@@ -66,6 +66,11 @@ public class MetroItems {
     public static final Item ITEM_TILES_GRAY = register("tiles_gray", new BlockItem(MetroBlocks.BLOCK_TILES_GRAY, new Item.Settings().group(Metropolis.ITEM_GROUP)));
     public static final Item ITEM_TILES_HORIZONTAL_GRAY = register("tiles_horizontal_gray", new BlockItem(MetroBlocks.BLOCK_TILES_HORIZONTAL_GRAY, new Item.Settings().group(Metropolis.ITEM_GROUP)));
     public static final Item ITEM_TILES_SMALL_GRAY = register("tiles_small_gray", new BlockItem(MetroBlocks.BLOCK_TILES_SMALL_GRAY, new Item.Settings().group(Metropolis.ITEM_GROUP)));
+    // Cordon blocks
+    public static final Item ITEM_CORDON_YELLOW_BLACK = register("cordon_yellow_black", new BlockItem(MetroBlocks.BLOCK_CORDON_YELLOW_BLACK, new Item.Settings().group(Metropolis.ITEM_GROUP)));
+    public static final Item ITEM_CORDON_YELLOW_WHITE = register("cordon_yellow_white", new BlockItem(MetroBlocks.BLOCK_CORDON_YELLOW_WHITE, new Item.Settings().group(Metropolis.ITEM_GROUP)));
+    public static final Item ITEM_CORDON_RED_BLACK = register("cordon_red_black", new BlockItem(MetroBlocks.BLOCK_CORDON_RED_BLACK, new Item.Settings().group(Metropolis.ITEM_GROUP)));
+    public static final Item ITEM_CORDON_RED_WHITE = register("cordon_red_white", new BlockItem(MetroBlocks.BLOCK_CORDON_RED_WHITE, new Item.Settings().group(Metropolis.ITEM_GROUP)));
 
     // TODO: Blind path
 //    public static final Item ITEM_BLIND_PATH_STRIP = register("blind_path_strip", new BlockItem(MetroBlocks.BLOCK_BLIND_PATH_STRIP, new Item.Settings().group(Metropolis.ITEM_GROUP)));

@@ -1,5 +1,6 @@
 package team.dovecotmc.metropolis.block;
 
+import net.fabricmc.loader.impl.lib.sat4j.minisat.constraints.cnf.OriginalBinaryClause;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityTicker;
@@ -27,6 +28,7 @@ import net.minecraft.util.shape.VoxelShapes;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldAccess;
+import net.minecraft.world.WorldView;
 import org.jetbrains.annotations.Nullable;
 import team.dovecotmc.metropolis.block.entity.BlockEntitySecurityInspectionMachine;
 import team.dovecotmc.metropolis.network.MetroServerNetwork;
@@ -38,6 +40,7 @@ import team.dovecotmc.metropolis.util.MetroBlockUtil;
  * @copyright Copyright © 2024 Arrokoth All Rights Reserved.
  */
 public class BlockSecurityInspectionMachine extends HorizontalFacingBlock implements BlockEntityProvider {
+    public static final int PROCESS_DURATION = 40;
     public static final EnumProperty<EnumBlockSecurityInspectionMachinePart> PART = EnumProperty.of("part", EnumBlockSecurityInspectionMachinePart.class);
 
     public BlockSecurityInspectionMachine() {
@@ -67,38 +70,71 @@ public class BlockSecurityInspectionMachine extends HorizontalFacingBlock implem
                 entity.setStack(0, player.getStackInHand(Hand.MAIN_HAND));
                 ((ServerPlayerEntity) player).networkHandler.sendPacket(entity.toUpdatePacket());
                 player.setStackInHand(Hand.MAIN_HAND, ItemStack.EMPTY);
+                world.createAndScheduleBlockTick(entity.getPos(), entity.getCachedState().getBlock(), PROCESS_DURATION);
             }
         }
 
         return ActionResult.SUCCESS;
     }
 
-    @Nullable
     @Override
-    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(World world, BlockState state, BlockEntityType<T> type) {
-        return (world1, pos, state1, blockEntity) -> {
-            if (!world1.isClient() && blockEntity instanceof BlockEntitySecurityInspectionMachine entity) {
-                NbtCompound nbt = entity.createNbt();
-                if (world1.getTime() - nbt.getLong(BlockEntitySecurityInspectionMachine.ITEM_ANIMATION_TIME) > 40) {
-                    if (!entity.getStack(0).isEmpty()) {
-                        // TODO: Improve drop
-                        Direction facing = state.get(FACING);
-                        BlockPos dropPos = pos.offset(facing.getOpposite());
-                        ItemEntity itemEntity = new ItemEntity(world, dropPos.getX(), dropPos.getY(), dropPos.getZ(), entity.getStack(0));
-                        itemEntity.setPos(itemEntity.getX() + 0.5, itemEntity.getY() + 0.5, itemEntity.getZ() + 0.5);
-                        facing = facing.getOpposite();
-                        itemEntity.addVelocity(facing.getOffsetX() * 0.1, 0, facing.getOffsetZ() * 0.1);
-                        world.spawnEntity(itemEntity);
+    public void scheduledTick(BlockState state, ServerWorld world, BlockPos pos, Random random) {
+        if (world.getBlockEntity(pos) instanceof BlockEntitySecurityInspectionMachine entity) {
+//            NbtCompound nbt = entity.createNbt();
+            if (!entity.getStack(0).isEmpty()) {
+                // TODO: Improve drop
+                Direction facing = state.get(FACING);
+                BlockPos dropPos = pos.offset(facing.getOpposite());
+                ItemEntity itemEntity = new ItemEntity(world, dropPos.getX(), dropPos.getY(), dropPos.getZ(), entity.getStack(0));
+                itemEntity.setPos(itemEntity.getX() + 0.5, itemEntity.getY() + 0.5, itemEntity.getZ() + 0.5);
+                facing = facing.getOpposite();
+                itemEntity.addVelocity(facing.getOffsetX() * 0.1, 0, facing.getOffsetZ() * 0.1);
+                world.spawnEntity(itemEntity);
 
-                        for (ServerPlayerEntity player : ((ServerWorld) world1).getPlayers()) {
-                            entity.removeStack(0);
-                            player.networkHandler.sendPacket(entity.toUpdatePacket());
-                            MetroServerNetwork.removeInventoryItem(0, pos, player);
-                        }
-                    }
+                for (ServerPlayerEntity player : world.getPlayers()) {
+                    entity.removeStack(0);
+                    player.networkHandler.sendPacket(entity.toUpdatePacket());
+                    MetroServerNetwork.removeInventoryItem(0, pos, player);
                 }
             }
-        };
+        }
+    }
+
+    //    @Nullable
+//    @Override
+//    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(World world, BlockState state, BlockEntityType<T> type) {
+//        return (world1, pos, state1, blockEntity) -> {
+//            if (!world1.isClient() && blockEntity instanceof BlockEntitySecurityInspectionMachine entity) {
+//                NbtCompound nbt = entity.createNbt();
+//                if (world1.getTime() - nbt.getLong(BlockEntitySecurityInspectionMachine.ITEM_ANIMATION_TIME) > PROCESS_DURATION) {
+//                    if (!entity.getStack(0).isEmpty()) {
+//                        // TODO: Improve drop
+//                        Direction facing = state.get(FACING);
+//                        BlockPos dropPos = pos.offset(facing.getOpposite());
+//                        ItemEntity itemEntity = new ItemEntity(world, dropPos.getX(), dropPos.getY(), dropPos.getZ(), entity.getStack(0));
+//                        itemEntity.setPos(itemEntity.getX() + 0.5, itemEntity.getY() + 0.5, itemEntity.getZ() + 0.5);
+//                        facing = facing.getOpposite();
+//                        itemEntity.addVelocity(facing.getOffsetX() * 0.1, 0, facing.getOffsetZ() * 0.1);
+//                        world.spawnEntity(itemEntity);
+//
+//                        for (ServerPlayerEntity player : ((ServerWorld) world1).getPlayers()) {
+//                            entity.removeStack(0);
+//                            player.networkHandler.sendPacket(entity.toUpdatePacket());
+//                            MetroServerNetwork.removeInventoryItem(0, pos, player);
+//                        }
+//                    }
+//                }
+//            }
+//        };
+//    }
+
+    @Override
+    public boolean canPlaceAt(BlockState state, WorldView world, BlockPos pos) {
+        Direction facing = state.get(FACING);
+        if (facing == null) {
+            return false;
+        }
+        return world.getBlockState(pos.offset(facing)).isAir() && world.getBlockState(pos.offset(facing.getOpposite())).isAir();
     }
 
     @Override
@@ -154,8 +190,8 @@ public class BlockSecurityInspectionMachine extends HorizontalFacingBlock implem
                     ));
         } else if (state.get(PART).equals(EnumBlockSecurityInspectionMachinePart.CENTER)) {
             return MetroBlockUtil.getVoxelShapeByDirection(
-                    0, 0, -4,
-                    16, 24, 20,
+                    0, 0, 0,
+                    16, 24, 16,
                     state.get(FACING)
             );
         } else {

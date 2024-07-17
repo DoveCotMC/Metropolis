@@ -35,6 +35,14 @@ public class BlockBumper extends BlockWithEntity {
         this.setDefaultState(this.stateManager.getDefaultState().with(ROTATION, 0));
     }
 
+    @Override
+    public VoxelShape getOutlineShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {
+        return Block.createCuboidShape(
+                1, 0, 1,
+                15, 15, 15
+        );
+    }
+
     public VoxelShape getCullingShape(BlockState state, BlockView world, BlockPos pos) {
         return VoxelShapes.empty();
     }
