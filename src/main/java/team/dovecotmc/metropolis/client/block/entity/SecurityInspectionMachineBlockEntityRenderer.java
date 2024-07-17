@@ -36,10 +36,13 @@ public class SecurityInspectionMachineBlockEntityRenderer implements BlockEntity
         if (!entity.getStack(0).isEmpty()) {
             ItemRenderer itemRenderer = MinecraftClient.getInstance().getItemRenderer();
             BakedModel model = itemRenderer.getModels().getModel(entity.getStack(0));
+
             matrices.scale(1f / 16f, 1f / 16f, 1f / 16f);
-            matrices.translate(8, 11, -8);
+
+            matrices.translate(8, 14, -8);
 
             if (MinecraftClient.getInstance().world != null) {
+                matrices.scale(0.75f, 0.75f, 0.75f);
                 matrices.translate(0, 0, 32 * Math.min(1, (MinecraftClient.getInstance().world.getTime() - entity.itemAnimationTime + tickDelta) / 40f));
             }
 
