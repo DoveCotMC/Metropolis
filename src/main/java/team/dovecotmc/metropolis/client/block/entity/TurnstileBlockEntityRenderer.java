@@ -21,6 +21,7 @@ import net.minecraft.world.World;
 import team.dovecotmc.metropolis.Metropolis;
 import team.dovecotmc.metropolis.block.BlockTurnstile;
 import team.dovecotmc.metropolis.block.entity.BlockEntityTurnstile;
+import team.dovecotmc.metropolis.client.MetropolisClient;
 import team.dovecotmc.metropolis.item.ItemCard;
 import team.dovecotmc.metropolis.item.ItemTicket;
 
@@ -72,7 +73,7 @@ public class TurnstileBlockEntityRenderer implements BlockEntityRenderer<BlockEn
             matrices.translate(-8f, -8f, -8f);
             matrices.scale(16f, 16f, 16f);
 
-            if (Metropolis.config.enableGlowingTexture) {
+            if (MetropolisClient.config.enableGlowingTexture) {
                 RenderSystem.enableBlend();
                 RenderSystem.enableDepthTest();
                 RenderSystem.defaultBlendFunc();

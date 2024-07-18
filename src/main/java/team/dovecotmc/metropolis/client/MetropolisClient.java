@@ -4,9 +4,12 @@ import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
 import net.fabricmc.fabric.api.client.model.ModelLoadingRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.*;
+import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
+import net.fabricmc.fabric.api.resource.SimpleSynchronousResourceReloadListener;
 import net.fabricmc.loader.api.FabricLoader;
-import net.minecraft.client.item.ModelPredicateProviderRegistry;
 import net.minecraft.client.render.RenderLayer;
+import net.minecraft.resource.ResourceManager;
+import net.minecraft.resource.ResourceType;
 import net.minecraft.util.Identifier;
 import team.dovecotmc.metropolis.block.entity.MetroBlockEntities;
 import team.dovecotmc.metropolis.client.block.entity.*;
@@ -15,8 +18,7 @@ import team.dovecotmc.metropolis.block.MetroBlocks;
 import team.dovecotmc.metropolis.client.block.model.provider.MetroModelProvicer;
 import team.dovecotmc.metropolis.client.gui.MetroBlockPlaceHud;
 import team.dovecotmc.metropolis.client.network.MetroClientNetwork;
-import team.dovecotmc.metropolis.item.ItemTicket;
-import team.dovecotmc.metropolis.item.MetroItems;
+import team.dovecotmc.metropolis.config.MetroClientConfig;
 
 /**
  * @author Arrokoth
@@ -26,6 +28,7 @@ import team.dovecotmc.metropolis.item.MetroItems;
 @SuppressWarnings("deprecation")
 public class MetropolisClient implements ClientModInitializer {
     public static final MetroBlockPlaceHud BLOCK_PLACE_HUD = new MetroBlockPlaceHud();
+    public static MetroClientConfig config = MetroClientConfig.load();
 
     @Override
     public void onInitializeClient() {
@@ -53,5 +56,19 @@ public class MetropolisClient implements ClientModInitializer {
         BlockEntityRendererRegistry.register(MetroBlockEntities.SECURITY_INSPECTION_MACHINE_BLOCK_ENTITY, ctx -> new SecurityInspectionMachineBlockEntityRenderer());
 
         HudRenderCallback.EVENT.register(BLOCK_PLACE_HUD::render);
+        ResourceManagerHelper.get(ResourceType.CLIENT_RESOURCES).registerReloadListener(new ResourceReloadListener());
+    }
+
+    private static class ResourceReloadListener implements SimpleSynchronousResourceReloadListener {
+        @Override
+        public Identifier getFabricId() {
+            return new Identifier(Metropolis.MOD_ID, "metropolis_custom_resources");
+        }
+
+        @Override
+        public void reload(ResourceManager manager) {
+            System.out.println("reloading!!!!");
+            MetropolisClient.config = MetroClientConfig.load();
+        }
     }
 }

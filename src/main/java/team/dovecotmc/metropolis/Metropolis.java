@@ -2,8 +2,6 @@ package team.dovecotmc.metropolis;
 
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.client.itemgroup.FabricItemGroupBuilder;
-import net.fabricmc.fabric.api.client.screen.v1.ScreenEvents;
-import net.minecraft.block.Blocks;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Identifier;
@@ -14,8 +12,6 @@ import team.dovecotmc.metropolis.block.entity.MetroBlockEntities;
 import team.dovecotmc.metropolis.config.MetroConfig;
 import team.dovecotmc.metropolis.item.MetroItems;
 import team.dovecotmc.metropolis.network.MetroServerNetwork;
-
-import java.util.Random;
 
 /**
  * @author Arrokoth
@@ -28,11 +24,10 @@ public class Metropolis implements ModInitializer {
     public static final ItemGroup ITEM_GROUP = FabricItemGroupBuilder.create(new Identifier(MOD_ID, "all"))
             .icon(() -> new ItemStack(MetroItems.ITEM_MONITOR))
             .build();
-    public static final MetroConfig config = new MetroConfig();
+    public static final MetroConfig config = MetroConfig.load();
 
     @Override
     public void onInitialize() {
-//        MetroConfig.save(config);
         MetroBlocks.initialize();
         MetroBlockEntities.initialize();
         MetroItems.initialize();

@@ -19,6 +19,7 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import team.dovecotmc.metropolis.Metropolis;
 import team.dovecotmc.metropolis.block.IBlockStationOverlayShouldRender;
 import team.dovecotmc.metropolis.client.MetropolisClient;
 import team.dovecotmc.metropolis.util.MtrStationUtil;
@@ -38,6 +39,10 @@ public abstract class MixinBlockOutlineRender {
 
     @Inject(at = @At("TAIL"), method = "drawBlockOutline")
     public void renderTail(MatrixStack matrices, VertexConsumer vertexConsumer, Entity entity, double cameraX, double cameraY, double cameraZ, BlockPos pos, BlockState state, CallbackInfo ci) {
+        if (!MetropolisClient.config.enableStationInfoOverlay) {
+            return;
+        }
+
         if (MetropolisClient.BLOCK_PLACE_HUD.shouldRender && world != null) {
             boolean outline = true;
             if (state.getBlock() instanceof IBlockStationOverlayShouldRender config) {

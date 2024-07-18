@@ -17,6 +17,7 @@ import net.minecraft.util.registry.Registry;
 import team.dovecotmc.metropolis.Metropolis;
 import team.dovecotmc.metropolis.block.BlockTicketVendor;
 import team.dovecotmc.metropolis.block.entity.BlockEntityTicketVendor;
+import team.dovecotmc.metropolis.client.MetropolisClient;
 
 /**
  * @author Arrokoth
@@ -32,7 +33,7 @@ public class TicketVendorBlockEntityRenderer implements BlockEntityRenderer<Bloc
             BlockState block = entity.getCachedState();
             Direction facing = entity.getCachedState().get(HorizontalFacingBlock.FACING);
 
-            if (Metropolis.config.enableGlowingTexture) {
+            if (MetropolisClient.config.enableGlowingTexture) {
                 matrices.push();
 
                 RenderSystem.assertOnRenderThread();

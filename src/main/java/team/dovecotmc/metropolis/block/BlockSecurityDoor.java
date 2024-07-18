@@ -18,14 +18,18 @@ import net.minecraft.text.Text;
 import net.minecraft.util.DyeColor;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.random.Random;
+import net.minecraft.util.registry.Registry;
 import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.util.shape.VoxelShapes;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldAccess;
 import org.jetbrains.annotations.Nullable;
+import team.dovecotmc.metropolis.Metropolis;
 import team.dovecotmc.metropolis.util.MetroBlockUtil;
 import team.dovecotmc.metropolis.util.MtrSoundUtil;
+
+import java.util.Objects;
 
 /**
  * @author Arrokoth
@@ -53,11 +57,22 @@ public class BlockSecurityDoor extends HorizontalFacingBlock {
             if (state.get(HALF).equals(DoubleBlockHalf.LOWER) && !state.get(OPEN)) {
                 boolean open = true;
                 PlayerEntity player = (PlayerEntity) entity;
+                System.out.println(Metropolis.config.dangerItems);
                 for (ItemStack stack : player.getInventory().main) {
                     // TODO: Configurable
-                    if (stack.getItem().equals(Items.TNT)) {
-                        open = false;
+//                    if (stack.getItem().equals(Items.TNT)) {
+//                        open = false;
+//                    }
+                    for (String id : Metropolis.config.dangerItems) {
+                        if (Objects.equals(id, Registry.ITEM.getId(stack.getItem()).toString())) {
+                            System.out.println(111);
+                            open = false;
+                            break;
+                        }
                     }
+//                    System.out.println();
+//                    if (Metropolis.config.dangerItems.contains(Registry.ITEM.getId(stack.getItem()).toString())) {
+//                    }
                 }
                 if (open) {
                     world.playSound(null, pos, MtrSoundUtil.TICKET_BARRIER_CONCESSIONARY, SoundCategory.BLOCKS, 1f, 1f);

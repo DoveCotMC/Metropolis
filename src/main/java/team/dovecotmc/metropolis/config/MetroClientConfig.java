@@ -1,51 +1,53 @@
 package team.dovecotmc.metropolis.config;
 
-import com.google.gson.*;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import net.minecraft.client.MinecraftClient;
-import net.minecraft.item.Items;
 import team.dovecotmc.metropolis.Metropolis;
 
 import java.io.File;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * @author Arrokoth
  * @project Metropolis
  * @copyright Copyright © 2024 Arrokoth All Rights Reserved.
  */
-public class MetroConfig {
-    public static final Path CONFIG_FILE_PATH = MinecraftClient.getInstance().runDirectory.toPath().resolve("config").resolve("metropolis").resolve("common.json");
+public class MetroClientConfig {
+    public static final Path CONFIG_FILE_PATH = MinecraftClient.getInstance().runDirectory.toPath().resolve("config").resolve("metropolis").resolve("client.json");
     public JsonObject json;
-    public List<String> dangerItems;
+    public boolean enableGlowingTexture;
+    public boolean enableStationInfoOverlay;
 
-    public MetroConfig() {
+    public MetroClientConfig() {
         this.json = new JsonObject();
-        this.dangerItems = List.of("minecraft:tnt", "minecraft:iron_sword", "minecraft:diamond_sword", "minecraft:netherite_sword");
+        this.enableGlowingTexture = true;
+        this.enableStationInfoOverlay = true;
+    }
+
+    public void reload() {
+//        if ()
     }
 
     public void refresh() {
         // Add default properties
-        if (!json.has("danger_items")) {
-            List<String> items = List.of("minecraft:tnt", "minecraft:iron_sword", "minecraft:diamond_sword", "minecraft:netherite_sword");
-            JsonArray array = new JsonArray();
-            for (String i : items) {
-                array.add(i);
-            }
-            json.add("danger_items", array);
+        if (!json.has("enable_glowing_texture")) {
+            json.addProperty("enable_glowing_texture", true);
         }
-        this.dangerItems = new ArrayList<>();
-        json.getAsJsonArray("danger_items").iterator().forEachRemaining(jsonElement -> {
-            dangerItems.add(jsonElement.toString());
-        });
+        if (!json.has("enable_station_info_overlay")) {
+            json.addProperty("enable_station_info_overlay", true);
+        }
+        // Write
+        this.enableGlowingTexture = json.get("enable_glowing_texture").getAsBoolean();
+        this.enableStationInfoOverlay = json.get("enable_station_info_overlay").getAsBoolean();
     }
 
-    public static MetroConfig load() {
+    public static MetroClientConfig load() {
         JsonObject obj = null;
-        MetroConfig config = new MetroConfig();
+        MetroClientConfig config = new MetroClientConfig();
         if (Files.exists(CONFIG_FILE_PATH)) {
             try {
                 byte[] bytes = Files.readAllBytes(CONFIG_FILE_PATH);
@@ -63,7 +65,7 @@ public class MetroConfig {
         return config;
     }
 
-    public static void save(MetroConfig config) {
+    public static void save(MetroClientConfig config) {
         try {
             config.refresh();
             new File(CONFIG_FILE_PATH.getParent().toUri()).mkdirs();
