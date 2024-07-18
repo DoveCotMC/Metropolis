@@ -46,7 +46,7 @@ public class MetroItems {
 
     // Ticket
     public static final Item ITEM_SINGLE_TRIP_TICKET = register("single_trip_ticket", new ItemTicket(new Item.Settings().group(Metropolis.ITEM_GROUP), true));
-    public static final Item ITEM_SINGLE_TRIP_TICKET_EXPIRED = register("single_trip_ticket_expired", new ItemWithTooltips(new Item.Settings().group(Metropolis.ITEM_GROUP), Style.EMPTY.withColor(DyeColor.RED.getSignColor())));
+    public static final Item ITEM_SINGLE_TRIP_TICKET_USED = register("single_trip_ticket_used", new ItemTicket(new Item.Settings().group(Metropolis.ITEM_GROUP), true));
     public static final Item ITEM_CARD = register("card", new ItemCard(new Item.Settings().group(Metropolis.ITEM_GROUP)));
     // Monitor
     public static final Item ITEM_MONITOR = register("monitor", new BlockItem(MetroBlocks.BLOCK_MONITOR, new Item.Settings().group(Metropolis.ITEM_GROUP)));

@@ -124,7 +124,7 @@ public class TurnstileBlockEntityRenderer implements BlockEntityRenderer<BlockEn
             }
 
             BlockEntityTurnstile.EnumTurnstileType type = BlockEntityTurnstile.EnumTurnstileType.get(block.get(BlockTurnstile.TYPE));
-            if (type == BlockEntityTurnstile.EnumTurnstileType.ENTER || type == BlockEntityTurnstile.EnumTurnstileType.EXIT) {
+            if (type == BlockEntityTurnstile.EnumTurnstileType.ENTER) {
                 if (!entity.getStack(0).isEmpty()) {
 
                     float animTime = (float) (world.getTime() - entity.ticketAnimationStartTime) + tickDelta;
@@ -188,7 +188,7 @@ public class TurnstileBlockEntityRenderer implements BlockEntityRenderer<BlockEn
 ////                        if (MinecraftClient.getInstance().crosshairTarget.getType().equals(HitResult.Type.BLOCK) && MinecraftClient.getInstance().crosshairTarget.getPos())
 //                    }
 //                }
-            }/* else if (type == BlockEntityTurnstile.EnumTurnstileType.EXIT) {
+            } else if (type == BlockEntityTurnstile.EnumTurnstileType.EXIT) {
                 float animTime = (float) (world.getTime() - entity.ticketAnimationStartTime) + tickDelta;
                 if (animTime < 3) {
                     matrices.push();
@@ -212,7 +212,7 @@ public class TurnstileBlockEntityRenderer implements BlockEntityRenderer<BlockEn
                     );
                     matrices.pop();
                 }
-            }*/
+            }
         }
         matrices.pop();
     }
