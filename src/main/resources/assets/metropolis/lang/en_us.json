@@ -1,4 +1,6 @@
 {
+    "itemGroup.metropolis.all": "Metropolis",
+
     "gui.metropolis.ticket_vendor.title": "Ticket Vendor Machine",
     "gui.metropolis.ticket_vendor_1.title": "Ticket Vendor Machine",
     "gui.metropolis.ticket_vendor_1.subtitle": "Press the item of your operation",
@@ -62,7 +64,7 @@
     "misc.metropolis.turnstile_mode.exit": "Exit",
 
     "item.metropolis.single_trip_ticket": "Single trip ticket",
-    "item.metropolis.single_trip_ticket_expired": "Single trip ticket",
+    "item.metropolis.single_trip_ticket_used": "Single trip ticket",
     "tooltip.metropolis.single_trip_ticket_expired": "Expired",
     "item.metropolis.card": "IC Card",
 
@@ -80,6 +82,8 @@
     "block.metropolis.bumper": "Bumper",
     "block.metropolis.turnstile.enter": "Turnstile (Enter)",
     "block.metropolis.turnstile.exit": "Turnstile (Exit)",
+    "block.metropolis.turnstile_ic_only.enter": "Turnstile (IC only, Enter)",
+    "block.metropolis.turnstile_ic_only.exit": "Turnstile (IC only, Exit)",
 
     "block.metropolis.monitor": "Monitor",
 

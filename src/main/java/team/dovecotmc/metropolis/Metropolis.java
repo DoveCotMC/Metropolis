@@ -25,8 +25,8 @@ import java.util.Random;
 public class Metropolis implements ModInitializer {
     public static final String MOD_ID = "metropolis";
     public static final Logger LOGGER = LogManager.getLogger("Metropolis");
-    public static final ItemGroup ITEM_GROUP = FabricItemGroupBuilder.create(new Identifier(MOD_ID, "decorations"))
-            .icon(() -> new ItemStack(MetroItems.ITEM_TICKET_VENDOR_EV23))
+    public static final ItemGroup ITEM_GROUP = FabricItemGroupBuilder.create(new Identifier(MOD_ID, "all"))
+            .icon(() -> new ItemStack(MetroItems.ITEM_MONITOR))
             .build();
     public static final MetroConfig config = new MetroConfig();
 

@@ -80,7 +80,8 @@ public class BlockTurnstile extends HorizontalFacingBlock implements BlockEntity
                 world.playSound(null, pos, SoundEvents.BLOCK_COPPER_BREAK, SoundCategory.BLOCKS, 1f, 1f);
                 int nextTypeIndex = (type.index + 1) % 2;
                 world.setBlockState(pos, state.with(TYPE, nextTypeIndex));
-                player.sendMessage(Text.translatable("info.metropolis.turnstile_type", BlockEntityTurnstile.EnumTurnstileType.get(nextTypeIndex)), true);
+                Text typeName = Text.translatable("misc.metropolis.turnstile_mode." + BlockEntityTurnstile.EnumTurnstileType.get(nextTypeIndex).name().toLowerCase());
+                player.sendMessage(Text.translatable("info.metropolis.turnstile_type", typeName), true);
                 blockEntity.readNbt(nbt);
                 blockEntity.clear();
                 ((ServerPlayerEntity) player).networkHandler.sendPacket(blockEntity.toUpdatePacket());
@@ -305,11 +306,23 @@ public class BlockTurnstile extends HorizontalFacingBlock implements BlockEntity
     @Override
     public ItemStack getPickStack(BlockView world, BlockPos pos, BlockState state) {
         BlockEntityTurnstile.EnumTurnstileType type = BlockEntityTurnstile.EnumTurnstileType.get(state.get(TYPE));
-        return switch (type) {
-            case ENTER -> new ItemStack(MetroItems.ITEM_TURNSTILE_ENTER);
-            case EXIT -> new ItemStack(MetroItems.ITEM_TURNSTILE_EXIT);
-            default -> ItemStack.EMPTY;
+        switch (type) {
+            case ENTER -> {
+                if (this.icOnly) {
+                    return new ItemStack(MetroItems.ITEM_TURNSTILE_IC_ONLY_ENTER);
+                } else {
+                    return new ItemStack(MetroItems.ITEM_TURNSTILE_ENTER);
+                }
+            }
+            case EXIT -> {
+                if (this.icOnly) {
+                    return new ItemStack(MetroItems.ITEM_TURNSTILE_IC_ONLY_EXIT);
+                } else {
+                    return new ItemStack(MetroItems.ITEM_TURNSTILE_EXIT);
+                }
+            }
         };
+        return new ItemStack(MetroItems.ITEM_TURNSTILE_ENTER);
     }
 
     @Override
