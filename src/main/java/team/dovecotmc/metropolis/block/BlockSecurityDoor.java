@@ -59,7 +59,7 @@ public class BlockSecurityDoor extends HorizontalFacingBlock {
                 PlayerEntity player = (PlayerEntity) entity;
                 System.out.println(Metropolis.config.dangerItems);
                 for (ItemStack stack : player.getInventory().main) {
-                    // TODO: Configurable
+                    // TODO: Why this not work
 //                    if (stack.getItem().equals(Items.TNT)) {
 //                        open = false;
 //                    }
