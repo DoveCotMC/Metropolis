@@ -184,7 +184,7 @@ public class TicketVendorScreen3 extends Screen {
         if (continueHovering && pressed) {
             playButtonSound(MinecraftClient.getInstance().getSoundManager());
 
-            ItemStack ticketStack = new ItemStack(MetroItems.ITEM_TICKET);
+            ItemStack ticketStack = new ItemStack(MetroItems.ITEM_SINGLE_TRIP_TICKET);
             NbtCompound nbt = ticketStack.getOrCreateNbt();
             int cost = Integer.parseInt(value);
             nbt.putInt(ItemTicket.BALANCE, cost);

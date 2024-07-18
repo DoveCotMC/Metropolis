@@ -60,7 +60,7 @@
     "misc.metropolis.turnstile_mode.enter": "Enter",
     "misc.metropolis.turnstile_mode.exit": "Exit",
 
-    "item.metropolis.ticket": "Single trip ticket",
+    "item.metropolis.single_trip_ticket": "Single trip ticket",
     "item.metropolis.card": "IC Card",
 
     "block.metropolis.cable": "Cable",

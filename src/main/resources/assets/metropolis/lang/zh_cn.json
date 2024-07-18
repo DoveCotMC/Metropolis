@@ -60,7 +60,7 @@
     "misc.metropolis.turnstile_mode.enter": "入",
     "misc.metropolis.turnstile_mode.exit": "出",
 
-    "item.metropolis.ticket": "单程票",
+    "item.metropolis.single_trip_ticket": "单程票",
     "item.metropolis.card": "IC卡",
 
     "block.metropolis.cable": "线缆",

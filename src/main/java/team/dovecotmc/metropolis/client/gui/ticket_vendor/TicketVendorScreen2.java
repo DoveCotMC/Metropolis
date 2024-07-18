@@ -280,7 +280,7 @@ public class TicketVendorScreen2 extends Screen {
                             stationFirstName = arr2[0];
                         }
 
-                        ItemStack ticketStack = new ItemStack(MetroItems.ITEM_TICKET);
+                        ItemStack ticketStack = new ItemStack(MetroItems.ITEM_SINGLE_TRIP_TICKET);
                         NbtCompound nbt = ticketStack.getOrCreateNbt();
                         nbt.putInt(ItemTicket.BALANCE, cost);
                         nbt.putString(ItemTicket.START_STATION, locatedStationFirstName);
@@ -363,7 +363,7 @@ public class TicketVendorScreen2 extends Screen {
                     playDownSound(MinecraftClient.getInstance().getSoundManager());
                 }
 
-                ItemStack ticketStack = new ItemStack(MetroItems.ITEM_TICKET);
+                ItemStack ticketStack = new ItemStack(MetroItems.ITEM_SINGLE_TRIP_TICKET);
                 NbtCompound nbt = ticketStack.getOrCreateNbt();
                 nbt.putInt(ItemTicket.BALANCE, i + 1);
 

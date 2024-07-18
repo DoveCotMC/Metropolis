@@ -431,7 +431,7 @@ public class TicketVendorScreen1 extends Screen {
 //        int scaleFactor = 4;
 //        matrixStack.scale(scaleFactor, scaleFactor, scaleFactor);
 //
-//        ItemStack stack = new ItemStack(MetroItems.ITEM_TICKET);
+//        ItemStack stack = new ItemStack(MetroItems.ITEM_SINGLE_TRIP_TICKET);
 //        itemRenderer.renderInGui(stack, (width / 2 - 16 * scaleFactor / 2) / scaleFactor, (height / 2 - 16 * scaleFactor / 2) / scaleFactor);
 //
 //        itemRenderer.renderGuiItemOverlay(textRenderer, stack, (width / 2 - 16 * scaleFactor / 2) / scaleFactor, (height / 2 - 16 * scaleFactor / 2) / scaleFactor);
