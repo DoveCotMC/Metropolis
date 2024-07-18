@@ -1,14 +1,10 @@
 package team.dovecotmc.metropolis.item;
 
 import mtr.Blocks;
-import mtr.MTR;
-import mtr.MTRClient;
 import mtr.data.RailAngle;
 import mtr.data.RailwayData;
 import mtr.data.TransportMode;
-import mtr.item.ItemBlockClickingBase;
 import mtr.item.ItemNodeModifierBase;
-import mtr.item.ItemNodeModifierSelectableBlockBase;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.MinecraftClient;

@@ -80,9 +80,7 @@ public class BlockSecurityInspectionMachine extends HorizontalFacingBlock implem
     @Override
     public void scheduledTick(BlockState state, ServerWorld world, BlockPos pos, Random random) {
         if (world.getBlockEntity(pos) instanceof BlockEntitySecurityInspectionMachine entity) {
-//            NbtCompound nbt = entity.createNbt();
             if (!entity.getStack(0).isEmpty()) {
-                // TODO: Improve drop
                 Direction facing = state.get(FACING);
                 BlockPos dropPos = pos.offset(facing.getOpposite());
                 ItemEntity itemEntity = new ItemEntity(world, dropPos.getX(), dropPos.getY(), dropPos.getZ(), entity.getStack(0));

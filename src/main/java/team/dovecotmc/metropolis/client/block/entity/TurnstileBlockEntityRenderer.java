@@ -154,7 +154,7 @@ public class TurnstileBlockEntityRenderer implements BlockEntityRenderer<BlockEn
                         matrices.scale(0.33f, 0.33f, 0.33f);
                         matrices.translate(0, -1d / 16d, 0);
                         matrices.translate(0, Math.sqrt((0.2 / 16) * Math.min(animTime, 5) / 5f), 0);
-                        matrices.multiply(Quaternion.fromEulerXyzDegrees(new Vec3f(0, 0, 90)));
+                        matrices.multiply(Quaternion.fromEulerXyzDegrees(new Vec3f(15, 0, 90)));
 
                         itemRenderer.renderItem(
                                 entity.getStack(0),

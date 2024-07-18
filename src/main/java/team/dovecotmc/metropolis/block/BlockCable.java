@@ -80,7 +80,6 @@ public class BlockCable extends HorizontalFacingBlock {
     }
 
     public BlockState getStateForUpdate(WorldAccess world, BlockPos pos, BlockState state, Direction facing) {
-        // TODO: State
         Block finalBlock = MetroBlocks.BLOCK_CABLE;
 
         BlockState up = world.getBlockState(pos.up());

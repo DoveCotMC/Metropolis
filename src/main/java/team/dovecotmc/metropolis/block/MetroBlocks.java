@@ -28,7 +28,7 @@ public class MetroBlocks {
     public static final Block BLOCK_CABLE_UP_LEFT = register("cable_up_left", new BlockCable(FabricBlockSettings.of(Material.METAL, MapColor.STONE_GRAY).noCollision().nonOpaque(), false, false, false));
     public static final Block BLOCK_CABLE_UP_RIGHT = register("cable_up_right", new BlockCable(FabricBlockSettings.of(Material.METAL, MapColor.STONE_GRAY).noCollision().nonOpaque(), false, false, false));
     // Tunnel light
-    public static final Block BLOCK_TUNNEL_LIGHT_A = register("tunnel_light_a", new BlockTunnelLight(FabricBlockSettings.of(Material.METAL, MapColor.STONE_GRAY).nonOpaque()));
+//    public static final Block BLOCK_TUNNEL_LIGHT_A = register("tunnel_light_a", new BlockTunnelLight(FabricBlockSettings.of(Material.METAL, MapColor.STONE_GRAY).nonOpaque()));
 
     // Ticket Vendor Decos
     public static final Block BLOCK_TICKET_VENDOR_UP_1 = register("ticket_vendor_up_1", new BlockTicketVendorUp());
@@ -90,10 +90,6 @@ public class MetroBlocks {
     // TODO: Blind path
 //    public static final Block BLOCK_BLIND_PATH_STRIP = register("blind_path_strip", new BlockHorizontalAxis(AbstractBlock.Settings.of(Material.STONE, DyeColor.YELLOW)));
 //    public static final Block BLOCK_BLIND_PATH_POINT = register("blind_path_point", new Block(AbstractBlock.Settings.of(Material.STONE, DyeColor.YELLOW)));
-
-    private static Block registerWIPFeature(String id, Block block) {
-        return Registry.register(Registry.BLOCK, new Identifier(Metropolis.MOD_ID, id), block);
-    }
 
     private static Block register(String id, Block block) {
         return Registry.register(Registry.BLOCK, new Identifier(Metropolis.MOD_ID, id), block);
