@@ -4,19 +4,25 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.HorizontalFacingBlock;
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.font.TextRenderer;
+import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.client.render.*;
 import net.minecraft.client.render.block.entity.BlockEntityRenderer;
 import net.minecraft.client.render.item.ItemRenderer;
 import net.minecraft.client.render.model.json.ModelTransformation;
 import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.item.ItemStack;
 import net.minecraft.text.Text;
 import net.minecraft.util.Hand;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.hit.HitResult;
 import net.minecraft.util.math.*;
 import net.minecraft.world.World;
 import team.dovecotmc.metropolis.Metropolis;
 import team.dovecotmc.metropolis.block.BlockTurnstile;
 import team.dovecotmc.metropolis.block.entity.BlockEntityTurnstile;
+import team.dovecotmc.metropolis.item.ItemCard;
+import team.dovecotmc.metropolis.item.ItemTicket;
 
 /**
  * @author Arrokoth
@@ -118,7 +124,7 @@ public class TurnstileBlockEntityRenderer implements BlockEntityRenderer<BlockEn
             }
 
             BlockEntityTurnstile.EnumTurnstileType type = BlockEntityTurnstile.EnumTurnstileType.get(block.get(BlockTurnstile.TYPE));
-            if (type == BlockEntityTurnstile.EnumTurnstileType.ENTER) {
+            if (type == BlockEntityTurnstile.EnumTurnstileType.ENTER || type == BlockEntityTurnstile.EnumTurnstileType.EXIT) {
                 if (!entity.getStack(0).isEmpty()) {
 
                     float animTime = (float) (world.getTime() - entity.ticketAnimationStartTime) + tickDelta;
@@ -168,7 +174,21 @@ public class TurnstileBlockEntityRenderer implements BlockEntityRenderer<BlockEn
                         matrices.pop();
                     }
                 }
-            } else if (type == BlockEntityTurnstile.EnumTurnstileType.EXIT) {
+
+//                // TODO: Render balance
+//                ClientPlayerEntity player = MinecraftClient.getInstance().player;
+//                if (player != null) {
+//                    ItemStack heldStack = player.getStackInHand(Hand.MAIN_HAND);
+//                    if (heldStack.getItem() instanceof ItemTicket || heldStack.getItem() instanceof ItemCard) {
+//                        TextRenderer textRenderer = MinecraftClient.getInstance().textRenderer;
+//                        HitResult hitResult = MinecraftClient.getInstance().crosshairTarget;
+//                        if (hitResult.getType().equals(HitResult.Type.BLOCK)) {
+//                            System.out.println(hitResult.getPos().equals(entity.getPos()));
+//                        }
+////                        if (MinecraftClient.getInstance().crosshairTarget.getType().equals(HitResult.Type.BLOCK) && MinecraftClient.getInstance().crosshairTarget.getPos())
+//                    }
+//                }
+            }/* else if (type == BlockEntityTurnstile.EnumTurnstileType.EXIT) {
                 float animTime = (float) (world.getTime() - entity.ticketAnimationStartTime) + tickDelta;
                 if (animTime < 3) {
                     matrices.push();
@@ -192,7 +212,7 @@ public class TurnstileBlockEntityRenderer implements BlockEntityRenderer<BlockEn
                     );
                     matrices.pop();
                 }
-            }
+            }*/
         }
         matrices.pop();
     }
