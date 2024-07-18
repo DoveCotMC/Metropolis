@@ -83,8 +83,10 @@ public class TicketVendorBlockEntityRenderer implements BlockEntityRenderer<Bloc
                     if (time < 10) {
                         ticketOffset = 1 - Math.pow(time / 10d, 2);
                     }
-                    matrices.translate(9.25d / 16d, 2.25d / 16d, (6 + ticketOffset * 3) / 16d);
-                    matrices.scale(0.5f, 0.5f, 0.5f);
+                    matrices.translate(13.25d / 16d, 2.25d / 16d, (6 + ticketOffset * 3) / 16d);
+                    matrices.translate(-0.5 / 16f, 0, 0);
+                    matrices.scale(0.33f, 0.33f, 0.33f);
+                    matrices.translate(0.5 / 16f, 0, 0);
                     matrices.multiply(Quaternion.fromEulerXyzDegrees(new Vec3f(-90, 0, 90)));
                     mc.getItemRenderer().renderItem(entity.getStack(0), ModelTransformation.Mode.GROUND, light, overlay, matrices, vertexConsumers, 0);
                     matrices.pop();
