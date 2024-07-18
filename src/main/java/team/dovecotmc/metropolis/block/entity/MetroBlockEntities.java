@@ -28,7 +28,7 @@ public class MetroBlockEntities {
     public static final BlockEntityType<BlockEntityTurnstile> TURNSTILE_BLOCK_ENTITY = Registry.register(
             Registry.BLOCK_ENTITY_TYPE,
             new Identifier(Metropolis.MOD_ID, "turnstile"),
-            FabricBlockEntityTypeBuilder.create(BlockEntityTurnstile::new, MetroBlocks.BLOCK_TURNSTILE_ENTER).build()
+            FabricBlockEntityTypeBuilder.create(BlockEntityTurnstile::new, MetroBlocks.BLOCK_TURNSTILE, MetroBlocks.BLOCK_TURNSTILE_IC_ONLY).build()
     );
 
     public static final BlockEntityType<BlockEntityBumper> BUMPER_BLOCK_ENTITY = Registry.register(

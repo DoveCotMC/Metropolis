@@ -52,6 +52,7 @@
     "info.metropolis.unable_switch_turnstile_type": "Unable to switch turnstile type",
     "info.metropolis.turnstile_error": "Turnstile error",
     "info.metropolis.to_service_center": "Please go to the service center",
+    "info.metropolis.use_other_turnstile": "Please use other turnstile",
     "info.metropolis.no_enough_balance": "No enough balance",
 
     "hud.title.pointed_station": "Pointed Station",

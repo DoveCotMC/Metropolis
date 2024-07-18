@@ -105,10 +105,9 @@ public class BlockTicketVendor extends HorizontalFacingBlock implements BlockEnt
             } else if (blockEntity != null && player.getStackInHand(Hand.MAIN_HAND).getItem().equals(MetroItems.ITEM_CARD)) {
                 world.playSound(null, pos, SoundEvents.BLOCK_WOOL_PLACE, SoundCategory.BLOCKS, 1f, 1f);
                 ServerPlayerEntity serverPlayer = (ServerPlayerEntity) player;
-                blockEntity.setStack(1, player.getStackInHand(Hand.MAIN_HAND));
 
                 serverPlayer.networkHandler.sendPacket(blockEntity.toUpdatePacket());
-                MetroServerNetwork.openTicketVendorChargeScreen(pos, (ServerPlayerEntity) player, blockEntity.getStack(1));
+                MetroServerNetwork.openTicketVendorChargeScreen(pos, (ServerPlayerEntity) player, player.getStackInHand(Hand.MAIN_HAND));
             } else {
                 if (blockEntity != null) {
                     blockEntity.removeStack(1);

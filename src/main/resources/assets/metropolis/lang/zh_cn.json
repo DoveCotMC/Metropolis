@@ -52,6 +52,7 @@
     "info.metropolis.unable_switch_turnstile_type": "无法切换闸机类型",
     "info.metropolis.turnstile_error": "机器错误",
     "info.metropolis.to_service_center": "请去客服中心",
+    "info.metropolis.use_other_turnstile": "请使用其它闸机",
     "info.metropolis.no_enough_balance": "余额不足",
 
     "hud.title.pointed_station": "此处的车站",

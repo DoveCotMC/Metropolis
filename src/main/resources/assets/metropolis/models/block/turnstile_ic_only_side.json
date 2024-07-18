@@ -1,0 +1,7 @@
+{
+	"parent": "metropolis:base/turnstile_side",
+	"textures": {
+		"0": "metropolis:block/turnstile_ic",
+		"particle": "metropolis:block/turnstile_ic"
+	}
+}
