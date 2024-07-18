@@ -61,6 +61,8 @@
     "misc.metropolis.turnstile_mode.exit": "Exit",
 
     "item.metropolis.single_trip_ticket": "Single trip ticket",
+    "item.metropolis.single_trip_ticket_expired": "Single trip ticket",
+    "tooltip.metropolis.single_trip_ticket_expired": "Expired",
     "item.metropolis.card": "IC Card",
 
     "block.metropolis.cable": "Cable",

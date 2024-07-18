@@ -155,10 +155,11 @@ public class BlockTurnstile extends HorizontalFacingBlock implements BlockEntity
                             return ActionResult.SUCCESS;
                         }
 
-                        stackNbt.remove(ItemTicket.ENTERED_STATION);
-                        stackNbt.remove(ItemTicket.ENTERED_ZONE);
-
-                        blockEntity.setStack(0, stack);
+//                        stackNbt.remove(ItemTicket.ENTERED_STATION);
+//                        stackNbt.remove(ItemTicket.ENTERED_ZONE);
+//
+//                        blockEntity.setStack(0, stack);
+                        blockEntity.setStack(0, MetroItems.ITEM_SINGLE_TRIP_TICKET_EXPIRED.getDefaultStack());
                         player.setStackInHand(Hand.MAIN_HAND, ItemStack.EMPTY);
 
                         nbt = blockEntity.createNbt();

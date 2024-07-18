@@ -61,6 +61,8 @@
     "misc.metropolis.turnstile_mode.exit": "出",
 
     "item.metropolis.single_trip_ticket": "单程票",
+    "item.metropolis.single_trip_ticket_expired": "单程票",
+    "tooltip.metropolis.single_trip_ticket_expired": "已过期",
     "item.metropolis.card": "IC卡",
 
     "block.metropolis.cable": "线缆",

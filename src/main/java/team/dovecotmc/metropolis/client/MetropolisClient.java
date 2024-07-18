@@ -5,7 +5,9 @@ import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
 import net.fabricmc.fabric.api.client.model.ModelLoadingRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.*;
 import net.fabricmc.loader.api.FabricLoader;
+import net.minecraft.client.item.ModelPredicateProviderRegistry;
 import net.minecraft.client.render.RenderLayer;
+import net.minecraft.util.Identifier;
 import team.dovecotmc.metropolis.block.entity.MetroBlockEntities;
 import team.dovecotmc.metropolis.client.block.entity.*;
 import team.dovecotmc.metropolis.Metropolis;
@@ -13,6 +15,8 @@ import team.dovecotmc.metropolis.block.MetroBlocks;
 import team.dovecotmc.metropolis.client.block.model.provider.MetroModelProvicer;
 import team.dovecotmc.metropolis.client.gui.MetroBlockPlaceHud;
 import team.dovecotmc.metropolis.client.network.MetroClientNetwork;
+import team.dovecotmc.metropolis.item.ItemTicket;
+import team.dovecotmc.metropolis.item.MetroItems;
 
 /**
  * @author Arrokoth

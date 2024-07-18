@@ -2,7 +2,7 @@ package team.dovecotmc.metropolis.item;
 
 import net.minecraft.block.Block;
 import net.minecraft.client.item.TooltipContext;
-import net.minecraft.item.BlockItem;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.text.Style;
 import net.minecraft.text.Text;
@@ -17,14 +17,14 @@ import java.util.List;
  * @project Metropolis
  * @copyright Copyright © 2024 Arrokoth All Rights Reserved.
  */
-public class ItemBlockWithToolTips extends BlockItem {
+public class ItemWithTooltips extends Item {
     public final Style style;
-    public ItemBlockWithToolTips(Block block, Settings settings) {
-        this(block, settings, Style.EMPTY);
+    public ItemWithTooltips(Settings settings) {
+        this(settings, Style.EMPTY);
     }
 
-    public ItemBlockWithToolTips(Block block, Settings settings, Style style) {
-        super(block, settings);
+    public ItemWithTooltips(Settings settings, Style style) {
+        super(settings);
         this.style = style;
     }
 

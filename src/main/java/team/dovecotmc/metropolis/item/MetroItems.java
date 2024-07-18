@@ -46,6 +46,7 @@ public class MetroItems {
 
     // Ticket
     public static final Item ITEM_SINGLE_TRIP_TICKET = register("single_trip_ticket", new ItemTicket(new Item.Settings().group(Metropolis.ITEM_GROUP), true));
+    public static final Item ITEM_SINGLE_TRIP_TICKET_EXPIRED = register("single_trip_ticket_expired", new ItemWithTooltips(new Item.Settings().group(Metropolis.ITEM_GROUP), Style.EMPTY.withColor(DyeColor.RED.getSignColor())));
     public static final Item ITEM_CARD = register("card", new ItemCard(new Item.Settings().group(Metropolis.ITEM_GROUP)));
     // Monitor
     public static final Item ITEM_MONITOR = register("monitor", new BlockItem(MetroBlocks.BLOCK_MONITOR, new Item.Settings().group(Metropolis.ITEM_GROUP)));
@@ -70,10 +71,10 @@ public class MetroItems {
     public static final Item ITEM_TILES_HORIZONTAL_GRAY = register("tiles_horizontal_gray", new BlockItem(MetroBlocks.BLOCK_TILES_HORIZONTAL_GRAY, new Item.Settings().group(Metropolis.ITEM_GROUP)));
     public static final Item ITEM_TILES_SMALL_GRAY = register("tiles_small_gray", new BlockItem(MetroBlocks.BLOCK_TILES_SMALL_GRAY, new Item.Settings().group(Metropolis.ITEM_GROUP)));
     // Cordon blocks
-    public static final Item ITEM_CORDON_YELLOW_BLACK = register("cordon_yellow_black", new ItemBlockWithToolTips(MetroBlocks.BLOCK_CORDON_YELLOW_BLACK, new Item.Settings().group(Metropolis.ITEM_GROUP), Style.EMPTY.withColor(DyeColor.YELLOW.getSignColor())));
-    public static final Item ITEM_CORDON_YELLOW_WHITE = register("cordon_yellow_white", new ItemBlockWithToolTips(MetroBlocks.BLOCK_CORDON_YELLOW_WHITE, new Item.Settings().group(Metropolis.ITEM_GROUP), Style.EMPTY.withColor(DyeColor.YELLOW.getSignColor())));
-    public static final Item ITEM_CORDON_RED_BLACK = register("cordon_red_black", new ItemBlockWithToolTips(MetroBlocks.BLOCK_CORDON_RED_BLACK, new Item.Settings().group(Metropolis.ITEM_GROUP), Style.EMPTY.withColor(DyeColor.RED.getSignColor())));
-    public static final Item ITEM_CORDON_RED_WHITE = register("cordon_red_white", new ItemBlockWithToolTips(MetroBlocks.BLOCK_CORDON_RED_WHITE, new Item.Settings().group(Metropolis.ITEM_GROUP), Style.EMPTY.withColor(DyeColor.RED.getSignColor())));
+    public static final Item ITEM_CORDON_YELLOW_BLACK = register("cordon_yellow_black", new ItemBlockWithTooltips(MetroBlocks.BLOCK_CORDON_YELLOW_BLACK, new Item.Settings().group(Metropolis.ITEM_GROUP), Style.EMPTY.withColor(DyeColor.YELLOW.getSignColor())));
+    public static final Item ITEM_CORDON_YELLOW_WHITE = register("cordon_yellow_white", new ItemBlockWithTooltips(MetroBlocks.BLOCK_CORDON_YELLOW_WHITE, new Item.Settings().group(Metropolis.ITEM_GROUP), Style.EMPTY.withColor(DyeColor.YELLOW.getSignColor())));
+    public static final Item ITEM_CORDON_RED_BLACK = register("cordon_red_black", new ItemBlockWithTooltips(MetroBlocks.BLOCK_CORDON_RED_BLACK, new Item.Settings().group(Metropolis.ITEM_GROUP), Style.EMPTY.withColor(DyeColor.RED.getSignColor())));
+    public static final Item ITEM_CORDON_RED_WHITE = register("cordon_red_white", new ItemBlockWithTooltips(MetroBlocks.BLOCK_CORDON_RED_WHITE, new Item.Settings().group(Metropolis.ITEM_GROUP), Style.EMPTY.withColor(DyeColor.RED.getSignColor())));
 
     // TODO: Blind path
 //    public static final Item ITEM_BLIND_PATH_STRIP = register("blind_path_strip", new BlockItem(MetroBlocks.BLOCK_BLIND_PATH_STRIP, new Item.Settings().group(Metropolis.ITEM_GROUP)));
