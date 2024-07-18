@@ -58,5 +58,49 @@
 
     "misc.metropolis.cost": "￥%s",
     "misc.metropolis.turnstile_mode.enter": "入",
-    "misc.metropolis.turnstile_mode.exit": "出"
+    "misc.metropolis.turnstile_mode.exit": "出",
+
+    "item.metropolis.ticket": "单程票",
+    "item.metropolis.card": "IC卡",
+
+    "block.metropolis.cable": "线缆",
+
+    "block.metropolis.ticket_vendor_top": "售票机装饰（顶部）",
+    "block.metropolis.ticket_vendor_panel": "售票机装饰（盖板）",
+    "block.metropolis.ticket_vendor_em10": "售票机（EM10）",
+    "block.metropolis.ticket_vendor_ev23": "售票机（EV23）",
+    "block.metropolis.ticket_vendor_ev23_yellow": "售票机（EV23，黄色）",
+
+    "block.metropolis.ceiling_a": "吊顶",
+    "block.metropolis.fluorescent_lamp": "日光灯",
+
+    "block.metropolis.bumper": "车挡器",
+    "block.metropolis.turnstile.enter": "闸机（入口）",
+    "block.metropolis.turnstile.exit": "闸机（出口）",
+
+    "block.metropolis.monitor": "监控屏幕",
+
+    "block.metropolis.security_door": "安全门",
+    "block.metropolis.security_inspection_machine": "安检机",
+
+    "block.metropolis.concrete": "混凝土",
+
+    "block.metropolis.tiles_white": "白色瓷砖",
+    "block.metropolis.tiles_large_white": "大块白色瓷砖",
+    "block.metropolis.tiles_small_white": "小块白色瓷砖",
+    "block.metropolis.tiles_horizontal_white": "竖向白色瓷砖",
+
+    "block.metropolis.tiles_gray": "灰色瓷砖",
+    "block.metropolis.tiles_large_gray": "大块灰色瓷砖",
+    "block.metropolis.tiles_small_gray": "小块灰色瓷砖",
+    "block.metropolis.tiles_horizontal_gray": "竖向灰色瓷砖",
+
+    "block.metropolis.cordon_yellow_black": "警戒方块",
+    "tooltip.metropolis.cordon_yellow_black": "颜色：黄黑色",
+    "block.metropolis.cordon_yellow_white": "警戒方块",
+    "tooltip.metropolis.cordon_yellow_white": "颜色：黄白色",
+    "block.metropolis.cordon_red_black": "警戒方块",
+    "tooltip.metropolis.cordon_red_black": "颜色：红黑色",
+    "block.metropolis.cordon_red_white": "警戒方块",
+    "tooltip.metropolis.cordon_red_white": "颜色：红白色"
 }

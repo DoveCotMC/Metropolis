@@ -58,5 +58,49 @@
 
     "misc.metropolis.cost": "$%s",
     "misc.metropolis.turnstile_mode.enter": "Enter",
-    "misc.metropolis.turnstile_mode.exit": "Exit"
+    "misc.metropolis.turnstile_mode.exit": "Exit",
+
+    "item.metropolis.ticket": "Single trip ticket",
+    "item.metropolis.card": "IC Card",
+
+    "block.metropolis.cable": "Cable",
+
+    "block.metropolis.ticket_vendor_top": "Ticket vendor decoration (Top)",
+    "block.metropolis.ticket_vendor_panel": "Ticket vendor decoration (Panel)",
+    "block.metropolis.ticket_vendor_em10": "Ticket vendor (EM10)",
+    "block.metropolis.ticket_vendor_ev23": "Ticket vendor (EV23)",
+    "block.metropolis.ticket_vendor_ev23_yellow": "Ticket vendor (EV23 Yellow)",
+
+    "block.metropolis.ceiling_a": "Ceiling",
+    "block.metropolis.fluorescent_lamp": "Fluorescent lamp",
+
+    "block.metropolis.bumper": "Bumper",
+    "block.metropolis.turnstile.enter": "Turnstile (Enter)",
+    "block.metropolis.turnstile.exit": "Turnstile (Exit)",
+
+    "block.metropolis.monitor": "Monitor",
+
+    "block.metropolis.security_door": "Security door",
+    "block.metropolis.security_inspection_machine": "Security inspection machine",
+
+    "block.metropolis.concrete": "Concrete",
+
+    "block.metropolis.tiles_white": "White tiles",
+    "block.metropolis.tiles_large_white": "Large white tiles",
+    "block.metropolis.tiles_small_white": "Small white tiles",
+    "block.metropolis.tiles_horizontal_white": "Horizontal white tiles",
+
+    "block.metropolis.tiles_gray": "Gray tiles",
+    "block.metropolis.tiles_large_gray": "Large gray tiles",
+    "block.metropolis.tiles_small_gray": "Small gray tiles",
+    "block.metropolis.tiles_horizontal_gray": "Horizontal gray tiles",
+
+    "block.metropolis.cordon_yellow_black": "Cordon block",
+    "tooltip.metropolis.cordon_yellow_black": "Color: Yellow-black",
+    "block.metropolis.cordon_yellow_white": "Cordon block",
+    "tooltip.metropolis.cordon_yellow_white": "Color: Yellow-white",
+    "block.metropolis.cordon_red_black": "Cordon block",
+    "tooltip.metropolis.cordon_red_black": "Color: Red-black",
+    "block.metropolis.cordon_red_white": "Cordon block",
+    "tooltip.metropolis.cordon_red_white": "Color: Red-white"
 }
