@@ -402,6 +402,11 @@ public class TicketVendorScreen1 extends Screen {
 
         super.render(matrices, mouseX, mouseY, delta);
 
+        // TODO: Other screens
+        if (grayTopHovering || grayBottomHovering) {
+            this.renderTooltip(matrices, Text.literal("Coming s∞n..."), mouseX, mouseY);
+        }
+
         if (pressing) {
             if (!lastPressing) {
                 pressed = true;
