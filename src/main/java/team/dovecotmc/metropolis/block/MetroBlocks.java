@@ -32,6 +32,7 @@ public class MetroBlocks {
 
     // Ticket Vendor Decos
     public static final Block BLOCK_TICKET_VENDOR_UP_1 = register("ticket_vendor_up_1", new BlockTicketVendorUp());
+    public static final Block BLOCK_TICKET_VENDOR_UP_EM10 = register("ticket_vendor_up_em10", new BlockTicketVendorUp());
     public static final Block BLOCK_TICKET_VENDOR_UP_EV23 = register("ticket_vendor_up_ev23", new BlockTicketVendorUp());
     public static final Block BLOCK_TICKET_VENDOR_UP_EV23_GREEN = register("ticket_vendor_up_ev23_green", new BlockTicketVendorUp());
     public static final Block BLOCK_TICKET_VENDOR_UP_EV23_YELLOW = register("ticket_vendor_up_ev23_yellow", new BlockTicketVendorUp());

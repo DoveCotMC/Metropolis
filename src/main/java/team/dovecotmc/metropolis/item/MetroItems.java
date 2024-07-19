@@ -21,11 +21,11 @@ public class MetroItems {
     public static final Item ITEM_CABLE = register("cable", new BlockItem(MetroBlocks.BLOCK_CABLE, new Item.Settings().group(Metropolis.ITEM_GROUP)));
     // TODO: Tunnel light
 //    public static final Item ITEM_TUNNEL_LIGHT_A = register("tunnel_light_a", new BlockItem(MetroBlocks.BLOCK_TUNNEL_LIGHT_A, new Item.Settings().group(Metropolis.ITEM_GROUP)));
-    public static final Item ITEM_TICKET_VENDOR_TOP = register("ticket_vendor_top", new BlockItem(MetroBlocks.BLOCK_TICKET_VENDOR_TOP, new Item.Settings().group(Metropolis.ITEM_GROUP)));
-    public static final Item ITEM_TICKET_VENDOR_PANEL = register("ticket_vendor_panel", new BlockItem(MetroBlocks.BLOCK_TICKET_VENDOR_PANEL, new Item.Settings().group(Metropolis.ITEM_GROUP)));
-    public static final Item ITEM_TICKET_VENDOR_EM10 = register("ticket_vendor_em10", new ItemBlockShowStationHUD(MetroBlocks.BLOCK_TICKET_VENDOR_EM10, new Item.Settings().group(Metropolis.ITEM_GROUP)));
-    public static final Item ITEM_TICKET_VENDOR_EV23 = register("ticket_vendor_ev23", new ItemBlockShowStationHUD(MetroBlocks.BLOCK_TICKET_VENDOR_EV23, new Item.Settings().group(Metropolis.ITEM_GROUP)));
-    public static final Item ITEM_TICKET_VENDOR_EV23_YELLOW = register("ticket_vendor_ev23_yellow", new ItemBlockShowStationHUD(MetroBlocks.BLOCK_TICKET_VENDOR_EV23_YELLOW, new Item.Settings().group(Metropolis.ITEM_GROUP)));
+    public static final Item ITEM_TICKET_VENDOR_TOP = register("ticket_vendor_top", new ItemBlockWithTooltips(MetroBlocks.BLOCK_TICKET_VENDOR_TOP, new Item.Settings().group(Metropolis.ITEM_GROUP)));
+    public static final Item ITEM_TICKET_VENDOR_PANEL = register("ticket_vendor_panel", new ItemBlockWithTooltips(MetroBlocks.BLOCK_TICKET_VENDOR_PANEL, new Item.Settings().group(Metropolis.ITEM_GROUP)));
+    public static final Item ITEM_TICKET_VENDOR_EM10 = register("ticket_vendor_em10", new ItemBlockWithTooltipShowStationHUD(MetroBlocks.BLOCK_TICKET_VENDOR_EM10, new Item.Settings().group(Metropolis.ITEM_GROUP)));
+    public static final Item ITEM_TICKET_VENDOR_EV23 = register("ticket_vendor_ev23", new ItemBlockWithTooltipShowStationHUD(MetroBlocks.BLOCK_TICKET_VENDOR_EV23, new Item.Settings().group(Metropolis.ITEM_GROUP)));
+    public static final Item ITEM_TICKET_VENDOR_EV23_YELLOW = register("ticket_vendor_ev23_yellow", new ItemBlockWithTooltipShowStationHUD(MetroBlocks.BLOCK_TICKET_VENDOR_EV23_YELLOW, new Item.Settings().group(Metropolis.ITEM_GROUP)));
     // Ceiling
     public static final Item ITEM_CEILING_A = register("ceiling_a", new BlockItem(MetroBlocks.BLOCK_CEILING_A, new Item.Settings().group(Metropolis.ITEM_GROUP)));
 
@@ -73,10 +73,10 @@ public class MetroItems {
     public static final Item ITEM_TILES_HORIZONTAL_GRAY = register("tiles_horizontal_gray", new BlockItem(MetroBlocks.BLOCK_TILES_HORIZONTAL_GRAY, new Item.Settings().group(Metropolis.ITEM_GROUP)));
     public static final Item ITEM_TILES_SMALL_GRAY = register("tiles_small_gray", new BlockItem(MetroBlocks.BLOCK_TILES_SMALL_GRAY, new Item.Settings().group(Metropolis.ITEM_GROUP)));
     // Cordon blocks
-    public static final Item ITEM_CORDON_YELLOW_BLACK = register("cordon_yellow_black", new ItemBlockWithTooltips(MetroBlocks.BLOCK_CORDON_YELLOW_BLACK, new Item.Settings().group(Metropolis.ITEM_GROUP), Style.EMPTY.withColor(DyeColor.YELLOW.getSignColor())));
-    public static final Item ITEM_CORDON_YELLOW_WHITE = register("cordon_yellow_white", new ItemBlockWithTooltips(MetroBlocks.BLOCK_CORDON_YELLOW_WHITE, new Item.Settings().group(Metropolis.ITEM_GROUP), Style.EMPTY.withColor(DyeColor.YELLOW.getSignColor())));
-    public static final Item ITEM_CORDON_RED_BLACK = register("cordon_red_black", new ItemBlockWithTooltips(MetroBlocks.BLOCK_CORDON_RED_BLACK, new Item.Settings().group(Metropolis.ITEM_GROUP), Style.EMPTY.withColor(DyeColor.RED.getSignColor())));
-    public static final Item ITEM_CORDON_RED_WHITE = register("cordon_red_white", new ItemBlockWithTooltips(MetroBlocks.BLOCK_CORDON_RED_WHITE, new Item.Settings().group(Metropolis.ITEM_GROUP), Style.EMPTY.withColor(DyeColor.RED.getSignColor())));
+    public static final Item ITEM_CORDON_YELLOW_BLACK = register("cordon_yellow_black", new ItemBlockWithTooltips(MetroBlocks.BLOCK_CORDON_YELLOW_BLACK, new Item.Settings().group(Metropolis.ITEM_GROUP)));
+    public static final Item ITEM_CORDON_YELLOW_WHITE = register("cordon_yellow_white", new ItemBlockWithTooltips(MetroBlocks.BLOCK_CORDON_YELLOW_WHITE, new Item.Settings().group(Metropolis.ITEM_GROUP)));
+    public static final Item ITEM_CORDON_RED_BLACK = register("cordon_red_black", new ItemBlockWithTooltips(MetroBlocks.BLOCK_CORDON_RED_BLACK, new Item.Settings().group(Metropolis.ITEM_GROUP)));
+    public static final Item ITEM_CORDON_RED_WHITE = register("cordon_red_white", new ItemBlockWithTooltips(MetroBlocks.BLOCK_CORDON_RED_WHITE, new Item.Settings().group(Metropolis.ITEM_GROUP)));
 
     // TODO: Blind path
 //    public static final Item ITEM_BLIND_PATH_STRIP = register("blind_path_strip", new BlockItem(MetroBlocks.BLOCK_BLIND_PATH_STRIP, new Item.Settings().group(Metropolis.ITEM_GROUP)));

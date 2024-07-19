@@ -13,6 +13,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
+import net.minecraft.sound.SoundCategory;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.EnumProperty;
 import net.minecraft.util.ActionResult;
@@ -23,6 +24,7 @@ import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.random.Random;
+import net.minecraft.util.registry.Registry;
 import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.util.shape.VoxelShapes;
 import net.minecraft.world.BlockView;
@@ -30,9 +32,11 @@ import net.minecraft.world.World;
 import net.minecraft.world.WorldAccess;
 import net.minecraft.world.WorldView;
 import org.jetbrains.annotations.Nullable;
+import team.dovecotmc.metropolis.Metropolis;
 import team.dovecotmc.metropolis.block.entity.BlockEntitySecurityInspectionMachine;
 import team.dovecotmc.metropolis.network.MetroServerNetwork;
 import team.dovecotmc.metropolis.util.MetroBlockUtil;
+import team.dovecotmc.metropolis.util.MtrSoundUtil;
 
 /**
  * @author Arrokoth
@@ -81,6 +85,11 @@ public class BlockSecurityInspectionMachine extends HorizontalFacingBlock implem
     public void scheduledTick(BlockState state, ServerWorld world, BlockPos pos, Random random) {
         if (world.getBlockEntity(pos) instanceof BlockEntitySecurityInspectionMachine entity) {
             if (!entity.getStack(0).isEmpty()) {
+                // TODO: Custom sound
+                if (Metropolis.config.dangerItems.contains(Registry.ITEM.getId(entity.getStack(0).getItem()).toString())) {
+                    world.playSound(null, pos, MtrSoundUtil.TICKET_BARRIER, SoundCategory.BLOCKS, 1f, 1f);
+                }
+
                 Direction facing = state.get(FACING);
                 BlockPos dropPos = pos.offset(facing.getOpposite());
                 ItemEntity itemEntity = new ItemEntity(world, dropPos.getX(), dropPos.getY(), dropPos.getZ(), entity.getStack(0));

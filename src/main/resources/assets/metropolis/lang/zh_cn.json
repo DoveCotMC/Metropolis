@@ -56,6 +56,7 @@
     "info.metropolis.to_service_center": "请去客服中心",
     "info.metropolis.use_other_turnstile": "请使用其它闸机",
     "info.metropolis.no_enough_balance": "余额不足",
+    "info.metropolis.has_danger_item": "物品栏内检测到危险物品",
 
     "hud.title.pointed_station": "此处的车站",
 
@@ -69,11 +70,16 @@
 
     "block.metropolis.cable": "线缆",
 
-    "block.metropolis.ticket_vendor_top": "售票机装饰（顶部）",
-    "block.metropolis.ticket_vendor_panel": "售票机装饰（盖板）",
-    "block.metropolis.ticket_vendor_em10": "售票机（EM10）",
-    "block.metropolis.ticket_vendor_ev23": "售票机（EV23）",
-    "block.metropolis.ticket_vendor_ev23_yellow": "售票机（EV23，黄色）",
+    "block.metropolis.ticket_vendor_top": "售票机装饰",
+    "tooltip.metropolis.ticket_vendor_top": "§7顶部面板",
+    "block.metropolis.ticket_vendor_panel": "售票机装饰",
+    "tooltip.metropolis.ticket_vendor_panel": "§7装饰盖板",
+    "block.metropolis.ticket_vendor_em10": "售票机",
+    "tooltip.metropolis.ticket_vendor_em10": "§7EM10",
+    "block.metropolis.ticket_vendor_ev23": "售票机",
+    "tooltip.metropolis.ticket_vendor_ev23": "§7EV23",
+    "block.metropolis.ticket_vendor_ev23_yellow": "售票机",
+    "tooltip.metropolis.ticket_vendor_ev23_yellow": "§7EV23 黄色",
 
     "block.metropolis.ceiling_a": "吊顶",
     "block.metropolis.fluorescent_lamp": "日光灯",
@@ -102,11 +108,11 @@
     "block.metropolis.tiles_horizontal_gray": "竖向灰色瓷砖",
 
     "block.metropolis.cordon_yellow_black": "警戒方块",
-    "tooltip.metropolis.cordon_yellow_black": "颜色：黄黑色",
+    "tooltip.metropolis.cordon_yellow_black": "§7黄黑色",
     "block.metropolis.cordon_yellow_white": "警戒方块",
-    "tooltip.metropolis.cordon_yellow_white": "颜色：黄白色",
+    "tooltip.metropolis.cordon_yellow_white": "§7黄白色",
     "block.metropolis.cordon_red_black": "警戒方块",
-    "tooltip.metropolis.cordon_red_black": "颜色：红黑色",
+    "tooltip.metropolis.cordon_red_black": "§7红黑色",
     "block.metropolis.cordon_red_white": "警戒方块",
-    "tooltip.metropolis.cordon_red_white": "颜色：红白色"
+    "tooltip.metropolis.cordon_red_white": "§7红白色"
 }

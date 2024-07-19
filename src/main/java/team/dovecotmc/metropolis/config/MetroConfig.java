@@ -39,7 +39,7 @@ public class MetroConfig {
         }
         this.dangerItems = new ArrayList<>();
         json.getAsJsonArray("danger_items").iterator().forEachRemaining(jsonElement -> {
-            dangerItems.add(jsonElement.toString());
+            dangerItems.add(jsonElement.getAsString());
         });
     }
 

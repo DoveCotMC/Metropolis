@@ -5,6 +5,7 @@ import net.minecraft.block.enums.DoubleBlockHalf;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
@@ -16,6 +17,7 @@ import net.minecraft.state.property.EnumProperty;
 import net.minecraft.state.property.Properties;
 import net.minecraft.text.Text;
 import net.minecraft.util.DyeColor;
+import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.util.registry.Registry;
@@ -29,6 +31,8 @@ import team.dovecotmc.metropolis.Metropolis;
 import team.dovecotmc.metropolis.util.MetroBlockUtil;
 import team.dovecotmc.metropolis.util.MtrSoundUtil;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -57,22 +61,11 @@ public class BlockSecurityDoor extends HorizontalFacingBlock {
             if (state.get(HALF).equals(DoubleBlockHalf.LOWER) && !state.get(OPEN)) {
                 boolean open = true;
                 PlayerEntity player = (PlayerEntity) entity;
-                System.out.println(Metropolis.config.dangerItems);
                 for (ItemStack stack : player.getInventory().main) {
-                    // TODO: Why this not work
-//                    if (stack.getItem().equals(Items.TNT)) {
-//                        open = false;
-//                    }
-                    for (String id : Metropolis.config.dangerItems) {
-                        if (Objects.equals(id, Registry.ITEM.getId(stack.getItem()).toString())) {
-                            System.out.println(111);
-                            open = false;
-                            break;
-                        }
+                    if (Metropolis.config.dangerItems.contains(Registry.ITEM.getId(stack.getItem()).toString())) {
+                        open = false;
+                        break;
                     }
-//                    System.out.println();
-//                    if (Metropolis.config.dangerItems.contains(Registry.ITEM.getId(stack.getItem()).toString())) {
-//                    }
                 }
                 if (open) {
                     world.playSound(null, pos, MtrSoundUtil.TICKET_BARRIER_CONCESSIONARY, SoundCategory.BLOCKS, 1f, 1f);
