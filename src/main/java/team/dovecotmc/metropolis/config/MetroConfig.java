@@ -1,8 +1,13 @@
 package team.dovecotmc.metropolis.config;
 
 import com.google.gson.*;
+import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.item.Item;
 import net.minecraft.item.Items;
+import net.minecraft.server.MinecraftServer;
+import net.minecraft.util.Identifier;
+import net.minecraft.util.registry.Registry;
 import team.dovecotmc.metropolis.Metropolis;
 
 import java.io.File;
@@ -18,19 +23,31 @@ import java.util.List;
  * @copyright Copyright © 2024 Arrokoth All Rights Reserved.
  */
 public class MetroConfig {
-    public static final Path CONFIG_FILE_PATH = MinecraftClient.getInstance().runDirectory.toPath().resolve("config").resolve("metropolis").resolve("common.json");
+    public static final Path CONFIG_FILE_PATH = FabricLoader.getInstance().getGameDir().resolve("config").resolve("metropolis").resolve("common.json");
     public JsonObject json;
     public List<String> dangerItems;
+    public Item currencyItem;
 
     public MetroConfig() {
         this.json = new JsonObject();
-        this.dangerItems = List.of("minecraft:tnt", "minecraft:iron_sword", "minecraft:diamond_sword", "minecraft:netherite_sword");
+        this.dangerItems = List.of(
+                Registry.ITEM.getId(Items.TNT).toString(),
+                Registry.ITEM.getId(Items.IRON_SWORD).toString(),
+                Registry.ITEM.getId(Items.DIAMOND_SWORD).toString(),
+                Registry.ITEM.getId(Items.NETHERITE_SWORD).toString()
+        );
+        this.currencyItem = Items.EMERALD;
     }
 
     public void refresh() {
         // Add default properties
         if (!json.has("danger_items")) {
-            List<String> items = List.of("minecraft:tnt", "minecraft:iron_sword", "minecraft:diamond_sword", "minecraft:netherite_sword");
+            List<String> items = List.of(
+                    Registry.ITEM.getId(Items.TNT).toString(),
+                    Registry.ITEM.getId(Items.IRON_SWORD).toString(),
+                    Registry.ITEM.getId(Items.DIAMOND_SWORD).toString(),
+                    Registry.ITEM.getId(Items.NETHERITE_SWORD).toString()
+            );
             JsonArray array = new JsonArray();
             for (String i : items) {
                 array.add(i);
@@ -41,6 +58,11 @@ public class MetroConfig {
         json.getAsJsonArray("danger_items").iterator().forEachRemaining(jsonElement -> {
             dangerItems.add(jsonElement.getAsString());
         });
+
+        if (!json.has("currency_item")) {
+            json.addProperty("currency_item", Registry.ITEM.getId(Items.EMERALD).toString());
+        }
+        this.currencyItem = Registry.ITEM.get(new Identifier(json.get("currency_item").getAsString()));
     }
 
     public static MetroConfig load() {
@@ -58,8 +80,9 @@ public class MetroConfig {
         }
         if (obj != null) {
             config.json = obj;
-            config.refresh();
         }
+        config.refresh();
+        MetroConfig.save(config);
         return config;
     }
 

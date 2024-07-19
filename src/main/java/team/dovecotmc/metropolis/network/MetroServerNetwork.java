@@ -16,6 +16,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import team.dovecotmc.metropolis.Metropolis;
 import team.dovecotmc.metropolis.block.entity.BlockEntityTicketVendor;
+import team.dovecotmc.metropolis.client.network.MetroClientNetwork;
 
 /**
  * @author Arrokoth
@@ -24,6 +25,7 @@ import team.dovecotmc.metropolis.block.entity.BlockEntityTicketVendor;
  */
 public class MetroServerNetwork {
     public static final Identifier TICKET_VENDOR_GUI = new Identifier(Metropolis.MOD_ID, "ticket_vendor_gui");
+
     public static void openTicketVendorScreen(BlockPos pos, ServerPlayerEntity player, ItemStack ticketStack) {
         PacketByteBuf packet = PacketByteBufs.create();
         packet.writeBlockPos(pos);
@@ -56,7 +58,7 @@ public class MetroServerNetwork {
             // Slot definitions: 0 = Ticket, 1 = IC Card
             int balance = buf.readInt();
 
-            Item item = Items.EMERALD;
+            Item item = MetroClientNetwork.currencyItem;
             server.execute(() -> {
                 if (balance > 0) {
                     for (int i = 0; i < balance / item.getMaxCount(); i++) {
@@ -88,7 +90,7 @@ public class MetroServerNetwork {
             BlockPos pos = buf.readBlockPos();
             ItemStack stack = buf.readItemStack();
             int balance = buf.readInt();
-            Item item = Items.EMERALD;
+            Item item = Metropolis.config.currencyItem;
             server.execute(() -> {
                 if (balance > 0) {
                     for (int i = 0; i < balance / item.getMaxCount(); i++) {
@@ -115,8 +117,17 @@ public class MetroServerNetwork {
         });
     }
 
+    public static final Identifier GET_CURRENCY_ITEM = new Identifier(Metropolis.MOD_ID, "get_currency_item");
+    public static final Identifier GET_CURRENCY_ITEM_RECEIVER = new Identifier(Metropolis.MOD_ID, "get_currency_item_receiver");
+    public static void registerCurrencyItemReceiver() {
+        ServerPlayNetworking.registerGlobalReceiver(GET_CURRENCY_ITEM, (server, player, handler, buf, responseSender) -> {
+            ServerPlayNetworking.send(player, GET_CURRENCY_ITEM_RECEIVER, PacketByteBufs.create().writeItemStack(new ItemStack(Metropolis.config.currencyItem)));
+        });
+    }
+
     public static void registerAll() {
         registerTicketVendorResultReceiver();
         registerTicketVendorCloseReceiver();
+        registerCurrencyItemReceiver();
     }
 }

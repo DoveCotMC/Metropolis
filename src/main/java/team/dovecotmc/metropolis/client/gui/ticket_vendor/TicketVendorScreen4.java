@@ -18,6 +18,7 @@ import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import team.dovecotmc.metropolis.Metropolis;
+import team.dovecotmc.metropolis.client.network.MetroClientNetwork;
 import team.dovecotmc.metropolis.item.ItemCard;
 import team.dovecotmc.metropolis.item.MetroItems;
 
@@ -75,6 +76,7 @@ public class TicketVendorScreen4 extends Screen {
 
     @Override
     protected void init() {
+        MetroClientNetwork.updateCurrencyItem();
     }
 
     @Override
@@ -190,7 +192,7 @@ public class TicketVendorScreen4 extends Screen {
             int balance = 0;
             if (client != null && client.player != null) {
                 // TODO: Configurable item
-                balance = client.player.getInventory().count(Items.EMERALD);
+                balance = client.player.getInventory().count(MetroClientNetwork.currencyItem);
             }
 
             if (balance >= Integer.parseInt(value)) {

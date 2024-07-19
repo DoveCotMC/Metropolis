@@ -3,7 +3,9 @@ package team.dovecotmc.metropolis.client.network;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
 import net.minecraft.inventory.Inventory;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.util.math.BlockPos;
 import team.dovecotmc.metropolis.client.gui.ticket_vendor.TicketVendorData;
@@ -63,9 +65,22 @@ public class MetroClientNetwork {
         });
     }
 
+    public static Item currencyItem = Items.EMERALD;
+
+    public static void updateCurrencyItem() {
+        ClientPlayNetworking.send(MetroServerNetwork.GET_CURRENCY_ITEM, PacketByteBufs.create());
+    }
+
+    public static void registerGetCurrencyItemReceiver() {
+        ClientPlayNetworking.registerGlobalReceiver(MetroServerNetwork.GET_CURRENCY_ITEM_RECEIVER, (client, handler, buf, responseSender) -> {
+            currencyItem = buf.readItemStack().getItem();
+        });
+    }
+
     public static void registerAll() {
         registerTicketVendorGuiReceiver();
         registerTicketVendorChargeGuiReceiver();
         registerRemoveInventoryItem();
+        registerGetCurrencyItemReceiver();
     }
 }

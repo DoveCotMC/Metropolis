@@ -56,6 +56,7 @@ public class TicketVendorPaymentScreen extends Screen {
         if (MinecraftClient.getInstance().world != null) {
             tipId = MinecraftClient.getInstance().world.random.nextInt(3);
         }
+        MetroClientNetwork.updateCurrencyItem();
     }
 
     @Override
@@ -140,7 +141,7 @@ public class TicketVendorPaymentScreen extends Screen {
         int balance = 0;
         if (client != null && client.player != null) {
             // TODO: Configurable item
-            balance = client.player.getInventory().count(Items.EMERALD);
+            balance = client.player.getInventory().count(MetroClientNetwork.currencyItem);
         }
 
         boolean ableToPay = balance >= paymentData.value;
@@ -172,12 +173,12 @@ public class TicketVendorPaymentScreen extends Screen {
         matrices.pop();
 
         this.itemRenderer.renderInGui(
-                new ItemStack(Items.EMERALD),
+                new ItemStack(MetroClientNetwork.currencyItem),
                 intoTexturePosX(x0 + Math.max(textRenderer.getWidth(balanceText), textRenderer.getWidth(priceText)) + 4 + textRenderer.getWidth(Text.literal("×"))),
                 intoTexturePosY(y1 - 4 + 1)
         );
         this.itemRenderer.renderInGui(
-                new ItemStack(Items.EMERALD),
+                new ItemStack(MetroClientNetwork.currencyItem),
                 intoTexturePosX(x0 + Math.max(textRenderer.getWidth(balanceText), textRenderer.getWidth(priceText)) + 4 + textRenderer.getWidth(Text.literal("×"))),
                 intoTexturePosY(y1 - 4 + 16 + 1)
         );
