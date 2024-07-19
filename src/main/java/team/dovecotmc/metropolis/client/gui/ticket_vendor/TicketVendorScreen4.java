@@ -11,6 +11,7 @@ import net.minecraft.client.util.InputUtil;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.text.Text;
@@ -185,9 +186,18 @@ public class TicketVendorScreen4 extends Screen {
             playButtonSound(MinecraftClient.getInstance().getSoundManager());
 
             ItemStack ticketStack = data.cardStack;
-            NbtCompound nbt = ticketStack.getOrCreateNbt();
-            nbt.putInt(ItemCard.BALANCE, nbt.getInt(ItemCard.BALANCE) + Integer.parseInt(value));
-            nbt.putInt(ItemCard.MAX_VALUE, nbt.getInt(ItemCard.BALANCE));
+
+            int balance = 0;
+            if (client != null && client.player != null) {
+                // TODO: Configurable item
+                balance = client.player.getInventory().count(Items.EMERALD);
+            }
+
+            if (balance >= Integer.parseInt(value)) {
+                NbtCompound nbt = ticketStack.getOrCreateNbt();
+                nbt.putInt(ItemCard.BALANCE, nbt.getInt(ItemCard.BALANCE) + Integer.parseInt(value));
+                nbt.putInt(ItemCard.MAX_VALUE, nbt.getInt(ItemCard.BALANCE));
+            }
 
             this.client.setScreen(new TicketVendorPaymentScreen(
                     pos,
