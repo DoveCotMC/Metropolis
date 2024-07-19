@@ -248,18 +248,9 @@ public class BlockTurnstile extends HorizontalFacingBlock implements BlockEntity
     @Override
     public void onPlaced(World world, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack itemStack) {
         Direction facing = state.get(FACING).rotateYClockwise();
-        System.out.println(state.get(FACING));
-//        System.out.println(world.getBlockState(pos));
-//        System.out.println(world.getBlockState(pos.offset(state.get(FACING))));
-//        System.out.println(world.getBlockState(pos.offset(facing)));
-//        System.out.println(world.getBlockState(pos.offset(facing.rotateYClockwise())));
-//        System.out.println(world.getBlockState(pos.offset(facing.rotateYClockwise().rotateYClockwise())));
         if (world.getBlockState(pos.offset(facing)).getBlock() instanceof BlockTurnstile) {
-//            System.out.println(world.getBlockState(pos.offset(facing)).getBlock().getClass());
-//            state.with(CONNECTED, true);
             world.setBlockState(pos, state.with(CONNECTED, true));
         } else {
-//            state.with(CONNECTED, false);
             world.setBlockState(pos, state.with(CONNECTED, false));
         }
     }

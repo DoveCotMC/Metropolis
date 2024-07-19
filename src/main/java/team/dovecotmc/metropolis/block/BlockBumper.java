@@ -74,6 +74,6 @@ public class BlockBumper extends BlockWithEntity {
         return true;
     }
     public BlockRenderType getRenderType(BlockState state) {
-        return BlockRenderType.INVISIBLE;
+        return BlockRenderType.MODEL;
     }
 }
