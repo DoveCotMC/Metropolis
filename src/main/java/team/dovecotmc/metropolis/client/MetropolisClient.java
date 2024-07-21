@@ -16,6 +16,7 @@ import team.dovecotmc.metropolis.client.block.entity.*;
 import team.dovecotmc.metropolis.Metropolis;
 import team.dovecotmc.metropolis.block.MetroBlocks;
 import team.dovecotmc.metropolis.client.block.model.provider.MetroModelProvicer;
+import team.dovecotmc.metropolis.client.gui.AlphaWarningHud;
 import team.dovecotmc.metropolis.client.gui.MetroBlockPlaceHud;
 import team.dovecotmc.metropolis.client.network.MetroClientNetwork;
 import team.dovecotmc.metropolis.config.MetroClientConfig;
@@ -27,7 +28,9 @@ import team.dovecotmc.metropolis.config.MetroClientConfig;
  */
 @SuppressWarnings("deprecation")
 public class MetropolisClient implements ClientModInitializer {
+    public static final boolean IS_ALPHA = true;
     public static final MetroBlockPlaceHud BLOCK_PLACE_HUD = new MetroBlockPlaceHud();
+    public static final AlphaWarningHud ALPHA_WARNING_HUD = new AlphaWarningHud();
     public static MetroClientConfig config = MetroClientConfig.load();
 
     @Override
@@ -57,6 +60,10 @@ public class MetropolisClient implements ClientModInitializer {
 
         HudRenderCallback.EVENT.register(BLOCK_PLACE_HUD::render);
         ResourceManagerHelper.get(ResourceType.CLIENT_RESOURCES).registerReloadListener(new ResourceReloadListener());
+
+        if (IS_ALPHA && !FabricLoader.getInstance().isDevelopmentEnvironment()) {
+            HudRenderCallback.EVENT.register(ALPHA_WARNING_HUD::render);
+        }
     }
 
     private static class ResourceReloadListener implements SimpleSynchronousResourceReloadListener {
