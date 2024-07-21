@@ -2,10 +2,8 @@ package team.dovecotmc.metropolis.config;
 
 import com.google.gson.*;
 import net.fabricmc.loader.api.FabricLoader;
-import net.minecraft.client.MinecraftClient;
 import net.minecraft.item.Item;
 import net.minecraft.item.Items;
-import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 import team.dovecotmc.metropolis.Metropolis;

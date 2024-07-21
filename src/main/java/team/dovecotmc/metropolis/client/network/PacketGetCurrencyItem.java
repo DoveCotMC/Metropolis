@@ -1,11 +1,8 @@
 package team.dovecotmc.metropolis.client.network;
 
-import net.minecraft.network.ClientConnection;
 import net.minecraft.network.Packet;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.network.listener.ClientPlayPacketListener;
-import net.minecraft.network.listener.PacketListener;
-import net.minecraft.text.Text;
 
 /**
  * @author Arrokoth

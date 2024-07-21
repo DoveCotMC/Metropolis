@@ -9,9 +9,7 @@ import net.minecraft.client.sound.PositionedSoundInstance;
 import net.minecraft.client.sound.SoundManager;
 import net.minecraft.client.util.InputUtil;
 import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.text.Text;
@@ -20,7 +18,6 @@ import net.minecraft.util.math.BlockPos;
 import team.dovecotmc.metropolis.Metropolis;
 import team.dovecotmc.metropolis.client.network.MetroClientNetwork;
 import team.dovecotmc.metropolis.item.ItemCard;
-import team.dovecotmc.metropolis.item.MetroItems;
 
 import java.util.ArrayList;
 import java.util.List;

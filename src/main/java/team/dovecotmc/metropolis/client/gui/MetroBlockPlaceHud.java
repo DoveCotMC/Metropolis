@@ -17,7 +17,6 @@ import net.minecraft.util.Hand;
 import net.minecraft.util.hit.HitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.ColorHelper;
-import team.dovecotmc.metropolis.Metropolis;
 import team.dovecotmc.metropolis.client.MetropolisClient;
 import team.dovecotmc.metropolis.item.IItemShowStationHUD;
 import team.dovecotmc.metropolis.util.MtrStationUtil;

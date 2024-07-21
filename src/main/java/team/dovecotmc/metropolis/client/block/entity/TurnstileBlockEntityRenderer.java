@@ -4,26 +4,20 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.HorizontalFacingBlock;
 import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.font.TextRenderer;
-import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.client.render.*;
 import net.minecraft.client.render.block.entity.BlockEntityRenderer;
 import net.minecraft.client.render.item.ItemRenderer;
 import net.minecraft.client.render.model.json.ModelTransformation;
 import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.item.ItemStack;
 import net.minecraft.text.Text;
 import net.minecraft.util.Hand;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.hit.HitResult;
 import net.minecraft.util.math.*;
 import net.minecraft.world.World;
 import team.dovecotmc.metropolis.Metropolis;
 import team.dovecotmc.metropolis.block.BlockTurnstile;
 import team.dovecotmc.metropolis.block.entity.BlockEntityTurnstile;
 import team.dovecotmc.metropolis.client.MetropolisClient;
-import team.dovecotmc.metropolis.item.ItemCard;
-import team.dovecotmc.metropolis.item.ItemTicket;
 
 /**
  * @author Arrokoth
