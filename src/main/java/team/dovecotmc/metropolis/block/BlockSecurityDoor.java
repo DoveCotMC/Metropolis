@@ -52,21 +52,22 @@ public class BlockSecurityDoor extends HorizontalFacingBlock {
     public void onEntityCollision(BlockState state, World world, BlockPos pos, Entity entity) {
         if (!world.isClient()) {
             if (state.get(HALF).equals(DoubleBlockHalf.LOWER) && !state.get(OPEN)) {
-                boolean open = true;
-                PlayerEntity player = (PlayerEntity) entity;
-                for (ItemStack stack : player.getInventory().main) {
-                    if (Metropolis.config.dangerItems.contains(Registry.ITEM.getId(stack.getItem()).toString())) {
-                        open = false;
-                        break;
+                if (entity instanceof PlayerEntity player) {
+                    boolean open = true;
+                    for (ItemStack stack : player.getInventory().main) {
+                        if (Metropolis.config.dangerItems.contains(Registry.ITEM.getId(stack.getItem()).toString())) {
+                            open = false;
+                            break;
+                        }
                     }
+                    if (open) {
+                        world.playSound(null, pos, MtrSoundUtil.TICKET_BARRIER_CONCESSIONARY, SoundCategory.BLOCKS, 1f, 1f);
+                    } else {
+                        player.sendMessage(Text.translatable("info.metropolis.has_danger_item"), true);
+                    }
+                    world.setBlockState(pos, state.with(OPEN, open));
+                    world.createAndScheduleBlockTick(pos, state.getBlock(), 20);
                 }
-                if (open) {
-                    world.playSound(null, pos, MtrSoundUtil.TICKET_BARRIER_CONCESSIONARY, SoundCategory.BLOCKS, 1f, 1f);
-                } else {
-                    player.sendMessage(Text.translatable("info.metropolis.has_danger_item"), true);
-                }
-                world.setBlockState(pos, state.with(OPEN, open));
-                world.createAndScheduleBlockTick(pos, state.getBlock(), 20);
             }
         }
     }
