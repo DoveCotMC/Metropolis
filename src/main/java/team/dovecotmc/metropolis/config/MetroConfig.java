@@ -3,6 +3,7 @@ package team.dovecotmc.metropolis.config;
 import com.google.gson.*;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
@@ -60,7 +61,8 @@ public class MetroConfig {
         if (!json.has("currency_item")) {
             json.addProperty("currency_item", Registry.ITEM.getId(Items.EMERALD).toString());
         }
-        this.currencyItem = Registry.ITEM.get(new Identifier(json.get("currency_item").getAsString()));
+        Item currency = Registry.ITEM.get(new Identifier(json.get("currency_item").getAsString()));
+        this.currencyItem = new ItemStack(currency).isEmpty() ? Items.EMERALD : currency;
     }
 
     public static MetroConfig load() {
