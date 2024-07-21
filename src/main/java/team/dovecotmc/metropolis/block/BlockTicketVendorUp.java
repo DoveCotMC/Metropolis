@@ -67,10 +67,6 @@ public class BlockTicketVendorUp extends HorizontalFacingBlock {
     @Override
     public VoxelShape getOutlineShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {
         Direction facing = state.get(FACING);
-//        return VoxelShapes.combine(
-//                IBlock.getVoxelShapeByDirection(0.0, 0.0, 10.0, 16.0, 16.0, 16.0, facing),
-//                IBlock.getVoxelShapeByDirection(0.0, 0.0, 4.0, 16.0 , 10.0, 16.0, facing),
-//                BooleanBiFunction.OR);
         return MetroBlockUtil.getVoxelShapeByDirection(0.0, 0.0, 9.0, 16.0 , 16.0, 16.0, facing);
     }
 

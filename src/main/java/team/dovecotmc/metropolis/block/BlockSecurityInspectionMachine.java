@@ -40,6 +40,7 @@ import team.dovecotmc.metropolis.util.MtrSoundUtil;
  * @project Metropolis
  * @copyright Copyright © 2024 Arrokoth All Rights Reserved.
  */
+@SuppressWarnings("deprecation")
 public class BlockSecurityInspectionMachine extends HorizontalFacingBlock implements BlockEntityProvider {
     public static final int PROCESS_DURATION = 40;
     public static final EnumProperty<EnumBlockSecurityInspectionMachinePart> PART = EnumProperty.of("part", EnumBlockSecurityInspectionMachinePart.class);
@@ -103,34 +104,6 @@ public class BlockSecurityInspectionMachine extends HorizontalFacingBlock implem
             }
         }
     }
-
-    //    @Nullable
-//    @Override
-//    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(World world, BlockState state, BlockEntityType<T> type) {
-//        return (world1, pos, state1, blockEntity) -> {
-//            if (!world1.isClient() && blockEntity instanceof BlockEntitySecurityInspectionMachine entity) {
-//                NbtCompound nbt = entity.createNbt();
-//                if (world1.getTime() - nbt.getLong(BlockEntitySecurityInspectionMachine.ITEM_ANIMATION_TIME) > PROCESS_DURATION) {
-//                    if (!entity.getStack(0).isEmpty()) {
-//                        // TODO: Improve drop
-//                        Direction facing = state.get(FACING);
-//                        BlockPos dropPos = pos.offset(facing.getOpposite());
-//                        ItemEntity itemEntity = new ItemEntity(world, dropPos.getX(), dropPos.getY(), dropPos.getZ(), entity.getStack(0));
-//                        itemEntity.setPos(itemEntity.getX() + 0.5, itemEntity.getY() + 0.5, itemEntity.getZ() + 0.5);
-//                        facing = facing.getOpposite();
-//                        itemEntity.addVelocity(facing.getOffsetX() * 0.1, 0, facing.getOffsetZ() * 0.1);
-//                        world.spawnEntity(itemEntity);
-//
-//                        for (ServerPlayerEntity player : ((ServerWorld) world1).getPlayers()) {
-//                            entity.removeStack(0);
-//                            player.networkHandler.sendPacket(entity.toUpdatePacket());
-//                            MetroServerNetwork.removeInventoryItem(0, pos, player);
-//                        }
-//                    }
-//                }
-//            }
-//        };
-//    }
 
     @Override
     public boolean canPlaceAt(BlockState state, WorldView world, BlockPos pos) {

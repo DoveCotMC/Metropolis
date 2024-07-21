@@ -33,6 +33,7 @@ import team.dovecotmc.metropolis.util.MtrSoundUtil;
  * @project Metropolis
  * @copyright Copyright © 2024 Arrokoth All Rights Reserved.
  */
+@SuppressWarnings("deprecation")
 public class BlockSecurityDoor extends HorizontalFacingBlock {
     public static final EnumProperty<DoubleBlockHalf> HALF;
     public static final BooleanProperty OPEN;
@@ -89,7 +90,7 @@ public class BlockSecurityDoor extends HorizontalFacingBlock {
     @Override
     public VoxelShape getOutlineShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {
         if (state.get(HALF).equals(DoubleBlockHalf.UPPER)) {
-            VoxelShape shape = VoxelShapes.union(VoxelShapes.union(MetroBlockUtil.getVoxelShapeByDirection(
+            return VoxelShapes.union(VoxelShapes.union(MetroBlockUtil.getVoxelShapeByDirection(
                     0, 0, 0,
                     1, 16, 16,
                     state.get(FACING)
@@ -102,15 +103,8 @@ public class BlockSecurityDoor extends HorizontalFacingBlock {
                     16, 19, 16,
                     state.get(FACING)
             ));
-            return shape;
-//            return state.get(OPEN) ?
-//                    shape :
-//                    VoxelShapes.union(
-//                            shape,
-//                            MetroBlockUtil.getVoxelShapeByDirection(0, 0, 9, 16, 24, 11, state.get(FACING))
-//                    );
         } else if (state.get(HALF).equals(DoubleBlockHalf.LOWER)) {
-            VoxelShape shape = VoxelShapes.union(MetroBlockUtil.getVoxelShapeByDirection(
+            return VoxelShapes.union(MetroBlockUtil.getVoxelShapeByDirection(
                     0, 0, 0,
                     1, 16, 16,
                     state.get(FACING)
@@ -119,13 +113,6 @@ public class BlockSecurityDoor extends HorizontalFacingBlock {
                     16, 16, 16,
                     state.get(FACING)
             ));
-            return shape;
-//            return state.get(OPEN) ?
-//                    shape :
-//                    VoxelShapes.union(
-//                            shape,
-//                            MetroBlockUtil.getVoxelShapeByDirection(0, 0, 9, 16, 24, 11, state.get(FACING))
-//                    );
         } else {
             return VoxelShapes.empty();
         }

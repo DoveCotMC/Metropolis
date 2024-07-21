@@ -15,6 +15,7 @@ import team.dovecotmc.metropolis.Metropolis;
  * @project Metropolis
  * @copyright Copyright © 2023 Arrokoth All Rights Reserved.
  */
+@SuppressWarnings("unused")
 public class MetroBlocks {
     // Cables
     public static final Block BLOCK_CABLE = register("cable", new BlockCable(FabricBlockSettings.of(Material.METAL, MapColor.STONE_GRAY).noCollision().nonOpaque(), false, false, false));

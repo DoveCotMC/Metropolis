@@ -312,7 +312,7 @@ public class BlockTurnstile extends HorizontalFacingBlock implements BlockEntity
                     return new ItemStack(MetroItems.ITEM_TURNSTILE_EXIT);
                 }
             }
-        };
+        }
         return new ItemStack(MetroItems.ITEM_TURNSTILE_ENTER);
     }
 

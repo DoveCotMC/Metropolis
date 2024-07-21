@@ -34,6 +34,7 @@ import team.dovecotmc.metropolis.util.MetroBlockUtil;
  * @project Metropolis
  * @copyright Copyright © 2024 Arrokoth All Rights Reserved.
  */
+@SuppressWarnings({"deprecation", "unused"})
 public class BlockTicketVendor extends HorizontalFacingBlock implements BlockEntityProvider {
     public final boolean isFunctional;
     public final Block defaultUpper;
@@ -60,16 +61,8 @@ public class BlockTicketVendor extends HorizontalFacingBlock implements BlockEnt
     @Override
     public VoxelShape getOutlineShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {
         Direction facing = state.get(FACING);
-//        return VoxelShapes.combine(
-//                IBlock.getVoxelShapeByDirection(0.0, 0.0, 10.0, 16.0, 16.0, 16.0, facing),
-//                IBlock.getVoxelShapeByDirection(0.0, 0.0, 4.0, 16.0 , 10.0, 16.0, facing),
-//                BooleanBiFunction.OR);
         return MetroBlockUtil.getVoxelShapeByDirection(0.0, 0.0, 4.0, 16.0 , 16.0, 16.0, facing);
     }
-
-//    public boolean canPlaceAt(BlockState state, WorldView world, BlockPos pos) {
-//        return world.getBlockState(pos).isAir() && world.getBlockState(pos.up()).isAir();
-//    }
 
     @Override
     public void onPlaced(World world, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack itemStack) {
@@ -112,14 +105,14 @@ public class BlockTicketVendor extends HorizontalFacingBlock implements BlockEnt
                 if (blockEntity != null) {
                     blockEntity.removeStack(1);
                     MetroServerNetwork.removeInventoryItem(1, pos, (ServerPlayerEntity) player);
+                    MetroServerNetwork.openTicketVendorScreen(pos, (ServerPlayerEntity) player, blockEntity.getStack(1));
                 }
-                MetroServerNetwork.openTicketVendorScreen(pos, (ServerPlayerEntity) player, blockEntity.getStack(1));
             }
         }
         return ActionResult.SUCCESS;
     }
 
-    public void tick(BlockState state, ServerWorld world, BlockPos pos) {;
+    public void tick(BlockState state, ServerWorld world, BlockPos pos) {
         if (world.getBlockEntity(pos) instanceof Inventory inventory) {
             ItemStack stack = inventory.getStack(1);
             world.playSound(null, pos, SoundEvents.BLOCK_WOOL_PLACE, SoundCategory.BLOCKS, 1f, 1f);
