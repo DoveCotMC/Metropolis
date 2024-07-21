@@ -23,6 +23,9 @@
         ],
         "main": [
             "team.dovecotmc.metropolis.Metropolis"
+        ],
+        "modmenu": [
+            "team.dovecotmc.metropolis.client.modmenu.MetroModMenu"
         ]
     },
     "depends": {
