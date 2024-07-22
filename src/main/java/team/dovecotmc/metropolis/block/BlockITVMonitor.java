@@ -61,6 +61,11 @@ public class BlockITVMonitor extends BlockWithEntity {
     }
 
     @Override
+    public float getAmbientOcclusionLightLevel(BlockState state, BlockView world, BlockPos pos) {
+        return 1.0f;
+    }
+
+    @Override
     public boolean isTranslucent(BlockState state, BlockView world, BlockPos pos) {
         return true;
     }
