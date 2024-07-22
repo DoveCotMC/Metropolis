@@ -2,9 +2,9 @@
 
 ````
 This mod is in alpha and it's very unstable.
-We don't recommend you to install on Servers or other Important saves.
+Do think twice before installing it on servers or other important saves.
 ````
 
 ---
 
-Miscellaneous stuff of modern railway parts for Minecraft Transit Railway.
+Miscellaneous stuff of modern railway parts for [Minecraft Transit Railway](https://modrinth.com/mod/minecraft-transit-railway).
