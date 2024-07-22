@@ -13,7 +13,7 @@ import net.minecraft.util.crash.CrashReportSection;
 import net.minecraft.util.math.Quaternion;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.math.Vec3f;
-import team.dovecotmc.metropolis.block.BlockMonitor;
+import team.dovecotmc.metropolis.block.BlockITVMonitor;
 import team.dovecotmc.metropolis.block.entity.BlockEntityBumper;
 
 /**
@@ -30,7 +30,7 @@ public class BumperBlockEntityRenderer implements BlockEntityRenderer<BlockEntit
 
         matrices.push();
         matrices.translate(0.5f, 0.5f, 0.5f);
-        matrices.multiply(Quaternion.fromEulerXyzDegrees(new Vec3f(0, (float) (state.get(BlockMonitor.ROTATION) * -22.5), 0)));
+        matrices.multiply(Quaternion.fromEulerXyzDegrees(new Vec3f(0, (float) (state.get(BlockITVMonitor.ROTATION) * -22.5), 0)));
         matrices.translate(-0.5f, -0.5f, -0.5f);
 
         boolean bl = MinecraftClient.isAmbientOcclusionEnabled() && state.getLuminance() == 0 && model.useAmbientOcclusion();

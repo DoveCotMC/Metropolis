@@ -351,11 +351,7 @@ public class TicketVendorScreen3 extends Screen {
         super.render(matrices, mouseX, mouseY, delta);
 
         if (pressing) {
-            if (!lastPressing) {
-                pressed = true;
-            } else {
-                pressed = false;
-            }
+            pressed = !lastPressing;
         } else {
             pressed = false;
         }
@@ -415,7 +411,6 @@ public class TicketVendorScreen3 extends Screen {
     public boolean shouldPause() {
         return false;
     }
-
 
     @Override
     public void close() {

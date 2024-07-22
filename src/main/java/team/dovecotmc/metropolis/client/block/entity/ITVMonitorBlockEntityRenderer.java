@@ -13,24 +13,24 @@ import net.minecraft.util.crash.CrashReportSection;
 import net.minecraft.util.math.Quaternion;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.math.Vec3f;
-import team.dovecotmc.metropolis.block.entity.BlockEntityMonitor;
-import team.dovecotmc.metropolis.block.BlockMonitor;
+import team.dovecotmc.metropolis.block.entity.BlockEntityITVMonitor;
+import team.dovecotmc.metropolis.block.BlockITVMonitor;
 
 /**
  * @author Arrokoth
  * @project Metropolis
  * @copyright Copyright © 2024 Arrokoth All Rights Reserved.
  */
-public class MonitorBlockEntityRenderer implements BlockEntityRenderer<BlockEntityMonitor> {
+public class ITVMonitorBlockEntityRenderer implements BlockEntityRenderer<BlockEntityITVMonitor> {
     @Override
-    public void render(BlockEntityMonitor entity, float tickDelta, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, int overlay) {
+    public void render(BlockEntityITVMonitor entity, float tickDelta, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, int overlay) {
         MinecraftClient mc = MinecraftClient.getInstance();
         BlockState state = entity.getCachedState();
         BakedModel model =  mc.getBakedModelManager().getBlockModels().getModel(state);
 
         matrices.push();
         matrices.translate(0.5f, 0.5f, 0.5f);
-        matrices.multiply(Quaternion.fromEulerXyzDegrees(new Vec3f(0, (float) (state.get(BlockMonitor.ROTATION) * -22.5), 0)));
+        matrices.multiply(Quaternion.fromEulerXyzDegrees(new Vec3f(0, (float) (state.get(BlockITVMonitor.ROTATION) * -22.5), 0)));
         matrices.translate(-0.5f, -0.5f, -0.5f);
 
         boolean bl = MinecraftClient.isAmbientOcclusionEnabled() && state.getLuminance() == 0 && model.useAmbientOcclusion();
@@ -56,7 +56,7 @@ public class MonitorBlockEntityRenderer implements BlockEntityRenderer<BlockEnti
     }
 
     @Override
-    public boolean rendersOutsideBoundingBox(BlockEntityMonitor blockEntity) {
+    public boolean rendersOutsideBoundingBox(BlockEntityITVMonitor blockEntity) {
         return BlockEntityRenderer.super.rendersOutsideBoundingBox(blockEntity);
     }
 
@@ -66,7 +66,7 @@ public class MonitorBlockEntityRenderer implements BlockEntityRenderer<BlockEnti
     }
 
     @Override
-    public boolean isInRenderDistance(BlockEntityMonitor blockEntity, Vec3d pos) {
+    public boolean isInRenderDistance(BlockEntityITVMonitor blockEntity, Vec3d pos) {
         return BlockEntityRenderer.super.isInRenderDistance(blockEntity, pos);
     }
 }

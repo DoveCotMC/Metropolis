@@ -19,10 +19,10 @@ public class MetroBlockEntities {
             FabricBlockEntityTypeBuilder.create(BlockEntityTicketVendor::new, MetroBlocks.BLOCK_TICKET_VENDOR_EM10, MetroBlocks.BLOCK_TICKET_VENDOR_EV23, MetroBlocks.BLOCK_TICKET_VENDOR_EV23_YELLOW).build()
     );
 
-    public static final BlockEntityType<BlockEntityMonitor> MONITOR_BLOCK_ENTITY = Registry.register(
+    public static final BlockEntityType<BlockEntityITVMonitor> ITV_MONITOR_BLOCK_ENTITY = Registry.register(
             Registry.BLOCK_ENTITY_TYPE,
-            new Identifier(Metropolis.MOD_ID, "monitor"),
-            FabricBlockEntityTypeBuilder.create(BlockEntityMonitor::new, MetroBlocks.BLOCK_MONITOR).build()
+            new Identifier(Metropolis.MOD_ID, "itv_monitor"),
+            FabricBlockEntityTypeBuilder.create(BlockEntityITVMonitor::new, MetroBlocks.BLOCK_ITV_MONITOR).build()
     );
 
     public static final BlockEntityType<BlockEntityTurnstile> TURNSTILE_BLOCK_ENTITY = Registry.register(

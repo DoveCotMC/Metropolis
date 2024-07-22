@@ -14,7 +14,7 @@ import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.util.shape.VoxelShapes;
 import net.minecraft.world.BlockView;
 import org.jetbrains.annotations.Nullable;
-import team.dovecotmc.metropolis.block.entity.BlockEntityMonitor;
+import team.dovecotmc.metropolis.block.entity.BlockEntityITVMonitor;
 
 /**
  * @author Arrokoth
@@ -22,14 +22,14 @@ import team.dovecotmc.metropolis.block.entity.BlockEntityMonitor;
  * @copyright Copyright © 2024 Arrokoth All Rights Reserved.
  */
 @SuppressWarnings("deprecation")
-public class BlockMonitor extends BlockWithEntity {
+public class BlockITVMonitor extends BlockWithEntity {
     public static final IntProperty ROTATION;
 
     static {
         ROTATION = Properties.ROTATION;
     }
 
-    public BlockMonitor() {
+    public BlockITVMonitor() {
         super(Settings.of(Material.METAL, MapColor.GRAY));
         this.setDefaultState(this.stateManager.getDefaultState().with(ROTATION, 0));
     }
@@ -57,7 +57,7 @@ public class BlockMonitor extends BlockWithEntity {
     @Nullable
     @Override
     public BlockEntity createBlockEntity(BlockPos pos, BlockState state) {
-        return new BlockEntityMonitor(pos, state);
+        return new BlockEntityITVMonitor(pos, state);
     }
 
     @Override

@@ -62,7 +62,7 @@ public class MetroBlocks {
 //    public static final Block BLOCK_PIDS_1 = register("pids_1", new BlockMetroPIDSOne());
 
     // Monitor
-    public static final Block BLOCK_MONITOR = register("monitor", new BlockMonitor());
+    public static final Block BLOCK_ITV_MONITOR = register("itv_monitor", new BlockITVMonitor());
 
     // Security instruments
     public static final Block BLOCK_SECURITY_DOOR = register("security_door", new BlockSecurityDoor());

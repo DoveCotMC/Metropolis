@@ -1,6 +1,9 @@
 {
     "itemGroup.metropolis.all": "Metropolis",
 
+    "config.metropolis.client.enable_glowing_texture": "启用发光纹理",
+    "config.metropolis.client.enable_station_info_overlay": "启用车站信息显示HUD",
+
     "gui.metropolis.ticket_vendor.title": "多功能售票机",
     "gui.metropolis.ticket_vendor_1.title": "多功能售票机",
     "gui.metropolis.ticket_vendor_1.subtitle": "请点击想要进行的操作",

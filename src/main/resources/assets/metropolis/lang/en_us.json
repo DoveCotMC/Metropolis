@@ -1,6 +1,9 @@
 {
     "itemGroup.metropolis.all": "Metropolis",
 
+    "config.metropolis.client.enable_glowing_texture": "Enable glowing textures",
+    "config.metropolis.client.enable_station_info_overlay": "Enable station information overlay",
+
     "gui.metropolis.ticket_vendor.title": "Ticket Vendor Machine",
     "gui.metropolis.ticket_vendor_1.title": "Ticket Vendor Machine",
     "gui.metropolis.ticket_vendor_1.subtitle": "Press the item of your operation",

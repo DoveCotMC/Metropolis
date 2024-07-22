@@ -9,8 +9,8 @@ import net.minecraft.util.math.BlockPos;
  * @project Metropolis
  * @copyright Copyright © 2024 Arrokoth All Rights Reserved.
  */
-public class BlockEntityMonitor extends BlockEntity {
-    public BlockEntityMonitor(BlockPos pos, BlockState state) {
-        super(MetroBlockEntities.MONITOR_BLOCK_ENTITY, pos, state);
+public class BlockEntityITVMonitor extends BlockEntity {
+    public BlockEntityITVMonitor(BlockPos pos, BlockState state) {
+        super(MetroBlockEntities.ITV_MONITOR_BLOCK_ENTITY, pos, state);
     }
 }
