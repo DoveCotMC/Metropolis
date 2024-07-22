@@ -93,7 +93,7 @@
     "block.metropolis.turnstile_ic_only.enter": "闸机（仅IC卡，入口）",
     "block.metropolis.turnstile_ic_only.exit": "闸机（仅IC卡，出口）",
 
-    "block.metropolis.monitor": "监控屏幕",
+    "block.metropolis.itv_monitor": "ITV监控屏幕",
 
     "block.metropolis.security_door": "安全门",
     "block.metropolis.security_inspection_machine": "安检机",

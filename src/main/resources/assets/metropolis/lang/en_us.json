@@ -94,7 +94,7 @@
     "block.metropolis.turnstile_ic_only.enter": "Turnstile (IC only, Enter)",
     "block.metropolis.turnstile_ic_only.exit": "Turnstile (IC only, Exit)",
 
-    "block.metropolis.monitor": "Monitor",
+    "block.metropolis.itv_monitor": "ITV Monitor",
 
     "block.metropolis.security_door": "Security door",
     "block.metropolis.security_inspection_machine": "Security inspection machine",
