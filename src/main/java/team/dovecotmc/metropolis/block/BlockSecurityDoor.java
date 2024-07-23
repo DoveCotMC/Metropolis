@@ -7,6 +7,9 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NbtCompound;
+import net.minecraft.nbt.NbtElement;
+import net.minecraft.nbt.NbtList;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.state.StateManager;
@@ -23,6 +26,7 @@ import net.minecraft.util.shape.VoxelShapes;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldAccess;
+import net.minecraft.world.WorldView;
 import org.jetbrains.annotations.Nullable;
 import team.dovecotmc.metropolis.Metropolis;
 import team.dovecotmc.metropolis.util.MetroBlockUtil;
@@ -50,12 +54,38 @@ public class BlockSecurityDoor extends HorizontalFacingBlock {
     }
 
     @Override
+    public boolean canPlaceAt(BlockState state, WorldView world, BlockPos pos) {
+        return world.getBlockState(pos.up()).isAir();
+    }
+
+    @Override
     public void onEntityCollision(BlockState state, World world, BlockPos pos, Entity entity) {
         if (!world.isClient()) {
             if (state.get(HALF).equals(DoubleBlockHalf.LOWER) && !state.get(OPEN)) {
                 if (entity instanceof PlayerEntity player) {
                     boolean open = true;
+
+                    // Block with inventory
                     for (ItemStack stack : player.getInventory().main) {
+                        if (stack.hasNbt()) {
+                            NbtCompound nbt = stack.getOrCreateNbt();
+                            if (nbt.contains("BlockEntityTag", NbtCompound.COMPOUND_TYPE)) {
+                                NbtCompound blockNbt = nbt.getCompound("BlockEntityTag");
+                                if (blockNbt.contains("Items", NbtCompound.LIST_TYPE)) {
+                                    NbtList itemsList = blockNbt.getList("Items", NbtElement.COMPOUND_TYPE);
+                                    for (NbtElement itemNbtRaw : itemsList) {
+                                        if (itemNbtRaw instanceof NbtCompound itemNbt) {
+                                            if (itemNbt.contains("id", NbtElement.STRING_TYPE)) {
+                                                if (Metropolis.config.dangerItems.contains(itemNbt.getString("id"))) {
+                                                    open = false;
+                                                    break;
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
                         if (Metropolis.config.dangerItems.contains(Registry.ITEM.getId(stack.getItem()).toString())) {
                             open = false;
                             break;

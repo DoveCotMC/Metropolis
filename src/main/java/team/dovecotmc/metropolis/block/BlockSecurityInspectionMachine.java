@@ -5,9 +5,12 @@ import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.ItemEntity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.BlockItem;
 import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.nbt.NbtElement;
+import net.minecraft.nbt.NbtList;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
@@ -81,10 +84,37 @@ public class BlockSecurityInspectionMachine extends HorizontalFacingBlock implem
 
     @Override
     public void scheduledTick(BlockState state, ServerWorld world, BlockPos pos, Random random) {
+        boolean danger = false;
         if (world.getBlockEntity(pos) instanceof BlockEntitySecurityInspectionMachine entity) {
             if (!entity.getStack(0).isEmpty()) {
-                // TODO: Custom sound
+
+                // Block with inventory
+                if (entity.getStack(0).hasNbt()) {
+                    NbtCompound nbt = entity.getStack(0).getOrCreateNbt();
+                    if (nbt.contains("BlockEntityTag", NbtCompound.COMPOUND_TYPE)) {
+                        NbtCompound blockNbt = nbt.getCompound("BlockEntityTag");
+                        if (blockNbt.contains("Items", NbtCompound.LIST_TYPE)) {
+                            NbtList itemsList = blockNbt.getList("Items", NbtElement.COMPOUND_TYPE);
+                            for (NbtElement itemNbtRaw : itemsList) {
+                                if (itemNbtRaw instanceof NbtCompound itemNbt) {
+                                    if (itemNbt.contains("id", NbtElement.STRING_TYPE)) {
+                                        if (Metropolis.config.dangerItems.contains(itemNbt.getString("id"))) {
+                                            danger = true;
+                                            break;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+
                 if (Metropolis.config.dangerItems.contains(Registry.ITEM.getId(entity.getStack(0).getItem()).toString())) {
+                    danger = true;
+                }
+
+                if (danger) {
+                    // TODO: Custom sound
                     world.playSound(null, pos, MtrSoundUtil.TICKET_BARRIER, SoundCategory.BLOCKS, 1f, 1f);
                 }
 
