@@ -13,7 +13,8 @@ import net.minecraft.util.math.Direction;
  * @project Metropolis
  * @author Arrokoth
  * @copyright Copyright © 2024 Arrokoth All Rights Reserved.
- */public class BlockHorizontalAxis extends Block {
+ */
+public class BlockHorizontalAxis extends Block {
     public static final EnumProperty<Direction.Axis> AXIS;
 
     public BlockHorizontalAxis(Settings settings) {

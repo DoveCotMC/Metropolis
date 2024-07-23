@@ -74,6 +74,9 @@ public class MetroBlocks {
     // Concrete
     public static final Block BLOCK_CONCRETE = register("concrete", new Block(AbstractBlock.Settings.of(Material.STONE, DyeColor.LIGHT_GRAY)));
 
+    // Platform
+    public static final Block BLOCK_PLATFORM_A = register("platform_a", new BlockMetroPlatform(AbstractBlock.Settings.of(Material.STONE, DyeColor.LIGHT_GRAY)));
+
     // Tiles
     // White
     public static final Block BLOCK_TILES_WHITE = register("tiles_white", new Block(AbstractBlock.Settings.of(Material.STONE, DyeColor.WHITE)));

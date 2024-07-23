@@ -62,6 +62,9 @@ public class MetroItems {
     // Concrete
     public static final Item ITEM_CONCRETE = register("concrete", new BlockItem(MetroBlocks.BLOCK_CONCRETE, new Item.Settings().group(Metropolis.ITEM_GROUP)));
 
+    // Platform
+    public static final Item ITEM_PLATFORM_A = register("platform_a", new BlockItem(MetroBlocks.BLOCK_PLATFORM_A, new Item.Settings().group(Metropolis.ITEM_GROUP)));
+
     // Tiles
     // White
     public static final Item ITEM_TILES_WHITE = register("tiles_white", new BlockItem(MetroBlocks.BLOCK_TILES_WHITE, new Item.Settings().group(Metropolis.ITEM_GROUP)));
