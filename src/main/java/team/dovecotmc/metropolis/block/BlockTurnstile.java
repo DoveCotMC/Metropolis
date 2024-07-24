@@ -138,6 +138,12 @@ public class BlockTurnstile extends HorizontalFacingBlock implements BlockEntity
                     nbt.putLong(BlockEntityTurnstile.TICKET_ANIMATION_START, world.getTime());
                     blockEntity.readNbt(nbt);
                 } else if (stack.getItem() instanceof ItemCard) {
+                    if (stack.getOrCreateNbt().contains(ItemCard.ENTERED_STATION) || stack.getOrCreateNbt().contains(ItemCard.ENTERED_ZONE)) {
+                        world.playSound(null, pos, MtrSoundUtil.TICKET_BARRIER, SoundCategory.BLOCKS, 1f, 1f);
+                        player.sendMessage(Text.translatable("info.metropolis.to_service_center"), true);
+                        return ActionResult.SUCCESS;
+                    }
+
                     // TODO: Custom Cards sound
                     NbtCompound stackNbt = stack.getOrCreateNbt();
                     stackNbt.putString(ItemCard.ENTERED_STATION, station.name);

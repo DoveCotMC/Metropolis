@@ -3,10 +3,17 @@ package team.dovecotmc.metropolis.block;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.HorizontalFacingBlock;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.ItemPlacementContext;
+import net.minecraft.item.ItemStack;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.EnumProperty;
 import net.minecraft.util.StringIdentifiable;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Direction;
+import net.minecraft.world.World;
+import net.minecraft.world.WorldAccess;
+import org.jetbrains.annotations.Nullable;
 import team.dovecotmc.metropolis.IBlockPlatform;
 
 /**
@@ -22,12 +29,17 @@ public class BlockMetroPlatform extends HorizontalFacingBlock implements IBlockP
     }
 
     public BlockState getPlacementState(ItemPlacementContext ctx) {
-        return this.getDefaultState().with(FACING, ctx.getPlayerFacing().getOpposite()).with(TYPE, EnumPlatformType.NORMAL);
+        return getUpdatedState(this.getDefaultState().with(FACING, ctx.getPlayerFacing().getOpposite()).with(TYPE, EnumPlatformType.NORMAL), ctx.getWorld());
     }
 
     @Override
     protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
         builder.add(FACING).add(TYPE);
+    }
+
+    protected BlockState getUpdatedState(BlockState last, WorldAccess world) {
+        Direction facing = last.get(FACING);
+        return last;
     }
 
     public enum EnumPlatformType implements StringIdentifiable {
