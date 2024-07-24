@@ -1,6 +1,6 @@
 {
 	"parent": "metropolis:base/platform",
 	"textures": {
-		"1": "metropolis:block/platform_a"
+		"0": "metropolis:block/platform_a"
 	}
 }

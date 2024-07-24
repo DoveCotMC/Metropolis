@@ -29,6 +29,5 @@
 				"down": {"uv": [8, 6.5, 4, 9], "texture": "#0", "cullface": "down"}
 			}
 		}
-	],
-	"display": {}
+	]
 }

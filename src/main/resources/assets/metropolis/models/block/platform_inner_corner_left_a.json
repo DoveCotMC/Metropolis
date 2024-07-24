@@ -1,0 +1,6 @@
+{
+	"parent": "metropolis:base/platform_inner_corner_left",
+	"textures": {
+		"0": "metropolis:block/platform_inner_corner_a"
+	}
+}
