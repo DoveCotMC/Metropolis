@@ -1,5 +1,5 @@
 {
-	"parent": "metropolis:base/platform_outer_corner_left",
+	"parent": "metropolis:base/platform_outer_corner",
 	"textures": {
 		"0": "metropolis:block/platform_outer_corner_a"
 	}

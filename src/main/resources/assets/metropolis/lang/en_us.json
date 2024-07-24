@@ -101,6 +101,8 @@
 
     "block.metropolis.concrete": "Concrete",
 
+    "block.metropolis.platform_a": "Platform",
+
     "block.metropolis.tiles_white": "White tiles",
     "block.metropolis.tiles_large_white": "Large white tiles",
     "block.metropolis.tiles_small_white": "Small white tiles",
