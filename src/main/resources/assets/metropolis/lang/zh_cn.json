@@ -69,6 +69,7 @@
 
     "item.metropolis.single_trip_ticket": "单程票",
     "item.metropolis.single_trip_ticket_used": "单程票",
+    "tooltip.metropolis.single_trip_ticket_expired": "已过期",
     "item.metropolis.card": "IC卡",
 
     "block.metropolis.cable": "线缆",
@@ -81,8 +82,8 @@
     "tooltip.metropolis.ticket_vendor_em10": "§7EM10",
     "block.metropolis.ticket_vendor_ev23": "售票机",
     "tooltip.metropolis.ticket_vendor_ev23": "§7EV23",
-    "block.metropolis.ticket_vendor_ev23_yellow": "售票机",
-    "tooltip.metropolis.ticket_vendor_ev23_yellow": "§7EV23 黄色",
+    "block.metropolis.fare_adj_ev23": "补票机",
+    "tooltip.metropolis.fare_adj_ev23": "§7EV23",
 
     "block.metropolis.ceiling_a": "吊顶",
     "block.metropolis.fluorescent_lamp": "日光灯",

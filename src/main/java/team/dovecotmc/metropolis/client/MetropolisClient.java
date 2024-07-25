@@ -48,7 +48,7 @@ public class MetropolisClient implements ClientModInitializer {
 
         BlockRenderLayerMap.INSTANCE.putBlock(MetroBlocks.BLOCK_TICKET_VENDOR_EM10, RenderLayer.getCutout());
         BlockRenderLayerMap.INSTANCE.putBlock(MetroBlocks.BLOCK_TICKET_VENDOR_EV23, RenderLayer.getCutout());
-        BlockRenderLayerMap.INSTANCE.putBlock(MetroBlocks.BLOCK_TICKET_VENDOR_EV23_YELLOW, RenderLayer.getCutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(MetroBlocks.BLOCK_FARE_ADJ_EV23_YELLOW, RenderLayer.getCutout());
         BlockRenderLayerMap.INSTANCE.putBlock(MetroBlocks.BLOCK_TICKET_VENDOR_PANEL, RenderLayer.getCutout());
         BlockRenderLayerMap.INSTANCE.putBlock(MetroBlocks.BLOCK_TICKET_VENDOR_TOP, RenderLayer.getCutout());
         BlockRenderLayerMap.INSTANCE.putBlock(MetroBlocks.BLOCK_SECURITY_INSPECTION_MACHINE, RenderLayer.getCutout());

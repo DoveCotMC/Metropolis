@@ -25,7 +25,7 @@ public class MetroItems {
     public static final Item ITEM_TICKET_VENDOR_PANEL = register("ticket_vendor_panel", new ItemBlockWithTooltips(MetroBlocks.BLOCK_TICKET_VENDOR_PANEL, new Item.Settings().group(Metropolis.ITEM_GROUP)));
     public static final Item ITEM_TICKET_VENDOR_EM10 = register("ticket_vendor_em10", new ItemBlockWithTooltipShowStationHUD(MetroBlocks.BLOCK_TICKET_VENDOR_EM10, new Item.Settings().group(Metropolis.ITEM_GROUP)));
     public static final Item ITEM_TICKET_VENDOR_EV23 = register("ticket_vendor_ev23", new ItemBlockWithTooltipShowStationHUD(MetroBlocks.BLOCK_TICKET_VENDOR_EV23, new Item.Settings().group(Metropolis.ITEM_GROUP)));
-    public static final Item ITEM_TICKET_VENDOR_EV23_YELLOW = register("ticket_vendor_ev23_yellow", new ItemBlockWithTooltipShowStationHUD(MetroBlocks.BLOCK_TICKET_VENDOR_EV23_YELLOW, new Item.Settings().group(Metropolis.ITEM_GROUP)));
+    public static final Item ITEM_FARE_ADJ_EV23 = register("fare_adj_ev23", new ItemBlockWithTooltipShowStationHUD(MetroBlocks.BLOCK_FARE_ADJ_EV23_YELLOW, new Item.Settings().group(Metropolis.ITEM_GROUP)));
     // Ceiling
     public static final Item ITEM_CEILING_A = register("ceiling_a", new BlockItem(MetroBlocks.BLOCK_CEILING_A, new Item.Settings().group(Metropolis.ITEM_GROUP)));
 
