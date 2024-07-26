@@ -19,10 +19,10 @@ public class MetroBlockEntities {
             FabricBlockEntityTypeBuilder.create(BlockEntityTicketVendor::new, MetroBlocks.BLOCK_TICKET_VENDOR_EM10, MetroBlocks.BLOCK_TICKET_VENDOR_EV23).build()
     );
 
-    public static final BlockEntityType<BlockEntityFareAdjMachine> FARE_ADJ_MACHINE_BLOCK_ENTITY = Registry.register(
+    public static final BlockEntityType<BlockEntityFareAdj> FARE_ADJ_BLOCK_ENTITY = Registry.register(
             Registry.BLOCK_ENTITY_TYPE,
-            new Identifier(Metropolis.MOD_ID, "fare_adj_machine"),
-            FabricBlockEntityTypeBuilder.create(BlockEntityFareAdjMachine::new, MetroBlocks.BLOCK_FARE_ADJ_EV23_YELLOW).build()
+            new Identifier(Metropolis.MOD_ID, "fare_adj"),
+            FabricBlockEntityTypeBuilder.create(BlockEntityFareAdj::new, MetroBlocks.BLOCK_FARE_ADJ_EV23_YELLOW).build()
     );
 
     public static final BlockEntityType<BlockEntityITVMonitor> ITV_MONITOR_BLOCK_ENTITY = Registry.register(

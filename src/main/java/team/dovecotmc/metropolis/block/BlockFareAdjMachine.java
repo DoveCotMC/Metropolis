@@ -13,6 +13,7 @@ import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldAccess;
 import org.jetbrains.annotations.Nullable;
+import team.dovecotmc.metropolis.block.entity.BlockEntityFareAdj;
 import team.dovecotmc.metropolis.block.entity.BlockEntityTicketVendor;
 import team.dovecotmc.metropolis.util.MetroBlockUtil;
 
@@ -72,6 +73,6 @@ public class BlockFareAdjMachine extends HorizontalFacingBlock implements BlockE
     @Nullable
     @Override
     public BlockEntity createBlockEntity(BlockPos pos, BlockState state) {
-        return new BlockEntityTicketVendor(pos, state);
+        return new BlockEntityFareAdj(pos, state);
     }
 }

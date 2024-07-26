@@ -9,8 +9,8 @@ import net.minecraft.util.math.BlockPos;
  * @project Metropolis
  * @copyright Copyright © 2024 Arrokoth All Rights Reserved.
  */
-public class BlockEntityFareAdjMachine extends BlockEntity {
-    public BlockEntityFareAdjMachine(BlockPos pos, BlockState state) {
-        super(MetroBlockEntities.FARE_ADJ_MACHINE_BLOCK_ENTITY, pos, state);
+public class BlockEntityFareAdj extends BlockEntity {
+    public BlockEntityFareAdj(BlockPos pos, BlockState state) {
+        super(MetroBlockEntities.FARE_ADJ_BLOCK_ENTITY, pos, state);
     }
 }

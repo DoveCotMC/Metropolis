@@ -2,8 +2,8 @@
 	"credit": "Made with Blockbench",
 	"texture_size": [64, 64],
 	"textures": {
-		"0": "metropolis:block/platform_a_outer_corner",
-		"particle": "metropolis:block/platform_a_outer_corner"
+		"0": "metropolis:block/platform_outer_corner_a",
+		"particle": "metropolis:block/platform_outer_corner_a"
 	},
 	"elements": [
 		{
