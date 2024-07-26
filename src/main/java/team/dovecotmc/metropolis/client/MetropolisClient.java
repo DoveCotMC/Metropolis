@@ -19,7 +19,7 @@ import team.dovecotmc.metropolis.client.block.model.provider.MetroModelProvicer;
 import team.dovecotmc.metropolis.client.gui.AlphaWarningHud;
 import team.dovecotmc.metropolis.client.gui.MetroBlockPlaceHud;
 import team.dovecotmc.metropolis.client.network.MetroClientNetwork;
-import team.dovecotmc.metropolis.config.MetroClientConfig;
+import team.dovecotmc.metropolis.client.config.MetroClientConfig;
 
 /**
  * @author Arrokoth

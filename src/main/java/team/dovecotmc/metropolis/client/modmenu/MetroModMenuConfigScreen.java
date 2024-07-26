@@ -9,7 +9,7 @@ import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import team.dovecotmc.metropolis.Metropolis;
 import team.dovecotmc.metropolis.client.MetropolisClient;
-import team.dovecotmc.metropolis.config.MetroClientConfig;
+import team.dovecotmc.metropolis.client.config.MetroClientConfig;
 import team.dovecotmc.metropolis.config.MetroConfig;
 
 import java.util.Optional;

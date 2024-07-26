@@ -24,31 +24,34 @@ import java.util.List;
 public class MetroConfig {
     public static final Path CONFIG_FILE_PATH = FabricLoader.getInstance().getGameDir().resolve("config").resolve("metropolis").resolve("common.json");
     public JsonObject json;
+    public static final List<String> DEFAULT_DANGER_ITEMS = List.of(
+            Registry.ITEM.getId(Items.TNT).toString(),
+            Registry.ITEM.getId(Items.TNT_MINECART).toString(),
+            Registry.ITEM.getId(Items.GUNPOWDER).toString(),
+            Registry.ITEM.getId(Items.SHEARS).toString(),
+            Registry.ITEM.getId(Items.ARROW).toString(),
+            Registry.ITEM.getId(Items.BOW).toString(),
+            Registry.ITEM.getId(Items.IRON_AXE).toString(),
+            Registry.ITEM.getId(Items.DIAMOND_AXE).toString(),
+            Registry.ITEM.getId(Items.NETHERITE_AXE).toString(),
+            Registry.ITEM.getId(Items.IRON_SWORD).toString(),
+            Registry.ITEM.getId(Items.DIAMOND_SWORD).toString(),
+            Registry.ITEM.getId(Items.NETHERITE_SWORD).toString()
+    );
     public List<String> dangerItems;
     public Item currencyItem;
 
     public MetroConfig() {
         this.json = new JsonObject();
-        this.dangerItems = List.of(
-                Registry.ITEM.getId(Items.TNT).toString(),
-                Registry.ITEM.getId(Items.IRON_SWORD).toString(),
-                Registry.ITEM.getId(Items.DIAMOND_SWORD).toString(),
-                Registry.ITEM.getId(Items.NETHERITE_SWORD).toString()
-        );
+        this.dangerItems = DEFAULT_DANGER_ITEMS;
         this.currencyItem = Items.EMERALD;
     }
 
     public void refresh() {
         // Add default properties
         if (!json.has("danger_items")) {
-            List<String> items = List.of(
-                    Registry.ITEM.getId(Items.TNT).toString(),
-                    Registry.ITEM.getId(Items.IRON_SWORD).toString(),
-                    Registry.ITEM.getId(Items.DIAMOND_SWORD).toString(),
-                    Registry.ITEM.getId(Items.NETHERITE_SWORD).toString()
-            );
             JsonArray array = new JsonArray();
-            for (String i : items) {
+            for (String i : DEFAULT_DANGER_ITEMS) {
                 array.add(i);
             }
             json.add("danger_items", array);

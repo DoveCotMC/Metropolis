@@ -1,8 +1,10 @@
-package team.dovecotmc.metropolis.config;
+package team.dovecotmc.metropolis.client.config;
 
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.client.MinecraftClient;
 import team.dovecotmc.metropolis.Metropolis;
 
@@ -16,6 +18,7 @@ import java.nio.file.Path;
  * @project Metropolis
  * @copyright Copyright © 2024 Arrokoth All Rights Reserved.
  */
+@Environment(EnvType.CLIENT)
 public class MetroClientConfig {
     public static final Path CONFIG_FILE_PATH = MinecraftClient.getInstance().runDirectory.toPath().resolve("config").resolve("metropolis").resolve("client.json");
     public JsonObject json;
