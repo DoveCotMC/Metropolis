@@ -1,6 +1,7 @@
 package team.dovecotmc.metropolis.block;
 
 import net.minecraft.block.*;
+import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.item.ItemStack;
@@ -12,6 +13,7 @@ import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldAccess;
 import org.jetbrains.annotations.Nullable;
+import team.dovecotmc.metropolis.block.entity.BlockEntityTicketVendor;
 import team.dovecotmc.metropolis.util.MetroBlockUtil;
 
 /**
@@ -19,7 +21,7 @@ import team.dovecotmc.metropolis.util.MetroBlockUtil;
  * @project Metropolis
  * @copyright Copyright © 2024 Arrokoth All Rights Reserved.
  */
-public class BlockFareAdjMachine extends HorizontalFacingBlock {
+public class BlockFareAdjMachine extends HorizontalFacingBlock implements BlockEntityProvider {
     public final Block defaultUpper;
 
     public BlockFareAdjMachine() {
@@ -65,5 +67,11 @@ public class BlockFareAdjMachine extends HorizontalFacingBlock {
     @Override
     public BlockRenderType getRenderType(BlockState state) {
         return BlockRenderType.MODEL;
+    }
+
+    @Nullable
+    @Override
+    public BlockEntity createBlockEntity(BlockPos pos, BlockState state) {
+        return new BlockEntityTicketVendor(pos, state);
     }
 }
