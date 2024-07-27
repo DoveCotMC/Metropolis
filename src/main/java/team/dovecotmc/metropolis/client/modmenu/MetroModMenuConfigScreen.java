@@ -21,7 +21,8 @@ import java.util.Optional;
  */
 public class MetroModMenuConfigScreen extends Screen {
     private final Screen parent;
-    public static final Identifier SWITCH_TEXTURE_ID = new Identifier(Metropolis.MOD_ID, "textures/gui/config/switch.png");
+    public static final Identifier SWITCH_ON_TEXTURE_ID = new Identifier(Metropolis.MOD_ID, "textures/gui/config/switch_on.png");
+    public static final Identifier SWITCH_OFF_TEXTURE_ID = new Identifier(Metropolis.MOD_ID, "textures/gui/config/switch_off.png");
     public static final int SWITCH_TEXTURE_WIDTH = 32;
     public static final int SWITCH_TEXTURE_HEIGHT = 16;
 
@@ -32,7 +33,8 @@ public class MetroModMenuConfigScreen extends Screen {
 
     @Override
     public void render(MatrixStack matrices, int mouseX, int mouseY, float delta) {
-        this.renderBackground(matrices);
+//        this.renderBackground(matrices);
+        this.renderBackgroundTexture(0);
 
         super.render(matrices, mouseX, mouseY, delta);
 
@@ -44,6 +46,7 @@ public class MetroModMenuConfigScreen extends Screen {
         }
 
         ModContainer mod = modContainer.get();
+        int button_offset = (SWITCH_TEXTURE_HEIGHT - textRenderer.fontHeight) / 2;
 
         matrices.push();
         matrices.scale(2f, 2f, 2f);
@@ -56,12 +59,6 @@ public class MetroModMenuConfigScreen extends Screen {
         );
         matrices.pop();
 
-        RenderSystem.assertOnRenderThread();
-        RenderSystem.setShaderColor(1, 1, 1, 1);
-        RenderSystem.enableBlend();
-        RenderSystem.defaultBlendFunc();
-        RenderSystem.enableTexture();
-
         matrices.push();
         Text text = Text.translatable("config.metropolis.client.enable_glowing_texture");
         textRenderer.draw(
@@ -72,9 +69,13 @@ public class MetroModMenuConfigScreen extends Screen {
                 0xFFFFFF
         );
 
-        RenderSystem.setShaderTexture(0, SWITCH_TEXTURE_ID);
+        RenderSystem.enableTexture();
+        RenderSystem.setShaderTexture(0, SWITCH_ON_TEXTURE_ID);
+        RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
         drawTexture(
                 matrices,
+                width / 2 + 32,
+                64 - button_offset,
                 0,
                 0,
                 SWITCH_TEXTURE_WIDTH,
@@ -90,6 +91,21 @@ public class MetroModMenuConfigScreen extends Screen {
                 width / 2f - 32 - textRenderer.getWidth(text),
                 64 + (16 + textRenderer.fontHeight),
                 0xFFFFFF
+        );
+
+        RenderSystem.enableTexture();
+        RenderSystem.setShaderTexture(0, SWITCH_ON_TEXTURE_ID);
+        RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
+        drawTexture(
+                matrices,
+                width / 2 + 32,
+                64 + (16 + textRenderer.fontHeight) - button_offset,
+                0,
+                0,
+                SWITCH_TEXTURE_WIDTH,
+                SWITCH_TEXTURE_HEIGHT,
+                SWITCH_TEXTURE_WIDTH,
+                SWITCH_TEXTURE_HEIGHT
         );
         matrices.pop();
     }
