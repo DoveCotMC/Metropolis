@@ -8,6 +8,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.util.math.BlockPos;
+import team.dovecotmc.metropolis.client.gui.fare_adj.FareAdjScreenMain;
 import team.dovecotmc.metropolis.client.gui.ticket_vendor.TicketVendorData;
 import team.dovecotmc.metropolis.client.gui.ticket_vendor.TicketVendorScreen1;
 import team.dovecotmc.metropolis.client.gui.ticket_vendor.TicketVendorScreen4;
@@ -65,6 +66,13 @@ public class MetroClientNetwork {
         });
     }
 
+    private static void registerFareAdjGuiReceiver() {
+        ClientPlayNetworking.registerGlobalReceiver(MetroServerNetwork.FARE_ADJ_GUI, (client, handler, buf, responseSender) -> {
+            BlockPos pos = buf.readBlockPos();
+            client.execute(() -> client.setScreen(new FareAdjScreenMain(pos)));
+        });
+    }
+
     public static Item currencyItem = Items.EMERALD;
 
     public static void updateCurrencyItem() {
@@ -82,5 +90,6 @@ public class MetroClientNetwork {
         registerTicketVendorChargeGuiReceiver();
         registerRemoveInventoryItem();
         registerGetCurrencyItemReceiver();
+        registerFareAdjGuiReceiver();
     }
 }

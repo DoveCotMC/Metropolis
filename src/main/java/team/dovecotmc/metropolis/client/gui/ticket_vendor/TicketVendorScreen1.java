@@ -245,7 +245,6 @@ public class TicketVendorScreen1 extends Screen {
         // Render text
         // Title
         VertexConsumerProvider.Immediate immediate = VertexConsumerProvider.immediate(Tessellator.getInstance().getBuffer());
-//        BlockRenderContext
         this.textRenderer.drawWithOutline(
                 Text.translatable("gui.metropolis.ticket_vendor.title").asOrderedText(),
                 intoTexturePosX(36),
@@ -405,11 +404,7 @@ public class TicketVendorScreen1 extends Screen {
         }
 
         if (pressing) {
-            if (!lastPressing) {
-                pressed = true;
-            } else {
-                pressed = false;
-            }
+            pressed = !lastPressing;
         } else {
             pressed = false;
         }

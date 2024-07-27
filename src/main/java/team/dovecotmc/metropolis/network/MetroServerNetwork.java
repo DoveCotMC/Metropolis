@@ -24,7 +24,6 @@ import team.dovecotmc.metropolis.client.network.MetroClientNetwork;
  */
 public class MetroServerNetwork {
     public static final Identifier TICKET_VENDOR_GUI = new Identifier(Metropolis.MOD_ID, "ticket_vendor_gui");
-
     public static void openTicketVendorScreen(BlockPos pos, ServerPlayerEntity player, ItemStack ticketStack) {
         PacketByteBuf packet = PacketByteBufs.create();
         packet.writeBlockPos(pos);
@@ -46,6 +45,13 @@ public class MetroServerNetwork {
         packet.writeBlockPos(pos);
         packet.writeInt(slot);
         ServerPlayNetworking.send(player, REMOVE_INVENTORY_ITEM, packet);
+    }
+
+    public static final Identifier FARE_ADJ_GUI = new Identifier(Metropolis.MOD_ID, "fare_adj_gui");
+    public static void openFareAdjustmentScreen(BlockPos pos, ServerPlayerEntity player) {
+        PacketByteBuf packet = PacketByteBufs.create();
+        packet.writeBlockPos(pos);
+        ServerPlayNetworking.send(player, FARE_ADJ_GUI, packet);
     }
 
     public static final Identifier TICKET_VENDOR_RESULT = new Identifier(Metropolis.MOD_ID, "ticket_vendor_result");
