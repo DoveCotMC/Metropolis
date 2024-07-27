@@ -126,11 +126,10 @@ public class FareAdjScreenMain extends Screen {
         // Text
         int i0 = 0;
         for (String text : Text.translatable("gui.metropolis.fare_adj_main.charge_button_text").getString().split("\n")) {
-            System.out.println(text);
             this.textRenderer.drawWithOutline(
                     Text.literal(text).asOrderedText(),
                     intoTexturePosX(18) + (BUTTON_BIG_WIDTH / 2f - textRenderer.getWidth(text) / 2f),
-                    intoTexturePosY((46 + BUTTON_BIG_HEIGHT - 7) - textRenderer.fontHeight * (i0 + 1)),
+                    intoTexturePosY((46 + BUTTON_BIG_HEIGHT - 7) - textRenderer.fontHeight * (i0 + 2)),
                     0xFFFFFF,
                     0xA9309F,
                     matrices.peek().getPositionMatrix(),
