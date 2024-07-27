@@ -15,6 +15,10 @@ import net.minecraft.util.math.BlockPos;
 import team.dovecotmc.metropolis.Metropolis;
 import team.dovecotmc.metropolis.client.network.MetroClientNetwork;
 
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+
 /**
  * @author Arrokoth
  * @project Metropolis
@@ -125,11 +129,13 @@ public class FareAdjScreenMain extends Screen {
 
         // Text
         int i0 = 0;
-        for (String text : Text.translatable("gui.metropolis.fare_adj_main.charge_button_text").getString().split("\n")) {
+        List<String> texts = new java.util.ArrayList<>(Arrays.stream(Text.translatable("gui.metropolis.fare_adj_main.charge_button_text").getString().split("\n")).toList());
+        Collections.reverse(texts);
+        for (String text : texts) {
             this.textRenderer.drawWithOutline(
                     Text.literal(text).asOrderedText(),
                     intoTexturePosX(18) + (BUTTON_BIG_WIDTH / 2f - textRenderer.getWidth(text) / 2f),
-                    intoTexturePosY((46 + BUTTON_BIG_HEIGHT - 7) - textRenderer.fontHeight * (i0 + 2)),
+                    intoTexturePosY(46) + (BUTTON_BIG_HEIGHT - 18 - textRenderer.fontHeight * i0 - 2 * i0),
                     0xFFFFFF,
                     0xA9309F,
                     matrices.peek().getPositionMatrix(),
