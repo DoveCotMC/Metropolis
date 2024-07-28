@@ -15,7 +15,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import team.dovecotmc.metropolis.Metropolis;
 import team.dovecotmc.metropolis.block.entity.BlockEntityTicketVendor;
-import team.dovecotmc.metropolis.client.network.MetroClientNetwork;
 
 /**
  * @author Arrokoth
@@ -63,7 +62,7 @@ public class MetroServerNetwork {
             // Slot definitions: 0 = Ticket, 1 = IC Card
             int balance = buf.readInt();
 
-            Item item = MetroClientNetwork.currencyItem;
+            Item item = Metropolis.config.currencyItem;
             server.execute(() -> {
                 if (balance > 0) {
                     for (int i = 0; i < balance / item.getMaxCount(); i++) {
