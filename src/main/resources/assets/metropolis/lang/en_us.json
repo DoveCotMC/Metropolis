@@ -54,6 +54,9 @@
     "gui.metropolis.fare_adj_main.ticket_charge_button_text": "Fare adjustment\nFor tickets",
     "gui.metropolis.fare_adj_main.no_ticket": "I don't have a ticket\nPay the fine",
 
+    "gui.metropolis.fare_adj_no_ticket.title": "Fare adjustment",
+    "gui.metropolis.fare_adj_no_ticket.subtitle": "No tickets",
+
     "tooltip.metropolis.ticket.from_and_to": "%s ⥋ %s",
     "tooltip.metropolis.ticket.balance": "Balance: %s",
     "tooltip.metropolis.ticket.entered_station": "Entered station: %s",

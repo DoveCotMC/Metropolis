@@ -85,6 +85,19 @@ public class FareAdjScreenNoTicket extends Screen {
         immediate.draw();
         matrices.pop();
 
+        // Subtitle
+        matrices.push();
+        float scaleFactor = 1.5f;
+        matrices.scale(scaleFactor, scaleFactor, scaleFactor);
+        this.textRenderer.draw(
+                matrices,
+                Text.translatable("gui.metropolis.fare_adj_no_ticket.subtitle"),
+                intoTexturePosX(24) / scaleFactor,
+                intoTexturePosY(34) / scaleFactor,
+                0x3F3F3F
+        );
+        matrices.pop();
+
         super.render(matrices, mouseX, mouseY, delta);
 
         // Handle inputs

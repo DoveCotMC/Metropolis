@@ -260,10 +260,10 @@ public class FareAdjScreenMain extends Screen {
                         client.setScreen(null);
                         playButtonDownSound();
                     }
-                    if (blueHovering) {
-                        client.setScreen(new FareAdjScreenNoTicket(pos, this.data, this));
-                        playButtonDownSound();
-                    }
+                }
+                if (blueHovering) {
+                    client.setScreen(new FareAdjScreenNoTicket(pos, this.data, this));
+                    playButtonDownSound();
                 }
             }
         }
