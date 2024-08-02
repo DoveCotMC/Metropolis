@@ -13,6 +13,8 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import team.dovecotmc.metropolis.Metropolis;
 
+import java.util.List;
+
 /**
  * @author Arrokoth
  * @project Metropolis
@@ -92,10 +94,42 @@ public class FareAdjScreenNoTicket extends Screen {
         this.textRenderer.draw(
                 matrices,
                 Text.translatable("gui.metropolis.fare_adj_no_ticket.subtitle"),
-                intoTexturePosX(24) / scaleFactor,
+                intoTexturePosX(22) / scaleFactor,
                 intoTexturePosY(34) / scaleFactor,
                 0x3F3F3F
         );
+        matrices.pop();
+
+        matrices.push();
+        // If you have receipt
+        String[] texts = Text.translatable("gui.metropolis.fare_adj_no_ticket.if_you_have_receipt").getString().split("\n");
+        int i0 = 0;
+        for (String text : texts) {
+            this.textRenderer.draw(
+                    matrices,
+                    text,
+                    intoTexturePosX(22),
+                    intoTexturePosY(52) + (textRenderer.fontHeight + 2) * i0,
+                    0x3F3F3F
+            );
+            i0++;
+        }
+        matrices.pop();
+
+        matrices.push();
+        // If you don't have receipt
+        texts = Text.translatable("gui.metropolis.fare_adj_no_ticket.if_you_dont_have_receipt").getString().split("\n");
+        int i1 = 0;
+        for (String text : texts) {
+            this.textRenderer.draw(
+                    matrices,
+                    text,
+                    intoTexturePosX(22),
+                    intoTexturePosY(52) + (textRenderer.fontHeight + 2) * (i0 + i1),
+                    0x3F3F3F
+            );
+            i1++;
+        }
         matrices.pop();
 
         super.render(matrices, mouseX, mouseY, delta);

@@ -78,13 +78,13 @@ public class BlockTicketVendorUp extends HorizontalFacingBlock {
     @Override
     public void onBroken(WorldAccess world, BlockPos pos, BlockState state) {
         super.onBroken(world, pos, state);
-        if (world.getBlockState(pos.down()).getBlock() instanceof BlockTicketVendor) {
+        if (world.getBlockState(pos.down()).getBlock() instanceof BlockTicketVendor || world.getBlockState(pos.down()).getBlock() instanceof BlockFareAdjMachine) {
             world.breakBlock(pos.down(), true);
         }
     }
 
     @Override
     public ItemStack getPickStack(BlockView world, BlockPos pos, BlockState state) {
-        return world.getBlockState(pos.down()).getBlock() instanceof BlockTicketVendor ? new ItemStack(world.getBlockState(pos.down()).getBlock()) : ItemStack.EMPTY;
+        return world.getBlockState(pos.down()).getBlock() instanceof BlockTicketVendor || world.getBlockState(pos.down()).getBlock() instanceof BlockFareAdjMachine ? new ItemStack(world.getBlockState(pos.down()).getBlock()) : ItemStack.EMPTY;
     }
 }

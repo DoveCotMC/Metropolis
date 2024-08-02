@@ -56,6 +56,8 @@
 
     "gui.metropolis.fare_adj_no_ticket.title": "Fare adjustment",
     "gui.metropolis.fare_adj_no_ticket.subtitle": "No tickets",
+    "gui.metropolis.fare_adj_no_ticket.if_you_have_receipt": "If you have a\nticket receipt:",
+    "gui.metropolis.fare_adj_no_ticket.if_you_dont_have_receipt": "If you don't have a\nticket receipt:",
 
     "tooltip.metropolis.ticket.from_and_to": "%s ⥋ %s",
     "tooltip.metropolis.ticket.balance": "Balance: %s",
