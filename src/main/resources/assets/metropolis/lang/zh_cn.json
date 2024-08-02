@@ -48,6 +48,10 @@
     "gui.metropolis.ticket_vendor_payment.ic_charge.title": "充值IC卡",
     "gui.metropolis.ticket_vendor_payment.ic_charge.ticket_value": "  价值：%s",
 
+    "gui.metropolis.fare_adj_main.ic_charge_button_text": "为IC卡\n充值/补票",
+    "gui.metropolis.fare_adj_main.ticket_charge_button_text": "为单程票\n补足出战余额",
+    "gui.metropolis.fare_adj_main.no_ticket": "我没有车票\n补票出站",
+
     "tooltip.metropolis.ticket.from_and_to": "%s ⥋ %s",
     "tooltip.metropolis.ticket.balance": "余额: %s",
     "tooltip.metropolis.ticket.entered_station": "已进站: %s",

@@ -48,7 +48,9 @@
     "gui.metropolis.ticket_vendor_payment.ic_charge.title": "IC Card charge",
     "gui.metropolis.ticket_vendor_payment.ic_charge.ticket_value": "  Value: %s",
 
-    "gui.metropolis.fare_adj_main.charge_button_text": "114514\n1919810",
+    "gui.metropolis.fare_adj_main.ic_charge_button_text": "Charge\nFor IC card",
+    "gui.metropolis.fare_adj_main.ticket_charge_button_text": "Fare adjustment\nFor tickets",
+    "gui.metropolis.fare_adj_main.no_ticket": "I don't have a ticket\nPay the fine",
 
     "tooltip.metropolis.ticket.from_and_to": "%s ⥋ %s",
     "tooltip.metropolis.ticket.balance": "Balance: %s",

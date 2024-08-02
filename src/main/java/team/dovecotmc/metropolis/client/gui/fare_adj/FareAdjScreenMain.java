@@ -128,14 +128,18 @@ public class FareAdjScreenMain extends Screen {
         );
 
         // Text
+        matrices.push();
+        if (purpleHovering) {
+            matrices.translate(1, 1, 0);
+        }
         int i0 = 0;
-        List<String> texts = new java.util.ArrayList<>(Arrays.stream(Text.translatable("gui.metropolis.fare_adj_main.charge_button_text").getString().split("\n")).toList());
+        List<String> texts = new java.util.ArrayList<>(Arrays.stream(Text.translatable("gui.metropolis.fare_adj_main.ic_charge_button_text").getString().split("\n")).toList());
         Collections.reverse(texts);
         for (String text : texts) {
             this.textRenderer.drawWithOutline(
                     Text.literal(text).asOrderedText(),
-                    intoTexturePosX(18) + (BUTTON_BIG_WIDTH / 2f - textRenderer.getWidth(text) / 2f),
-                    intoTexturePosY(46) + (BUTTON_BIG_HEIGHT - 18 - textRenderer.fontHeight * i0 - 2 * i0),
+                    x0 + (BUTTON_BIG_WIDTH / 2f - textRenderer.getWidth(text) / 2f),
+                    y0 + (BUTTON_BIG_HEIGHT - 20 - textRenderer.fontHeight * i0 - 2 * i0),
                     0xFFFFFF,
                     0xA9309F,
                     matrices.peek().getPositionMatrix(),
@@ -145,6 +149,7 @@ public class FareAdjScreenMain extends Screen {
             immediate.draw();
             i0++;
         }
+        matrices.pop();
 
         // Green
         boolean greenHovering = this.mouseX >= x1 && this.mouseY >= y0 && this.mouseX <= x1 + BUTTON_BIG_WIDTH && this.mouseY <= y0 + BUTTON_BIG_HEIGHT;
@@ -162,6 +167,30 @@ public class FareAdjScreenMain extends Screen {
                 BUTTON_BIG_WIDTH, BUTTON_BIG_HEIGHT,
                 BUTTON_BIG_WIDTH, BUTTON_BIG_HEIGHT
         );
+
+        // Text
+        matrices.push();
+        if (greenHovering) {
+            matrices.translate(1, 1, 0);
+        }
+        i0 = 0;
+        texts = new java.util.ArrayList<>(Arrays.stream(Text.translatable("gui.metropolis.fare_adj_main.ticket_charge_button_text").getString().split("\n")).toList());
+        Collections.reverse(texts);
+        for (String text : texts) {
+            this.textRenderer.drawWithOutline(
+                    Text.literal(text).asOrderedText(),
+                    x1 + (BUTTON_BIG_WIDTH / 2f - textRenderer.getWidth(text) / 2f),
+                    y0 + (BUTTON_BIG_HEIGHT - 20 - textRenderer.fontHeight * i0 - 2 * i0),
+                    0xFFFFFF,
+                    0x5EA919,
+                    matrices.peek().getPositionMatrix(),
+                    immediate,
+                    15728880
+            );
+            immediate.draw();
+            i0++;
+        }
+        matrices.pop();
 
         int y1 = intoTexturePosY(118);
 
@@ -181,6 +210,30 @@ public class FareAdjScreenMain extends Screen {
                 BUTTON_WIDE_WIDTH, BUTTON_WIDE_HEIGHT,
                 BUTTON_WIDE_WIDTH, BUTTON_WIDE_HEIGHT
         );
+
+        // Text
+        matrices.push();
+        if (blueHovering) {
+            matrices.translate(1, 1, 0);
+        }
+        i0 = 0;
+        texts = new java.util.ArrayList<>(Arrays.stream(Text.translatable("gui.metropolis.fare_adj_main.no_ticket").getString().split("\n")).toList());
+        Collections.reverse(texts);
+        for (String text : texts) {
+            this.textRenderer.drawWithOutline(
+                    Text.literal(text).asOrderedText(),
+                    x0 + 12,
+                    y1 + (BUTTON_WIDE_HEIGHT - 24 - textRenderer.fontHeight * i0 - 2 * i0),
+                    0xFFFFFF,
+                    0x4C75DD,
+                    matrices.peek().getPositionMatrix(),
+                    immediate,
+                    15728880
+            );
+            immediate.draw();
+            i0++;
+        }
+        matrices.pop();
 
         super.render(matrices, mouseX, mouseY, delta);
 
