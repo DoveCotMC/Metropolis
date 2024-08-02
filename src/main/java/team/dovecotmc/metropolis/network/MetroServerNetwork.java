@@ -15,6 +15,8 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import team.dovecotmc.metropolis.Metropolis;
 import team.dovecotmc.metropolis.block.entity.BlockEntityTicketVendor;
+import team.dovecotmc.metropolis.item.ItemCard;
+import team.dovecotmc.metropolis.item.ItemTicket;
 
 /**
  * @author Arrokoth
@@ -50,6 +52,11 @@ public class MetroServerNetwork {
     public static void openFareAdjustmentScreen(BlockPos pos, ServerPlayerEntity player) {
         PacketByteBuf packet = PacketByteBufs.create();
         packet.writeBlockPos(pos);
+        ItemStack stack = player.getStackInHand(Hand.MAIN_HAND);
+        if (!(stack.getItem() instanceof ItemTicket || stack.getItem() instanceof ItemCard)) {
+            stack = ItemStack.EMPTY;
+        }
+        packet.writeItemStack(stack);
         ServerPlayNetworking.send(player, FARE_ADJ_GUI, packet);
     }
 
