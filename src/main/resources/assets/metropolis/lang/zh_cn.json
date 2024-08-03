@@ -56,9 +56,9 @@
 
     "gui.metropolis.fare_adj_no_ticket.title": "补票机",
     "gui.metropolis.fare_adj_no_ticket.subtitle": "未持有单程票",
-    "gui.metropolis.fare_adj_no_ticket.if_you_have_receipt": "如果您持有\n购票证明发票：",
-    "gui.metropolis.fare_adj_no_ticket.insert_receipt": "将购票证明发票插入机内进行补票",
-    "gui.metropolis.fare_adj_no_ticket.if_you_dont_have_receipt": "如果您未持有\n购票证明发票",
+    "gui.metropolis.fare_adj_no_ticket.if_you_have_receipt": "如果您持有\n购票证明收据：",
+    "gui.metropolis.fare_adj_no_ticket.insert_receipt": "将购票证明收据插入机内进行补票",
+    "gui.metropolis.fare_adj_no_ticket.if_you_dont_have_receipt": "如果您未持有\n购票证明收据",
     "gui.metropolis.fare_adj_no_ticket.pay_fare": "该情况将被视为逃票，需支付最高票价",
 
     "tooltip.metropolis.ticket.from_and_to": "%s ⥋ %s",
