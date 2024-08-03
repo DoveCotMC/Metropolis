@@ -1,5 +1,5 @@
 {
-    "itemGroup.metropolis.all": "Metropolis",
+    "itemGroup.metropolis.all": "Métropolis.",
 
     "config.metropolis.client.enable_glowing_texture": "启用发光纹理",
     "config.metropolis.client.enable_station_info_overlay": "启用车站信息显示HUD",
@@ -53,6 +53,13 @@
     "gui.metropolis.fare_adj_main.ic_charge_button_text": "为IC卡\n充值/补票",
     "gui.metropolis.fare_adj_main.ticket_charge_button_text": "为单程票\n补足出站余额",
     "gui.metropolis.fare_adj_main.no_ticket": "我没有车票\n补票出站",
+
+    "gui.metropolis.fare_adj_no_ticket.title": "补票机",
+    "gui.metropolis.fare_adj_no_ticket.subtitle": "未持有单程票",
+    "gui.metropolis.fare_adj_no_ticket.if_you_have_receipt": "如果您持有\n购票证明发票：",
+    "gui.metropolis.fare_adj_no_ticket.insert_receipt": "将购票证明发票插入机内进行补票",
+    "gui.metropolis.fare_adj_no_ticket.if_you_dont_have_receipt": "如果您未持有\n购票证明发票",
+    "gui.metropolis.fare_adj_no_ticket.pay_fare": "该情况将被视为逃票，需支付最高票价",
 
     "tooltip.metropolis.ticket.from_and_to": "%s ⥋ %s",
     "tooltip.metropolis.ticket.balance": "余额: %s",

@@ -1,5 +1,5 @@
 {
-    "itemGroup.metropolis.all": "Metropolis",
+    "itemGroup.metropolis.all": "Métropolis.",
 
     "config.metropolis.client.enable_glowing_texture": "Enable glowing textures",
     "config.metropolis.client.enable_station_info_overlay": "Enable station information overlay",
@@ -57,7 +57,9 @@
     "gui.metropolis.fare_adj_no_ticket.title": "Fare adjustment",
     "gui.metropolis.fare_adj_no_ticket.subtitle": "No tickets",
     "gui.metropolis.fare_adj_no_ticket.if_you_have_receipt": "If you have a\nticket receipt:",
+    "gui.metropolis.fare_adj_no_ticket.insert_receipt": "Insert receipt to make fare adjustment",
     "gui.metropolis.fare_adj_no_ticket.if_you_dont_have_receipt": "If you don't have a\nticket receipt:",
+    "gui.metropolis.fare_adj_no_ticket.pay_fare": "You have to pay the maximum fare.",
 
     "tooltip.metropolis.ticket.from_and_to": "%s ⥋ %s",
     "tooltip.metropolis.ticket.balance": "Balance: %s",
