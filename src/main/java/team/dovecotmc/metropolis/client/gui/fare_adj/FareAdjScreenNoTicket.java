@@ -120,19 +120,21 @@ public class FareAdjScreenNoTicket extends Screen {
         }
 
         // Insert receipt warning
+        int warningSize = 14;
         Text text0 = Text.translatable("gui.metropolis.fare_adj_no_ticket.insert_receipt");
         this.textRenderer.draw(
                 matrices,
                 text0,
-                intoTexturePosX(0) + BG_TEXTURE_WIDTH - 12 - textRenderer.getWidth(text0),
+                intoTexturePosX(22) + warningSize + 4,
+//                intoTexturePosX(0) + BG_TEXTURE_WIDTH - 12 - textRenderer.getWidth(text0),
                 intoTexturePosY(52) + (textRenderer.fontHeight + 2) * i0 + 6,
                 0x3F3F3F
         );
         RenderSystem.setShaderTexture(0, WARNING_TEXTURE_ID);
-        int warningSize = 14;
         drawTexture(
                 matrices,
-                intoTexturePosX(0) + BG_TEXTURE_WIDTH - 12 - textRenderer.getWidth(text0) - warningSize - 4,
+                intoTexturePosX(22),
+//                intoTexturePosX(0) + BG_TEXTURE_WIDTH - 12 - textRenderer.getWidth(text0) - warningSize - 4,
                 intoTexturePosY(52) + (textRenderer.fontHeight + 2) * i0 + 6 - (warningSize - textRenderer.fontHeight) / 2 - 2,
                 warningSize, warningSize,
                 warningSize, warningSize,
@@ -160,14 +162,16 @@ public class FareAdjScreenNoTicket extends Screen {
         this.textRenderer.draw(
                 matrices,
                 text1,
-                intoTexturePosX(0) + BG_TEXTURE_WIDTH - 12 - textRenderer.getWidth(text1),
+                intoTexturePosX(22) + warningSize + 4,
+//                intoTexturePosX(0) + BG_TEXTURE_WIDTH - 12 - textRenderer.getWidth(text1),
                 intoTexturePosY(52) + 48 + (textRenderer.fontHeight + 2) * i1 + 6,
                 0x3F3F3F
         );
         RenderSystem.setShaderTexture(0, INFO_TEXTURE_ID);
         drawTexture(
                 matrices,
-                intoTexturePosX(0) + BG_TEXTURE_WIDTH - 12 - textRenderer.getWidth(text1) - warningSize - 4,
+                intoTexturePosX(22),
+//                intoTexturePosX(0) + BG_TEXTURE_WIDTH - 12 - textRenderer.getWidth(text1) - warningSize - 4,
                 intoTexturePosY(52) + 48 + (textRenderer.fontHeight + 2) * i1 + 6 - (warningSize - textRenderer.fontHeight) / 2 - 2,
                 warningSize, warningSize,
                 warningSize, warningSize,
