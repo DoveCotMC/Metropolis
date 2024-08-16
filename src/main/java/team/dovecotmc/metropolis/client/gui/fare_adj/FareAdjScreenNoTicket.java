@@ -29,6 +29,10 @@ public class FareAdjScreenNoTicket extends Screen {
     private static final Identifier WARNING_TEXTURE_ID = new Identifier(Metropolis.MOD_ID, "textures/gui/fare_adj_no_ticket/warning.png");
     private static final Identifier INFO_TEXTURE_ID = new Identifier(Metropolis.MOD_ID, "textures/gui/fare_adj_no_ticket/info.png");
 
+    private static final Identifier NEXT_BUTTON_TEXTURE_ID = new Identifier(Metropolis.MOD_ID, "textures/gui/fare_adj_no_ticket/next_button.png");
+    public static final int NEXT_BUTTON_WIDTH = 57;
+    public static final int NEXT_BUTTON_HEIGHT = 16;
+
     protected final BlockPos pos;
     protected final FareAdjData data;
     protected final Screen parent;
@@ -178,6 +182,17 @@ public class FareAdjScreenNoTicket extends Screen {
                 warningSize, warningSize
         );
         matrices.pop();
+
+        // Pay button
+        Text text2 = Text.translatable("gui.metropolis.fare_adj_no_ticket.pay_button");
+        this.textRenderer.draw(
+                matrices,
+                text2,
+                intoTexturePosX(22) + warningSize + 4,
+//                intoTexturePosX(0) + BG_TEXTURE_WIDTH - 12 - textRenderer.getWidth(text1),
+                intoTexturePosY(52) + 48 + (textRenderer.fontHeight + 2) * i1 + 6,
+                0x3F3F3F
+        );
 
         super.render(matrices, mouseX, mouseY, delta);
 
