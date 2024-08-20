@@ -30,8 +30,8 @@ public class FareAdjScreenNoTicket extends Screen {
     private static final Identifier INFO_TEXTURE_ID = new Identifier(Metropolis.MOD_ID, "textures/gui/fare_adj_no_ticket/info.png");
 
     private static final Identifier NEXT_BUTTON_TEXTURE_ID = new Identifier(Metropolis.MOD_ID, "textures/gui/fare_adj_no_ticket/next_button.png");
-    public static final int NEXT_BUTTON_WIDTH = 57;
-    public static final int NEXT_BUTTON_HEIGHT = 16;
+    public static final int NEXT_BUTTON_WIDTH = 96;
+    public static final int NEXT_BUTTON_HEIGHT = 24;
 
     protected final BlockPos pos;
     protected final FareAdjData data;
@@ -193,6 +193,19 @@ public class FareAdjScreenNoTicket extends Screen {
                 intoTexturePosY(52) + 48 + (textRenderer.fontHeight + 2) * i1 + 6,
                 0x3F3F3F
         );
+
+        matrices.push();
+        RenderSystem.setShaderTexture(0, NEXT_BUTTON_TEXTURE_ID);
+        drawTexture(
+                matrices,
+                intoTexturePosX(144),
+                intoTexturePosY(152),
+                0,
+                0,
+                NEXT_BUTTON_WIDTH, NEXT_BUTTON_HEIGHT,
+                NEXT_BUTTON_WIDTH, NEXT_BUTTON_HEIGHT
+        );
+        matrices.pop();
 
         super.render(matrices, mouseX, mouseY, delta);
 
