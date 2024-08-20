@@ -77,7 +77,7 @@ public class BlockFareAdjMachine extends HorizontalFacingBlock implements BlockE
 
     public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand interactionHand, BlockHitResult blockHitResult) {
         if (!world.isClient) {
-//            MetroServerNetwork.openFareAdjustmentScreen(pos, (ServerPlayerEntity) player);
+            MetroServerNetwork.openFareAdjustmentScreen(pos, (ServerPlayerEntity) player);
         }
         return ActionResult.SUCCESS;
     }
