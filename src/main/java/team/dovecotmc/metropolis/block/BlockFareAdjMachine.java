@@ -77,29 +77,7 @@ public class BlockFareAdjMachine extends HorizontalFacingBlock implements BlockE
 
     public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand interactionHand, BlockHitResult blockHitResult) {
         if (!world.isClient) {
-            MetroServerNetwork.openFareAdjustmentScreen(pos, (ServerPlayerEntity) player);
-//            BlockEntityFareAdj blockEntity = world.getBlockEntity(pos, MetroBlockEntities.FARE_ADJ_BLOCK_ENTITY).orElse(null);
-//
-//            if (blockEntity != null && !blockEntity.getStack(0).isEmpty()) {
-//                world.playSound(null, pos, SoundEvents.BLOCK_WOOL_BREAK, SoundCategory.BLOCKS, 1f, 1f);
-//                ServerPlayerEntity serverPlayer = (ServerPlayerEntity) player;
-//                serverPlayer.getInventory().insertStack(blockEntity.getStack(0));
-//                blockEntity.removeStack(0);
-//                serverPlayer.networkHandler.sendPacket(blockEntity.toUpdatePacket());
-//                MetroServerNetwork.removeInventoryItem(0, pos, serverPlayer);
-//            } else if (blockEntity != null && player.getStackInHand(Hand.MAIN_HAND).getItem().equals(MetroItems.ITEM_CARD)) {
-//                world.playSound(null, pos, SoundEvents.BLOCK_WOOL_PLACE, SoundCategory.BLOCKS, 1f, 1f);
-//                ServerPlayerEntity serverPlayer = (ServerPlayerEntity) player;
-//
-//                serverPlayer.networkHandler.sendPacket(blockEntity.toUpdatePacket());
-//                MetroServerNetwork.openTicketVendorChargeScreen(pos, (ServerPlayerEntity) player, player.getStackInHand(Hand.MAIN_HAND));
-//            } else {
-//                if (blockEntity != null) {
-//                    blockEntity.removeStack(1);
-//                    MetroServerNetwork.removeInventoryItem(1, pos, (ServerPlayerEntity) player);
-//                    MetroServerNetwork.openTicketVendorScreen(pos, (ServerPlayerEntity) player, blockEntity.getStack(1));
-//                }
-//            }
+//            MetroServerNetwork.openFareAdjustmentScreen(pos, (ServerPlayerEntity) player);
         }
         return ActionResult.SUCCESS;
     }
