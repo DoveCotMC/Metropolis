@@ -181,6 +181,12 @@ public class BlockSecurityInspectionMachine extends HorizontalFacingBlock implem
     }
 
     @Override
+    public VoxelShape getSidesShape(BlockState state, BlockView world, BlockPos pos) {
+        return state.get(PART).equals(EnumBlockSecurityInspectionMachinePart.CENTER) ?
+                VoxelShapes.fullCube() : VoxelShapes.empty();
+    }
+
+    @Override
     public VoxelShape getOutlineShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {
         if (state.get(PART).equals(EnumBlockSecurityInspectionMachinePart.HEAD) || state.get(PART).equals(EnumBlockSecurityInspectionMachinePart.TAIL)) {
             Direction facing = state.get(PART).equals(EnumBlockSecurityInspectionMachinePart.HEAD) ?

@@ -118,6 +118,19 @@ public class BlockSecurityDoor extends HorizontalFacingBlock {
     }
 
     @Override
+    public VoxelShape getSidesShape(BlockState state, BlockView world, BlockPos pos) {
+        return VoxelShapes.union(MetroBlockUtil.getVoxelShapeByDirection(
+                0, 0, 0,
+                1, 16, 16,
+                state.get(FACING)
+        ), MetroBlockUtil.getVoxelShapeByDirection(
+                15, 0, 0,
+                16, 16, 16,
+                state.get(FACING)
+        ));
+    }
+
+    @Override
     public VoxelShape getOutlineShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {
         if (state.get(HALF).equals(DoubleBlockHalf.UPPER)) {
             return VoxelShapes.union(VoxelShapes.union(MetroBlockUtil.getVoxelShapeByDirection(
