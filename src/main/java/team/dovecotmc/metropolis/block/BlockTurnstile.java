@@ -267,6 +267,15 @@ public class BlockTurnstile extends HorizontalFacingBlock implements BlockEntity
     }
 
     @Override
+    public VoxelShape getSidesShape(BlockState state, BlockView world, BlockPos pos) {
+        Direction facing = state.get(FACING);
+        return VoxelShapes.union(
+                MetroBlockUtil.getVoxelShapeByDirection(0, 0, 0, 3, 16, 16, facing),
+                MetroBlockUtil.getVoxelShapeByDirection(15, 0, 0, 16, 16, 16, facing)
+        );
+    }
+
+    @Override
     public VoxelShape getOutlineShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {
         Direction facing = state.get(FACING);
         return VoxelShapes.union(
