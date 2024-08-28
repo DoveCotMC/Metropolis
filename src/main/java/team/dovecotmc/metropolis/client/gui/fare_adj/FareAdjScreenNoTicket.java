@@ -30,8 +30,9 @@ public class FareAdjScreenNoTicket extends Screen {
     private static final Identifier INFO_TEXTURE_ID = new Identifier(Metropolis.MOD_ID, "textures/gui/fare_adj_no_ticket/info.png");
 
     private static final Identifier NEXT_BUTTON_TEXTURE_ID = new Identifier(Metropolis.MOD_ID, "textures/gui/fare_adj_no_ticket/next_button.png");
-    public static final int NEXT_BUTTON_WIDTH = 96;
-    public static final int NEXT_BUTTON_HEIGHT = 24;
+    private static final Identifier NEXT_BUTTON_HOVER_TEXTURE_ID = new Identifier(Metropolis.MOD_ID, "textures/gui/fare_adj_no_ticket/next_button_hover.png");
+    public static final int NEXT_BUTTON_WIDTH = 88;
+    public static final int NEXT_BUTTON_HEIGHT = 20;
 
     protected final BlockPos pos;
     protected final FareAdjData data;
@@ -134,7 +135,7 @@ public class FareAdjScreenNoTicket extends Screen {
                 intoTexturePosY(52) + (textRenderer.fontHeight + 2) * i0 + 6,
                 0x3F3F3F
         );
-        RenderSystem.setShaderTexture(0, WARNING_TEXTURE_ID);
+        RenderSystem.setShaderTexture(0, INFO_TEXTURE_ID);
         drawTexture(
                 matrices,
                 intoTexturePosX(22),
@@ -184,26 +185,32 @@ public class FareAdjScreenNoTicket extends Screen {
         matrices.pop();
 
         // Pay button
-        Text text2 = Text.translatable("gui.metropolis.fare_adj_no_ticket.pay_button");
-        this.textRenderer.draw(
-                matrices,
-                text2,
-                intoTexturePosX(22) + warningSize + 4,
-//                intoTexturePosX(0) + BG_TEXTURE_WIDTH - 12 - textRenderer.getWidth(text1),
-                intoTexturePosY(52) + 48 + (textRenderer.fontHeight + 2) * i1 + 6,
-                0x3F3F3F
-        );
-
         matrices.push();
-        RenderSystem.setShaderTexture(0, NEXT_BUTTON_TEXTURE_ID);
+        int x0 = intoTexturePosX(144);
+        int y0 = intoTexturePosY(152);
+        boolean nextHovering = this.mouseX >= x0 && this.mouseY >= y0 && this.mouseX <= x0 + NEXT_BUTTON_WIDTH && this.mouseY <= y0 + NEXT_BUTTON_HEIGHT;
+        if (nextHovering) {
+            RenderSystem.setShaderTexture(0, NEXT_BUTTON_HOVER_TEXTURE_ID);
+        } else {
+            RenderSystem.setShaderTexture(0, NEXT_BUTTON_TEXTURE_ID);
+        }
         drawTexture(
                 matrices,
-                intoTexturePosX(144),
-                intoTexturePosY(152),
+                x0,
+                y0,
                 0,
                 0,
                 NEXT_BUTTON_WIDTH, NEXT_BUTTON_HEIGHT,
                 NEXT_BUTTON_WIDTH, NEXT_BUTTON_HEIGHT
+        );
+
+        Text text2 = Text.translatable("gui.metropolis.fare_adj_no_ticket.pay_button");
+        this.textRenderer.draw(
+                matrices,
+                text2,
+                x0 + NEXT_BUTTON_WIDTH / 2f - textRenderer.getWidth(text2) / 2f,
+                y0 + NEXT_BUTTON_HEIGHT / 2f - textRenderer.fontHeight / 2f,
+                0x3F3F3F
         );
         matrices.pop();
 

@@ -60,6 +60,7 @@
     "gui.metropolis.fare_adj_no_ticket.insert_receipt": "Insert receipt to make fare adjustment",
     "gui.metropolis.fare_adj_no_ticket.if_you_dont_have_receipt": "If you don't have a\nticket receipt:",
     "gui.metropolis.fare_adj_no_ticket.pay_fare": "You have to pay the maximum fare.",
+    "gui.metropolis.fare_adj_no_ticket.pay_button": "Pay fare",
 
     "tooltip.metropolis.ticket.from_and_to": "%s ⥋ %s",
     "tooltip.metropolis.ticket.balance": "Balance: %s",
