@@ -13,6 +13,12 @@ import team.dovecotmc.metropolis.block.MetroBlocks;
  * @copyright Copyright © 2024 Arrokoth All Rights Reserved.
  */
 public class MetroBlockEntities {
+    public static final BlockEntityType<BlockBenchEntity> BENCH_BLOCK_ENTITY = Registry.register(
+            Registry.BLOCK_ENTITY_TYPE,
+            new Identifier(Metropolis.MOD_ID, "bench"),
+            FabricBlockEntityTypeBuilder.create(BlockBenchEntity::new, MetroBlocks.BLOCK_BENCH).build()
+    );
+
     public static final BlockEntityType<BlockEntityTicketVendor> TICKET_VENDOR_BLOCK_ENTITY = Registry.register(
             Registry.BLOCK_ENTITY_TYPE,
             new Identifier(Metropolis.MOD_ID, "ticket_vendor"),

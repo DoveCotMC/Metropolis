@@ -93,6 +93,9 @@ public class MetroBlocks {
     public static final Block BLOCK_CORDON_RED_BLACK = register("cordon_red_black", new Block(AbstractBlock.Settings.of(Material.STONE, DyeColor.RED)));
     public static final Block BLOCK_CORDON_RED_WHITE = register("cordon_red_white", new Block(AbstractBlock.Settings.of(Material.STONE, DyeColor.RED)));
 
+    // Bench
+    public static final Block BLOCK_BENCH = register("bench", new BlockBench(AbstractBlock.Settings.of(Material.METAL, DyeColor.LIGHT_GRAY)));
+
     // TODO: Blind path
 //    public static final Block BLOCK_BLIND_PATH_STRIP = register("blind_path_strip", new BlockHorizontalAxis(AbstractBlock.Settings.of(Material.STONE, DyeColor.YELLOW)));
 //    public static final Block BLOCK_BLIND_PATH_POINT = register("blind_path_point", new Block(AbstractBlock.Settings.of(Material.STONE, DyeColor.YELLOW)));

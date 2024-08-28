@@ -1,3 +1,3 @@
 {
-  "parent": "metropolis:base/security_inspection_machine"
+    "parent": "metropolis:base/security_inspection_machine"
 }
