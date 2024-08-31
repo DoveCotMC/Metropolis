@@ -51,7 +51,7 @@ public class Metropolis implements ModInitializer {
 //        MetroEnumUtil.addRailtype("rail_5", 5, MapColor.BLUE, false, true, true, RailType.RailSlopeStyle.CURVE);
 
         UseBlockCallback.EVENT.register(
-                (player, world, hand, hitResult) -> EntitySittable.trySit(world, hitResult.getBlockPos(), world.getBlockState(hitResult.getBlockPos()), hitResult, player) ?
+                (player, world, hand, hitResult) -> !player.isSneaking() && EntitySittable.trySit(world, hitResult.getBlockPos(), world.getBlockState(hitResult.getBlockPos()), hitResult, player) ?
                         ActionResult.SUCCESS :
                         ActionResult.PASS
         );
