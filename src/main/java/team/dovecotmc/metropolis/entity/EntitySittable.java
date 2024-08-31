@@ -173,10 +173,9 @@ public class EntitySittable extends Entity {
             if (msg == null) continue;
             p.stopRiding();
             p.setPos(p.getX(), getBlockPos().getY(), p.getZ());
-            if (p instanceof PlayerEntity player) player.sendMessage(msg, true);
+//            if (p instanceof PlayerEntity player) player.sendMessage(msg, true);
         }
         if (getPassengerList().isEmpty()) remove(RemovalReason.DISCARDED);
-//        super.tick();
     }
 
     @Override
