@@ -19,7 +19,7 @@ import team.dovecotmc.metropolis.util.MetroBlockUtil;
  * @copyright Copyright © 2024 Arrokoth All Rights Reserved.
  */
 @SuppressWarnings("deprecation")
-public class BlockBench extends HorizontalFacingBlock implements BlockEntityProvider {
+public class BlockBench extends HorizontalFacingBlock {
     public BlockBench(Settings settings) {
         super(settings.nonOpaque());
     }
@@ -50,9 +50,9 @@ public class BlockBench extends HorizontalFacingBlock implements BlockEntityProv
         builder.add(FACING);
     }
 
-    @Nullable
-    @Override
-    public BlockEntity createBlockEntity(BlockPos pos, BlockState state) {
-        return new BlockBenchEntity(pos, state);
-    }
+//    @Nullable
+//    @Override
+//    public BlockEntity createBlockEntity(BlockPos pos, BlockState state) {
+//        return new BlockBenchEntity(pos, state);
+//    }
 }
