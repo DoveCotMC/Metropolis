@@ -134,5 +134,7 @@
     "block.metropolis.cordon_red_black": "Cordon block",
     "tooltip.metropolis.cordon_red_black": "§7Red-black",
     "block.metropolis.cordon_red_white": "Cordon block",
-    "tooltip.metropolis.cordon_red_white": "§7Red-white"
+    "tooltip.metropolis.cordon_red_white": "§7Red-white",
+
+    "block.metropolis.bench": "Bench"
 }
