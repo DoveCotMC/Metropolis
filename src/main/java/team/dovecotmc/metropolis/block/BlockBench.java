@@ -1,7 +1,6 @@
 package team.dovecotmc.metropolis.block;
 
 import net.minecraft.block.*;
-import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.state.StateManager;
 import net.minecraft.util.math.BlockPos;
@@ -9,8 +8,6 @@ import net.minecraft.util.math.Direction;
 import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.util.shape.VoxelShapes;
 import net.minecraft.world.BlockView;
-import org.jetbrains.annotations.Nullable;
-import team.dovecotmc.metropolis.block.entity.BlockBenchEntity;
 import team.dovecotmc.metropolis.util.MetroBlockUtil;
 
 /**
@@ -29,13 +26,13 @@ public class BlockBench extends HorizontalFacingBlock {
         Direction facing = state.get(FACING);
         return VoxelShapes.union(
                 MetroBlockUtil.getVoxelShapeByDirection(
-                        0, 0, 0,
-                        16, 8, 16,
+                        1, 0, 2,
+                        15, 8, 16,
                         facing
                 ),
                 MetroBlockUtil.getVoxelShapeByDirection(
-                        0, 0, 8,
-                        16, 16, 16,
+                        1, 0, 12 ,
+                        15, 16, 16,
                         facing
                 )
         );
@@ -49,10 +46,4 @@ public class BlockBench extends HorizontalFacingBlock {
     protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
         builder.add(FACING);
     }
-
-//    @Nullable
-//    @Override
-//    public BlockEntity createBlockEntity(BlockPos pos, BlockState state) {
-//        return new BlockBenchEntity(pos, state);
-//    }
 }
