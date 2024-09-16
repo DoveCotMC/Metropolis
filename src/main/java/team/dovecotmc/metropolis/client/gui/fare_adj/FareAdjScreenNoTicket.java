@@ -216,6 +216,10 @@ public class FareAdjScreenNoTicket extends Screen {
         // Handle inputs
         if (client != null) {
             if (pressed) {
+                if (nextHovering) {
+                    playButtonDownSound();
+                    client.setScreen(new FareAdjScreenPayFare(pos, data, this));
+                }
             }
         }
 
