@@ -7,7 +7,8 @@
         "MixinTrain"
     ],
     "client": [
-        "MixinBlockOutlineRender"
+        "MixinBlockOutlineRender",
+        "MixinGameRenderer"
     ],
     "injectors": {
         "defaultRequire": 1

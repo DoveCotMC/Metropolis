@@ -71,9 +71,9 @@ public class MetropolisClient implements ClientModInitializer {
         HudRenderCallback.EVENT.register(BLOCK_PLACE_HUD::render);
         ResourceManagerHelper.get(ResourceType.CLIENT_RESOURCES).registerReloadListener(new ResourceReloadListener());
 
-        if (IS_ALPHA && !FabricLoader.getInstance().isDevelopmentEnvironment()) {
-            HudRenderCallback.EVENT.register(ALPHA_WARNING_HUD::render);
-        }
+//        if (IS_ALPHA && !FabricLoader.getInstance().isDevelopmentEnvironment()) {
+//            HudRenderCallback.EVENT.register(ALPHA_WARNING_HUD::render);
+//        }
     }
 
     private static class ResourceReloadListener implements SimpleSynchronousResourceReloadListener {
