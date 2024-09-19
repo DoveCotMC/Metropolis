@@ -47,7 +47,7 @@ public class Metropolis implements ModInitializer {
         MetroEntities.initialize();
         MetroItems.initialize();
         MetroServerNetwork.registerAll();
-        SittableRegistries.registerSittable(new SittableRegistry(MetroBlocks.BLOCK_BENCH, (state, player, hit) -> Optional.of(new Vec3d(0.5, 0.0, 0.5))));
+        SittableRegistries.registerSittable(new SittableRegistry(MetroBlocks.BLOCK_BENCH, (state, player, hit) -> Optional.of(new Vec3d(0.5, 0.1, 0.5))));
 //        MetroEnumUtil.addRailtype("rail_5", 5, MapColor.BLUE, false, true, true, RailType.RailSlopeStyle.CURVE);
 
         UseBlockCallback.EVENT.register(

@@ -1,5 +1,7 @@
 package team.dovecotmc.metropolis.block;
 
+import mtr.block.BlockTicketBarrier;
+import mtr.data.RailwayData;
 import mtr.data.Station;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
@@ -92,6 +94,23 @@ public class BlockTurnstile extends HorizontalFacingBlock implements BlockEntity
                 return ActionResult.SUCCESS;
             }
 
+            if (stack.getItem() instanceof ItemCard && ((ItemCard) stack.getItem()).infiniteBalance) {
+                if (world.getTime() - nbt.getLong(BlockEntityTurnstile.TICKET_ANIMATION_START) >= 7) {
+                    world.playSound(null, pos, MtrSoundUtil.TICKET_BARRIER_CONCESSIONARY, SoundCategory.BLOCKS, 1f, 1f);
+                    world.playSound(null, pos, SoundEvents.BLOCK_WOOL_BREAK, SoundCategory.BLOCKS, 1f, 1f);
+                    player.giveItemStack(blockEntity.getStack(0));
+                    blockEntity.removeStack(0);
+
+                    ((ServerPlayerEntity) player).networkHandler.sendPacket(blockEntity.toUpdatePacket());
+                    MetroServerNetwork.removeInventoryItem(0, pos, (ServerPlayerEntity) player);
+
+                    // Open
+                    world.setBlockState(pos, state.with(OPEN, true));
+                    world.createAndScheduleBlockTick(pos, this, 40);
+                    return ActionResult.SUCCESS;
+                }
+            }
+
             if (type == BlockEntityTurnstile.EnumTurnstileType.ENTER) {
                 if (!blockEntity.getStack(0).isEmpty()) {
                     if (world.getTime() - nbt.getLong(BlockEntityTurnstile.TICKET_ANIMATION_START) >= 7) {
@@ -103,6 +122,7 @@ public class BlockTurnstile extends HorizontalFacingBlock implements BlockEntity
                         ((ServerPlayerEntity) player).networkHandler.sendPacket(blockEntity.toUpdatePacket());
                         MetroServerNetwork.removeInventoryItem(0, pos, (ServerPlayerEntity) player);
 
+                        // Open
                         world.setBlockState(pos, state.with(OPEN, true));
                         world.createAndScheduleBlockTick(pos, this, 40);
                         return ActionResult.SUCCESS;
