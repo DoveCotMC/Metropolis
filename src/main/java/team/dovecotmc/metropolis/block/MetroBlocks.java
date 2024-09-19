@@ -53,6 +53,8 @@ public class MetroBlocks {
     public static final Block BLOCK_FLUORESCENT_LAMP = register("fluorescent_lamp", new BlockFluorescentLamp());
     // Train bumpers
     public static final Block BLOCK_BUMPER = register("bumper", new BlockBumper());
+    // Cameras
+    public static final Block BLOCK_CAMERA_CEILING = register("camera_ceiling", new BlockCameraCeiling());
 
     // Turnstile
     public static final Block BLOCK_TURNSTILE = register("turnstile", new BlockTurnstile(false));
