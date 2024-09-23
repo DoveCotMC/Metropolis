@@ -1,0 +1,7 @@
+{
+    "parent": "metropolis:base/sign",
+    "textures": {
+        "0": "metropolis:block/sign_1_no_photo",
+        "particle": "metropolis:block/sign_1_no_photo"
+    }
+}

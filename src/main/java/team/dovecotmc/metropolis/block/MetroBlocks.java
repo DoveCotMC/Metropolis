@@ -60,6 +60,9 @@ public class MetroBlocks {
     public static final Block BLOCK_TURNSTILE = register("turnstile", new BlockTurnstile(false));
     public static final Block BLOCK_TURNSTILE_IC_ONLY = register("turnstile_ic_only", new BlockTurnstile(true));
 
+    // Sign
+    public static final Block BLOCK_SIGN_NO_PHOTO = register("sign_no_photo", new BlockSign(AbstractBlock.Settings.of(Material.METAL)));
+
     // PIDS
 //    public static final Block BLOCK_PIDS_1 = register("pids_1", new BlockMetroPIDSOne());
 
