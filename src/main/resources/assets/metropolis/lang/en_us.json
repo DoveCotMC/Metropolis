@@ -66,6 +66,7 @@
     "tooltip.metropolis.ticket.balance": "Balance: %s",
     "tooltip.metropolis.ticket.entered_station": "Entered station: %s",
     "tooltip.metropolis.card.balance": "Balance: %s/%s",
+    "tooltip.metropolis.infinity_balance": "Infinity Balance",
 
     "info.metropolis.turnstile_type": "Turnstile type: %s",
     "info.metropolis.unable_switch_turnstile_type": "Unable to switch turnstile type",
@@ -85,6 +86,7 @@
     "item.metropolis.single_trip_ticket_used": "Single trip ticket",
     "tooltip.metropolis.single_trip_ticket_expired": "Expired",
     "item.metropolis.card": "IC Card",
+    "item.metropolis.creative_card": "IC Card",
 
     "block.metropolis.cable": "Cable",
 
@@ -107,6 +109,10 @@
     "block.metropolis.turnstile.exit": "Turnstile (Exit)",
     "block.metropolis.turnstile_ic_only.enter": "Turnstile (IC only, Enter)",
     "block.metropolis.turnstile_ic_only.exit": "Turnstile (IC only, Exit)",
+
+    "block.metropolis.camera_ceiling": "Security Camera",
+
+    "block.metropolis.sign_no_photo": "Sign (No photos)",
 
     "block.metropolis.itv_monitor": "ITV Monitor",
 

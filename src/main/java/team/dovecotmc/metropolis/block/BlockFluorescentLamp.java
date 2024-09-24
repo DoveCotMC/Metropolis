@@ -5,6 +5,8 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.world.BlockView;
+import net.minecraft.world.World;
+import net.minecraft.world.WorldView;
 import team.dovecotmc.metropolis.util.MetroBlockUtil;
 
 /**
@@ -16,6 +18,19 @@ import team.dovecotmc.metropolis.util.MetroBlockUtil;
 public class BlockFluorescentLamp extends BlockHorizontalAxis {
     public BlockFluorescentLamp() {
         super(Settings.of(Material.METAL).nonOpaque().luminance(value -> 15));
+    }
+
+    @Override
+    public boolean canPlaceAt(BlockState state, WorldView world, BlockPos pos) {
+        return world.getBlockState(pos.up()).isSolidBlock(world, pos.up());
+    }
+
+    @Override
+    public void neighborUpdate(BlockState state, World world, BlockPos pos, Block sourceBlock, BlockPos sourcePos, boolean notify) {
+        if (!canPlaceAt(state, world, pos)) {
+            world.breakBlock(pos, true);
+        }
+        super.neighborUpdate(state, world, pos, sourceBlock, sourcePos, notify);
     }
 
     @Override

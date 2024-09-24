@@ -8,6 +8,8 @@ import net.minecraft.util.math.Direction;
 import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.util.shape.VoxelShapes;
 import net.minecraft.world.BlockView;
+import net.minecraft.world.World;
+import net.minecraft.world.WorldView;
 import team.dovecotmc.metropolis.util.MetroBlockUtil;
 
 /**
@@ -36,6 +38,19 @@ public class BlockBench extends HorizontalFacingBlock {
                         facing
                 )
         );
+    }
+
+    @Override
+    public boolean canPlaceAt(BlockState state, WorldView world, BlockPos pos) {
+        return world.getBlockState(pos.down()).isSolidBlock(world, pos.down());
+    }
+
+    @Override
+    public void neighborUpdate(BlockState state, World world, BlockPos pos, Block sourceBlock, BlockPos sourcePos, boolean notify) {
+        if (!canPlaceAt(state, world, pos)) {
+            world.breakBlock(pos, true);
+        }
+        super.neighborUpdate(state, world, pos, sourceBlock, sourcePos, notify);
     }
 
     public BlockState getPlacementState(ItemPlacementContext ctx) {

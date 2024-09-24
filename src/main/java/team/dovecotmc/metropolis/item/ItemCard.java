@@ -34,7 +34,9 @@ public class ItemCard extends Item implements InterfaceTicket {
 
     @Override
     public void appendTooltip(ItemStack stack, @Nullable World world, List<Text> tooltip, TooltipContext context) {
-        if (!infiniteBalance) {
+        if (infiniteBalance) {
+            tooltip.add(Text.translatable("tooltip.metropolis.infinity_balance"));
+        } else {
             NbtCompound nbt = stack.getOrCreateNbt();
 
             String stationName = nbt.getString(ENTERED_STATION).split("\\|")[0];

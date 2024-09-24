@@ -66,6 +66,7 @@
     "tooltip.metropolis.ticket.balance": "余额: %s",
     "tooltip.metropolis.ticket.entered_station": "已进站: %s",
     "tooltip.metropolis.card.balance": "余额: %s/%s",
+    "tooltip.metropolis.infinity_balance": "无限余额",
 
     "info.metropolis.turnstile_type": "闸机类型：%s",
     "info.metropolis.unable_switch_turnstile_type": "无法切换闸机类型",
@@ -85,6 +86,7 @@
     "item.metropolis.single_trip_ticket_used": "单程票",
     "tooltip.metropolis.single_trip_ticket_expired": "已过期",
     "item.metropolis.card": "IC卡",
+    "item.metropolis.creative_card": "IC卡",
 
     "block.metropolis.cable": "线缆",
 
@@ -107,6 +109,10 @@
     "block.metropolis.turnstile.exit": "闸机（出口）",
     "block.metropolis.turnstile_ic_only.enter": "闸机（仅IC卡，入口）",
     "block.metropolis.turnstile_ic_only.exit": "闸机（仅IC卡，出口）",
+
+    "block.metropolis.camera_ceiling": "摄像头",
+
+    "block.metropolis.sign_no_photo": "告示牌（禁止拍照）",
 
     "block.metropolis.itv_monitor": "ITV监控屏幕",
 

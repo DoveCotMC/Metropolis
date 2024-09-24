@@ -17,6 +17,7 @@ import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.util.shape.VoxelShapes;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
+import net.minecraft.world.WorldView;
 import org.jetbrains.annotations.Nullable;
 import team.dovecotmc.metropolis.block.entity.BlockEntityBumper;
 import team.dovecotmc.metropolis.block.entity.BlockEntityCamera;
@@ -41,9 +42,22 @@ public class BlockCameraCeiling extends BlockWithEntity {
     @Override
     public VoxelShape getOutlineShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {
         return Block.createCuboidShape(
-                1, 0, 1,
-                15, 15, 15
+                4, 6, 4,
+                12, 16, 12
         );
+    }
+
+    @Override
+    public boolean canPlaceAt(BlockState state, WorldView world, BlockPos pos) {
+        return world.getBlockState(pos.up()).isSolidBlock(world, pos.up());
+    }
+
+    @Override
+    public void neighborUpdate(BlockState state, World world, BlockPos pos, Block sourceBlock, BlockPos sourcePos, boolean notify) {
+        if (!canPlaceAt(state, world, pos)) {
+            world.breakBlock(pos, true);
+        }
+        super.neighborUpdate(state, world, pos, sourceBlock, sourcePos, notify);
     }
 
     @Override
