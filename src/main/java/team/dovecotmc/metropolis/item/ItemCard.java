@@ -33,6 +33,11 @@ public class ItemCard extends Item implements InterfaceTicket {
     }
 
     @Override
+    public boolean isEnchantable(ItemStack stack) {
+        return false;
+    }
+
+    @Override
     public void appendTooltip(ItemStack stack, @Nullable World world, List<Text> tooltip, TooltipContext context) {
         if (infiniteBalance) {
             tooltip.add(Text.translatable("tooltip.metropolis.infinity_balance"));

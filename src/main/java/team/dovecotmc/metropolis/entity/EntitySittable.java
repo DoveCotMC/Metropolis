@@ -8,6 +8,7 @@ import net.minecraft.block.HorizontalFacingBlock;
 import net.minecraft.block.Material;
 import net.minecraft.entity.*;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.vehicle.BoatEntity;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.network.Packet;
 import net.minecraft.network.packet.s2c.play.EntitySpawnS2CPacket;
@@ -184,6 +185,21 @@ public class EntitySittable extends Entity {
 
     @Override
     protected void writeCustomDataToNbt(NbtCompound nbt) {
+    }
+
+    protected void copyEntityData(Entity entity) {
+        entity.setBodyYaw(this.getYaw());
+        float f = MathHelper.wrapDegrees(entity.getYaw() - this.getYaw());
+        float g = MathHelper.clamp(f, -105.0F, 105.0F);
+        entity.prevYaw += g - f;
+        entity.setYaw(entity.getYaw() + g - f);
+        entity.setHeadYaw(entity.getYaw());
+    }
+
+    @Override
+    public void onPassengerLookAround(Entity passenger) {
+//        super.onPassengerLookAround(passenger);
+        copyEntityData(passenger);
     }
 
     @Override
