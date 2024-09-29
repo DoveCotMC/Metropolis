@@ -35,7 +35,7 @@ public class MetroClientConfig {
 //        if ()
     }
 
-    public void refresh() {
+    public void create() {
         // Add default properties
         if (!json.has("enable_glowing_texture")) {
             json.addProperty("enable_glowing_texture", true);
@@ -46,6 +46,11 @@ public class MetroClientConfig {
         // Write
         this.enableGlowingTexture = json.get("enable_glowing_texture").getAsBoolean();
         this.enableStationInfoOverlay = json.get("enable_station_info_overlay").getAsBoolean();
+    }
+
+    public void refresh() {
+        json.addProperty("enable_glowing_texture", this.enableGlowingTexture);
+        json.addProperty("enable_station_info_overlay", this.enableStationInfoOverlay);
     }
 
     public static MetroClientConfig load() {
@@ -63,7 +68,7 @@ public class MetroClientConfig {
         }
         if (obj != null) {
             config.json = obj;
-            config.refresh();
+            config.create();
         }
         return config;
     }

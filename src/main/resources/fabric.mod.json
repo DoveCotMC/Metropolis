@@ -11,7 +11,7 @@
     "contact": {
         "repo": "https://github.com/DoveCotMC/Metropolis"
     },
-    "license": "All-Rights-Reserved",
+    "license": "MIT License",
     "icon": "assets/metropolis/metropolis.png",
     "environment": "*",
     "mixins": [
