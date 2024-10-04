@@ -1,4 +1,4 @@
-package team.dovecotmc.metropolis;
+package team.dovecotmc.metropolis.block.interfaces;
 
 /**
  * @author Arrokoth

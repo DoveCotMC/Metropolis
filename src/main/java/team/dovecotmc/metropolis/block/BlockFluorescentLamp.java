@@ -17,7 +17,7 @@ import team.dovecotmc.metropolis.util.MetroBlockUtil;
 @SuppressWarnings("deprecation")
 public class BlockFluorescentLamp extends BlockHorizontalAxis {
     public BlockFluorescentLamp() {
-        super(Settings.of(Material.METAL).nonOpaque().luminance(value -> 15));
+        super(Settings.of(Material.METAL).strength(4.0f).nonOpaque().luminance(value -> 15));
     }
 
     @Override

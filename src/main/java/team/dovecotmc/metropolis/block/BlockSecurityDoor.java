@@ -44,7 +44,7 @@ public class BlockSecurityDoor extends HorizontalFacingBlock {
 //    public static final EnumProperty<Direction.Axis> AXIS;
 
     public BlockSecurityDoor() {
-        super(Settings.of(Material.METAL, DyeColor.LIGHT_GRAY).nonOpaque());
+        super(Settings.of(Material.METAL, DyeColor.LIGHT_GRAY).strength(6.0f).nonOpaque());
     }
 
     @Override

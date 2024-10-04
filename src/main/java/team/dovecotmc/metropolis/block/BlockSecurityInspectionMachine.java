@@ -48,7 +48,7 @@ public class BlockSecurityInspectionMachine extends HorizontalFacingBlock implem
     public static final EnumProperty<EnumBlockSecurityInspectionMachinePart> PART = EnumProperty.of("part", EnumBlockSecurityInspectionMachinePart.class);
 
     public BlockSecurityInspectionMachine() {
-        super(Settings.of(Material.METAL, DyeColor.LIGHT_GRAY));
+        super(Settings.of(Material.METAL, DyeColor.LIGHT_GRAY).strength(6.0f));
     }
 
     @Override

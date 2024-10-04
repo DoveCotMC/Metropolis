@@ -30,7 +30,7 @@ public class BlockITVMonitor extends BlockWithEntity {
     }
 
     public BlockITVMonitor() {
-        super(Settings.of(Material.METAL, MapColor.GRAY));
+        super(Settings.of(Material.METAL, MapColor.GRAY).strength(6.0f));
         this.setDefaultState(this.stateManager.getDefaultState().with(ROTATION, 0));
     }
 

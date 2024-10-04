@@ -18,16 +18,16 @@ import team.dovecotmc.metropolis.Metropolis;
 @SuppressWarnings("unused")
 public class MetroBlocks {
     // Cables
-    public static final Block BLOCK_CABLE = register("cable", new BlockCable(FabricBlockSettings.of(Material.METAL, MapColor.STONE_GRAY).noCollision().nonOpaque(), false, false, false));
-    public static final Block BLOCK_CABLE_HORIZONTAL = register("cable_horizontal", new BlockCable(FabricBlockSettings.of(Material.METAL, MapColor.STONE_GRAY).noCollision().nonOpaque(), false, false, false));
-    public static final Block BLOCK_CABLE_INNER_CORNER_LEFT = register("cable_inner_corner_left", new BlockCable(FabricBlockSettings.of(Material.METAL, MapColor.STONE_GRAY).noCollision().nonOpaque(), true, false, false));
-    public static final Block BLOCK_CABLE_INNER_CORNER_RIGHT = register("cable_inner_corner_right", new BlockCable(FabricBlockSettings.of(Material.METAL, MapColor.STONE_GRAY).noCollision().nonOpaque(), true, false, true));
-    public static final Block BLOCK_CABLE_OUTER_CORNER_LEFT = register("cable_outer_corner_left", new BlockCable(FabricBlockSettings.of(Material.METAL, MapColor.STONE_GRAY).noCollision().nonOpaque(), false, true, false));
-    public static final Block BLOCK_CABLE_OUTER_CORNER_RIGHT = register("cable_outer_corner_right", new BlockCable(FabricBlockSettings.of(Material.METAL, MapColor.STONE_GRAY).noCollision().nonOpaque(), false, true, true));
-    public static final Block BLOCK_CABLE_DOWN_LEFT = register("cable_down_left", new BlockCable(FabricBlockSettings.of(Material.METAL, MapColor.STONE_GRAY).noCollision().nonOpaque(), false, false, false));
-    public static final Block BLOCK_CABLE_DOWN_RIGHT = register("cable_down_right", new BlockCable(FabricBlockSettings.of(Material.METAL, MapColor.STONE_GRAY).noCollision().nonOpaque(), false, false, false));
-    public static final Block BLOCK_CABLE_UP_LEFT = register("cable_up_left", new BlockCable(FabricBlockSettings.of(Material.METAL, MapColor.STONE_GRAY).noCollision().nonOpaque(), false, false, false));
-    public static final Block BLOCK_CABLE_UP_RIGHT = register("cable_up_right", new BlockCable(FabricBlockSettings.of(Material.METAL, MapColor.STONE_GRAY).noCollision().nonOpaque(), false, false, false));
+    public static final Block BLOCK_CABLE = register("cable", new BlockCable(FabricBlockSettings.of(Material.METAL, MapColor.STONE_GRAY).strength(2.0f).noCollision().nonOpaque(), false, false, false));
+    public static final Block BLOCK_CABLE_HORIZONTAL = register("cable_horizontal", new BlockCable(FabricBlockSettings.of(Material.METAL, MapColor.STONE_GRAY).strength(2.0f).noCollision().nonOpaque(), false, false, false));
+    public static final Block BLOCK_CABLE_INNER_CORNER_LEFT = register("cable_inner_corner_left", new BlockCable(FabricBlockSettings.of(Material.METAL, MapColor.STONE_GRAY).strength(2.0f).noCollision().nonOpaque(), true, false, false));
+    public static final Block BLOCK_CABLE_INNER_CORNER_RIGHT = register("cable_inner_corner_right", new BlockCable(FabricBlockSettings.of(Material.METAL, MapColor.STONE_GRAY).strength(2.0f).noCollision().nonOpaque(), true, false, true));
+    public static final Block BLOCK_CABLE_OUTER_CORNER_LEFT = register("cable_outer_corner_left", new BlockCable(FabricBlockSettings.of(Material.METAL, MapColor.STONE_GRAY).strength(2.0f).noCollision().nonOpaque(), false, true, false));
+    public static final Block BLOCK_CABLE_OUTER_CORNER_RIGHT = register("cable_outer_corner_right", new BlockCable(FabricBlockSettings.of(Material.METAL, MapColor.STONE_GRAY).strength(2.0f).noCollision().nonOpaque(), false, true, true));
+    public static final Block BLOCK_CABLE_DOWN_LEFT = register("cable_down_left", new BlockCable(FabricBlockSettings.of(Material.METAL, MapColor.STONE_GRAY).strength(2.0f).noCollision().nonOpaque(), false, false, false));
+    public static final Block BLOCK_CABLE_DOWN_RIGHT = register("cable_down_right", new BlockCable(FabricBlockSettings.of(Material.METAL, MapColor.STONE_GRAY).strength(2.0f).noCollision().nonOpaque(), false, false, false));
+    public static final Block BLOCK_CABLE_UP_LEFT = register("cable_up_left", new BlockCable(FabricBlockSettings.of(Material.METAL, MapColor.STONE_GRAY).strength(2.0f).noCollision().nonOpaque(), false, false, false));
+    public static final Block BLOCK_CABLE_UP_RIGHT = register("cable_up_right", new BlockCable(FabricBlockSettings.of(Material.METAL, MapColor.STONE_GRAY).strength(2.0f).noCollision().nonOpaque(), false, false, false));
     // Tunnel light
 //    public static final Block BLOCK_TUNNEL_LIGHT_A = register("tunnel_light_a", new BlockTunnelLight(FabricBlockSettings.of(Material.METAL, MapColor.STONE_GRAY).nonOpaque()));
 
@@ -47,7 +47,7 @@ public class MetroBlocks {
     public static final Block BLOCK_FARE_ADJ_EV23_YELLOW = register("fare_adj_ev23", new BlockFareAdjMachine(BLOCK_TICKET_VENDOR_UP_EV23_YELLOW));
 
     // Ceiling
-    public static final Block BLOCK_CEILING_A = register("ceiling_a", new BlockCeilingA(FabricBlockSettings.of(Material.METAL, MapColor.GRAY).nonOpaque().luminance(1)));
+    public static final Block BLOCK_CEILING_A = register("ceiling_a", new BlockCeilingA(FabricBlockSettings.of(Material.METAL, MapColor.GRAY).strength(6.0f).nonOpaque().luminance(1)));
 
     // Lamp
     public static final Block BLOCK_FLUORESCENT_LAMP = register("fluorescent_lamp", new BlockFluorescentLamp());
@@ -61,7 +61,7 @@ public class MetroBlocks {
     public static final Block BLOCK_TURNSTILE_IC_ONLY = register("turnstile_ic_only", new BlockTurnstile(true));
 
     // Sign
-    public static final Block BLOCK_SIGN_NO_PHOTO = register("sign_no_photo", new BlockSign(AbstractBlock.Settings.of(Material.METAL)));
+    public static final Block BLOCK_SIGN_NO_PHOTO = register("sign_no_photo", new BlockSign(AbstractBlock.Settings.of(Material.METAL).strength(6.0f)));
 
     // PIDS
 //    public static final Block BLOCK_PIDS_1 = register("pids_1", new BlockMetroPIDSOne());
@@ -77,29 +77,29 @@ public class MetroBlocks {
      * Decorations *
      * =========== */
     // Concrete
-    public static final Block BLOCK_CONCRETE = register("concrete", new Block(AbstractBlock.Settings.of(Material.STONE, DyeColor.LIGHT_GRAY)));
+    public static final Block BLOCK_CONCRETE = register("concrete", new Block(AbstractBlock.Settings.of(Material.STONE, DyeColor.LIGHT_GRAY).strength(6.0f)));
 
     // Platform
-    public static final Block BLOCK_PLATFORM_A = register("platform_a", new BlockMetroPlatform(AbstractBlock.Settings.of(Material.STONE, DyeColor.LIGHT_GRAY)));
+    public static final Block BLOCK_PLATFORM_A = register("platform_a", new BlockMetroPlatform(AbstractBlock.Settings.of(Material.STONE, DyeColor.LIGHT_GRAY).strength(6.0f)));
 
     // Tiles
     // White
-    public static final Block BLOCK_TILES_WHITE = register("tiles_white", new Block(AbstractBlock.Settings.of(Material.STONE, DyeColor.WHITE)));
-    public static final Block BLOCK_TILES_LARGE_WHITE = register("tiles_large_white", new Block(AbstractBlock.Settings.of(Material.STONE, DyeColor.WHITE)));
-    public static final Block BLOCK_TILES_HORIZONTAL_WHITE = register("tiles_horizontal_white", new Block(AbstractBlock.Settings.of(Material.STONE, DyeColor.WHITE)));
-    public static final Block BLOCK_TILES_SMALL_WHITE = register("tiles_small_white", new Block(AbstractBlock.Settings.of(Material.STONE, DyeColor.WHITE)));
+    public static final Block BLOCK_TILES_WHITE = register("tiles_white", new Block(AbstractBlock.Settings.of(Material.STONE, DyeColor.WHITE).strength(6.0f)));
+    public static final Block BLOCK_TILES_LARGE_WHITE = register("tiles_large_white", new Block(AbstractBlock.Settings.of(Material.STONE, DyeColor.WHITE).strength(6.0f)));
+    public static final Block BLOCK_TILES_HORIZONTAL_WHITE = register("tiles_horizontal_white", new Block(AbstractBlock.Settings.of(Material.STONE, DyeColor.WHITE).strength(6.0f)));
+    public static final Block BLOCK_TILES_SMALL_WHITE = register("tiles_small_white", new Block(AbstractBlock.Settings.of(Material.STONE, DyeColor.WHITE).strength(6.0f)));
     // Gray
-    public static final Block BLOCK_TILES_GRAY = register("tiles_gray", new Block(AbstractBlock.Settings.of(Material.STONE, DyeColor.GRAY)));
-    public static final Block BLOCK_TILES_HORIZONTAL_GRAY = register("tiles_horizontal_gray", new Block(AbstractBlock.Settings.of(Material.STONE, DyeColor.GRAY)));
-    public static final Block BLOCK_TILES_SMALL_GRAY = register("tiles_small_gray", new Block(AbstractBlock.Settings.of(Material.STONE, DyeColor.GRAY)));
+    public static final Block BLOCK_TILES_GRAY = register("tiles_gray", new Block(AbstractBlock.Settings.of(Material.STONE, DyeColor.GRAY).strength(6.0f)));
+    public static final Block BLOCK_TILES_HORIZONTAL_GRAY = register("tiles_horizontal_gray", new Block(AbstractBlock.Settings.of(Material.STONE, DyeColor.GRAY).strength(6.0f)));
+    public static final Block BLOCK_TILES_SMALL_GRAY = register("tiles_small_gray", new Block(AbstractBlock.Settings.of(Material.STONE, DyeColor.GRAY).strength(6.0f)));
     // Cordon line
-    public static final Block BLOCK_CORDON_YELLOW_BLACK = register("cordon_yellow_black", new Block(AbstractBlock.Settings.of(Material.STONE, DyeColor.YELLOW)));
-    public static final Block BLOCK_CORDON_YELLOW_WHITE = register("cordon_yellow_white", new Block(AbstractBlock.Settings.of(Material.STONE, DyeColor.YELLOW)));
-    public static final Block BLOCK_CORDON_RED_BLACK = register("cordon_red_black", new Block(AbstractBlock.Settings.of(Material.STONE, DyeColor.RED)));
-    public static final Block BLOCK_CORDON_RED_WHITE = register("cordon_red_white", new Block(AbstractBlock.Settings.of(Material.STONE, DyeColor.RED)));
+    public static final Block BLOCK_CORDON_YELLOW_BLACK = register("cordon_yellow_black", new Block(AbstractBlock.Settings.of(Material.STONE, DyeColor.YELLOW).strength(6.0f)));
+    public static final Block BLOCK_CORDON_YELLOW_WHITE = register("cordon_yellow_white", new Block(AbstractBlock.Settings.of(Material.STONE, DyeColor.YELLOW).strength(6.0f)));
+    public static final Block BLOCK_CORDON_RED_BLACK = register("cordon_red_black", new Block(AbstractBlock.Settings.of(Material.STONE, DyeColor.RED).strength(6.0f)));
+    public static final Block BLOCK_CORDON_RED_WHITE = register("cordon_red_white", new Block(AbstractBlock.Settings.of(Material.STONE, DyeColor.RED).strength(6.0f)));
 
     // Bench
-    public static final Block BLOCK_BENCH = register("bench", new BlockBench(AbstractBlock.Settings.of(Material.METAL, DyeColor.LIGHT_GRAY)));
+    public static final Block BLOCK_BENCH = register("bench", new BlockBench(AbstractBlock.Settings.of(Material.METAL, DyeColor.LIGHT_GRAY).strength(6.0f)));
 
     // TODO: Blind path
 //    public static final Block BLOCK_BLIND_PATH_STRIP = register("blind_path_strip", new BlockHorizontalAxis(AbstractBlock.Settings.of(Material.STONE, DyeColor.YELLOW)));

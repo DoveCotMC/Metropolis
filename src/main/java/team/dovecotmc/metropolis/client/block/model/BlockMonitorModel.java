@@ -120,7 +120,7 @@ public class BlockMonitorModel implements UnbakedModel, BakedModel, FabricBakedM
     @Override
     public Collection<SpriteIdentifier> getTextureDependencies(Function<Identifier, UnbakedModel> unbakedModelGetter, Set<Pair<String, String>> unresolvedTextureReferences) {
         return List.of(
-                new SpriteIdentifier(SpriteAtlasTexture.BLOCK_ATLAS_TEXTURE, new Identifier("minecraft", "block/light_gray_concrete"))
+                new SpriteIdentifier(SpriteAtlasTexture.BLOCK_ATLAS_TEXTURE, new Identifier("data", "block/light_gray_concrete"))
         );
     }
 

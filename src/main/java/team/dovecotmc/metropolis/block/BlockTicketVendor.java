@@ -44,7 +44,7 @@ public class BlockTicketVendor extends HorizontalFacingBlock implements BlockEnt
     }
 
     public BlockTicketVendor(boolean isFunctional, Block defaultUpper) {
-        super(Settings.of(Material.METAL).nonOpaque().luminance(value -> 0));
+        super(Settings.of(Material.METAL).strength(6.0f).nonOpaque().luminance(value -> 0));
         this.isFunctional = isFunctional;
         this.defaultUpper = defaultUpper;
     }

@@ -62,6 +62,16 @@
     "gui.metropolis.fare_adj_no_ticket.pay_fare": "该情况将被视为逃票，需支付最高票价",
     "gui.metropolis.fare_adj_no_ticket.pay_button": "支付最高票价",
 
+    "gui.metropolis.fare_adj_payment.title": "补票机",
+    "gui.metropolis.fare_adj_payment.subtitle": "订单详情",
+    "gui.metropolis.fare_adj_payment.continue_button": "继续支付",
+    "gui.metropolis.fare_adj_payment.price": "价格：%s",
+    "gui.metropolis.fare_adj_payment.balance": "余额：%s",
+
+    "gui.metropolis.fare_adj_payment.single_trip.title": "出站券",
+    "gui.metropolis.fare_adj_payment.single_trip.ticket_value": "  价格：%s",
+    "gui.metropolis.fare_adj_payment.single_trip.amount": "  %s 人",
+
     "tooltip.metropolis.ticket.from_and_to": "%s ⥋ %s",
     "tooltip.metropolis.ticket.balance": "余额: %s",
     "tooltip.metropolis.ticket.entered_station": "已进站: %s",

@@ -34,7 +34,7 @@ public class BlockBumper extends BlockWithEntity {
     }
 
     public BlockBumper() {
-        super(FabricBlockSettings.of(Material.METAL, MapColor.YELLOW).nonOpaque());
+        super(FabricBlockSettings.of(Material.METAL, MapColor.YELLOW).strength(6.0f).nonOpaque());
         this.setDefaultState(this.stateManager.getDefaultState().with(ROTATION, 0));
     }
 

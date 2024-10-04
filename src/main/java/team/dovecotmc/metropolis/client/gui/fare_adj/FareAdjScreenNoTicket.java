@@ -7,11 +7,15 @@ import net.minecraft.client.render.Tessellator;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.sound.PositionedSoundInstance;
 import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import team.dovecotmc.metropolis.Metropolis;
+
+import java.util.List;
 
 /**
  * @author Arrokoth
@@ -19,6 +23,7 @@ import team.dovecotmc.metropolis.Metropolis;
  * @copyright Copyright © 2024 Arrokoth All Rights Reserved.
  */
 public class FareAdjScreenNoTicket extends Screen {
+    public static final int MAXIMUM_PRICE = 500;
     private static final Identifier BG_TEXTURE_ID = new Identifier(Metropolis.MOD_ID, "textures/gui/fare_adj_no_ticket/base.png");
     protected static final int BG_TEXTURE_WIDTH = 256;
     protected static final int BG_TEXTURE_HEIGHT = 196;
@@ -218,7 +223,16 @@ public class FareAdjScreenNoTicket extends Screen {
             if (pressed) {
                 if (nextHovering) {
                     playButtonDownSound();
-                    client.setScreen(new FareAdjScreenPayFare(pos, data, this));
+//                    client.setScreen(new FareAdjScreenPayFare(pos, data, this));
+                    client.setScreen(new FareAdjPaymentScreen(
+                            pos,
+                            new FareAdjPaymentData(FareAdjPaymentData.EnumTicketVendorPaymentType.PAY_FARE, MAXIMUM_PRICE, new Text[]{
+                                Text.translatable("gui.metropolis.fare_adj_payment.single_trip.title"),
+                                Text.translatable("gui.metropolis.fare_adj_payment.single_trip.ticket_value", MAXIMUM_PRICE),
+                                Text.translatable("gui.metropolis.fare_adj_payment.single_trip.amount", 1)
+                            }, new ItemStack(Items.TNT)),
+                            this
+                    ));
                 }
             }
         }

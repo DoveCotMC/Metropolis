@@ -26,6 +26,9 @@
         ],
         "modmenu": [
             "team.dovecotmc.metropolis.client.modmenu.MetroModMenu"
+        ],
+        "fabric-datagen": [
+            "team.dovecotmc.metropolis.datagen.MetropolisDataGenerator"
         ]
     },
     "depends": {

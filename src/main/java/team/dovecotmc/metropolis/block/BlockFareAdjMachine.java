@@ -40,7 +40,7 @@ public class BlockFareAdjMachine extends HorizontalFacingBlock implements BlockE
     }
 
     public BlockFareAdjMachine(Block defaultUpper) {
-        super(Settings.of(Material.METAL).nonOpaque().luminance(value -> 0));
+        super(Settings.of(Material.METAL).strength(6.0f).nonOpaque().luminance(value -> 0));
         this.defaultUpper = defaultUpper;
     }
 

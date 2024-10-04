@@ -35,7 +35,7 @@ public class BlockCameraCeiling extends BlockWithEntity {
     }
 
     public BlockCameraCeiling() {
-        super(FabricBlockSettings.of(Material.METAL, MapColor.YELLOW).nonOpaque());
+        super(FabricBlockSettings.of(Material.METAL, MapColor.YELLOW).strength(4.0f).nonOpaque());
         this.setDefaultState(this.stateManager.getDefaultState().with(ROTATION, 0));
     }
 

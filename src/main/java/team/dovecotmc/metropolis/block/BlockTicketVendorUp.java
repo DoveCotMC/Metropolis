@@ -33,7 +33,7 @@ public class BlockTicketVendorUp extends HorizontalFacingBlock {
     public final int id;
 
     public BlockTicketVendorUp() {
-        super(Settings.of(Material.METAL).nonOpaque().luminance(value -> 0));
+        super(Settings.of(Material.METAL).strength(6.0f).nonOpaque().luminance(value -> 0));
 
         this.id = TYPES.size();
         TYPES.put(id, this);
