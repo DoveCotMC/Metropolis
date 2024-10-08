@@ -2,8 +2,8 @@
 	"credit": "Made with Blockbench",
 	"texture_size": [64, 64],
 	"textures": {
-		"0": "platform_door_1_door",
-		"particle": "platform_door_1_door"
+		"0": "metropolis:block/psd/platform_door_1_door",
+		"particle": "metropolis:block/psd/platform_door_1_door"
 	},
 	"elements": [
 		{
