@@ -17,7 +17,9 @@
 
     "gui.metropolis.ticket_vendor_1.tips_0": "᛫ Use [Refund] button to return wrong tickets.",
     "gui.metropolis.ticket_vendor_1.tips_1": "᛫ Dovecot is a Dovecot?",
-    "gui.metropolis.ticket_vendor_1.tips_2": "᛫ This GUI is made by Arrokoth233 and Radekemia.",
+    "gui.metropolis.ticket_vendor_1.tips_2": "᛫ This GUI is based on the JR East EV23 TVM.",
+    "gui.metropolis.ticket_vendor_1.tips_3": "᛫ You pull out the ticket, then walk thru. Actually it's not.",
+    "gui.metropolis.ticket_vendor_1.tips_4": "᛫ There was a discussion about changing the Cordon Block to the Condor Block.",
 
     "gui.metropolis.ticket_vendor_2.title": "Tickets",
     "gui.metropolis.ticket_vendor_2.subtitle": "Single trip tickets",
@@ -56,9 +58,9 @@
 
     "gui.metropolis.fare_adj_no_ticket.title": "Fare adjustment",
     "gui.metropolis.fare_adj_no_ticket.subtitle": "No tickets",
-    "gui.metropolis.fare_adj_no_ticket.if_you_have_receipt": "If you have a\nticket receipt:",
-    "gui.metropolis.fare_adj_no_ticket.insert_receipt": "Insert receipt to make fare adjustment",
-    "gui.metropolis.fare_adj_no_ticket.if_you_dont_have_receipt": "If you don't have a\nticket receipt:",
+    "gui.metropolis.fare_adj_no_ticket.if_you_have_receipt": "If you have a\nboarding ticket:",
+    "gui.metropolis.fare_adj_no_ticket.insert_receipt": "Insert ticket to make fare adjustment",
+    "gui.metropolis.fare_adj_no_ticket.if_you_dont_have_receipt": "If you don't have a\nboarding ticket:",
     "gui.metropolis.fare_adj_no_ticket.pay_fare": "You have to pay the maximum fare.",
     "gui.metropolis.fare_adj_no_ticket.pay_button": "Pay fare",
 

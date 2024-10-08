@@ -15,9 +15,13 @@
     "gui.metropolis.ticket_vendor_1.button.buy_commuter": "购买月票",
     "gui.metropolis.ticket_vendor_1.button.buy_ic_card": "购买IC卡",
 
-    "gui.metropolis.ticket_vendor_1.tips_0": "᛫ 可以使用左下角的“退票”按钮退还单程票",
+    "gui.metropolis.ticket_vendor_1.tips_0": "᛫ 可以使用左下角的“退票”按钮退还单程票（功能尚未完成）",
     "gui.metropolis.ticket_vendor_1.tips_1": "᛫ 鸽舍是一个一个一个？",
-    "gui.metropolis.ticket_vendor_1.tips_2": "᛫ 这个GUI是由Arrokoth233与Radekemia制做的",
+    "gui.metropolis.ticket_vendor_1.tips_2": "᛫ 这个界面来自于JR东日本的EV23型多功能售票机",
+    "gui.metropolis.ticket_vendor_1.tips_3": "᛫ 为了防止玩家忘记取票，闸机在取票后才开门，现实中并不是",
+    "gui.metropolis.ticket_vendor_1.tips_4": "᛫ 你可以使用染料点击站台门，然后用Ctrl+鼠标中键来获得染色后的门",
+    "gui.metropolis.ticket_vendor_1.tips_5": "᛫ 可以使用MTR的[刷子]来更改闸机的出入口",
+    "gui.metropolis.ticket_vendor_1.tips_6": "᛫ 一种酷似神鹰航空涂装的绿色警戒方块在讨论后未被加入",
 
     "gui.metropolis.ticket_vendor_2.title": "购票",
     "gui.metropolis.ticket_vendor_2.subtitle": "购买单程票",
@@ -56,10 +60,10 @@
 
     "gui.metropolis.fare_adj_no_ticket.title": "补票机",
     "gui.metropolis.fare_adj_no_ticket.subtitle": "未持有单程票",
-    "gui.metropolis.fare_adj_no_ticket.if_you_have_receipt": "如果您持有\n购票证明收据：",
-    "gui.metropolis.fare_adj_no_ticket.insert_receipt": "将购票证明收据插入机内进行补票",
-    "gui.metropolis.fare_adj_no_ticket.if_you_dont_have_receipt": "如果您未持有\n购票证明收据",
-    "gui.metropolis.fare_adj_no_ticket.pay_fare": "该情况将被视为逃票，需支付最高票价",
+    "gui.metropolis.fare_adj_no_ticket.if_you_have_receipt": "如果您持有\n乘车车站证明：",
+    "gui.metropolis.fare_adj_no_ticket.insert_receipt": "将乘车车站证明插入机内进行补票",
+    "gui.metropolis.fare_adj_no_ticket.if_you_dont_have_receipt": "如果您未持有\n乘车车站证明",
+    "gui.metropolis.fare_adj_no_ticket.pay_fare": "您需支付线网最高票价",
     "gui.metropolis.fare_adj_no_ticket.pay_button": "支付最高票价",
 
     "gui.metropolis.fare_adj_payment.title": "补票机",
@@ -68,7 +72,7 @@
     "gui.metropolis.fare_adj_payment.price": "价格：%s",
     "gui.metropolis.fare_adj_payment.balance": "余额：%s",
 
-    "gui.metropolis.fare_adj_payment.single_trip.title": "出站券",
+    "gui.metropolis.fare_adj_payment.single_trip.title": "出站票",
     "gui.metropolis.fare_adj_payment.single_trip.ticket_value": "  价格：%s",
     "gui.metropolis.fare_adj_payment.single_trip.amount": "  %s 人",
 
@@ -124,7 +128,7 @@
 
     "block.metropolis.sign_no_photo": "告示牌（禁止拍照）",
 
-    "block.metropolis.itv_monitor": "ITV监控屏幕",
+    "block.metropolis.itv_monitor": "站台ITV监控屏幕",
 
     "block.metropolis.security_door": "安全门",
     "block.metropolis.security_inspection_machine": "安检机",
