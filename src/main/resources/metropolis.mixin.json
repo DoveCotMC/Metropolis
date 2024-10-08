@@ -4,7 +4,9 @@
     "package": "team.dovecotmc.metropolis.mixins",
     "compatibilityLevel": "JAVA_17",
     "mixins": [
-        "MixinTrain"
+        "MixinTrain",
+        "MixinTrainServer",
+        "TestMixin"
     ],
     "client": [
         "MixinBlockOutlineRender",
