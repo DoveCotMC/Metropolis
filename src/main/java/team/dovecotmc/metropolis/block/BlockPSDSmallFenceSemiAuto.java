@@ -5,8 +5,8 @@ package team.dovecotmc.metropolis.block;
  * @project Metropolis
  * @copyright Copyright © 2024 Arrokoth All Rights Reserved.
  */
-public class BlockPSDSmallFence extends BlockHorizontalFacing {
-    public BlockPSDSmallFence(Settings settings) {
+public class BlockPSDSmallFenceSemiAuto extends BlockHorizontalFacing {
+    public BlockPSDSmallFenceSemiAuto(Settings settings) {
         super(settings.nonOpaque());
     }
 }
