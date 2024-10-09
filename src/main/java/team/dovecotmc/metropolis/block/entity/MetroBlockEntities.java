@@ -55,6 +55,12 @@ public class MetroBlockEntities {
             FabricBlockEntityTypeBuilder.create(BlockEntitySecurityInspectionMachine::new, MetroBlocks.BLOCK_SECURITY_INSPECTION_MACHINE).build()
     );
 
+    public static final BlockEntityType<BlockEntityPSDSmallDoorSemiAuto> PSD_SMALL_DOOR = Registry.register(
+            Registry.BLOCK_ENTITY_TYPE,
+            new Identifier(Metropolis.MOD_ID, "psd_small_door"),
+            FabricBlockEntityTypeBuilder.create(BlockEntityPSDSmallDoorSemiAuto::new, MetroBlocks.BLOCK_PSD_JR_DOOR_1, MetroBlocks.BLOCK_PSD_JR_DOOR_2).build()
+    );
+
     public static void initialize() {
         Metropolis.LOGGER.info("Registering Block entities");
     }

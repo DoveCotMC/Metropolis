@@ -6,6 +6,7 @@
     "mixins": [
         "MixinTrain",
         "MixinTrainServer",
+        "MixinTrainAccessor",
         "TestMixin"
     ],
     "client": [

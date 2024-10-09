@@ -21,10 +21,10 @@ import java.io.IOException;
 public class TestMixin {
     @Inject(method = "setOpen", at = @At("HEAD"), remap = false)
     private void test(int _open, CallbackInfo ci) {
-        try {
-            throw new IOException("1145141919810");
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+//        try {
+//            throw new IOException("1145141919810");
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
     }
 }

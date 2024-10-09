@@ -2,9 +2,12 @@ package team.dovecotmc.metropolis.block.entity;
 
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.network.Packet;
+import net.minecraft.network.listener.ClientPlayPacketListener;
+import net.minecraft.network.packet.s2c.play.BlockEntityUpdateS2CPacket;
 import net.minecraft.util.math.BlockPos;
+import org.jetbrains.annotations.Nullable;
 
 /**
  * @author Arrokoth
@@ -13,25 +16,31 @@ import net.minecraft.util.math.BlockPos;
  */
 public class BlockEntityPSDSmallDoorSemiAuto extends BlockEntity {
     public static final String KEY_OPEN = "open";
-    public boolean open = false;
+    public float open = 0;
     public static final String KEY_ANIMATION_START_TIME = "animation_start_time";
     public long animationStartTime = 0L;
 
-    public BlockEntityPSDSmallDoorSemiAuto(BlockEntityType<?> type, BlockPos pos, BlockState state) {
-        super(type, pos, state);
+    public BlockEntityPSDSmallDoorSemiAuto(BlockPos pos, BlockState state) {
+        super(MetroBlockEntities.PSD_SMALL_DOOR, pos, state);
     }
 
     @Override
     public void readNbt(NbtCompound nbt) {
         super.readNbt(nbt);
-        open = nbt.getBoolean(KEY_OPEN);
+        open = nbt.getFloat(KEY_OPEN);
         animationStartTime = nbt.getLong(KEY_ANIMATION_START_TIME);
     }
 
     @Override
     protected void writeNbt(NbtCompound nbt) {
         super.writeNbt(nbt);
-        nbt.putBoolean(KEY_OPEN, open);
+        nbt.putFloat(KEY_OPEN, open);
         nbt.putLong(KEY_ANIMATION_START_TIME, animationStartTime);
+    }
+
+    @Nullable
+    @Override
+    public Packet<ClientPlayPacketListener> toUpdatePacket() {
+        return BlockEntityUpdateS2CPacket.create(this);
     }
 }
