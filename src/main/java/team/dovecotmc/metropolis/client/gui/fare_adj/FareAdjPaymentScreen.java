@@ -221,11 +221,11 @@ public class FareAdjPaymentScreen extends Screen {
             playDownSound(MinecraftClient.getInstance().getSoundManager());
             client.setScreen(null);
             // TODO: Response
-//            if (paymentData.type == FareAdjPaymentData.EnumTicketVendorPaymentType.SINGLE_TRIP) {
-//                MetroClientNetwork.ticketVendorResult(pos, paymentData.resultStack, paymentData.value);
-//            } else {
-//                MetroClientNetwork.ticketVendorClose(pos, paymentData.resultStack, paymentData.value);
-//            }
+            if (paymentData.type == FareAdjPaymentData.EnumTicketVendorPaymentType.PAY_FARE) {
+                MetroClientNetwork.fareAdjClose(pos, paymentData.resultStack, paymentData.value);
+            } else {
+                MetroClientNetwork.fareAdjClose(pos, paymentData.resultStack, paymentData.value);
+            }
         }
 
         RenderSystem.disableBlend();

@@ -37,6 +37,14 @@ public class MetroClientNetwork {
         ClientPlayNetworking.send(MetroServerNetwork.TICKET_VENDOR_RESULT, buf);
     }
 
+    public static void fareAdjClose(BlockPos pos, ItemStack stack, int balance) {
+        PacketByteBuf buf = PacketByteBufs.create();
+        buf.writeBlockPos(pos);
+        buf.writeItemStack(stack);
+        buf.writeInt(balance);
+        ClientPlayNetworking.send(MetroServerNetwork.FARE_ADJ_CLOSE, buf);
+    }
+
     private static void registerTicketVendorGuiReceiver() {
         ClientPlayNetworking.registerGlobalReceiver(MetroServerNetwork.TICKET_VENDOR_GUI, (client, handler, buf, responseSender) -> {
             BlockPos pos = buf.readBlockPos();

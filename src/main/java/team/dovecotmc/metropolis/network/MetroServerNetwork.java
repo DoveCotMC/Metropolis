@@ -128,6 +128,18 @@ public class MetroServerNetwork {
         });
     }
 
+    public static final Identifier FARE_ADJ_CLOSE = new Identifier(Metropolis.MOD_ID, "fare_adj_close");
+    private static void registerFareAdjCloseReceiver() {
+        ServerPlayNetworking.registerGlobalReceiver(FARE_ADJ_CLOSE, (server, player, handler, buf, responseSender) -> {
+            BlockPos pos = buf.readBlockPos();
+            ItemStack stack = buf.readItemStack();
+            int balance = buf.readInt();
+            Item item = Metropolis.config.currencyItem;
+            server.execute(() -> {
+            });
+        });
+    }
+
     public static final Identifier GET_CURRENCY_ITEM = new Identifier(Metropolis.MOD_ID, "get_currency_item");
     public static final Identifier GET_CURRENCY_ITEM_RECEIVER = new Identifier(Metropolis.MOD_ID, "get_currency_item_receiver");
     public static void registerCurrencyItemReceiver() {
