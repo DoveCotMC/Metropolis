@@ -26,16 +26,19 @@ public class BlockEntityPSDSmallDoorSemiAuto extends BlockEntity {
 
     @Override
     public void readNbt(NbtCompound nbt) {
-        super.readNbt(nbt);
         open = nbt.getFloat(KEY_OPEN);
         animationStartTime = nbt.getLong(KEY_ANIMATION_START_TIME);
     }
 
     @Override
     protected void writeNbt(NbtCompound nbt) {
-        super.writeNbt(nbt);
         nbt.putFloat(KEY_OPEN, open);
         nbt.putLong(KEY_ANIMATION_START_TIME, animationStartTime);
+    }
+
+    @Override
+    public NbtCompound toInitialChunkDataNbt() {
+        return createNbt();
     }
 
     @Nullable

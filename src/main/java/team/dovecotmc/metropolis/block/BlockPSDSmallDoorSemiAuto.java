@@ -21,13 +21,14 @@ import org.jetbrains.annotations.Nullable;
 import team.dovecotmc.metropolis.block.entity.BlockEntityPSDSmallDoorSemiAuto;
 import team.dovecotmc.metropolis.block.interfaces.IBlockPlatform;
 import team.dovecotmc.metropolis.block.interfaces.IBlockPlatformDoor;
+import team.dovecotmc.metropolis.util.MetroBlockUtil;
 
 /**
  * @author Arrokoth
  * @project Metropolis
  * @copyright Copyright © 2024 Arrokoth All Rights Reserved.
  */
-public class BlockPSDSmallDoorSemiAuto extends BlockHorizontalFacing implements BlockEntityProvider, IBlockPlatform, IBlockPlatformDoor {
+public class BlockPSDSmallDoorSemiAuto extends HorizontalFacingBlock implements BlockEntityProvider, IBlockPlatform, IBlockPlatformDoor {
     public static final BooleanProperty OPEN = BooleanProperty.of("open");
 
     public BlockPSDSmallDoorSemiAuto(Settings settings) {
@@ -39,11 +40,12 @@ public class BlockPSDSmallDoorSemiAuto extends BlockHorizontalFacing implements 
         if (world.getBlockEntity(pos) instanceof BlockEntityPSDSmallDoorSemiAuto entity) {
             final float val0 = entity.open;
             entity.open = openValue;
+            System.out.println(openValue);
             if (val0 > openValue) {
-                if (state.get(OPEN) != open) {
+                if (state.get(OPEN) && openValue <= 0.5f) {
 //                    System.out.println("114514: Close");
                     entity.animationStartTime = world.getTime();
-                    world.setBlockState(pos, state.with(OPEN, open));
+                    world.setBlockState(pos, state.with(OPEN, false));
                 }
             } else if (val0 < openValue) {
                 if (state.get(OPEN) != open) {
@@ -52,6 +54,7 @@ public class BlockPSDSmallDoorSemiAuto extends BlockHorizontalFacing implements 
                     world.setBlockState(pos, state.with(OPEN, open));
                 }
             }
+
             for (PlayerEntity player : world.getPlayers()) {
                 if (player instanceof ServerPlayerEntity serverPlayer) {
                     serverPlayer.networkHandler.sendPacket(entity.toUpdatePacket());
@@ -63,11 +66,24 @@ public class BlockPSDSmallDoorSemiAuto extends BlockHorizontalFacing implements 
     }
 
     @Override
+    public VoxelShape getOutlineShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {
+        return MetroBlockUtil.getVoxelShapeByDirection(
+                0, 0, 5,
+                16, 16, 8,
+                state.get(FACING)
+        );
+    }
+
+    @Override
     public VoxelShape getCollisionShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {
 //        if (world.getBlockEntity(pos) instanceof BlockEntityPSDSmallDoorSemiAuto entity && entity.open) {
 //            return VoxelShapes.empty();
 //        }
-        return state.get(OPEN) ? VoxelShapes.empty() : super.getCollisionShape(state, world, pos, context);
+        return state.get(OPEN) ? VoxelShapes.empty() : MetroBlockUtil.getVoxelShapeByDirection(
+                0, 0, 5,
+                16, 24, 8,
+                state.get(FACING)
+        );
     }
 
     @Override
@@ -78,13 +94,12 @@ public class BlockPSDSmallDoorSemiAuto extends BlockHorizontalFacing implements 
 
     @Override
     public BlockState getPlacementState(ItemPlacementContext ctx) {
-        return super.getPlacementState(ctx).with(OPEN, false);
+        return this.getDefaultState().with(FACING, ctx.getPlayerFacing().getOpposite()).with(OPEN, false);
     }
 
     @Override
     protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
-        super.appendProperties(builder);
-        builder.add(OPEN);
+        builder.add(FACING).add(OPEN);
     }
 
     @Override
