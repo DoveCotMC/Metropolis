@@ -11,6 +11,7 @@ import net.minecraft.server.world.ServerWorld;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.BooleanProperty;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.util.shape.VoxelShapes;
@@ -30,6 +31,7 @@ import team.dovecotmc.metropolis.util.MetroBlockUtil;
  */
 public class BlockPSDSmallDoorSemiAuto extends HorizontalFacingBlock implements BlockEntityProvider, IBlockPlatform, IBlockPlatformDoor {
     public static final BooleanProperty OPEN = BooleanProperty.of("open");
+    public static final BooleanProperty FLIPPED = BooleanProperty.of("flipped");
 
     public BlockPSDSmallDoorSemiAuto(Settings settings) {
         super(settings.nonOpaque());
@@ -40,16 +42,13 @@ public class BlockPSDSmallDoorSemiAuto extends HorizontalFacingBlock implements 
         if (world.getBlockEntity(pos) instanceof BlockEntityPSDSmallDoorSemiAuto entity) {
             final float val0 = entity.open;
             entity.open = openValue;
-            System.out.println(openValue);
             if (val0 > openValue) {
                 if (state.get(OPEN) && openValue <= 0.5f) {
-//                    System.out.println("114514: Close");
                     entity.animationStartTime = world.getTime();
                     world.setBlockState(pos, state.with(OPEN, false));
                 }
             } else if (val0 < openValue) {
                 if (state.get(OPEN) != open) {
-//                    System.out.println("1145141919810: Open");
                     entity.animationStartTime = world.getTime();
                     world.setBlockState(pos, state.with(OPEN, open));
                 }
@@ -94,12 +93,44 @@ public class BlockPSDSmallDoorSemiAuto extends HorizontalFacingBlock implements 
 
     @Override
     public BlockState getPlacementState(ItemPlacementContext ctx) {
-        return this.getDefaultState().with(FACING, ctx.getPlayerFacing().getOpposite()).with(OPEN, false);
+//        System.out.println(ctx.getHitPos());
+        double offsetX = ctx.getHitPos().getX() - ctx.getBlockPos().getX();
+        double offsetZ = ctx.getHitPos().getZ() - ctx.getBlockPos().getZ();
+        BlockPos pos = ctx.getBlockPos();
+        World world = ctx.getWorld();
+        Direction facing = ctx.getPlayerFacing();
+        boolean flipped = false;
+
+        /*if (world.getBlockState(pos.offset(facing.rotateYCounterclockwise())).getBlock() instanceof BlockPSDSmallDoorSemiAuto) {
+            System.out.println("114514");
+            BlockState state = world.getBlockState(pos.offset(facing.rotateYCounterclockwise()));
+            if (state.get(FLIPPED)) {
+                flipped = false;
+            }
+        } else */if (world.getBlockState(pos.offset(facing.rotateYClockwise())).getBlock() instanceof BlockPSDSmallDoorSemiAuto) {
+            System.out.println("1919810");
+            BlockState state = world.getBlockState(pos.offset(facing.rotateYClockwise()));
+            if (!state.get(FLIPPED)) {
+                flipped = true;
+            }
+        } else {
+            if (facing.equals(Direction.NORTH)) {
+                flipped = offsetX > 0.5;
+            } else if (facing.equals(Direction.SOUTH)) {
+                flipped = offsetX < 0.5;
+            } else if (facing.equals(Direction.WEST)) {
+                flipped = offsetZ < 0.5;
+            } else if (facing.equals(Direction.EAST)) {
+                flipped = offsetZ > 0.5;
+            }
+        }
+
+        return this.getDefaultState().with(FACING, facing).with(OPEN, false).with(FLIPPED, flipped);
     }
 
     @Override
     protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
-        builder.add(FACING).add(OPEN);
+        builder.add(FACING).add(OPEN).add(FLIPPED);
     }
 
     @Override

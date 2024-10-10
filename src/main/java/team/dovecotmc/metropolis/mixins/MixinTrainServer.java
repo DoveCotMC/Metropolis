@@ -27,10 +27,7 @@ public abstract class MixinTrainServer {
         if (block instanceof IBlockPlatformDoor) {
             float doorOpenValue = ((MixinTrainAccessor) this).getDoorValue();
             if (doorOpenValue > 0.0f) {
-//                MtrStationUtil.getStationByPos(pos, world)
-//                System.out.println(doorOpenValue);
                 ((IBlockPlatformDoor) block).setOpenState(true, doorOpenValue, world, checkPos, world.getBlockState(checkPos));
-//                world.createAndScheduleBlockTick(checkPos, block, dwellTicks);
             } else {
                 ((IBlockPlatformDoor) block).setOpenState(false, doorOpenValue, world, checkPos, world.getBlockState(checkPos));
             }

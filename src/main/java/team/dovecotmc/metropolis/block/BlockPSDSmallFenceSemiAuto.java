@@ -26,6 +26,10 @@ public class BlockPSDSmallFenceSemiAuto extends BlockHorizontalFacing implements
 //        BlockTrainScheduleSensor
     }
 
+    public BlockState getPlacementState(ItemPlacementContext ctx) {
+        return this.getDefaultState().with(FACING, ctx.getPlayerFacing());
+    }
+
     @Override
     public VoxelShape getOutlineShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {
         return MetroBlockUtil.getVoxelShapeByDirection(

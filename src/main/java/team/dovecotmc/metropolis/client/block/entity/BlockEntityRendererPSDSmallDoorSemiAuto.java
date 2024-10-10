@@ -41,22 +41,19 @@ public class BlockEntityRendererPSDSmallDoorSemiAuto implements BlockEntityRende
             matrices.translate(-8f, -8f, -8f);
             matrices.scale(16f, 16f, 16f);
 
-//            double animTime = easeInOutQuad(Math.min(DURATION, (world.getTime() - entity.animationStartTime) + tickDelta) / (double) DURATION);
-            double animTime = easeInOutSine(Math.min(DURATION, (world.getTime() - entity.animationStartTime) + tickDelta) / (double) DURATION);
-//            double animTime = easeOutBounce(Math.min(DURATION, (world.getTime() - entity.animationStartTime) + tickDelta) / (double) DURATION);
-//            System.out.println("---------------------------------------");
-//            System.out.println(entity.animationStartTime);
-//            System.out.println(entity.createNbt());
-
             BlockState state = entity.getCachedState();
 
+            double animTime = easeInOutSine(Math.min(DURATION, (world.getTime() - entity.animationStartTime) + tickDelta) / (double) DURATION);
+            int direction = state.get(BlockPSDSmallDoorSemiAuto.FLIPPED) ? -1 : 1;
+
             if (state.get(BlockPSDSmallDoorSemiAuto.OPEN)) {
-                matrices.translate(animTime, 0f, 0f);
+                matrices.translate(animTime * (14.5f / 16f) * direction, 0f, 0f);
             } else {
-                matrices.translate(1 - animTime, 0f, 0f);
+                matrices.translate((1 - animTime) * (14.5f / 16f) * direction, 0f, 0f);
             }
 
             BakedModel model = mc.getBlockRenderManager().getModel(state);
+
             mc.getBlockRenderManager().getModelRenderer().renderSmooth(entity.getWorld(), model, state, entity.getPos(), matrices, vertexConsumers.getBuffer(RenderLayers.getBlockLayer(state)), false, entity.getWorld().getRandom(), 0, overlay);
         }
         matrices.pop();
