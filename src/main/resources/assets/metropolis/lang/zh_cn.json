@@ -134,6 +134,8 @@
     "tooltip.metropolis.psd_jr_door_2": "JR风格（带窗）",
     "block.metropolis.psd_jr_fence_1": "站台屏蔽门",
     "tooltip.metropolis.psd_jr_fence_1": "JR风格",
+    "block.metropolis.psd_jr_fence_2": "站台屏蔽门",
+    "tooltip.metropolis.psd_jr_fence_2": "[WIP] JR风格",
 
     "block.metropolis.itv_monitor": "站台ITV监控屏幕",
 

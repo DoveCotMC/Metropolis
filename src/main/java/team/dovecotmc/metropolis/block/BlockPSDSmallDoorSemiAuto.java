@@ -1,5 +1,6 @@
 package team.dovecotmc.metropolis.block;
 
+import mtr.block.BlockPlatform;
 import mtr.data.Platform;
 import mtr.data.RailwayData;
 import net.minecraft.block.*;
@@ -18,6 +19,7 @@ import net.minecraft.util.shape.VoxelShapes;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldAccess;
+import net.minecraft.world.WorldView;
 import org.jetbrains.annotations.Nullable;
 import team.dovecotmc.metropolis.block.entity.BlockEntityPSDSmallDoorSemiAuto;
 import team.dovecotmc.metropolis.block.interfaces.IBlockPlatform;
@@ -89,6 +91,11 @@ public class BlockPSDSmallDoorSemiAuto extends HorizontalFacingBlock implements 
     public void scheduledTick(BlockState state, ServerWorld world, BlockPos pos, Random random) {
         this.setOpenState(false, 0, world, pos, state);
         super.scheduledTick(state, world, pos, random);
+    }
+
+    @Override
+    public boolean canPlaceAt(BlockState state, WorldView world, BlockPos pos) {
+        return state.isSolidBlock(world, pos.down()) || world.getBlockState(pos.down()).getBlock() instanceof IBlockPlatform || world.getBlockState(pos.down()).getBlock() instanceof BlockPlatform;
     }
 
     @Override

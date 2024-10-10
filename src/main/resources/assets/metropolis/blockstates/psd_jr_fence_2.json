@@ -1,0 +1,20 @@
+{
+    "variants": {
+        "facing=north": {
+            "model": "metropolis:psd/platform_door_1_ctrl",
+            "y": 0
+        },
+        "facing=east": {
+            "model": "metropolis:psd/platform_door_1_ctrl",
+            "y": 90
+        },
+        "facing=south": {
+            "model": "metropolis:psd/platform_door_1_ctrl",
+            "y": 180
+        },
+        "facing=west": {
+            "model": "metropolis:psd/platform_door_1_ctrl",
+            "y": 270
+        }
+    }
+}

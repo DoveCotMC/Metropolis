@@ -132,6 +132,8 @@
     "tooltip.metropolis.psd_jr_door_2": "JR Style Windowed",
     "block.metropolis.psd_jr_fence_1": "Platform Fence",
     "tooltip.metropolis.psd_jr_fence_1": "JR Style",
+    "block.metropolis.psd_jr_fence_2": "Platform Fence Controller",
+    "tooltip.metropolis.psd_jr_fence_2": "[WIP] JR Style",
 
     "block.metropolis.itv_monitor": "ITV Monitor",
 

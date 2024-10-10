@@ -70,6 +70,7 @@ public class MetroBlocks {
     public static final Block BLOCK_PSD_JR_DOOR_1 = register("psd_jr_door_1", new BlockPSDSmallDoorSemiAuto(AbstractBlock.Settings.of(Material.METAL).strength(6.0f)));
     public static final Block BLOCK_PSD_JR_DOOR_2 = register("psd_jr_door_2", new BlockPSDSmallDoorSemiAuto(AbstractBlock.Settings.of(Material.METAL).strength(6.0f)));
     public static final Block BLOCK_PSD_JR_FENCE_1 = register("psd_jr_fence_1", new BlockPSDSmallFenceSemiAuto(AbstractBlock.Settings.of(Material.METAL).strength(6.0f)));
+    public static final Block BLOCK_PSD_JR_FENCE_2 = register("psd_jr_fence_2", new BlockPSDSmallFenceSemiAuto(AbstractBlock.Settings.of(Material.METAL).strength(6.0f)));
 
     // Monitor
     public static final Block BLOCK_ITV_MONITOR = register("itv_monitor", new BlockITVMonitor());
