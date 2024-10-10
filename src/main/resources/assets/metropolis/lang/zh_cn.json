@@ -128,6 +128,13 @@
 
     "block.metropolis.sign_no_photo": "告示牌（禁止拍照）",
 
+    "block.metropolis.psd_jr_door_1": "站台屏蔽门",
+    "tooltip.metropolis.psd_jr_door_1": "JR风格",
+    "block.metropolis.psd_jr_door_2": "站台屏蔽门",
+    "tooltip.metropolis.psd_jr_door_2": "JR风格（带窗）",
+    "block.metropolis.psd_jr_fence_1": "站台屏蔽门",
+    "tooltip.metropolis.psd_jr_fence_1": "JR风格",
+
     "block.metropolis.itv_monitor": "站台ITV监控屏幕",
 
     "block.metropolis.security_door": "安全门",

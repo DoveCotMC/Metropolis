@@ -126,6 +126,13 @@
 
     "block.metropolis.sign_no_photo": "Sign (No photos)",
 
+    "block.metropolis.psd_jr_door_1": "Platform Fence Door",
+    "tooltip.metropolis.psd_jr_door_1": "JR Style",
+    "block.metropolis.psd_jr_door_2": "Platform Fence Door",
+    "tooltip.metropolis.psd_jr_door_2": "JR Style Windowed",
+    "block.metropolis.psd_jr_fence_1": "Platform Fence",
+    "tooltip.metropolis.psd_jr_fence_1": "JR Style",
+
     "block.metropolis.itv_monitor": "ITV Monitor",
 
     "block.metropolis.security_door": "Security door",

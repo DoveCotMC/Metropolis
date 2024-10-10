@@ -51,9 +51,9 @@ public class MetroItems {
 //    public static final Item ITEM_PIDS_1 = register("pids_1", new ItemBlockShowStationHUD(MetroBlocks.BLOCK_PIDS_1, new Item.Settings().group(Metropolis.ITEM_GROUP)));
 
     // PSD
-    public static final Item ITEM_PSD_JR_DOOR_1 = register("psd_jr_door_1", new BlockItem(MetroBlocks.BLOCK_PSD_JR_DOOR_1, new Item.Settings().group(Metropolis.ITEM_GROUP)));
-    public static final Item ITEM_PSD_JR_DOOR_2 = register("psd_jr_door_2", new BlockItem(MetroBlocks.BLOCK_PSD_JR_DOOR_2, new Item.Settings().group(Metropolis.ITEM_GROUP)));
-    public static final Item ITEM_PSD_JR_FENCE_1 = register("psd_jr_fence_1", new BlockItem(MetroBlocks.BLOCK_PSD_JR_FENCE_1, new Item.Settings().group(Metropolis.ITEM_GROUP)));
+    public static final Item ITEM_PSD_JR_DOOR_1 = register("psd_jr_door_1", new ItemBlockWithTooltips(MetroBlocks.BLOCK_PSD_JR_DOOR_1, new Item.Settings().group(Metropolis.ITEM_GROUP)));
+    public static final Item ITEM_PSD_JR_DOOR_2 = register("psd_jr_door_2", new ItemBlockWithTooltips(MetroBlocks.BLOCK_PSD_JR_DOOR_2, new Item.Settings().group(Metropolis.ITEM_GROUP)));
+    public static final Item ITEM_PSD_JR_FENCE_1 = register("psd_jr_fence_1", new ItemBlockWithTooltips(MetroBlocks.BLOCK_PSD_JR_FENCE_1, new Item.Settings().group(Metropolis.ITEM_GROUP)));
 
     // Ticket
     public static final Item ITEM_SINGLE_TRIP_TICKET = register("single_trip_ticket", new ItemTicket(new Item.Settings(), true));

@@ -101,13 +101,13 @@ public class BlockPSDSmallDoorSemiAuto extends HorizontalFacingBlock implements 
         Direction facing = ctx.getPlayerFacing();
         boolean flipped = false;
 
-        /*if (world.getBlockState(pos.offset(facing.rotateYCounterclockwise())).getBlock() instanceof BlockPSDSmallDoorSemiAuto) {
+        if (world.getBlockState(pos.offset(facing.rotateYCounterclockwise())).getBlock() instanceof BlockPSDSmallDoorSemiAuto) {
             System.out.println("114514");
             BlockState state = world.getBlockState(pos.offset(facing.rotateYCounterclockwise()));
             if (state.get(FLIPPED)) {
                 flipped = false;
             }
-        } else */if (world.getBlockState(pos.offset(facing.rotateYClockwise())).getBlock() instanceof BlockPSDSmallDoorSemiAuto) {
+        } else if (world.getBlockState(pos.offset(facing.rotateYClockwise())).getBlock() instanceof BlockPSDSmallDoorSemiAuto) {
             System.out.println("1919810");
             BlockState state = world.getBlockState(pos.offset(facing.rotateYClockwise()));
             if (!state.get(FLIPPED)) {
