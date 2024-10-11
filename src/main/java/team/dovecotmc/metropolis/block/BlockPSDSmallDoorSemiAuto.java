@@ -45,7 +45,7 @@ public class BlockPSDSmallDoorSemiAuto extends HorizontalFacingBlock implements 
             final float val0 = entity.open;
             entity.open = openValue;
             if (val0 > openValue) {
-                if (state.get(OPEN) && openValue <= 0.5f) {
+                if (state.get(OPEN) && openValue <= 0.4f) {
                     entity.animationStartTime = world.getTime();
                     world.setBlockState(pos, state.with(OPEN, false));
                 }
