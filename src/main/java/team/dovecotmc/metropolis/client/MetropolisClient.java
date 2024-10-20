@@ -84,7 +84,7 @@ public class MetropolisClient implements ClientModInitializer {
 
         @Override
         public void reload(ResourceManager manager) {
-            System.out.println("reloading!!!!");
+            Metropolis.LOGGER.info("Reloading!");
             MetropolisClient.config = MetroClientConfig.load();
         }
     }
