@@ -32,10 +32,14 @@ import team.dovecotmc.metropolis.util.MtrStationUtil;
 @Environment(EnvType.CLIENT)
 @Mixin(WorldRenderer.class)
 public abstract class MixinBlockOutlineRender {
-    @Shadow
-    private static void drawCuboidShapeOutline(MatrixStack matrices, VertexConsumer vertexConsumer, VoxelShape shape, double offsetX, double offsetY, double offsetZ, float red, float green, float blue, float alpha) {}
+//    @Shadow
+//    private static void drawCuboidShapeOutline(MatrixStack matrices, VertexConsumer vertexConsumer, VoxelShape shape, double offsetX, double offsetY, double offsetZ, float red, float green, float blue, float alpha) {}
 
     @Shadow @Nullable private ClientWorld world;
+
+    @Shadow
+    private static void drawShapeOutline(MatrixStack matrices, VertexConsumer vertexConsumer, VoxelShape voxelShape, double d, double e, double f, float g, float h, float i, float j) {
+    }
 
     @Inject(at = @At("TAIL"), method = "drawBlockOutline")
     public void renderTail(MatrixStack matrices, VertexConsumer vertexConsumer, Entity entity, double cameraX, double cameraY, double cameraZ, BlockPos pos, BlockState state, CallbackInfo ci) {
@@ -56,7 +60,7 @@ public abstract class MixinBlockOutlineRender {
                     float green = ColorHelper.Argb.getGreen(station.color) / 255f;
                     float blue = ColorHelper.Argb.getBlue(station.color) / 255f;
                     float alpha = (float) Math.abs((Math.sin((world.getTime() + MinecraftClient.getInstance().getTickDelta()) / 4f) / 2f));
-                    drawCuboidShapeOutline(matrices, vertexConsumer, state.getOutlineShape(world, pos, ShapeContext.of(entity)), (double)pos.getX() - cameraX, (double)pos.getY() - cameraY, (double)pos.getZ() - cameraZ, red, green, blue, alpha);
+                    drawShapeOutline(matrices, vertexConsumer, state.getOutlineShape(world, pos, ShapeContext.of(entity)), (double)pos.getX() - cameraX, (double)pos.getY() - cameraY, (double)pos.getZ() - cameraZ, red, green, blue, alpha);
                 }
             }
         }

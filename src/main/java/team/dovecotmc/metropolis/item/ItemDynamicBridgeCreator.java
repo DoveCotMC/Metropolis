@@ -13,8 +13,10 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUsageContext;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.text.LiteralText;
 import net.minecraft.text.Style;
 import net.minecraft.text.Text;
+import net.minecraft.text.TranslatableText;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.math.BlockPos;
@@ -46,12 +48,12 @@ public class ItemDynamicBridgeCreator extends ItemNodeModifierBase {
             NbtCompound nbt = context.getStack().getOrCreateNbt();
             if (state.getBlock() != Blocks.RAIL_NODE.get()) {
                 if (Objects.requireNonNull(context.getPlayer()).isSneaking()) {
-//                    context.getPlayer().sendMessage(Text.literal("Width: " + (nbt.getInt(WIDTH) - 2)));
+//                    context.getPlayer().sendMessage(new LiteralText("Width: " + (nbt.getInt(WIDTH) - 2)));
 //                    nbt.putInt(WIDTH, nbt.getInt(WIDTH) - 2);
-                    context.getPlayer().sendMessage(Text.literal("Block: " + mtr.mappings.Text.translatable(state.getBlock().getTranslationKey()).getString()));
+                    context.getPlayer().sendMessage(new LiteralText("Block: " + new TranslatableText(state.getBlock().getTranslationKey()).getString()), true);
                     nbt.putInt(BLOCK_ID, Block.getRawIdFromState(state));
                 } else {
-                    context.getPlayer().sendMessage(Text.literal("Width: " + (nbt.getInt(WIDTH) + 2)));
+                    context.getPlayer().sendMessage(new LiteralText("Width: " + (nbt.getInt(WIDTH) + 2)), true);
                     nbt.putInt(WIDTH, nbt.getInt(WIDTH) + 2);
                 }
             } else {
@@ -63,15 +65,15 @@ public class ItemDynamicBridgeCreator extends ItemNodeModifierBase {
                     BlockState state1 = nbt.contains(BLOCK_ID) ? Block.getStateFromRawId(nbt.getInt(BLOCK_ID)) : null;
 
                     if (!railwayData.containsRail(posStart, posEnd)) {
-                        context.getPlayer().sendMessage(mtr.mappings.Text.translatable("gui.mtr.rail_not_found_action"), true);
+                        context.getPlayer().sendMessage(new TranslatableText("gui.mtr.rail_not_found_action"), true);
                     } else if (state1 == null) {
-                        context.getPlayer().sendMessage(mtr.mappings.Text.literal("No block selected"), true);
+                        context.getPlayer().sendMessage(new LiteralText("No block selected"), true);
                     } else {
                         nbt.remove(POS_START);
                         railwayData.railwayDataRailActionsModule.markRailForBridge(context.getPlayer(), posStart, posEnd, (nbt.getInt(WIDTH) + 1) / 2, state1);
                     }
                 } else {
-                    context.getPlayer().sendMessage(Text.literal("First pos: " + context.getBlockPos().toShortString()));
+                    context.getPlayer().sendMessage(new LiteralText("First pos: " + context.getBlockPos().toShortString()), true);
                     nbt.putLong(POS_START, context.getBlockPos().asLong());
                 }
             }
@@ -84,7 +86,7 @@ public class ItemDynamicBridgeCreator extends ItemNodeModifierBase {
     protected final void onConnect(World world, ItemStack stack, TransportMode transportMode, BlockState stateStart, BlockState stateEnd, BlockPos posStart, BlockPos posEnd, RailAngle facingStart, RailAngle facingEnd, PlayerEntity player, RailwayData railwayData) {
         NbtCompound nbt = stack.getOrCreateNbt();
         if (player != null && !this.onConnect(player, stack, railwayData, posStart, posEnd, nbt.getInt(WIDTH), nbt.getInt(HEIGHT))) {
-            player.sendMessage(mtr.mappings.Text.translatable("gui.mtr.rail_not_found_action"), true);
+            player.sendMessage(new TranslatableText("gui.mtr.rail_not_found_action"), true);
         }
     }
 
@@ -103,18 +105,18 @@ public class ItemDynamicBridgeCreator extends ItemNodeModifierBase {
     public void appendTooltip(ItemStack stack, World level, List<Text> tooltip, TooltipContext tooltipFlag) {
         NbtCompound nbt = stack.getOrCreateNbt();
 
-        tooltip.add(mtr.mappings.Text.translatable("tooltip.mtr.rail_action_width", nbt.getInt(WIDTH) + 1).setStyle(Style.EMPTY.withColor(Formatting.GRAY)));
+        tooltip.add(new TranslatableText("tooltip.mtr.rail_action_width", nbt.getInt(WIDTH) + 1).setStyle(Style.EMPTY.withColor(Formatting.GRAY)));
         if (nbt.getInt(HEIGHT) > 0) {
-            tooltip.add(mtr.mappings.Text.translatable("tooltip.mtr.rail_action_height", nbt.getInt(HEIGHT)).setStyle(Style.EMPTY.withColor(Formatting.GRAY)));
+            tooltip.add(new TranslatableText("tooltip.mtr.rail_action_height", nbt.getInt(HEIGHT)).setStyle(Style.EMPTY.withColor(Formatting.GRAY)));
         }
 
         BlockState state = Block.getStateFromRawId(nbt.getInt(BLOCK_ID));
-        String[] textSplit = mtr.mappings.Text.translatable(state.isAir() ? "tooltip.mtr.shift_right_click_to_select_material" : "tooltip.mtr.shift_right_click_to_clear", MinecraftClient.getInstance().options.sneakKey.getBoundKeyLocalizedText(), mtr.mappings.Text.translatable(((Block)mtr.Blocks.RAIL_NODE.get()).getTranslationKey())).getString().split("\\|");
+        String[] textSplit = new TranslatableText(state.isAir() ? "tooltip.mtr.shift_right_click_to_select_material" : "tooltip.mtr.shift_right_click_to_clear", MinecraftClient.getInstance().options.sneakKey.getBoundKeyLocalizedText(), new TranslatableText(((Block)mtr.Blocks.RAIL_NODE.get()).getTranslationKey())).getString().split("\\|");
 
         for (String text : textSplit) {
-            tooltip.add(mtr.mappings.Text.literal(text).setStyle(Style.EMPTY.withColor(Formatting.GRAY).withFormatting(Formatting.ITALIC)));
+            tooltip.add(new LiteralText(text).setStyle(Style.EMPTY.withColor(Formatting.GRAY).withFormatting(Formatting.ITALIC)));
         }
 
-        tooltip.add(mtr.mappings.Text.translatable("tooltip.mtr.selected_material", mtr.mappings.Text.translatable(state.getBlock().getTranslationKey())).setStyle(Style.EMPTY.withColor(Formatting.GREEN)));
+        tooltip.add(new TranslatableText("tooltip.mtr.selected_material", new TranslatableText(state.getBlock().getTranslationKey())).setStyle(Style.EMPTY.withColor(Formatting.GREEN)));
     }
 }

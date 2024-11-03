@@ -6,6 +6,8 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.text.Style;
 import net.minecraft.text.Text;
+import net.minecraft.text.TranslatableText;
+import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
@@ -31,6 +33,7 @@ public class ItemWithTooltips extends Item {
     @Override
     public void appendTooltip(ItemStack stack, @Nullable World world, List<Text> tooltip, TooltipContext context) {
         super.appendTooltip(stack, world, tooltip, context);
-        tooltip.add(Text.translatable("tooltip." + Registry.ITEM.getId(this).toTranslationKey()).setStyle(this.style));
+        Identifier id = Registry.ITEM.getId(this);
+        tooltip.add(new TranslatableText("tooltip." + id.getNamespace() + "." + id.getPath()).setStyle(this.style));
     }
 }

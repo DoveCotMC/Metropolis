@@ -17,12 +17,12 @@ import java.util.Objects;
  * @copyright Copyright © 2024 Arrokoth All Rights Reserved.
  */
 public class MetroBlockTagsGenerator extends FabricTagProvider<Block> {
-    private static final TagKey<Block> PICKAXE_KEY = TagKey.of(Registry.BLOCK_KEY, Identifier.of("data", "mineable/pickaxe"));
-    private static final TagKey<Block> NEEDS_STONE_TOOL = TagKey.of(Registry.BLOCK_KEY, Identifier.of("data", "mineable/needs_stone_tool"));
-    private static final TagKey<Block> NEEDS_IRON_TOOL = TagKey.of(Registry.BLOCK_KEY, Identifier.of("data", "mineable/needs_iron_tool"));
+    private static final TagKey<Block> PICKAXE_KEY = TagKey.of(Registry.BLOCK_KEY, new Identifier("data", "mineable/pickaxe"));
+    private static final TagKey<Block> NEEDS_STONE_TOOL = TagKey.of(Registry.BLOCK_KEY, new Identifier("data", "mineable/needs_stone_tool"));
+    private static final TagKey<Block> NEEDS_IRON_TOOL = TagKey.of(Registry.BLOCK_KEY, new Identifier("data", "mineable/needs_iron_tool"));
 
     public MetroBlockTagsGenerator(FabricDataGenerator dataGenerator) {
-        super(dataGenerator, Registry.BLOCK);
+        super(dataGenerator, Registry.BLOCK, Metropolis.MOD_ID);
     }
 
     @Override

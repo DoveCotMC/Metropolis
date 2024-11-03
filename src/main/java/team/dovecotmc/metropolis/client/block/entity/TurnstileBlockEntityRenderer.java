@@ -10,6 +10,7 @@ import net.minecraft.client.render.item.ItemRenderer;
 import net.minecraft.client.render.model.json.ModelTransformation;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.text.Text;
+import net.minecraft.text.TranslatableText;
 import net.minecraft.util.Hand;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.*;
@@ -39,7 +40,7 @@ public class TurnstileBlockEntityRenderer implements BlockEntityRenderer<BlockEn
             if (mc.player != null && mc.player.getStackInHand(Hand.MAIN_HAND).getItem() == mtr.Items.BRUSH.get()) {
                 matrices.push();
 
-                Text text = Text.translatable("misc.metropolis.turnstile_mode." + BlockEntityTurnstile.EnumTurnstileType.get(block.get(BlockTurnstile.TYPE)).name().toLowerCase());
+                Text text = new TranslatableText("misc.metropolis.turnstile_mode." + BlockEntityTurnstile.EnumTurnstileType.get(block.get(BlockTurnstile.TYPE)).name().toLowerCase());
 
                 float textScale = (float) (mc.textRenderer.fontHeight) / (float) mc.textRenderer.getWidth(text);
                 matrices.translate(0, 1.25, 0);

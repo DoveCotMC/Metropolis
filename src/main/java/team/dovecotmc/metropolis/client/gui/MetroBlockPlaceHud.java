@@ -12,7 +12,9 @@ import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.client.render.*;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.client.world.ClientWorld;
+import net.minecraft.text.LiteralText;
 import net.minecraft.text.Text;
+import net.minecraft.text.TranslatableText;
 import net.minecraft.util.Hand;
 import net.minecraft.util.hit.HitResult;
 import net.minecraft.util.math.BlockPos;
@@ -86,7 +88,7 @@ public class MetroBlockPlaceHud extends DrawableHelper {
                 RenderSystem.setShaderColor(r / 255f, g / 255f, b / 255f, 1);
 
                 int y0 = centerY - 8 - textRenderer.fontHeight;
-                Text pointedStation = Text.translatable("hud.title.pointed_station");
+                Text pointedStation = new TranslatableText("hud.title.pointed_station");
                 int pointedStationWidth = textRenderer.getWidth(pointedStation);
                 textRenderer.drawWithShadow(
                         matrices,
@@ -99,7 +101,7 @@ public class MetroBlockPlaceHud extends DrawableHelper {
                 y0 = centerY + 8;
 
                 String[] stationNames = station.name.split("\\|");
-                Text stationFirstName = Text.literal(stationNames[0]);
+                Text stationFirstName = new LiteralText(stationNames[0]);
                 int stationFirstNameWidth = textRenderer.getWidth(stationFirstName);
                 textRenderer.drawWithShadow(
                         matrices,
@@ -110,7 +112,7 @@ public class MetroBlockPlaceHud extends DrawableHelper {
                 );
 
                 if (stationNames.length > 1) {
-                    Text stationSecondName = Text.literal(stationNames[1]);
+                    Text stationSecondName = new LiteralText(stationNames[1]);
                     int stationSecondNameWidth = textRenderer.getWidth(stationSecondName);
                     y0 += textRenderer.fontHeight + 2;
                     textRenderer.drawWithShadow(

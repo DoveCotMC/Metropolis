@@ -14,6 +14,7 @@ import net.minecraft.network.Packet;
 import net.minecraft.network.packet.s2c.play.EntitySpawnS2CPacket;
 import net.minecraft.predicate.entity.EntityPredicates;
 import net.minecraft.text.Text;
+import net.minecraft.text.TranslatableText;
 import net.minecraft.util.Arm;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.*;
@@ -170,7 +171,7 @@ public class EntitySittable extends Entity {
         if (tick != 0) return;
         for (final var p : passengers) {
             final Text msg = isPoseValid(p.getPose()) ?
-                    isSeatValid(world, getBlockPos()) ? null : Text.translatable("sittable.metropolis.invaild") : Text.translatable("sittable.metropolis.wrong_pose");
+                    isSeatValid(world, getBlockPos()) ? null : new TranslatableText("sittable.metropolis.invaild") : new TranslatableText("sittable.metropolis.wrong_pose");
             if (msg == null) continue;
             p.stopRiding();
             p.setPos(p.getX(), getBlockPos().getY(), p.getZ());
@@ -242,7 +243,7 @@ public class EntitySittable extends Entity {
         if (o.isEmpty()) return false;
         final Vec3d vec = o.get();
         if (isOccupied(world, pos, vec)) {
-            player.sendMessage(Text.translatable("sittable.metropolis.info.occupied"), true);
+            player.sendMessage(new TranslatableText("sittable.metropolis.info.occupied"), true);
             return true;
         }
         final EntitySittable sittable = new EntitySittable(world, pos.getX() + vec.x, pos.getY() + vec.y, pos.getZ() + vec.z);

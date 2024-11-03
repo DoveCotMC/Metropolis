@@ -5,6 +5,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.text.Text;
+import net.minecraft.text.TranslatableText;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
@@ -45,17 +46,17 @@ public class ItemCard extends Item implements InterfaceTicket {
     @Override
     public void appendTooltip(ItemStack stack, @Nullable World world, List<Text> tooltip, TooltipContext context) {
         if (infiniteBalance) {
-            tooltip.add(Text.translatable("tooltip.metropolis.infinity_balance"));
+            tooltip.add(new TranslatableText("tooltip.metropolis.infinity_balance"));
         } else {
             NbtCompound nbt = stack.getOrCreateNbt();
 
             String stationName = nbt.getString(ENTERED_STATION).split("\\|")[0];
             if (nbt.contains(ENTERED_ZONE) && nbt.contains(ENTERED_STATION))
-                tooltip.add(Text.translatable("tooltip.metropolis.ticket.entered_station", stationName));
+                tooltip.add(new TranslatableText("tooltip.metropolis.ticket.entered_station", stationName));
 
-            String value = Text.translatable("misc.metropolis.cost", nbt.getInt(BALANCE)).getString();
-            String maxValue = Text.translatable("misc.metropolis.cost", nbt.getInt(MAX_VALUE)).getString();
-            tooltip.add(Text.translatable("tooltip.metropolis.card.balance", value, maxValue));
+            String value = new TranslatableText("misc.metropolis.cost", nbt.getInt(BALANCE)).getString();
+            String maxValue = new TranslatableText("misc.metropolis.cost", nbt.getInt(MAX_VALUE)).getString();
+            tooltip.add(new TranslatableText("tooltip.metropolis.card.balance", value, maxValue));
         }
 
         super.appendTooltip(stack, world, tooltip, context);

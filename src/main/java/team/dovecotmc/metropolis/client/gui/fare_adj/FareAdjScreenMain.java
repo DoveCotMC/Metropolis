@@ -8,7 +8,9 @@ import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.sound.PositionedSoundInstance;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.sound.SoundEvents;
+import net.minecraft.text.LiteralText;
 import net.minecraft.text.Text;
+import net.minecraft.text.TranslatableText;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import team.dovecotmc.metropolis.Metropolis;
@@ -50,7 +52,7 @@ public class FareAdjScreenMain extends Screen {
     protected boolean pressed = false;
 
     public FareAdjScreenMain(BlockPos pos, FareAdjData data) {
-        super(Text.translatable("gui.metropolis.fare_adj_main.title"));
+        super(new TranslatableText("gui.metropolis.fare_adj_main.title"));
         this.pos = pos;
         this.data = data;
     }
@@ -102,7 +104,7 @@ public class FareAdjScreenMain extends Screen {
         // Subtitle
         this.textRenderer.draw(
                 matrices,
-                Text.translatable("gui.metropolis.fare_adj_main.subtitle"),
+                new TranslatableText("gui.metropolis.fare_adj_main.subtitle"),
                 intoTexturePosX(18),
                 intoTexturePosY(32),
                 0x3F3F3F
@@ -141,11 +143,11 @@ public class FareAdjScreenMain extends Screen {
             }
         }
         int i0 = 0;
-        List<String> texts = new java.util.ArrayList<>(Arrays.stream(Text.translatable("gui.metropolis.fare_adj_main.ic_charge_button_text").getString().split("\n")).toList());
+        List<String> texts = new java.util.ArrayList<>(Arrays.stream(new TranslatableText("gui.metropolis.fare_adj_main.ic_charge_button_text").getString().split("\n")).toList());
         Collections.reverse(texts);
         for (String text : texts) {
             this.textRenderer.drawWithOutline(
-                    Text.literal(text).asOrderedText(),
+                    new LiteralText(text).asOrderedText(),
                     x0 + (BUTTON_BIG_WIDTH / 2f - textRenderer.getWidth(text) / 2f),
                     y0 + (BUTTON_BIG_HEIGHT - 20 - textRenderer.fontHeight * i0 - 2 * i0),
                     0xFFFFFF,
@@ -188,11 +190,11 @@ public class FareAdjScreenMain extends Screen {
             }
         }
         i0 = 0;
-        texts = new java.util.ArrayList<>(Arrays.stream(Text.translatable("gui.metropolis.fare_adj_main.ticket_charge_button_text").getString().split("\n")).toList());
+        texts = new java.util.ArrayList<>(Arrays.stream(new TranslatableText("gui.metropolis.fare_adj_main.ticket_charge_button_text").getString().split("\n")).toList());
         Collections.reverse(texts);
         for (String text : texts) {
             this.textRenderer.drawWithOutline(
-                    Text.literal(text).asOrderedText(),
+                    new LiteralText(text).asOrderedText(),
                     x1 + (BUTTON_BIG_WIDTH / 2f - textRenderer.getWidth(text) / 2f),
                     y0 + (BUTTON_BIG_HEIGHT - 20 - textRenderer.fontHeight * i0 - 2 * i0),
                     0xFFFFFF,
@@ -231,11 +233,11 @@ public class FareAdjScreenMain extends Screen {
             matrices.translate(1, 1, 0);
         }
         i0 = 0;
-        texts = new java.util.ArrayList<>(Arrays.stream(Text.translatable("gui.metropolis.fare_adj_main.no_ticket").getString().split("\n")).toList());
+        texts = new java.util.ArrayList<>(Arrays.stream(new TranslatableText("gui.metropolis.fare_adj_main.no_ticket").getString().split("\n")).toList());
         Collections.reverse(texts);
         for (String text : texts) {
             this.textRenderer.drawWithOutline(
-                    Text.literal(text).asOrderedText(),
+                    new LiteralText(text).asOrderedText(),
                     x0 + 12,
                     y1 + (BUTTON_WIDE_HEIGHT - 24 - textRenderer.fontHeight * i0 - 2 * i0),
                     0xFFFFFF,

@@ -9,7 +9,9 @@ import net.minecraft.client.sound.PositionedSoundInstance;
 import net.minecraft.client.sound.SoundManager;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.sound.SoundEvents;
+import net.minecraft.text.LiteralText;
 import net.minecraft.text.Text;
+import net.minecraft.text.TranslatableText;
 import net.minecraft.util.Identifier;
 import team.dovecotmc.metropolis.Metropolis;
 import team.dovecotmc.metropolis.client.MetropolisClient;
@@ -39,7 +41,7 @@ public class MetroModMenuConfigScreen extends Screen {
     protected boolean pressed = false;
 
     public MetroModMenuConfigScreen(Screen parent) {
-        super(Text.translatable("metropolis.modmenu.config.title"));
+        super(new TranslatableText("metropolis.modmenu.config.title"));
         this.parent = parent;
     }
 
@@ -62,7 +64,7 @@ public class MetroModMenuConfigScreen extends Screen {
 
         matrices.push();
         matrices.scale(2f, 2f, 2f);
-        Text name = Text.literal(mod.getMetadata().getName());
+        Text name = new LiteralText(mod.getMetadata().getName());
         textRenderer.drawWithShadow(
                 matrices,
                 name,
@@ -73,7 +75,7 @@ public class MetroModMenuConfigScreen extends Screen {
 
         // Enable glowing texture
         matrices.push();
-        Text text = Text.translatable("config.metropolis.client.enable_glowing_texture");
+        Text text = new TranslatableText("config.metropolis.client.enable_glowing_texture");
         textRenderer.draw(
                 matrices,
                 text,
@@ -113,7 +115,7 @@ public class MetroModMenuConfigScreen extends Screen {
         );
 
         // Enable station info overlay
-        text = Text.translatable("config.metropolis.client.enable_station_info_overlay");
+        text = new TranslatableText("config.metropolis.client.enable_station_info_overlay");
         textRenderer.draw(
                 matrices,
                 text,

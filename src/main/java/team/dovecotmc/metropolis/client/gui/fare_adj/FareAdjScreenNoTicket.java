@@ -11,6 +11,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.text.Text;
+import net.minecraft.text.TranslatableText;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import team.dovecotmc.metropolis.Metropolis;
@@ -49,7 +50,7 @@ public class FareAdjScreenNoTicket extends Screen {
     protected boolean pressed = false;
 
     public FareAdjScreenNoTicket(BlockPos pos, FareAdjData data, Screen parent) {
-        super(Text.translatable("gui.metropolis.fare_adj_no_ticket.title"));
+        super(new TranslatableText("gui.metropolis.fare_adj_no_ticket.title"));
         this.pos = pos;
         this.data = data;
         this.parent = parent;
@@ -106,7 +107,7 @@ public class FareAdjScreenNoTicket extends Screen {
         matrices.scale(scaleFactor, scaleFactor, scaleFactor);
         this.textRenderer.draw(
                 matrices,
-                Text.translatable("gui.metropolis.fare_adj_no_ticket.subtitle"),
+                new TranslatableText("gui.metropolis.fare_adj_no_ticket.subtitle"),
                 intoTexturePosX(22) / scaleFactor,
                 intoTexturePosY(34) / scaleFactor,
                 0x3F3F3F
@@ -115,7 +116,7 @@ public class FareAdjScreenNoTicket extends Screen {
 
         matrices.push();
         // If you have receipt
-        String[] texts = Text.translatable("gui.metropolis.fare_adj_no_ticket.if_you_have_receipt").getString().split("\n");
+        String[] texts = new TranslatableText("gui.metropolis.fare_adj_no_ticket.if_you_have_receipt").getString().split("\n");
         int i0 = 0;
         for (String text : texts) {
             this.textRenderer.draw(
@@ -130,7 +131,7 @@ public class FareAdjScreenNoTicket extends Screen {
 
         // Insert receipt warning
         int warningSize = 14;
-        Text text0 = Text.translatable("gui.metropolis.fare_adj_no_ticket.insert_receipt");
+        Text text0 = new TranslatableText("gui.metropolis.fare_adj_no_ticket.insert_receipt");
         this.textRenderer.draw(
                 matrices,
                 text0,
@@ -153,7 +154,7 @@ public class FareAdjScreenNoTicket extends Screen {
 
         matrices.push();
         // If you don't have receipt
-        texts = Text.translatable("gui.metropolis.fare_adj_no_ticket.if_you_dont_have_receipt").getString().split("\n");
+        texts = new TranslatableText("gui.metropolis.fare_adj_no_ticket.if_you_dont_have_receipt").getString().split("\n");
         int i1 = 0;
         for (String text : texts) {
             this.textRenderer.draw(
@@ -167,7 +168,7 @@ public class FareAdjScreenNoTicket extends Screen {
         }
 
         // Insert receipt warning
-        Text text1 = Text.translatable("gui.metropolis.fare_adj_no_ticket.pay_fare");
+        Text text1 = new TranslatableText("gui.metropolis.fare_adj_no_ticket.pay_fare");
         this.textRenderer.draw(
                 matrices,
                 text1,
@@ -208,7 +209,7 @@ public class FareAdjScreenNoTicket extends Screen {
                 NEXT_BUTTON_WIDTH, NEXT_BUTTON_HEIGHT
         );
 
-        Text text2 = Text.translatable("gui.metropolis.fare_adj_no_ticket.pay_button");
+        Text text2 = new TranslatableText("gui.metropolis.fare_adj_no_ticket.pay_button");
         this.textRenderer.draw(
                 matrices,
                 text2,
@@ -230,9 +231,9 @@ public class FareAdjScreenNoTicket extends Screen {
                     client.setScreen(new FareAdjPaymentScreen(
                             pos,
                             new FareAdjPaymentData(FareAdjPaymentData.EnumTicketVendorPaymentType.PAY_FARE, price, new Text[]{
-                                Text.translatable("gui.metropolis.fare_adj_payment.single_trip.title"),
-                                Text.translatable("gui.metropolis.fare_adj_payment.single_trip.ticket_value", price),
-                                Text.translatable("gui.metropolis.fare_adj_payment.single_trip.amount", 1)
+                                new TranslatableText("gui.metropolis.fare_adj_payment.single_trip.title"),
+                                new TranslatableText("gui.metropolis.fare_adj_payment.single_trip.ticket_value", price),
+                                new TranslatableText("gui.metropolis.fare_adj_payment.single_trip.amount", 1)
                             }, new ItemStack(MetroItems.ITEM_EXIT_TICKET)),
                             this
                     ));

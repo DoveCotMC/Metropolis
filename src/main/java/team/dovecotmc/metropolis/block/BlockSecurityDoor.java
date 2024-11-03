@@ -17,9 +17,9 @@ import net.minecraft.state.property.BooleanProperty;
 import net.minecraft.state.property.EnumProperty;
 import net.minecraft.state.property.Properties;
 import net.minecraft.text.Text;
+import net.minecraft.text.TranslatableText;
 import net.minecraft.util.DyeColor;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.random.Random;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.util.shape.VoxelShapes;
@@ -31,6 +31,8 @@ import org.jetbrains.annotations.Nullable;
 import team.dovecotmc.metropolis.Metropolis;
 import team.dovecotmc.metropolis.util.MetroBlockUtil;
 import team.dovecotmc.metropolis.util.MtrSoundUtil;
+
+import java.util.Random;
 
 /**
  * @author Arrokoth
@@ -94,7 +96,7 @@ public class BlockSecurityDoor extends HorizontalFacingBlock {
                     if (open) {
                         world.playSound(null, pos, MtrSoundUtil.TICKET_BARRIER_CONCESSIONARY, SoundCategory.BLOCKS, 1f, 1f);
                     } else {
-                        player.sendMessage(Text.translatable("info.metropolis.has_danger_item"), true);
+                        player.sendMessage(new TranslatableText("info.metropolis.has_danger_item"), true);
                     }
                     world.setBlockState(pos, state.with(OPEN, open));
                     world.createAndScheduleBlockTick(pos, state.getBlock(), 20);

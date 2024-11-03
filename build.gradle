@@ -37,15 +37,15 @@ dependencies {
 
     // Minecraft Transit Railway
     if (mtr4)
-        modImplementation "maven.modrinth:minecraft-transit-railway:FABRIC-4.0.0-beta-8+1.19.2"
+        modImplementation "maven.modrinth:minecraft-transit-railway:FABRIC-4.0.0-beta-8+1.18.2"
     else
-        modImplementation "maven.modrinth:minecraft-transit-railway:FABRIC-1.19.2-3.2.2-hotfix-1"
+        modImplementation "maven.modrinth:minecraft-transit-railway:FABRIC-1.18.2-3.2.2-hotfix-1"
 
     // NTE
-    modImplementation "maven.modrinth:mtr-nte:0.5.1+1.19.2"
+    modImplementation "maven.modrinth:mtr-nte:0.5.1+1.18.2"
 
     // Mod menu
-    modImplementation "maven.modrinth:modmenu:4.1.2"
+    modImplementation "maven.modrinth:modmenu:3.2.5"
 }
 
 processResources {

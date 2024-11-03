@@ -9,6 +9,7 @@ import net.minecraft.client.sound.PositionedSoundInstance;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.text.Text;
+import net.minecraft.text.TranslatableText;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import team.dovecotmc.metropolis.Metropolis;
@@ -34,7 +35,7 @@ public class FareAdjScreenPayFare extends Screen {
     protected boolean pressed = false;
 
     public FareAdjScreenPayFare(BlockPos pos, FareAdjData data, Screen parent) {
-        super(Text.translatable("gui.metropolis.fare_adj_pay_fare.title"));
+        super(new TranslatableText("gui.metropolis.fare_adj_pay_fare.title"));
         this.pos = pos;
         this.data = data;
         this.parent = parent;
@@ -91,7 +92,7 @@ public class FareAdjScreenPayFare extends Screen {
         matrices.scale(scaleFactor, scaleFactor, scaleFactor);
         this.textRenderer.draw(
                 matrices,
-                Text.translatable("gui.metropolis.fare_adj_pay_fare.subtitle"),
+                new TranslatableText("gui.metropolis.fare_adj_pay_fare.subtitle"),
                 intoTexturePosX(22) / scaleFactor,
                 intoTexturePosY(34) / scaleFactor,
                 0x3F3F3F

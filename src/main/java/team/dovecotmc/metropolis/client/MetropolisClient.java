@@ -15,7 +15,6 @@ import team.dovecotmc.metropolis.block.entity.MetroBlockEntities;
 import team.dovecotmc.metropolis.client.block.entity.*;
 import team.dovecotmc.metropolis.Metropolis;
 import team.dovecotmc.metropolis.block.MetroBlocks;
-import team.dovecotmc.metropolis.client.block.model.provider.MetroModelProvicer;
 import team.dovecotmc.metropolis.client.entity.EntitySittableRenderer;
 import team.dovecotmc.metropolis.client.gui.AlphaWarningHud;
 import team.dovecotmc.metropolis.client.gui.MetroBlockPlaceHud;
@@ -54,8 +53,6 @@ public class MetropolisClient implements ClientModInitializer {
         BlockRenderLayerMap.INSTANCE.putBlock(MetroBlocks.BLOCK_TICKET_VENDOR_PANEL, RenderLayer.getCutout());
         BlockRenderLayerMap.INSTANCE.putBlock(MetroBlocks.BLOCK_TICKET_VENDOR_TOP, RenderLayer.getCutout());
         BlockRenderLayerMap.INSTANCE.putBlock(MetroBlocks.BLOCK_SECURITY_INSPECTION_MACHINE, RenderLayer.getCutout());
-
-        ModelLoadingRegistry.INSTANCE.registerResourceProvider(rm -> new MetroModelProvicer());
 
         BlockEntityRendererRegistry.register(MetroBlockEntities.BUMPER_BLOCK_ENTITY, ctx -> new BumperBlockEntityRenderer());
         BlockEntityRendererRegistry.register(MetroBlockEntities.CAMERA_BLOCK_ENTITY, ctx -> new CameraBlockEntityRenderer());

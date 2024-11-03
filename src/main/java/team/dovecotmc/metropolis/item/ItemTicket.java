@@ -5,6 +5,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.text.Text;
+import net.minecraft.text.TranslatableText;
 import net.minecraft.util.Identifier;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
@@ -36,13 +37,13 @@ public class ItemTicket extends Item implements InterfaceTicket {
 
         String stationName = nbt.getString(ENTERED_STATION).split("\\|")[0];
         if (nbt.contains(ENTERED_ZONE) && nbt.contains(ENTERED_STATION))
-            tooltip.add(Text.translatable("tooltip.metropolis.ticket.entered_station", stationName));
+            tooltip.add(new TranslatableText("tooltip.metropolis.ticket.entered_station", stationName));
 
         if (nbt.contains(START_STATION) && nbt.contains(END_STATION))
-            tooltip.add(Text.translatable("tooltip.metropolis.ticket.from_and_to", nbt.getString(START_STATION), nbt.getString(END_STATION)));
+            tooltip.add(new TranslatableText("tooltip.metropolis.ticket.from_and_to", nbt.getString(START_STATION), nbt.getString(END_STATION)));
 
 
-        tooltip.add(Text.translatable("tooltip.metropolis.ticket.balance", nbt.getInt(BALANCE)));
+        tooltip.add(new TranslatableText("tooltip.metropolis.ticket.balance", nbt.getInt(BALANCE)));
 
         super.appendTooltip(stack, world, tooltip, context);
     }

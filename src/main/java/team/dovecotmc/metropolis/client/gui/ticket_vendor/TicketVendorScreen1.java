@@ -9,7 +9,9 @@ import net.minecraft.client.sound.PositionedSoundInstance;
 import net.minecraft.client.sound.SoundManager;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.sound.SoundEvents;
+import net.minecraft.text.LiteralText;
 import net.minecraft.text.Text;
+import net.minecraft.text.TranslatableText;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import team.dovecotmc.metropolis.Metropolis;
@@ -57,7 +59,7 @@ public class TicketVendorScreen1 extends Screen {
     protected int tipId = 0;
 
     public TicketVendorScreen1(BlockPos pos, TicketVendorData data) {
-        super(Text.translatable("gui.metropolis.ticket_vendor_1.title"));
+        super(new TranslatableText("gui.metropolis.ticket_vendor_1.title"));
         this.pos = pos;
         this.data = data;
 //        this.ticketItem = ticketItem;
@@ -75,13 +77,13 @@ public class TicketVendorScreen1 extends Screen {
         this.lastPressing = false;
         this.mouseX = 0;
         this.mouseY = 0;
-//        ButtonWidget buttonTest = new ButtonWidget(0, 0, 128, 20, Text.translatable("metropolis.screen.ticket_machine.button.test"), button -> {
+//        ButtonWidget buttonTest = new ButtonWidget(0, 0, 128, 20, new TranslatableText("metropolis.screen.ticket_machine.button.test"), button -> {
 ////            NbtCompound nbt = this.ticketItem.getOrCreateNbt();
 ////            nbt.putInt(ItemTicket.REMAIN_MONEY, nbt.getInt(ItemTicket.REMAIN_MONEY) + 1);
 //            System.out.println(114514);
 //        });
 //        addDrawableChild(buttonTest);
-//        SliderWidget sliderWidget = new SliderWidget(0, 20, 128, 20, Text.literal("wow"), 0.5) {
+//        SliderWidget sliderWidget = new SliderWidget(0, 20, 128, 20, new LiteralText("wow"), 0.5) {
 //            @Override
 //            protected void updateMessage() {
 //            }
@@ -246,7 +248,7 @@ public class TicketVendorScreen1 extends Screen {
         // Title
         VertexConsumerProvider.Immediate immediate = VertexConsumerProvider.immediate(Tessellator.getInstance().getBuffer());
         this.textRenderer.drawWithOutline(
-                Text.translatable("gui.metropolis.ticket_vendor.title").asOrderedText(),
+                new TranslatableText("gui.metropolis.ticket_vendor.title").asOrderedText(),
                 intoTexturePosX(36),
                 intoTexturePosY(12),
                 0xFFFFFF,
@@ -260,7 +262,7 @@ public class TicketVendorScreen1 extends Screen {
         // Subtitle
         this.textRenderer.draw(
                 matrices,
-                Text.translatable("gui.metropolis.ticket_vendor_1.subtitle"),
+                new TranslatableText("gui.metropolis.ticket_vendor_1.subtitle"),
                 intoTexturePosX(48),
                 intoTexturePosY(35),
                 0x3F3F3F
@@ -274,8 +276,8 @@ public class TicketVendorScreen1 extends Screen {
         if (this.client != null && this.client.world != null) {
             tipId = client.world.getTime() / 128f;
         }
-//        Text tip = Text.translatable("gui.metropolis.ticket_vendor_1.tips_" + ((int) tipId % 3));
-        String[] tips = Text.translatable("gui.metropolis.ticket_vendor_1.tips").getString().split("\n");
+//        Text tip = new TranslatableText("gui.metropolis.ticket_vendor_1.tips_" + ((int) tipId % 3));
+        String[] tips = new TranslatableText("gui.metropolis.ticket_vendor_1.tips").getString().split("\n");
         String tip = tips[((int) tipId % tips.length)];
         this.textRenderer.draw(
                 matrices,
@@ -295,7 +297,7 @@ public class TicketVendorScreen1 extends Screen {
         // Buy Tickets
         this.textRenderer.draw(
                 matrices,
-                Text.translatable("gui.metropolis.ticket_vendor_1.button.buy_tickets"),
+                new TranslatableText("gui.metropolis.ticket_vendor_1.button.buy_tickets"),
                 intoTexturePosX(11) / scaleFactor,
                 intoTexturePosY(31) / scaleFactor,
                 0x3F3F3F
@@ -304,7 +306,7 @@ public class TicketVendorScreen1 extends Screen {
         // Special
         this.textRenderer.draw(
                 matrices,
-                Text.translatable("gui.metropolis.ticket_vendor_1.button.special"),
+                new TranslatableText("gui.metropolis.ticket_vendor_1.button.special"),
                 intoTexturePosX(11) / scaleFactor,
                 intoTexturePosY(44) / scaleFactor,
                 0x3F3F3F
@@ -313,7 +315,7 @@ public class TicketVendorScreen1 extends Screen {
         // Refund
         this.textRenderer.draw(
                 matrices,
-                Text.translatable("gui.metropolis.ticket_vendor_1.button.refund"),
+                new TranslatableText("gui.metropolis.ticket_vendor_1.button.refund"),
                 intoTexturePosX(11) / scaleFactor,
                 intoTexturePosY(180) / scaleFactor,
                 0xFFFFFF
@@ -327,7 +329,7 @@ public class TicketVendorScreen1 extends Screen {
         matrices.scale(scaleFactor, scaleFactor, scaleFactor);
         // Tickets/Green
         this.textRenderer.drawWithOutline(
-                Text.translatable("gui.metropolis.ticket_vendor_1.button.tickets").asOrderedText(),
+                new TranslatableText("gui.metropolis.ticket_vendor_1.button.tickets").asOrderedText(),
                 intoTexturePosX(54) / scaleFactor + (greenHovering ? 1 : 0),
                 intoTexturePosY(58) / scaleFactor + (greenHovering ? 1 : 0),
                 0xFFFFFF,
@@ -340,7 +342,7 @@ public class TicketVendorScreen1 extends Screen {
 
         // Charge/Purple
         this.textRenderer.drawWithOutline(
-                Text.translatable("gui.metropolis.ticket_vendor_1.button.charge").asOrderedText(),
+                new TranslatableText("gui.metropolis.ticket_vendor_1.button.charge").asOrderedText(),
                 intoTexturePosX(54) / scaleFactor + (purpleHovering ? 1 : 0),
                 intoTexturePosY(118) / scaleFactor + (purpleHovering ? 1 : 0),
                 0xFFFFFF,
@@ -353,7 +355,7 @@ public class TicketVendorScreen1 extends Screen {
 
         // Buy Commuter/Gray top
         this.textRenderer.drawWithOutline(
-                Text.translatable("gui.metropolis.ticket_vendor_1.button.buy_commuter").asOrderedText(),
+                new TranslatableText("gui.metropolis.ticket_vendor_1.button.buy_commuter").asOrderedText(),
                 intoTexturePosX(152) / scaleFactor + (grayTopHovering ? 1 : 0),
                 intoTexturePosY(58) / scaleFactor + (grayTopHovering ? 1 : 0),
                 0xFFFFFF,
@@ -366,7 +368,7 @@ public class TicketVendorScreen1 extends Screen {
 
         // Charge/Gray bottom
         this.textRenderer.drawWithOutline(
-                Text.translatable("gui.metropolis.ticket_vendor_1.button.buy_ic_card").asOrderedText(),
+                new TranslatableText("gui.metropolis.ticket_vendor_1.button.buy_ic_card").asOrderedText(),
                 intoTexturePosX(152) / scaleFactor + (grayBottomHovering ? 1 : 0),
                 intoTexturePosY(118) / scaleFactor + (grayBottomHovering ? 1 : 0),
                 0xFFFFFF,
@@ -402,7 +404,7 @@ public class TicketVendorScreen1 extends Screen {
 
         // TODO: Other screens
         if (grayTopHovering || grayBottomHovering) {
-            this.renderTooltip(matrices, Text.literal("Coming s∞n..."), mouseX, mouseY);
+            this.renderTooltip(matrices, new LiteralText("Coming s∞n..."), mouseX, mouseY);
         }
 
         if (pressing) {
