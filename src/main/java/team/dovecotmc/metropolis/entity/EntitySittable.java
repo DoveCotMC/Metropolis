@@ -252,6 +252,7 @@ public class EntitySittable extends Entity {
         }
         world.spawnEntity(sittable);
         if (player.hasVehicle()) player.stopRiding();
+        player.setPos(sittable.getPos().x, sittable.getPos().y, sittable.getPos().z);
         player.startRiding(sittable);
         return true;
     }
