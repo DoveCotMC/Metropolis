@@ -50,6 +50,7 @@ import java.util.Random;
  */
 @SuppressWarnings("deprecation")
 public class BlockTurnstile extends HorizontalFacingBlock implements BlockEntityProvider, IBlockStationOverlayShouldRender {
+    public static final int CLOSE_DELAY = 80;
     public static final BooleanProperty OPEN = BooleanProperty.of("open");
     public static final IntProperty TYPE = IntProperty.of("type", 0, 2);
     public static final BooleanProperty CONNECTED = BooleanProperty.of("connected");
@@ -111,7 +112,7 @@ public class BlockTurnstile extends HorizontalFacingBlock implements BlockEntity
 
                     // Open
                     world.setBlockState(pos, state.with(OPEN, true));
-                    world.createAndScheduleBlockTick(pos, this, 40);
+                    world.createAndScheduleBlockTick(pos, this, CLOSE_DELAY);
                     return ActionResult.SUCCESS;
                 }
             }
@@ -129,7 +130,7 @@ public class BlockTurnstile extends HorizontalFacingBlock implements BlockEntity
 
                         // Open
                         world.setBlockState(pos, state.with(OPEN, true));
-                        world.createAndScheduleBlockTick(pos, this, 40);
+                        world.createAndScheduleBlockTick(pos, this, CLOSE_DELAY);
                         return ActionResult.SUCCESS;
                     }
                 }
@@ -176,7 +177,7 @@ public class BlockTurnstile extends HorizontalFacingBlock implements BlockEntity
                     world.playSound(null, pos, MtrSoundUtil.TICKET_BARRIER_CONCESSIONARY, SoundCategory.BLOCKS, 1f, 1f);
 
                     world.setBlockState(pos, state.with(OPEN, true));
-                    world.createAndScheduleBlockTick(pos, this, 40);
+                    world.createAndScheduleBlockTick(pos, this, CLOSE_DELAY);
                 }
             } else if (type == BlockEntityTurnstile.EnumTurnstileType.EXIT) {
                 NbtCompound stackNbt = stack.getOrCreateNbt();
@@ -212,7 +213,7 @@ public class BlockTurnstile extends HorizontalFacingBlock implements BlockEntity
                     blockEntity.readNbt(nbt);
 
                     world.setBlockState(pos, state.with(OPEN, true));
-                    world.createAndScheduleBlockTick(pos, this, 40);
+                    world.createAndScheduleBlockTick(pos, this, CLOSE_DELAY);
                 } else if (stack.getItem() instanceof ItemCard) {
                     int cost = Math.abs(station.zone - stackNbt.getInt(ItemCard.ENTERED_ZONE)) + 1;
                     int balance = stackNbt.getInt(ItemCard.BALANCE);
@@ -229,7 +230,7 @@ public class BlockTurnstile extends HorizontalFacingBlock implements BlockEntity
                     world.playSound(null, pos, MtrSoundUtil.TICKET_BARRIER_CONCESSIONARY, SoundCategory.BLOCKS, 1f, 1f);
 
                     world.setBlockState(pos, state.with(OPEN, true));
-                    world.createAndScheduleBlockTick(pos, this, 40);
+                    world.createAndScheduleBlockTick(pos, this, CLOSE_DELAY);
                 }
             }
             // TODO: Direct debit
@@ -254,7 +255,7 @@ public class BlockTurnstile extends HorizontalFacingBlock implements BlockEntity
                     blockEntity.readNbt(nbt);
 
                     world.setBlockState(pos, state.with(OPEN, true));
-                    world.createAndScheduleBlockTick(pos, this, 40);
+                    world.createAndScheduleBlockTick(pos, this, CLOSE_DELAY);
                 } else if (stack.getItem() instanceof ItemCard) {
                     // TODO: Cards
                 }
