@@ -1,0 +1,7 @@
+{
+	"parent": "metropolis:base/ticket_vendor_top",
+	"textures": {
+		"0": "metropolis:block/ticket_vendor_top",
+		"particle": "metropolis:block/ticket_vendor_top"
+	}
+}

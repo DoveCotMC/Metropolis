@@ -1,0 +1,20 @@
+{
+    "variants": {
+        "facing=north": {
+            "model": "metropolis:block/fare_adj_ev23",
+            "y": 0
+        },
+        "facing=east": {
+            "model": "metropolis:block/fare_adj_ev23",
+            "y": 90
+        },
+        "facing=south": {
+            "model": "metropolis:block/fare_adj_ev23",
+            "y": 180
+        },
+        "facing=west": {
+            "model": "metropolis:block/fare_adj_ev23",
+            "y": 270
+        }
+    }
+}

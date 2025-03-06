@@ -1,0 +1,20 @@
+{
+    "variants": {
+        "facing=north": {
+            "model": "metropolis:cable/cable",
+            "y": 0
+        },
+        "facing=east": {
+            "model": "metropolis:cable/cable",
+            "y": 90
+        },
+        "facing=south": {
+            "model": "metropolis:cable/cable",
+            "y": 180
+        },
+        "facing=west": {
+            "model": "metropolis:cable/cable",
+            "y": 270
+        }
+    }
+}

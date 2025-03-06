@@ -1,0 +1,20 @@
+{
+    "variants": {
+        "facing=north": {
+            "model": "metropolis:sign/sign_no_photo",
+            "y": 0
+        },
+        "facing=east": {
+            "model": "metropolis:sign/sign_no_photo",
+            "y": 90
+        },
+        "facing=south": {
+            "model": "metropolis:sign/sign_no_photo",
+            "y": 180
+        },
+        "facing=west": {
+            "model": "metropolis:sign/sign_no_photo",
+            "y": 270
+        }
+    }
+}

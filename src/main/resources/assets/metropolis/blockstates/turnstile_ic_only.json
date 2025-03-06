@@ -1,0 +1,65 @@
+{
+    "variants": {
+        "connected=true,facing=north,open=false": {
+            "model": "metropolis:block/turnstile_ic_only",
+            "y": 180
+        },
+        "connected=true,facing=east,open=false": {
+            "model": "metropolis:block/turnstile_ic_only",
+            "y": 270
+        },
+        "connected=true,facing=south,open=false": {
+            "model": "metropolis:block/turnstile_ic_only"
+        },
+        "connected=true,facing=west,open=false": {
+            "model": "metropolis:block/turnstile_ic_only",
+            "y": 90
+        },
+        "connected=true,facing=north,open=true": {
+            "model": "metropolis:block/turnstile_ic_only_open",
+            "y": 180
+        },
+        "connected=true,facing=east,open=true": {
+            "model": "metropolis:block/turnstile_ic_only_open",
+            "y": 270
+        },
+        "connected=true,facing=south,open=true": {
+            "model": "metropolis:block/turnstile_ic_only_open"
+        },
+        "connected=true,facing=west,open=true": {
+            "model": "metropolis:block/turnstile_ic_only_open",
+            "y": 90
+        },
+
+        "connected=false,facing=north,open=false": {
+            "model": "metropolis:block/turnstile_ic_only_side",
+            "y": 180
+        },
+        "connected=false,facing=east,open=false": {
+            "model": "metropolis:block/turnstile_ic_only_side",
+            "y": 270
+        },
+        "connected=false,facing=south,open=false": {
+            "model": "metropolis:block/turnstile_ic_only_side"
+        },
+        "connected=false,facing=west,open=false": {
+            "model": "metropolis:block/turnstile_ic_only_side",
+            "y": 90
+        },
+        "connected=false,facing=north,open=true": {
+            "model": "metropolis:block/turnstile_ic_only_side_open",
+            "y": 180
+        },
+        "connected=false,facing=east,open=true": {
+            "model": "metropolis:block/turnstile_ic_only_side_open",
+            "y": 270
+        },
+        "connected=false,facing=south,open=true": {
+            "model": "metropolis:block/turnstile_ic_only_side_open"
+        },
+        "connected=false,facing=west,open=true": {
+            "model": "metropolis:block/turnstile_ic_only_side_open",
+            "y": 90
+        }
+    }
+}

@@ -1,0 +1,7 @@
+{
+	"parent": "minecraft:block/cube_column",
+	"textures": {
+		"end": "metropolis:block/tiles_white",
+		"side": "metropolis:block/tiles_horizontal_white"
+	}
+}

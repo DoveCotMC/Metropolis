@@ -1,0 +1,181 @@
+{
+    "itemGroup.metropolis.all": "Métropolis.",
+
+    "config.metropolis.client.enable_glowing_texture": "启用发光纹理",
+    "config.metropolis.client.enable_station_info_overlay": "启用车站信息显示HUD",
+
+    "gui.metropolis.ticket_vendor.title": "多功能售票机",
+    "gui.metropolis.ticket_vendor_1.title": "多功能售票机",
+    "gui.metropolis.ticket_vendor_1.subtitle": "请点击想要进行的操作",
+    "gui.metropolis.ticket_vendor_1.button.buy_tickets": "车票",
+    "gui.metropolis.ticket_vendor_1.button.special": "优惠车票",
+    "gui.metropolis.ticket_vendor_1.button.refund": "退票",
+    "gui.metropolis.ticket_vendor_1.button.tickets": "车票",
+    "gui.metropolis.ticket_vendor_1.button.charge": "充值",
+    "gui.metropolis.ticket_vendor_1.button.buy_commuter": "购买月票",
+    "gui.metropolis.ticket_vendor_1.button.buy_ic_card": "购买IC卡",
+
+    "gui.metropolis.ticket_vendor_1.tips": "᛫ 可以使用左下角的“退票”按钮退还单程票（功能尚未完成）\n᛫ 鸽舍是一个一个一个？\n᛫ 这个界面来自于JR东日本的EV23型多功能售票机\n᛫ 为了防止玩家忘记取票，闸机在取票后才开门，现实中并不是\n᛫ 使用染料点击站台门，然后用Ctrl+鼠标中键来获得染色后的门\n᛫ 使用MTR的[刷子]来更改闸机的出入口\n᛫ 一种酷似神鹰航空涂装的绿色警戒方块在讨论后未被加入",
+    "gui.metropolis.ticket_vendor_1.tips_0": "᛫ 可以使用左下角的“退票”按钮退还单程票（功能尚未完成）",
+    "gui.metropolis.ticket_vendor_1.tips_1": "᛫ 鸽舍是一个一个一个？",
+    "gui.metropolis.ticket_vendor_1.tips_2": "᛫ 这个界面来自于JR东日本的EV23型多功能售票机",
+    "gui.metropolis.ticket_vendor_1.tips_3": "᛫ 为了防止玩家忘记取票，闸机在取票后才开门，现实中并不是",
+    "gui.metropolis.ticket_vendor_1.tips_4": "᛫ 染色站台门尚未完成。",
+    "gui.metropolis.ticket_vendor_1.tips_5": "᛫ 可以使用MTR的[刷子]来更改闸机的出入口",
+    "gui.metropolis.ticket_vendor_1.tips_6": "᛫ 一种酷似神鹰航空涂装的绿色警戒方块在讨论后未被加入",
+
+    "gui.metropolis.ticket_vendor_2.title": "购票",
+    "gui.metropolis.ticket_vendor_2.subtitle": "购买单程票",
+    "gui.metropolis.ticket_vendor_2.subtitle_2": "直接选择金额",
+    "gui.metropolis.ticket_vendor_2.custom_value_option": "自选金额",
+
+    "gui.metropolis.ticket_vendor_3.title": "充值",
+    "gui.metropolis.ticket_vendor_3.continue": "确定",
+
+    "gui.metropolis.ticket_vendor_4.title": "充值",
+    "gui.metropolis.ticket_vendor_4.continue": "确定",
+
+    "gui.metropolis.ticket_vendor_buy_ic.title": "购买IC卡",
+    "gui.metropolis.ticket_vendor_buy_ic.continue": "确定",
+
+    "gui.metropolis.ticket_vendor_warning.title": "警告",
+    "gui.metropolis.ticket_vendor_warning.title_warning": "警告",
+    "gui.metropolis.ticket_vendor_warning.warning_no_card": "请插入您的IC卡",
+
+    "gui.metropolis.ticket_vendor_payment.title": "付款",
+    "gui.metropolis.ticket_vendor_payment.subtitle": "订单详情",
+    "gui.metropolis.ticket_vendor_payment.continue_button": "继续支付",
+    "gui.metropolis.ticket_vendor_payment.price": "价格：%s",
+    "gui.metropolis.ticket_vendor_payment.balance": "余额：%s",
+
+    "gui.metropolis.ticket_vendor_payment.from_and_to": "  %s ⥋ %s",
+    "gui.metropolis.ticket_vendor_payment.ticket_value": "  价格：%s",
+    "gui.metropolis.ticket_vendor_payment.amount": "  %s 人",
+
+    "gui.metropolis.ticket_vendor_payment.single_trip.title": "单程票",
+    "gui.metropolis.ticket_vendor_payment.single_trip.from_and_to": "  %s ⥋ %s",
+    "gui.metropolis.ticket_vendor_payment.single_trip.ticket_value": "  价格：%s",
+    "gui.metropolis.ticket_vendor_payment.single_trip.amount": "  %s 人",
+
+    "gui.metropolis.ticket_vendor_payment.ic_charge.title": "充值IC卡",
+    "gui.metropolis.ticket_vendor_payment.ic_charge.ticket_value": "  价值：%s",
+
+    "gui.metropolis.ticket_vendor_payment.buy_ic.title": "购买IC卡",
+    "gui.metropolis.ticket_vendor_payment.buy_ic.ticket_value": "  初始金额：%s",
+
+    "gui.metropolis.fare_adj_main.title": "补票机",
+    "gui.metropolis.fare_adj_main.subtitle": "在您放入IC卡或单程票之前将无法使用所有选项",
+    "gui.metropolis.fare_adj_main.ic_charge_button_text": "为IC卡\n充值/补票",
+    "gui.metropolis.fare_adj_main.ticket_charge_button_text": "为单程票\n补足出站余额",
+    "gui.metropolis.fare_adj_main.no_ticket": "我没有车票\n补票出站",
+
+    "gui.metropolis.fare_adj_no_ticket.title": "补票机",
+    "gui.metropolis.fare_adj_no_ticket.subtitle": "未持有单程票",
+    "gui.metropolis.fare_adj_no_ticket.if_you_have_receipt": "如果您持有\n乘车车站证明：",
+    "gui.metropolis.fare_adj_no_ticket.insert_receipt": "将乘车车站证明插入机内进行补票",
+    "gui.metropolis.fare_adj_no_ticket.if_you_dont_have_receipt": "如果您未持有\n乘车车站证明",
+    "gui.metropolis.fare_adj_no_ticket.pay_fare": "您需支付线网最高票价",
+    "gui.metropolis.fare_adj_no_ticket.pay_button": "支付最高票价",
+
+    "gui.metropolis.fare_adj_payment.title": "补票机",
+    "gui.metropolis.fare_adj_payment.subtitle": "订单详情",
+    "gui.metropolis.fare_adj_payment.continue_button": "继续支付",
+    "gui.metropolis.fare_adj_payment.price": "价格：%s",
+    "gui.metropolis.fare_adj_payment.balance": "余额：%s",
+
+    "gui.metropolis.fare_adj_payment.single_trip.title": "出站票",
+    "gui.metropolis.fare_adj_payment.single_trip.ticket_value": "  价格：%s",
+    "gui.metropolis.fare_adj_payment.single_trip.amount": "  %s 人",
+
+    "tooltip.metropolis.ticket.from_and_to": "%s ⥋ %s",
+    "tooltip.metropolis.ticket.balance": "余额: %s",
+    "tooltip.metropolis.ticket.entered_station": "已进站: %s",
+    "tooltip.metropolis.card.balance": "余额: %s/%s",
+    "tooltip.metropolis.infinity_balance": "无限余额",
+
+    "info.metropolis.turnstile_type": "闸机类型：%s",
+    "info.metropolis.unable_switch_turnstile_type": "无法切换闸机类型",
+    "info.metropolis.turnstile_error": "机器错误",
+    "info.metropolis.to_service_center": "请去客服中心",
+    "info.metropolis.use_other_turnstile": "请使用其它闸机",
+    "info.metropolis.no_enough_balance": "余额不足",
+    "info.metropolis.has_danger_item": "物品栏内检测到危险物品",
+
+    "hud.title.pointed_station": "此处的车站",
+
+    "misc.metropolis.cost": "￥%s",
+    "misc.metropolis.turnstile_mode.enter": "入",
+    "misc.metropolis.turnstile_mode.exit": "出",
+
+    "item.metropolis.single_trip_ticket": "单程票",
+    "item.metropolis.single_trip_ticket_used": "单程票",
+    "tooltip.metropolis.single_trip_ticket_expired": "已过期",
+    "item.metropolis.card": "IC卡",
+    "item.metropolis.creative_card": "IC卡",
+    "item.metropolis.exit_ticket": "出站票",
+
+    "block.metropolis.cable": "线缆",
+
+    "block.metropolis.ticket_vendor_top": "售票机装饰",
+    "tooltip.metropolis.ticket_vendor_top": "§7顶部面板",
+    "block.metropolis.ticket_vendor_panel": "售票机装饰",
+    "tooltip.metropolis.ticket_vendor_panel": "§7装饰盖板",
+    "block.metropolis.ticket_vendor_em10": "售票机",
+    "tooltip.metropolis.ticket_vendor_em10": "§7JR东日本EM10",
+    "block.metropolis.ticket_vendor_ev23": "售票机",
+    "tooltip.metropolis.ticket_vendor_ev23": "§7JR东日本EV23",
+    "block.metropolis.fare_adj_ev23": "补票机",
+    "tooltip.metropolis.fare_adj_ev23": "§7JR东日本EV23",
+
+    "block.metropolis.ceiling_a": "吊顶",
+    "block.metropolis.fluorescent_lamp": "日光灯",
+
+    "block.metropolis.bumper": "车挡器",
+    "block.metropolis.turnstile.enter": "闸机（入口）",
+    "block.metropolis.turnstile.exit": "闸机（出口）",
+    "block.metropolis.turnstile_ic_only.enter": "闸机（仅IC卡，入口）",
+    "block.metropolis.turnstile_ic_only.exit": "闸机（仅IC卡，出口）",
+
+    "block.metropolis.camera_ceiling": "摄像头",
+
+    "block.metropolis.sign_no_photo": "告示牌（禁止拍照）",
+
+    "block.metropolis.psd_jr_door_1": "站台屏蔽门",
+    "tooltip.metropolis.psd_jr_door_1": "日规矮半高",
+    "block.metropolis.psd_jr_door_2": "站台屏蔽门",
+    "tooltip.metropolis.psd_jr_door_2": "日规矮半高（带窗）",
+    "block.metropolis.psd_jr_fence_1": "站台屏蔽门",
+    "tooltip.metropolis.psd_jr_fence_1": "日规矮半高",
+    "block.metropolis.psd_jr_fence_2": "站台屏蔽门",
+    "tooltip.metropolis.psd_jr_fence_2": "[WIP] 日规矮半高",
+
+    "block.metropolis.itv_monitor": "站台ITV监控屏幕",
+
+    "block.metropolis.security_door": "安全门",
+    "block.metropolis.security_inspection_machine": "安检机",
+
+    "block.metropolis.platform_a": "站台",
+
+    "block.metropolis.concrete": "混凝土",
+
+    "block.metropolis.tiles_white": "白色瓷砖",
+    "block.metropolis.tiles_large_white": "大块白色瓷砖",
+    "block.metropolis.tiles_small_white": "小块白色瓷砖",
+    "block.metropolis.tiles_horizontal_white": "竖向白色瓷砖",
+
+    "block.metropolis.tiles_gray": "灰色瓷砖",
+    "block.metropolis.tiles_large_gray": "大块灰色瓷砖",
+    "block.metropolis.tiles_small_gray": "小块灰色瓷砖",
+    "block.metropolis.tiles_horizontal_gray": "竖向灰色瓷砖",
+
+    "block.metropolis.cordon_yellow_black": "警戒方块",
+    "tooltip.metropolis.cordon_yellow_black": "§7黄黑色",
+    "block.metropolis.cordon_yellow_white": "警戒方块",
+    "tooltip.metropolis.cordon_yellow_white": "§7黄白色",
+    "block.metropolis.cordon_red_black": "警戒方块",
+    "tooltip.metropolis.cordon_red_black": "§7红黑色",
+    "block.metropolis.cordon_red_white": "警戒方块",
+    "tooltip.metropolis.cordon_red_white": "§7红白色",
+
+    "block.metropolis.bench": "长凳"
+}

@@ -1,0 +1,10 @@
+{
+    "variants": {
+        "flipped=false": {
+            "model": "metropolis:psd/platform_door_1_door"
+        },
+        "flipped=true": {
+            "model": "metropolis:psd/platform_door_1_door_flipped"
+        }
+    }
+}
