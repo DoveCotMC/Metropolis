@@ -177,5 +177,10 @@
     "block.metropolis.cordon_red_white": "警戒方块",
     "tooltip.metropolis.cordon_red_white": "§7红白色",
 
-    "block.metropolis.bench": "长凳"
+    "block.metropolis.bench": "长凳",
+
+    "block.metropolis.awning_pillar": "雨棚支柱",
+    "block.metropolis.awning_pillar_emergency": "雨棚支柱（紧急按钮）",
+    "block.metropolis.awning_beam": "雨棚横梁",
+    "block.metropolis.awning_roof": "雨棚顶棚"
 }

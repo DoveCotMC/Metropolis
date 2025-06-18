@@ -1,11 +1,10 @@
 package team.dovecotmc.metropolis.block;
 
-import net.minecraft.block.BlockState;
-import net.minecraft.block.ShapeContext;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
-import net.minecraft.util.shape.VoxelShape;
-import net.minecraft.world.BlockView;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.world.phys.shapes.VoxelShape;
 import team.dovecotmc.metropolis.util.MetroBlockUtil;
 
 /**
@@ -14,12 +13,12 @@ import team.dovecotmc.metropolis.util.MetroBlockUtil;
  * @copyright Copyright © 2024 Arrokoth All Rights Reserved.
  */
 public class BlockSign extends BlockHorizontalFacing {
-    public BlockSign(Settings settings) {
+    public BlockSign(Properties settings) {
         super(settings);
     }
 
     @Override
-    public VoxelShape getOutlineShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {
-        return MetroBlockUtil.getVoxelShapeByDirection(1.0, 2.0, 15.0, 15.0, 14.0, 16.0, state.get(FACING));
+    public VoxelShape getShape(BlockState state, BlockGetter world, BlockPos pos, CollisionContext context) {
+        return MetroBlockUtil.getVoxelShapeByDirection(1.0, 2.0, 15.0, 15.0, 14.0, 16.0, state.getValue(FACING));
     }
 }

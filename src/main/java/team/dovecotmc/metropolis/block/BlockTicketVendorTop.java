@@ -1,20 +1,25 @@
 package team.dovecotmc.metropolis.block;
 
-import net.minecraft.block.*;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemPlacementContext;
-import net.minecraft.sound.SoundCategory;
-import net.minecraft.sound.SoundEvents;
-import net.minecraft.state.StateManager;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.Hand;
-import net.minecraft.util.hit.BlockHitResult;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
-import net.minecraft.util.shape.VoxelShape;
-import net.minecraft.world.BlockView;
-import net.minecraft.world.World;
-import net.minecraft.world.WorldAccess;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.context.BlockPlaceContext;
+import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.HorizontalDirectionalBlock;
+import net.minecraft.world.level.block.RenderShape;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.material.Material;
+import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.world.phys.shapes.VoxelShape;
 import team.dovecotmc.metropolis.util.MetroBlockUtil;
 import team.dovecotmc.metropolis.util.MtrCommonUtil;
 
@@ -27,58 +32,58 @@ import java.util.Map;
  * @copyright Copyright © 2024 Arrokoth All Rights Reserved.
  */
 @SuppressWarnings("deprecation")
-public class BlockTicketVendorTop extends HorizontalFacingBlock {
+public class BlockTicketVendorTop extends HorizontalDirectionalBlock {
     public static final Map<Integer, BlockTicketVendorTop> TYPES = new HashMap<>();
     public final int id;
 
     public BlockTicketVendorTop() {
-        super(Settings.of(Material.METAL).strength(6.0f).nonOpaque().luminance(value -> 0));
+        super(Properties.of(Material.METAL).strength(6.0f).noOcclusion().lightLevel(value -> 0));
 
         this.id = TYPES.size();
         TYPES.put(id, this);
     }
 
-    public BlockState getPlacementState(ItemPlacementContext ctx) {
-        return this.getDefaultState().with(FACING, ctx.getPlayerFacing().getOpposite());
+    public BlockState getStateForPlacement(BlockPlaceContext ctx) {
+        return this.defaultBlockState().setValue(FACING, ctx.getHorizontalDirection().getOpposite());
     }
 
     @Override
-    public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
-        if (!hand.equals(Hand.MAIN_HAND)) {
-            return ActionResult.PASS;
+    public InteractionResult use(BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
+        if (!hand.equals(InteractionHand.MAIN_HAND)) {
+            return InteractionResult.PASS;
         }
 
-        if (player.getStackInHand(hand).getItem().equals(MtrCommonUtil.getBrushItem())) {
+        if (player.getItemInHand(hand).getItem().equals(MtrCommonUtil.getBrushItem())) {
             int id = ((BlockTicketVendorTop) state.getBlock()).id;
-            world.setBlockState(pos, TYPES.get((id + 1) % (TYPES.size())).getDefaultState().with(FACING, state.get(FACING)));
-            world.playSound(null, pos, SoundEvents.BLOCK_COPPER_BREAK, SoundCategory.BLOCKS, 1f, 1f);
-            return ActionResult.SUCCESS;
+            world.setBlockAndUpdate(pos, TYPES.get((id + 1) % (TYPES.size())).defaultBlockState().setValue(FACING, state.getValue(FACING)));
+            world.playSound(null, pos, SoundEvents.COPPER_BREAK, SoundSource.BLOCKS, 1f, 1f);
+            return InteractionResult.SUCCESS;
         }
 
-        return ActionResult.PASS;
+        return InteractionResult.PASS;
     }
 
     @Override
-    protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
+    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
         builder.add(FACING);
     }
 
     @Override
-    public VoxelShape getOutlineShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {
-        Direction facing = state.get(FACING);
+    public VoxelShape getShape(BlockState state, BlockGetter world, BlockPos pos, CollisionContext context) {
+        Direction facing = state.getValue(FACING);
         return MetroBlockUtil.getVoxelShapeByDirection(0.0, 0.0, 4.0, 16.0 , 16.0, 16.0, facing);
     }
 
     @Override
-    public BlockRenderType getRenderType(BlockState state) {
-        return BlockRenderType.MODEL;
+    public RenderShape getRenderShape(BlockState state) {
+        return RenderShape.MODEL;
     }
 
     @Override
-    public void onBroken(WorldAccess world, BlockPos pos, BlockState state) {
-        super.onBroken(world, pos, state);
-        if (world.getBlockState(pos.down()).getBlock() instanceof BlockTicketVendor) {
-            world.breakBlock(pos.down(), true);
+    public void destroy(LevelAccessor world, BlockPos pos, BlockState state) {
+        super.destroy(world, pos, state);
+        if (world.getBlockState(pos.below()).getBlock() instanceof BlockTicketVendor) {
+            world.destroyBlock(pos.below(), true);
         }
     }
 }

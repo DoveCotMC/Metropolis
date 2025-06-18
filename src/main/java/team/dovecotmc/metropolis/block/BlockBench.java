@@ -1,15 +1,18 @@
 package team.dovecotmc.metropolis.block;
 
-import net.minecraft.block.*;
-import net.minecraft.item.ItemPlacementContext;
-import net.minecraft.state.StateManager;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
-import net.minecraft.util.shape.VoxelShape;
-import net.minecraft.util.shape.VoxelShapes;
-import net.minecraft.world.BlockView;
-import net.minecraft.world.World;
-import net.minecraft.world.WorldView;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.world.item.context.BlockPlaceContext;
+import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelReader;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.HorizontalDirectionalBlock;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.world.phys.shapes.Shapes;
+import net.minecraft.world.phys.shapes.VoxelShape;
 import team.dovecotmc.metropolis.util.MetroBlockUtil;
 
 /**
@@ -18,15 +21,15 @@ import team.dovecotmc.metropolis.util.MetroBlockUtil;
  * @copyright Copyright © 2024 Arrokoth All Rights Reserved.
  */
 @SuppressWarnings("deprecation")
-public class BlockBench extends HorizontalFacingBlock {
-    public BlockBench(Settings settings) {
-        super(settings.nonOpaque());
+public class BlockBench extends HorizontalDirectionalBlock {
+    public BlockBench(Properties settings) {
+        super(settings.noOcclusion());
     }
 
     @Override
-    public VoxelShape getOutlineShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {
-        Direction facing = state.get(FACING);
-        return VoxelShapes.union(
+    public VoxelShape getShape(BlockState state, BlockGetter world, BlockPos pos, CollisionContext context) {
+        Direction facing = state.getValue(FACING);
+        return Shapes.or(
                 MetroBlockUtil.getVoxelShapeByDirection(
                         1, 0, 2,
                         15, 8, 16,
@@ -41,24 +44,24 @@ public class BlockBench extends HorizontalFacingBlock {
     }
 
     @Override
-    public boolean canPlaceAt(BlockState state, WorldView world, BlockPos pos) {
-        return world.getBlockState(pos.down()).isSolidBlock(world, pos.down());
+    public boolean canSurvive(BlockState state, LevelReader world, BlockPos pos) {
+        return world.getBlockState(pos.below()).isRedstoneConductor(world, pos.below());
     }
 
     @Override
-    public void neighborUpdate(BlockState state, World world, BlockPos pos, Block sourceBlock, BlockPos sourcePos, boolean notify) {
-        if (!canPlaceAt(state, world, pos)) {
-            world.breakBlock(pos, true);
+    public void neighborChanged(BlockState state, Level world, BlockPos pos, Block sourceBlock, BlockPos sourcePos, boolean notify) {
+        if (!canSurvive(state, world, pos)) {
+            world.destroyBlock(pos, true);
         }
-        super.neighborUpdate(state, world, pos, sourceBlock, sourcePos, notify);
+        super.neighborChanged(state, world, pos, sourceBlock, sourcePos, notify);
     }
 
-    public BlockState getPlacementState(ItemPlacementContext ctx) {
-        return this.getDefaultState().with(FACING, ctx.getPlayerFacing().getOpposite());
+    public BlockState getStateForPlacement(BlockPlaceContext ctx) {
+        return this.defaultBlockState().setValue(FACING, ctx.getHorizontalDirection().getOpposite());
     }
 
     @Override
-    protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
+    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
         builder.add(FACING);
     }
 }

@@ -1,16 +1,15 @@
 package team.dovecotmc.metropolis.client.gui.fare_adj;
 
 import com.mojang.blaze3d.systems.RenderSystem;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.client.render.Tessellator;
-import net.minecraft.client.render.VertexConsumerProvider;
-import net.minecraft.client.sound.PositionedSoundInstance;
-import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.sound.SoundEvents;
-import net.minecraft.text.Text;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.math.BlockPos;
+import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.blaze3d.vertex.Tesselator;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.resources.sounds.SimpleSoundInstance;
+import net.minecraft.core.BlockPos;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.sounds.SoundEvents;
 import team.dovecotmc.metropolis.Metropolis;
 import team.dovecotmc.metropolis.abstractinterface.util.MALocalizationUtil;
 
@@ -20,7 +19,7 @@ import team.dovecotmc.metropolis.abstractinterface.util.MALocalizationUtil;
  * @copyright Copyright © 2024 Arrokoth All Rights Reserved.
  */
 public class FareAdjScreenPayFare extends Screen {
-    private static final Identifier BG_TEXTURE_ID = new Identifier(Metropolis.MOD_ID, "textures/gui/fare_adj_pay_fare/base.png");
+    private static final ResourceLocation BG_TEXTURE_ID = new ResourceLocation(Metropolis.MOD_ID, "textures/gui/fare_adj_pay_fare/base.png");
     protected static final int BG_TEXTURE_WIDTH = 256;
     protected static final int BG_TEXTURE_HEIGHT = 196;
 
@@ -51,7 +50,7 @@ public class FareAdjScreenPayFare extends Screen {
     }
 
     @Override
-    public void render(MatrixStack matrices, int mouseX, int mouseY, float delta) {
+    public void render(PoseStack matrices, int mouseX, int mouseY, float delta) {
         this.fillGradient(matrices, 0, 0, this.width, this.height, -1072689136, -804253680);
 
         RenderSystem.assertOnRenderThread();
@@ -59,9 +58,9 @@ public class FareAdjScreenPayFare extends Screen {
         RenderSystem.enableBlend();
         RenderSystem.defaultBlendFunc();
 
-        matrices.push();
+        matrices.pushPose();
         RenderSystem.setShaderTexture(0, BG_TEXTURE_ID);
-        drawTexture(
+        blit(
                 matrices,
                 this.width / 2 - BG_TEXTURE_WIDTH / 2,
                 this.height / 2 - BG_TEXTURE_HEIGHT / 2,
@@ -72,32 +71,32 @@ public class FareAdjScreenPayFare extends Screen {
         );
 
         // Title
-        VertexConsumerProvider.Immediate immediate = VertexConsumerProvider.immediate(Tessellator.getInstance().getBuffer());
-        this.textRenderer.drawWithOutline(
-                title.asOrderedText(),
+        MultiBufferSource.BufferSource immediate = MultiBufferSource.immediate(Tesselator.getInstance().getBuilder());
+        this.font.drawInBatch8xOutline(
+                title.getVisualOrderText(),
                 intoTexturePosX(36),
                 intoTexturePosY(12),
                 0xFFFFFF,
                 0x16161B,
-                matrices.peek().getPositionMatrix(),
+                matrices.last().pose(),
                 immediate,
                 15728880
         );
-        immediate.draw();
-        matrices.pop();
+        immediate.endBatch();
+        matrices.popPose();
 
         // Subtitle
-        matrices.push();
+        matrices.pushPose();
         float scaleFactor = 1.5f;
         matrices.scale(scaleFactor, scaleFactor, scaleFactor);
-        this.textRenderer.draw(
+        this.font.draw(
                 matrices,
                 MALocalizationUtil.translatableText("gui.metropolis.fare_adj_pay_fare.subtitle"),
                 intoTexturePosX(22) / scaleFactor,
                 intoTexturePosY(34) / scaleFactor,
                 0x3F3F3F
         );
-        matrices.pop();
+        matrices.popPose();
 
         super.render(matrices, mouseX, mouseY, delta);
 
@@ -131,14 +130,14 @@ public class FareAdjScreenPayFare extends Screen {
     }
 
     @Override
-    public boolean shouldPause() {
+    public boolean isPauseScreen() {
         return false;
     }
 
     @Override
-    public void close() {
-        if (this.client != null) {
-            this.client.setScreen(this.parent);
+    public void onClose() {
+        if (this.minecraft != null) {
+            this.minecraft.setScreen(this.parent);
         }
     }
 
@@ -151,6 +150,6 @@ public class FareAdjScreenPayFare extends Screen {
     }
 
     public void playButtonDownSound() {
-        MinecraftClient.getInstance().getSoundManager().play(PositionedSoundInstance.master(SoundEvents.UI_BUTTON_CLICK, 1.0F));
+        Minecraft.getInstance().getSoundManager().play(SimpleSoundInstance.forUI(SoundEvents.UI_BUTTON_CLICK, 1.0F));
     }
 }

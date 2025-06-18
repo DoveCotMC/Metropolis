@@ -1,18 +1,18 @@
 package team.dovecotmc.metropolis.client.gui.fare_adj;
 
 import com.mojang.blaze3d.systems.RenderSystem;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.client.render.Tessellator;
-import net.minecraft.client.render.VertexConsumerProvider;
-import net.minecraft.client.sound.PositionedSoundInstance;
-import net.minecraft.client.sound.SoundManager;
-import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.item.ItemStack;
-import net.minecraft.sound.SoundEvents;
-import net.minecraft.text.Text;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.math.BlockPos;
+import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.blaze3d.vertex.Tesselator;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.resources.sounds.SimpleSoundInstance;
+import net.minecraft.client.sounds.SoundManager;
+import net.minecraft.core.BlockPos;
+import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.world.item.ItemStack;
 import team.dovecotmc.metropolis.Metropolis;
 import team.dovecotmc.metropolis.abstractinterface.util.MALocalizationUtil;
 import team.dovecotmc.metropolis.client.network.MetroClientNetwork;
@@ -23,12 +23,12 @@ import team.dovecotmc.metropolis.client.network.MetroClientNetwork;
  * @copyright Copyright © 2024 Arrokoth All Rights Reserved.
  */
 public class FareAdjPaymentScreen extends Screen {
-    private static final Identifier BG_TEXTURE_ID = new Identifier(Metropolis.MOD_ID, "textures/gui/fare_adj_payment/ticket_vendor_payment_base.png");
+    private static final ResourceLocation BG_TEXTURE_ID = new ResourceLocation(Metropolis.MOD_ID, "textures/gui/fare_adj_payment/ticket_vendor_payment_base.png");
     protected static final int BG_TEXTURE_WIDTH = 256;
     protected static final int BG_TEXTURE_HEIGHT = 196;
 
-    private static final Identifier CONTINUE_BUTTON_BASE_ID = new Identifier(Metropolis.MOD_ID, "textures/gui/fare_adj_payment/continue_button.png");
-    private static final Identifier CONTINUE_BUTTON_BASE_HOVER_ID = new Identifier(Metropolis.MOD_ID, "textures/gui/fare_adj_payment/continue_button_hover.png");
+    private static final ResourceLocation CONTINUE_BUTTON_BASE_ID = new ResourceLocation(Metropolis.MOD_ID, "textures/gui/fare_adj_payment/continue_button.png");
+    private static final ResourceLocation CONTINUE_BUTTON_BASE_HOVER_ID = new ResourceLocation(Metropolis.MOD_ID, "textures/gui/fare_adj_payment/continue_button_hover.png");
     protected static final int CONTINUE_BUTTON_BASE_WIDTH = 56;
     protected static final int CONTINUE_BUTTON_BASE_HEIGHT = 16;
 
@@ -53,14 +53,14 @@ public class FareAdjPaymentScreen extends Screen {
 
     @Override
     protected void init() {
-        if (MinecraftClient.getInstance().world != null) {
-            tipId = MinecraftClient.getInstance().world.random.nextInt(3);
+        if (Minecraft.getInstance().level != null) {
+            tipId = Minecraft.getInstance().level.random.nextInt(3);
         }
         MetroClientNetwork.updateMaxFare();
     }
 
     @Override
-    public void render(MatrixStack matrices, int mouseX, int mouseY, float delta) {
+    public void render(PoseStack matrices, int mouseX, int mouseY, float delta) {
         this.fillGradient(matrices, 0, 0, this.width, this.height, -1072689136, -804253680);
 
         RenderSystem.assertOnRenderThread();
@@ -69,7 +69,7 @@ public class FareAdjPaymentScreen extends Screen {
         RenderSystem.defaultBlendFunc();
 
         RenderSystem.setShaderTexture(0, BG_TEXTURE_ID);
-        drawTexture(
+        blit(
                 matrices,
                 this.width / 2 - BG_TEXTURE_WIDTH / 2,
                 this.height / 2 - BG_TEXTURE_HEIGHT / 2,
@@ -81,21 +81,21 @@ public class FareAdjPaymentScreen extends Screen {
 
         // Render text
         // Title
-        VertexConsumerProvider.Immediate immediate = VertexConsumerProvider.immediate(Tessellator.getInstance().getBuffer());
-        this.textRenderer.drawWithOutline(
-                MALocalizationUtil.translatableText("gui.metropolis.fare_adj_payment.title").asOrderedText(),
+        MultiBufferSource.BufferSource immediate = MultiBufferSource.immediate(Tesselator.getInstance().getBuilder());
+        this.font.drawInBatch8xOutline(
+                MALocalizationUtil.translatableText("gui.metropolis.fare_adj_payment.title").getVisualOrderText(),
                 intoTexturePosX(36),
                 intoTexturePosY(12),
                 0xFFFFFF,
                 0x16161B,
-                matrices.peek().getPositionMatrix(),
+                matrices.last().pose(),
                 immediate,
                 15728880
         );
-        immediate.draw();
+        immediate.endBatch();
 
         // Subtitle
-        this.textRenderer.draw(
+        this.font.draw(
                 matrices,
                 MALocalizationUtil.translatableText("gui.metropolis.fare_adj_payment.subtitle"),
                 intoTexturePosX(34),
@@ -111,26 +111,26 @@ public class FareAdjPaymentScreen extends Screen {
         int y1 = 138 + 4;
         int i0 = 0;
 
-        matrices.push();
+        matrices.pushPose();
         matrices.scale(scaleFactor, scaleFactor, scaleFactor);
-        for (Text text : paymentData.descriptions) {
-            this.textRenderer.drawWithShadow(
+        for (Component text : paymentData.descriptions) {
+            this.font.drawShadow(
                     matrices,
                     text,
                     intoTexturePosX(x0) / scaleFactor,
-                    intoTexturePosY(y0 + (textRenderer.fontHeight + 2) * i0) / scaleFactor,
+                    intoTexturePosY(y0 + (font.lineHeight + 2) * i0) / scaleFactor,
                     0xFFFFFF
             );
             i0++;
         }
-        matrices.pop();
+        matrices.popPose();
 
         // Description price
-        Text priceText = MALocalizationUtil.translatableText("gui.metropolis.fare_adj_payment.price", paymentData.value);
+        Component priceText = MALocalizationUtil.translatableText("gui.metropolis.fare_adj_payment.price", paymentData.value);
 //        scaleFactor = 1f;
-        matrices.push();
+        matrices.pushPose();
         matrices.scale(scaleFactor, scaleFactor, scaleFactor);
-        this.textRenderer.drawWithShadow(
+        this.font.drawShadow(
                 matrices,
                 priceText,
                 intoTexturePosX(x0) / scaleFactor,
@@ -139,15 +139,15 @@ public class FareAdjPaymentScreen extends Screen {
         );
 
         int balance = 0;
-        if (client != null && client.player != null) {
+        if (minecraft != null && minecraft.player != null) {
             // TODO: Configurable item
-            balance = client.player.getInventory().count(MetroClientNetwork.currencyItem);
+            balance = minecraft.player.getInventory().countItem(MetroClientNetwork.currencyItem);
         }
 
         boolean ableToPay = balance >= paymentData.value;
 
-        Text balanceText = MALocalizationUtil.translatableText("gui.metropolis.fare_adj_payment.balance", balance);
-        this.textRenderer.drawWithShadow(
+        Component balanceText = MALocalizationUtil.translatableText("gui.metropolis.fare_adj_payment.balance", balance);
+        this.font.drawShadow(
                 matrices,
                 balanceText,
                 intoTexturePosX(x0) / scaleFactor,
@@ -156,30 +156,30 @@ public class FareAdjPaymentScreen extends Screen {
         );
 
         // Item unit
-        this.textRenderer.drawWithShadow(
+        this.font.drawShadow(
                 matrices,
                 MALocalizationUtil.literalText("×"),
-                intoTexturePosX(x0 + Math.max(textRenderer.getWidth(balanceText), textRenderer.getWidth(priceText)) + 4) / scaleFactor,
+                intoTexturePosX(x0 + Math.max(font.width(balanceText), font.width(priceText)) + 4) / scaleFactor,
                 intoTexturePosY(y1 + 2) / scaleFactor,
                 0xFFFFFF
         );
-        this.textRenderer.drawWithShadow(
+        this.font.drawShadow(
                 matrices,
                 MALocalizationUtil.literalText("×"),
-                intoTexturePosX(x0 + Math.max(textRenderer.getWidth(balanceText), textRenderer.getWidth(priceText)) + 4) / scaleFactor,
+                intoTexturePosX(x0 + Math.max(font.width(balanceText), font.width(priceText)) + 4) / scaleFactor,
                 intoTexturePosY(y1 + 18) / scaleFactor,
                 ableToPay ? 0xFFFFFF : 0xFF3F3F
         );
-        matrices.pop();
+        matrices.popPose();
 
-        this.itemRenderer.renderInGui(
+        this.itemRenderer.renderAndDecorateFakeItem(
                 new ItemStack(MetroClientNetwork.currencyItem),
-                intoTexturePosX(x0 + Math.max(textRenderer.getWidth(balanceText), textRenderer.getWidth(priceText)) + 4 + textRenderer.getWidth(MALocalizationUtil.literalText("×"))),
+                intoTexturePosX(x0 + Math.max(font.width(balanceText), font.width(priceText)) + 4 + font.width(MALocalizationUtil.literalText("×"))),
                 intoTexturePosY(y1 - 4 + 1)
         );
-        this.itemRenderer.renderInGui(
+        this.itemRenderer.renderAndDecorateFakeItem(
                 new ItemStack(MetroClientNetwork.currencyItem),
-                intoTexturePosX(x0 + Math.max(textRenderer.getWidth(balanceText), textRenderer.getWidth(priceText)) + 4 + textRenderer.getWidth(MALocalizationUtil.literalText("×"))),
+                intoTexturePosX(x0 + Math.max(font.width(balanceText), font.width(priceText)) + 4 + font.width(MALocalizationUtil.literalText("×"))),
                 intoTexturePosY(y1 - 4 + 16 + 1)
         );
 
@@ -195,7 +195,7 @@ public class FareAdjPaymentScreen extends Screen {
             RenderSystem.setShaderColor(241f / 256f, 175f / 256f, 21f / 256f, 1f);
             RenderSystem.setShaderTexture(0, CONTINUE_BUTTON_BASE_ID);
         }
-        drawTexture(
+        blit(
                 matrices,
                 intoTexturePosX(x2),
                 intoTexturePosY(y2 + CONTINUE_BUTTON_BASE_HEIGHT * 7),
@@ -206,21 +206,21 @@ public class FareAdjPaymentScreen extends Screen {
         );
         RenderSystem.setShaderColor(1f, 1f, 1f, 1f);
 
-        matrices.push();
+        matrices.pushPose();
         matrices.scale(scaleFactor, scaleFactor, scaleFactor);
-        Text continueText = MALocalizationUtil.translatableText("gui.metropolis.fare_adj_payment.continue_button");
-        textRenderer.draw(
+        Component continueText = MALocalizationUtil.translatableText("gui.metropolis.fare_adj_payment.continue_button");
+        font.draw(
                 matrices,
                 continueText,
-                intoTexturePosX(x2 + CONTINUE_BUTTON_BASE_WIDTH / 2f - textRenderer.getWidth(continueText) / 2f) / scaleFactor,
+                intoTexturePosX(x2 + CONTINUE_BUTTON_BASE_WIDTH / 2f - font.width(continueText) / 2f) / scaleFactor,
                 intoTexturePosY(y2 + CONTINUE_BUTTON_BASE_HEIGHT * 7 + 5) / scaleFactor,
                 0xFFFFFF
         );
-        matrices.pop();
+        matrices.popPose();
 
         if (thisTabHovering && pressed && ableToPay) {
-            playDownSound(MinecraftClient.getInstance().getSoundManager());
-            client.setScreen(null);
+            playDownSound(Minecraft.getInstance().getSoundManager());
+            minecraft.setScreen(null);
             // TODO: Response
             if (paymentData.type == FareAdjPaymentData.EnumTicketVendorPaymentType.PAY_FARE) {
                 MetroClientNetwork.fareAdjClose(pos, paymentData.resultStack, paymentData.value);
@@ -261,15 +261,15 @@ public class FareAdjPaymentScreen extends Screen {
     }
 
     @Override
-    public boolean shouldPause() {
+    public boolean isPauseScreen() {
         return false;
     }
 
     @Override
-    public void close() {
+    public void onClose() {
         // TODO: Data transfer
-        if (this.client != null) {
-            this.client.setScreen(this.parentScreen);
+        if (this.minecraft != null) {
+            this.minecraft.setScreen(this.parentScreen);
         }
     }
 
@@ -282,6 +282,6 @@ public class FareAdjPaymentScreen extends Screen {
     }
 
     public void playDownSound(SoundManager soundManager) {
-        soundManager.play(PositionedSoundInstance.master(SoundEvents.UI_BUTTON_CLICK, 1.0F));
+        soundManager.play(SimpleSoundInstance.forUI(SoundEvents.UI_BUTTON_CLICK, 1.0F));
     }
 }

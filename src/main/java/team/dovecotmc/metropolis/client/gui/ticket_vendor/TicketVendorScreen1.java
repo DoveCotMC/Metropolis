@@ -1,22 +1,21 @@
 package team.dovecotmc.metropolis.client.gui.ticket_vendor;
 
 import com.mojang.blaze3d.systems.RenderSystem;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.client.render.Tessellator;
-import net.minecraft.client.render.VertexConsumerProvider;
-import net.minecraft.client.sound.PositionedSoundInstance;
-import net.minecraft.client.sound.SoundManager;
-import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.sound.SoundEvents;
-import net.minecraft.text.Text;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.math.BlockPos;
+import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.blaze3d.vertex.Tesselator;
 import team.dovecotmc.metropolis.Metropolis;
 import team.dovecotmc.metropolis.abstractinterface.util.MALocalizationUtil;
 import team.dovecotmc.metropolis.client.network.MetroClientNetwork;
 
 import java.util.List;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.resources.sounds.SimpleSoundInstance;
+import net.minecraft.client.sounds.SoundManager;
+import net.minecraft.core.BlockPos;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.sounds.SoundEvents;
 
 /**
  * @author Arrokoth
@@ -24,25 +23,25 @@ import java.util.List;
  * @copyright Copyright © 2024 Arrokoth All Rights Reserved.
  */
 public class TicketVendorScreen1 extends Screen {
-    private static final Identifier BG_TEXTURE_ID = new Identifier(Metropolis.MOD_ID, "textures/gui/ticket_vendor_1/ticket_vendor_1_base.png");
+    private static final ResourceLocation BG_TEXTURE_ID = new ResourceLocation(Metropolis.MOD_ID, "textures/gui/ticket_vendor_1/ticket_vendor_1_base.png");
     protected static final int BG_TEXTURE_WIDTH = 256;
     protected static final int BG_TEXTURE_HEIGHT = 196;
 
-    private static final Identifier BUTTON_GREEN_TEXTURE_ID = new Identifier(Metropolis.MOD_ID, "textures/gui/ticket_vendor_1/button_green.png");
-    private static final Identifier BUTTON_GREEN_HOVER_TEXTURE_ID = new Identifier(Metropolis.MOD_ID, "textures/gui/ticket_vendor_1/button_green_hover.png");
-    private static final Identifier BUTTON_PURPLE_TEXTURE_ID = new Identifier(Metropolis.MOD_ID, "textures/gui/ticket_vendor_1/button_purple.png");
-    private static final Identifier BUTTON_PURPLE_HOVER_TEXTURE_ID = new Identifier(Metropolis.MOD_ID, "textures/gui/ticket_vendor_1/button_purple_hover.png");
-    private static final Identifier BUTTON_GRAY_1_TEXTURE_ID = new Identifier(Metropolis.MOD_ID, "textures/gui/ticket_vendor_1/button_gray_1.png");
-    private static final Identifier BUTTON_GRAY_1_HOVER_TEXTURE_ID = new Identifier(Metropolis.MOD_ID, "textures/gui/ticket_vendor_1/button_gray_1_hover.png");
-    private static final Identifier BUTTON_GRAY_2_TEXTURE_ID = new Identifier(Metropolis.MOD_ID, "textures/gui/ticket_vendor_1/button_gray_2.png");
-    private static final Identifier BUTTON_GRAY_2_HOVER_TEXTURE_ID = new Identifier(Metropolis.MOD_ID, "textures/gui/ticket_vendor_1/button_gray_2_hover.png");
+    private static final ResourceLocation BUTTON_GREEN_TEXTURE_ID = new ResourceLocation(Metropolis.MOD_ID, "textures/gui/ticket_vendor_1/button_green.png");
+    private static final ResourceLocation BUTTON_GREEN_HOVER_TEXTURE_ID = new ResourceLocation(Metropolis.MOD_ID, "textures/gui/ticket_vendor_1/button_green_hover.png");
+    private static final ResourceLocation BUTTON_PURPLE_TEXTURE_ID = new ResourceLocation(Metropolis.MOD_ID, "textures/gui/ticket_vendor_1/button_purple.png");
+    private static final ResourceLocation BUTTON_PURPLE_HOVER_TEXTURE_ID = new ResourceLocation(Metropolis.MOD_ID, "textures/gui/ticket_vendor_1/button_purple_hover.png");
+    private static final ResourceLocation BUTTON_GRAY_1_TEXTURE_ID = new ResourceLocation(Metropolis.MOD_ID, "textures/gui/ticket_vendor_1/button_gray_1.png");
+    private static final ResourceLocation BUTTON_GRAY_1_HOVER_TEXTURE_ID = new ResourceLocation(Metropolis.MOD_ID, "textures/gui/ticket_vendor_1/button_gray_1_hover.png");
+    private static final ResourceLocation BUTTON_GRAY_2_TEXTURE_ID = new ResourceLocation(Metropolis.MOD_ID, "textures/gui/ticket_vendor_1/button_gray_2.png");
+    private static final ResourceLocation BUTTON_GRAY_2_HOVER_TEXTURE_ID = new ResourceLocation(Metropolis.MOD_ID, "textures/gui/ticket_vendor_1/button_gray_2_hover.png");
     protected static final int BUTTON_BIG_WIDTH = 96;
     protected static final int BUTTON_BIG_HEIGHT = 56;
 
-    private static final Identifier BUTTON_1_TEXTURE_ID = new Identifier(Metropolis.MOD_ID, "textures/gui/ticket_vendor_1/button_1.png");
-    private static final Identifier BUTTON_1_HOVER_TEXTURE_ID = new Identifier(Metropolis.MOD_ID, "textures/gui/ticket_vendor_1/button_1_hover.png");
-    private static final Identifier BUTTON_2_TEXTURE_ID = new Identifier(Metropolis.MOD_ID, "textures/gui/ticket_vendor_1/button_2.png");
-    private static final Identifier BUTTON_2_HOVER_TEXTURE_ID = new Identifier(Metropolis.MOD_ID, "textures/gui/ticket_vendor_1/button_2_hover.png");
+    private static final ResourceLocation BUTTON_1_TEXTURE_ID = new ResourceLocation(Metropolis.MOD_ID, "textures/gui/ticket_vendor_1/button_1.png");
+    private static final ResourceLocation BUTTON_1_HOVER_TEXTURE_ID = new ResourceLocation(Metropolis.MOD_ID, "textures/gui/ticket_vendor_1/button_1_hover.png");
+    private static final ResourceLocation BUTTON_2_TEXTURE_ID = new ResourceLocation(Metropolis.MOD_ID, "textures/gui/ticket_vendor_1/button_2.png");
+    private static final ResourceLocation BUTTON_2_HOVER_TEXTURE_ID = new ResourceLocation(Metropolis.MOD_ID, "textures/gui/ticket_vendor_1/button_2_hover.png");
     protected static final int BUTTON_SMALL_WIDTH = 33;
     protected static final int BUTTON_SMALL_HEIGHT = 12;
 
@@ -65,8 +64,8 @@ public class TicketVendorScreen1 extends Screen {
 
     @Override
     protected void init() {
-        if (MinecraftClient.getInstance().world != null) {
-            tipId = MinecraftClient.getInstance().world.random.nextInt(3);
+        if (Minecraft.getInstance().level != null) {
+            tipId = Minecraft.getInstance().level.random.nextInt(3);
         }
 
         this.pressed = false;
@@ -77,7 +76,7 @@ public class TicketVendorScreen1 extends Screen {
     }
 
     @Override
-    public void render(MatrixStack matrices, int mouseX, int mouseY, float delta) {
+    public void render(PoseStack matrices, int mouseX, int mouseY, float delta) {
         this.fillGradient(matrices, 0, 0, this.width, this.height, -1072689136, -804253680);
 
         RenderSystem.assertOnRenderThread();
@@ -86,7 +85,7 @@ public class TicketVendorScreen1 extends Screen {
         RenderSystem.defaultBlendFunc();
 
         RenderSystem.setShaderTexture(0, BG_TEXTURE_ID);
-        drawTexture(
+        blit(
                 matrices,
                 this.width / 2 - BG_TEXTURE_WIDTH / 2,
                 this.height / 2 - BG_TEXTURE_HEIGHT / 2,
@@ -108,7 +107,7 @@ public class TicketVendorScreen1 extends Screen {
         } else {
             RenderSystem.setShaderTexture(0, BUTTON_GREEN_TEXTURE_ID);
         }
-        drawTexture(
+        blit(
                 matrices,
                 x0,
                 y0,
@@ -125,7 +124,7 @@ public class TicketVendorScreen1 extends Screen {
         } else {
             RenderSystem.setShaderTexture(0, BUTTON_PURPLE_TEXTURE_ID);
         }
-        drawTexture(
+        blit(
                 matrices,
                 x0,
                 y1,
@@ -142,7 +141,7 @@ public class TicketVendorScreen1 extends Screen {
         } else {
             RenderSystem.setShaderTexture(0, BUTTON_GRAY_1_TEXTURE_ID);
         }
-        drawTexture(
+        blit(
                 matrices,
                 x1,
                 y0,
@@ -159,7 +158,7 @@ public class TicketVendorScreen1 extends Screen {
         } else {
             RenderSystem.setShaderTexture(0, BUTTON_GRAY_2_TEXTURE_ID);
         }
-        drawTexture(
+        blit(
                 matrices,
                 x1,
                 y1,
@@ -180,7 +179,7 @@ public class TicketVendorScreen1 extends Screen {
         } else {
             RenderSystem.setShaderTexture(0, BUTTON_1_TEXTURE_ID);
         }
-        drawTexture(
+        blit(
                 matrices,
                 x2,
                 y2a,
@@ -196,7 +195,7 @@ public class TicketVendorScreen1 extends Screen {
         } else {
             RenderSystem.setShaderTexture(0, BUTTON_1_TEXTURE_ID);
         }
-        drawTexture(
+        blit(
                 matrices,
                 x2,
                 y2b,
@@ -212,7 +211,7 @@ public class TicketVendorScreen1 extends Screen {
         } else {
             RenderSystem.setShaderTexture(0, BUTTON_2_TEXTURE_ID);
         }
-        drawTexture(
+        blit(
                 matrices,
                 x2,
                 y2z,
@@ -226,21 +225,21 @@ public class TicketVendorScreen1 extends Screen {
 
         // Render text
         // Title
-        VertexConsumerProvider.Immediate immediate = VertexConsumerProvider.immediate(Tessellator.getInstance().getBuffer());
-        this.textRenderer.drawWithOutline(
-                MALocalizationUtil.translatableText("gui.metropolis.ticket_vendor.title").asOrderedText(),
+        MultiBufferSource.BufferSource immediate = MultiBufferSource.immediate(Tesselator.getInstance().getBuilder());
+        this.font.drawInBatch8xOutline(
+                MALocalizationUtil.translatableText("gui.metropolis.ticket_vendor.title").getVisualOrderText(),
                 intoTexturePosX(36),
                 intoTexturePosY(12),
                 0xFFFFFF,
                 0x16161B,
-                matrices.peek().getPositionMatrix(),
+                matrices.last().pose(),
                 immediate,
                 15728880
         );
-        immediate.draw();
+        immediate.endBatch();
 
         // Subtitle
-        this.textRenderer.draw(
+        this.font.draw(
                 matrices,
                 MALocalizationUtil.translatableText("gui.metropolis.ticket_vendor_1.subtitle"),
                 intoTexturePosX(48),
@@ -249,33 +248,33 @@ public class TicketVendorScreen1 extends Screen {
         );
 
         // Refund tips
-        matrices.push();
+        matrices.pushPose();
         float scaleFactor = 10f / 14f;
         matrices.scale(scaleFactor, scaleFactor, scaleFactor);
         float tipId = 0;
-        if (this.client != null && this.client.world != null) {
-            tipId = client.world.getTime() / 128f;
+        if (this.minecraft != null && this.minecraft.level != null) {
+            tipId = minecraft.level.getGameTime() / 128f;
         }
 //        Text tip = MALocalizationUtil.translatableText("gui.metropolis.ticket_vendor_1.tips_" + ((int) tipId % 3));
         String[] tips = MALocalizationUtil.translatableText("gui.metropolis.ticket_vendor_1.tips").getString().split("\n");
         String tip = tips[((int) tipId % tips.length)];
-        this.textRenderer.draw(
+        this.font.draw(
                 matrices,
                 tip,
                 intoTexturePosX(50) / scaleFactor,
                 intoTexturePosY(175) / scaleFactor,
                 0xFFFFFF
         );
-        matrices.pop();
+        matrices.popPose();
 
         // Buttons
         // Left bar Buttons
-        matrices.push();
+        matrices.pushPose();
 //        scaleFactor = 10f / 14f;
         matrices.scale(scaleFactor, scaleFactor, scaleFactor);
 
         // Buy Tickets
-        this.textRenderer.draw(
+        this.font.draw(
                 matrices,
                 MALocalizationUtil.translatableText("gui.metropolis.ticket_vendor_1.button.buy_tickets"),
                 intoTexturePosX(11) / scaleFactor,
@@ -284,7 +283,7 @@ public class TicketVendorScreen1 extends Screen {
         );
 
         // Special
-        this.textRenderer.draw(
+        this.font.draw(
                 matrices,
                 MALocalizationUtil.translatableText("gui.metropolis.ticket_vendor_1.button.special"),
                 intoTexturePosX(11) / scaleFactor,
@@ -293,99 +292,99 @@ public class TicketVendorScreen1 extends Screen {
         );
 
         // Refund
-        this.textRenderer.draw(
+        this.font.draw(
                 matrices,
                 MALocalizationUtil.translatableText("gui.metropolis.ticket_vendor_1.button.refund"),
                 intoTexturePosX(11) / scaleFactor,
                 intoTexturePosY(180) / scaleFactor,
                 0xFFFFFF
         );
-        matrices.pop();
+        matrices.popPose();
 
         // Centered
-        matrices.push();
+        matrices.pushPose();
 //        scaleFactor = 14f / 14f;
         scaleFactor = 1f;
         matrices.scale(scaleFactor, scaleFactor, scaleFactor);
         // Tickets/Green
-        this.textRenderer.drawWithOutline(
-                MALocalizationUtil.translatableText("gui.metropolis.ticket_vendor_1.button.tickets").asOrderedText(),
+        this.font.drawInBatch8xOutline(
+                MALocalizationUtil.translatableText("gui.metropolis.ticket_vendor_1.button.tickets").getVisualOrderText(),
                 intoTexturePosX(54) / scaleFactor + (greenHovering ? 1 : 0),
                 intoTexturePosY(58) / scaleFactor + (greenHovering ? 1 : 0),
                 0xFFFFFF,
                 0x5EA919,
-                matrices.peek().getPositionMatrix(),
+                matrices.last().pose(),
                 immediate,
                 15728880
         );
-        immediate.draw();
+        immediate.endBatch();
 
         // Charge/Purple
-        this.textRenderer.drawWithOutline(
-                MALocalizationUtil.translatableText("gui.metropolis.ticket_vendor_1.button.charge").asOrderedText(),
+        this.font.drawInBatch8xOutline(
+                MALocalizationUtil.translatableText("gui.metropolis.ticket_vendor_1.button.charge").getVisualOrderText(),
                 intoTexturePosX(54) / scaleFactor + (purpleHovering ? 1 : 0),
                 intoTexturePosY(118) / scaleFactor + (purpleHovering ? 1 : 0),
                 0xFFFFFF,
                 0xA9309F,
-                matrices.peek().getPositionMatrix(),
+                matrices.last().pose(),
                 immediate,
                 15728880
         );
-        immediate.draw();
+        immediate.endBatch();
 
         // Buy Commuter/Gray top
-        this.textRenderer.drawWithOutline(
-                MALocalizationUtil.translatableText("gui.metropolis.ticket_vendor_1.button.buy_commuter").asOrderedText(),
+        this.font.drawInBatch8xOutline(
+                MALocalizationUtil.translatableText("gui.metropolis.ticket_vendor_1.button.buy_commuter").getVisualOrderText(),
                 intoTexturePosX(152) / scaleFactor + (grayTopHovering ? 1 : 0),
                 intoTexturePosY(58) / scaleFactor + (grayTopHovering ? 1 : 0),
                 0xFFFFFF,
                 0x3F4548,
-                matrices.peek().getPositionMatrix(),
+                matrices.last().pose(),
                 immediate,
                 15728880
         );
-        immediate.draw();
+        immediate.endBatch();
 
         // Charge/Gray bottom
-        this.textRenderer.drawWithOutline(
-                MALocalizationUtil.translatableText("gui.metropolis.ticket_vendor_1.button.buy_ic_card").asOrderedText(),
+        this.font.drawInBatch8xOutline(
+                MALocalizationUtil.translatableText("gui.metropolis.ticket_vendor_1.button.buy_ic_card").getVisualOrderText(),
                 intoTexturePosX(152) / scaleFactor + (grayBottomHovering ? 1 : 0),
                 intoTexturePosY(118) / scaleFactor + (grayBottomHovering ? 1 : 0),
                 0xFFFFFF,
                 0x3F4548,
-                matrices.peek().getPositionMatrix(),
+                matrices.last().pose(),
                 immediate,
                 15728880
         );
-        immediate.draw();
-        matrices.pop();
+        immediate.endBatch();
+        matrices.popPose();
 
         if (greenHovering && pressed) {
-            if (this.client.world != null) {
-                playDownSound(MinecraftClient.getInstance().getSoundManager());
+            if (this.minecraft.level != null) {
+                playDownSound(Minecraft.getInstance().getSoundManager());
             }
-            this.client.setScreen(new TicketVendorScreen2(pos, this, this.data));
+            this.minecraft.setScreen(new TicketVendorScreen2(pos, this, this.data));
         }
 
         if (purpleHovering && pressed) {
-            if (this.client.world != null) {
-                playDownSound(MinecraftClient.getInstance().getSoundManager());
+            if (this.minecraft.level != null) {
+                playDownSound(Minecraft.getInstance().getSoundManager());
             }
 
 //            if (client.world.getBlockEntity(pos, MetroBlockEntities.TICKET_VENDOR_BLOCK_ENTITY).get().getStack(1).isEmpty()) {
             if (this.data.cardStack.isEmpty()) {
-                this.client.setScreen(new TicketVendorScreenWarning(pos));
+                this.minecraft.setScreen(new TicketVendorScreenWarning(pos));
             } else {
-                this.client.setScreen(new TicketVendorScreen4(pos, this, this.data));
+                this.minecraft.setScreen(new TicketVendorScreen4(pos, this, this.data));
             }
         }
 
         if (grayBottomHovering && pressed) {
-            if (this.client.world != null) {
-                playDownSound(MinecraftClient.getInstance().getSoundManager());
+            if (this.minecraft.level != null) {
+                playDownSound(Minecraft.getInstance().getSoundManager());
             }
 
-            this.client.setScreen(new TicketVendorScreenBuyIC(pos, this, this.data));
+            this.minecraft.setScreen(new TicketVendorScreenBuyIC(pos, this, this.data));
         }
 
         super.render(matrices, mouseX, mouseY, delta);
@@ -425,15 +424,15 @@ public class TicketVendorScreen1 extends Screen {
     }
 
     @Override
-    public boolean shouldPause() {
+    public boolean isPauseScreen() {
         return false;
     }
 
     @Override
-    public void close() {
-        super.close();
+    public void onClose() {
+        super.onClose();
 
-        if (client != null && client.world != null) {
+        if (minecraft != null && minecraft.level != null) {
             if (!data.cardStack.isEmpty()) {
                 MetroClientNetwork.ticketVendorClose(pos, data.cardStack, 0);
             }
@@ -449,6 +448,6 @@ public class TicketVendorScreen1 extends Screen {
     }
 
     public void playDownSound(SoundManager soundManager) {
-        soundManager.play(PositionedSoundInstance.master(SoundEvents.UI_BUTTON_CLICK, 1.0F));
+        soundManager.play(SimpleSoundInstance.forUI(SoundEvents.UI_BUTTON_CLICK, 1.0F));
     }
 }

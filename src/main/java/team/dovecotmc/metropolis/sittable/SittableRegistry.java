@@ -1,12 +1,11 @@
 package team.dovecotmc.metropolis.sittable;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.util.hit.BlockHitResult;
-import net.minecraft.util.math.Vec3d;
-
 import java.util.Optional;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.Vec3;
 
 public record SittableRegistry(
         Block block,
@@ -14,10 +13,10 @@ public record SittableRegistry(
     @FunctionalInterface
     public interface OffsetProvider {
         @SuppressWarnings("all")
-        Optional<Vec3d> get(BlockState state, PlayerEntity player, Optional<BlockHitResult> hit);
+        Optional<Vec3> get(BlockState state, Player player, Optional<BlockHitResult> hit);
     }
 
     public SittableRegistry(Block block) {
-        this(block, (s, p, h) -> Optional.of(new Vec3d(.5, .5, .5)));
+        this(block, (s, p, h) -> Optional.of(new Vec3(.5, .5, .5)));
     }
 }

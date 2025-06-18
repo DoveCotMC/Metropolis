@@ -1,17 +1,16 @@
 package team.dovecotmc.metropolis.item;
 
-import net.minecraft.client.item.TooltipContext;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NbtCompound;
-import net.minecraft.text.Text;
-import net.minecraft.util.Identifier;
-import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 import team.dovecotmc.metropolis.Metropolis;
 import team.dovecotmc.metropolis.abstractinterface.util.MALocalizationUtil;
 
 import java.util.List;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.chat.Component;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.level.Level;
 
 /**
  * @author Arrokoth
@@ -26,14 +25,14 @@ public class ItemTicket extends Item implements InterfaceTicket {
     public static final String END_STATION = "end_station";
     public final boolean disposable;
 
-    public ItemTicket(Settings settings, boolean disposable) {
-        super(settings.maxCount(1));
+    public ItemTicket(Properties settings, boolean disposable) {
+        super(settings.stacksTo(1));
         this.disposable = disposable;
     }
 
     @Override
-    public void appendTooltip(ItemStack stack, @Nullable World world, List<Text> tooltip, TooltipContext context) {
-        NbtCompound nbt = stack.getOrCreateNbt();
+    public void appendHoverText(ItemStack stack, @Nullable Level world, List<Component> tooltip, TooltipFlag context) {
+        CompoundTag nbt = stack.getOrCreateTag();
 
         String stationName = nbt.getString(ENTERED_STATION).split("\\|")[0];
         if (nbt.contains(ENTERED_ZONE) && nbt.contains(ENTERED_STATION))
@@ -45,6 +44,6 @@ public class ItemTicket extends Item implements InterfaceTicket {
 
         tooltip.add(MALocalizationUtil.translatableText("tooltip.metropolis.ticket.balance", nbt.getInt(BALANCE)));
 
-        super.appendTooltip(stack, world, tooltip, context);
+        super.appendHoverText(stack, world, tooltip, context);
     }
 }

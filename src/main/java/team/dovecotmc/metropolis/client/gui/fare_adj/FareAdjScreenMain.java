@@ -1,22 +1,21 @@
 package team.dovecotmc.metropolis.client.gui.fare_adj;
 
 import com.mojang.blaze3d.systems.RenderSystem;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.client.render.Tessellator;
-import net.minecraft.client.render.VertexConsumerProvider;
-import net.minecraft.client.sound.PositionedSoundInstance;
-import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.sound.SoundEvents;
-import net.minecraft.text.Text;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.math.BlockPos;
+import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.blaze3d.vertex.Tesselator;
 import team.dovecotmc.metropolis.Metropolis;
 import team.dovecotmc.metropolis.abstractinterface.util.MALocalizationUtil;
 
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.resources.sounds.SimpleSoundInstance;
+import net.minecraft.core.BlockPos;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.sounds.SoundEvents;
 
 /**
  * @author Arrokoth
@@ -24,20 +23,20 @@ import java.util.List;
  * @copyright Copyright © 2024 Arrokoth All Rights Reserved.
  */
 public class FareAdjScreenMain extends Screen {
-    private static final Identifier BG_TEXTURE_ID = new Identifier(Metropolis.MOD_ID, "textures/gui/fare_adj_main/base.png");
+    private static final ResourceLocation BG_TEXTURE_ID = new ResourceLocation(Metropolis.MOD_ID, "textures/gui/fare_adj_main/base.png");
     protected static final int BG_TEXTURE_WIDTH = 256;
     protected static final int BG_TEXTURE_HEIGHT = 196;
 
-    private static final Identifier BUTTON_GRAY_TEXTURE_ID = new Identifier(Metropolis.MOD_ID, "textures/gui/fare_adj_main/button_gray.png");
-    private static final Identifier BUTTON_GREEN_TEXTURE_ID = new Identifier(Metropolis.MOD_ID, "textures/gui/fare_adj_main/button_green.png");
-    private static final Identifier BUTTON_GREEN_HOVER_TEXTURE_ID = new Identifier(Metropolis.MOD_ID, "textures/gui/fare_adj_main/button_green_hover.png");
-    private static final Identifier BUTTON_PURPLE_TEXTURE_ID = new Identifier(Metropolis.MOD_ID, "textures/gui/fare_adj_main/button_purple.png");
-    private static final Identifier BUTTON_PURPLE_HOVER_TEXTURE_ID = new Identifier(Metropolis.MOD_ID, "textures/gui/fare_adj_main/button_purple_hover.png");
+    private static final ResourceLocation BUTTON_GRAY_TEXTURE_ID = new ResourceLocation(Metropolis.MOD_ID, "textures/gui/fare_adj_main/button_gray.png");
+    private static final ResourceLocation BUTTON_GREEN_TEXTURE_ID = new ResourceLocation(Metropolis.MOD_ID, "textures/gui/fare_adj_main/button_green.png");
+    private static final ResourceLocation BUTTON_GREEN_HOVER_TEXTURE_ID = new ResourceLocation(Metropolis.MOD_ID, "textures/gui/fare_adj_main/button_green_hover.png");
+    private static final ResourceLocation BUTTON_PURPLE_TEXTURE_ID = new ResourceLocation(Metropolis.MOD_ID, "textures/gui/fare_adj_main/button_purple.png");
+    private static final ResourceLocation BUTTON_PURPLE_HOVER_TEXTURE_ID = new ResourceLocation(Metropolis.MOD_ID, "textures/gui/fare_adj_main/button_purple_hover.png");
     protected static final int BUTTON_BIG_WIDTH = 104;
     protected static final int BUTTON_BIG_HEIGHT = 60;
 
-    private static final Identifier BUTTON_BLUE_TEXTURE_ID = new Identifier(Metropolis.MOD_ID, "textures/gui/fare_adj_main/button_blue.png");
-    private static final Identifier BUTTON_BLUE_HOVER_TEXTURE_ID = new Identifier(Metropolis.MOD_ID, "textures/gui/fare_adj_main/button_blue_hover.png");
+    private static final ResourceLocation BUTTON_BLUE_TEXTURE_ID = new ResourceLocation(Metropolis.MOD_ID, "textures/gui/fare_adj_main/button_blue.png");
+    private static final ResourceLocation BUTTON_BLUE_HOVER_TEXTURE_ID = new ResourceLocation(Metropolis.MOD_ID, "textures/gui/fare_adj_main/button_blue_hover.png");
     protected static final int BUTTON_WIDE_WIDTH = 220;
     protected static final int BUTTON_WIDE_HEIGHT = 48;
 
@@ -66,7 +65,7 @@ public class FareAdjScreenMain extends Screen {
     }
 
     @Override
-    public void render(MatrixStack matrices, int mouseX, int mouseY, float delta) {
+    public void render(PoseStack matrices, int mouseX, int mouseY, float delta) {
         boolean inserted = !this.data.ticketStack.isEmpty();
         this.fillGradient(matrices, 0, 0, this.width, this.height, -1072689136, -804253680);
 
@@ -76,7 +75,7 @@ public class FareAdjScreenMain extends Screen {
         RenderSystem.defaultBlendFunc();
 
         RenderSystem.setShaderTexture(0, BG_TEXTURE_ID);
-        drawTexture(
+        blit(
                 matrices,
                 this.width / 2 - BG_TEXTURE_WIDTH / 2,
                 this.height / 2 - BG_TEXTURE_HEIGHT / 2,
@@ -87,21 +86,21 @@ public class FareAdjScreenMain extends Screen {
         );
 
         // Title
-        VertexConsumerProvider.Immediate immediate = VertexConsumerProvider.immediate(Tessellator.getInstance().getBuffer());
-        this.textRenderer.drawWithOutline(
-                title.asOrderedText(),
+        MultiBufferSource.BufferSource immediate = MultiBufferSource.immediate(Tesselator.getInstance().getBuilder());
+        this.font.drawInBatch8xOutline(
+                title.getVisualOrderText(),
                 intoTexturePosX(36),
                 intoTexturePosY(12),
                 0xFFFFFF,
                 0x16161B,
-                matrices.peek().getPositionMatrix(),
+                matrices.last().pose(),
                 immediate,
                 15728880
         );
-        immediate.draw();
+        immediate.endBatch();
 
         // Subtitle
-        this.textRenderer.draw(
+        this.font.draw(
                 matrices,
                 MALocalizationUtil.translatableText("gui.metropolis.fare_adj_main.subtitle"),
                 intoTexturePosX(18),
@@ -124,7 +123,7 @@ public class FareAdjScreenMain extends Screen {
         } else {
             RenderSystem.setShaderTexture(0, BUTTON_GRAY_TEXTURE_ID);
         }
-        drawTexture(
+        blit(
                 matrices,
                 x0,
                 y0,
@@ -135,7 +134,7 @@ public class FareAdjScreenMain extends Screen {
         );
 
         // Text
-        matrices.push();
+        matrices.pushPose();
         if (inserted) {
             if (purpleHovering) {
                 matrices.translate(1, 1, 0);
@@ -145,20 +144,20 @@ public class FareAdjScreenMain extends Screen {
         List<String> texts = new java.util.ArrayList<>(Arrays.stream(MALocalizationUtil.translatableText("gui.metropolis.fare_adj_main.ic_charge_button_text").getString().split("\n")).toList());
         Collections.reverse(texts);
         for (String text : texts) {
-            this.textRenderer.drawWithOutline(
-                    MALocalizationUtil.literalText(text).asOrderedText(),
-                    x0 + (BUTTON_BIG_WIDTH / 2f - textRenderer.getWidth(text) / 2f),
-                    y0 + (BUTTON_BIG_HEIGHT - 20 - textRenderer.fontHeight * i0 - 2 * i0),
+            this.font.drawInBatch8xOutline(
+                    MALocalizationUtil.literalText(text).getVisualOrderText(),
+                    x0 + (BUTTON_BIG_WIDTH / 2f - font.width(text) / 2f),
+                    y0 + (BUTTON_BIG_HEIGHT - 20 - font.lineHeight * i0 - 2 * i0),
                     0xFFFFFF,
                     inserted ? 0xA9309F : 0xA9A9A9,
-                    matrices.peek().getPositionMatrix(),
+                    matrices.last().pose(),
                     immediate,
                     15728880
             );
-            immediate.draw();
+            immediate.endBatch();
             i0++;
         }
-        matrices.pop();
+        matrices.popPose();
 
         // Green
         boolean greenHovering = this.mouseX >= x1 && this.mouseY >= y0 && this.mouseX <= x1 + BUTTON_BIG_WIDTH && this.mouseY <= y0 + BUTTON_BIG_HEIGHT;
@@ -171,7 +170,7 @@ public class FareAdjScreenMain extends Screen {
         } else {
             RenderSystem.setShaderTexture(0, BUTTON_GRAY_TEXTURE_ID);
         }
-        drawTexture(
+        blit(
                 matrices,
                 x1,
                 y0,
@@ -182,7 +181,7 @@ public class FareAdjScreenMain extends Screen {
         );
 
         // Text
-        matrices.push();
+        matrices.pushPose();
         if (inserted) {
             if (greenHovering) {
                 matrices.translate(1, 1, 0);
@@ -192,20 +191,20 @@ public class FareAdjScreenMain extends Screen {
         texts = new java.util.ArrayList<>(Arrays.stream(MALocalizationUtil.translatableText("gui.metropolis.fare_adj_main.ticket_charge_button_text").getString().split("\n")).toList());
         Collections.reverse(texts);
         for (String text : texts) {
-            this.textRenderer.drawWithOutline(
-                    MALocalizationUtil.literalText(text).asOrderedText(),
-                    x1 + (BUTTON_BIG_WIDTH / 2f - textRenderer.getWidth(text) / 2f),
-                    y0 + (BUTTON_BIG_HEIGHT - 20 - textRenderer.fontHeight * i0 - 2 * i0),
+            this.font.drawInBatch8xOutline(
+                    MALocalizationUtil.literalText(text).getVisualOrderText(),
+                    x1 + (BUTTON_BIG_WIDTH / 2f - font.width(text) / 2f),
+                    y0 + (BUTTON_BIG_HEIGHT - 20 - font.lineHeight * i0 - 2 * i0),
                     0xFFFFFF,
                     inserted ? 0x5EA919 : 0xA9A9A9,
-                    matrices.peek().getPositionMatrix(),
+                    matrices.last().pose(),
                     immediate,
                     15728880
             );
-            immediate.draw();
+            immediate.endBatch();
             i0++;
         }
-        matrices.pop();
+        matrices.popPose();
 
         int y1 = intoTexturePosY(118);
 
@@ -216,7 +215,7 @@ public class FareAdjScreenMain extends Screen {
         } else {
             RenderSystem.setShaderTexture(0, BUTTON_BLUE_TEXTURE_ID);
         }
-        drawTexture(
+        blit(
                 matrices,
                 x0,
                 y1,
@@ -227,7 +226,7 @@ public class FareAdjScreenMain extends Screen {
         );
 
         // Text
-        matrices.push();
+        matrices.pushPose();
         if (blueHovering) {
             matrices.translate(1, 1, 0);
         }
@@ -235,35 +234,35 @@ public class FareAdjScreenMain extends Screen {
         texts = new java.util.ArrayList<>(Arrays.stream(MALocalizationUtil.translatableText("gui.metropolis.fare_adj_main.no_ticket").getString().split("\n")).toList());
         Collections.reverse(texts);
         for (String text : texts) {
-            this.textRenderer.drawWithOutline(
-                    MALocalizationUtil.literalText(text).asOrderedText(),
+            this.font.drawInBatch8xOutline(
+                    MALocalizationUtil.literalText(text).getVisualOrderText(),
                     x0 + 12,
-                    y1 + (BUTTON_WIDE_HEIGHT - 24 - textRenderer.fontHeight * i0 - 2 * i0),
+                    y1 + (BUTTON_WIDE_HEIGHT - 24 - font.lineHeight * i0 - 2 * i0),
                     0xFFFFFF,
                     0x4C75DD,
-                    matrices.peek().getPositionMatrix(),
+                    matrices.last().pose(),
                     immediate,
                     15728880
             );
-            immediate.draw();
+            immediate.endBatch();
             i0++;
         }
-        matrices.pop();
+        matrices.popPose();
 
         super.render(matrices, mouseX, mouseY, delta);
 
         // Handle inputs
-        if (client != null) {
+        if (minecraft != null) {
             if (pressed) {
                 if (inserted) {
                     if (purpleHovering) {
                         // TODO: Fare adj charge event
-                        client.setScreen(null);
+                        minecraft.setScreen(null);
                         playButtonDownSound();
                     }
                 }
                 if (blueHovering) {
-                    client.setScreen(new FareAdjScreenNoTicket(pos, this.data, this));
+                    minecraft.setScreen(new FareAdjScreenNoTicket(pos, this.data, this));
                     playButtonDownSound();
                 }
             }
@@ -299,13 +298,13 @@ public class FareAdjScreenMain extends Screen {
     }
 
     @Override
-    public boolean shouldPause() {
+    public boolean isPauseScreen() {
         return false;
     }
 
     @Override
-    public void close() {
-        super.close();
+    public void onClose() {
+        super.onClose();
     }
 
     private int intoTexturePosX(double x) {
@@ -317,6 +316,6 @@ public class FareAdjScreenMain extends Screen {
     }
 
     public void playButtonDownSound() {
-        MinecraftClient.getInstance().getSoundManager().play(PositionedSoundInstance.master(SoundEvents.UI_BUTTON_CLICK, 1.0F));
+        Minecraft.getInstance().getSoundManager().play(SimpleSoundInstance.forUI(SoundEvents.UI_BUTTON_CLICK, 1.0F));
     }
 }

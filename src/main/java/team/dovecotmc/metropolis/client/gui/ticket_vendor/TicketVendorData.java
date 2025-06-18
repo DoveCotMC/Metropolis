@@ -1,6 +1,6 @@
 package team.dovecotmc.metropolis.client.gui.ticket_vendor;
 
-import net.minecraft.item.ItemStack;
+import net.minecraft.world.item.ItemStack;
 
 /**
  * @author Arrokoth

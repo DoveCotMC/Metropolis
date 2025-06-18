@@ -3,20 +3,24 @@ package team.dovecotmc.metropolis.client.block.model;
 import com.mojang.datafixers.util.Pair;
 import net.fabricmc.fabric.api.renderer.v1.model.FabricBakedModel;
 import net.fabricmc.fabric.api.renderer.v1.render.RenderContext;
-import net.minecraft.block.BlockState;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.render.block.BlockModelRenderer;
-import net.minecraft.client.render.model.*;
-import net.minecraft.client.render.model.json.ModelOverrideList;
-import net.minecraft.client.render.model.json.ModelTransformation;
-import net.minecraft.client.texture.Sprite;
-import net.minecraft.client.texture.SpriteAtlasTexture;
-import net.minecraft.client.util.SpriteIdentifier;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
-import net.minecraft.world.BlockRenderView;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.block.ModelBlockRenderer;
+import net.minecraft.client.renderer.block.model.BakedQuad;
+import net.minecraft.client.renderer.block.model.ItemOverrides;
+import net.minecraft.client.renderer.block.model.ItemTransforms;
+import net.minecraft.client.renderer.texture.TextureAtlas;
+import net.minecraft.client.renderer.texture.TextureAtlasSprite;
+import net.minecraft.client.resources.model.BakedModel;
+import net.minecraft.client.resources.model.Material;
+import net.minecraft.client.resources.model.ModelBakery;
+import net.minecraft.client.resources.model.ModelState;
+import net.minecraft.client.resources.model.UnbakedModel;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.BlockAndTintGetter;
+import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.Nullable;
 import team.dovecotmc.metropolis.Metropolis;
 
@@ -38,9 +42,9 @@ public class BlockMonitorModel implements UnbakedModel, BakedModel, FabricBakedM
     }
 
     @Override
-    public void emitBlockQuads(BlockRenderView blockView, BlockState state, BlockPos pos, Supplier<Random> randomSupplier, RenderContext context) {
-        MinecraftClient mc = MinecraftClient.getInstance();
-        BlockModelRenderer blockRenderer = mc.getBlockRenderManager().getModelRenderer();
+    public void emitBlockQuads(BlockAndTintGetter blockView, BlockState state, BlockPos pos, Supplier<Random> randomSupplier, RenderContext context) {
+        Minecraft mc = Minecraft.getInstance();
+        ModelBlockRenderer blockRenderer = mc.getBlockRenderer().getModelRenderer();
 //        blockRenderer.render(
 //                blockView,
 //                this.parent,
@@ -76,37 +80,37 @@ public class BlockMonitorModel implements UnbakedModel, BakedModel, FabricBakedM
     }
 
     @Override
-    public boolean hasDepth() {
-        return this.parent.hasDepth();
+    public boolean isGui3d() {
+        return this.parent.isGui3d();
     }
 
     @Override
-    public boolean isSideLit() {
+    public boolean usesBlockLight() {
         return false;
     }
 
     @Override
-    public boolean isBuiltin() {
+    public boolean isCustomRenderer() {
         return false;
     }
 
     @Override
-    public Sprite getParticleSprite() {
-        return this.parent.getParticleSprite();
+    public TextureAtlasSprite getParticleIcon() {
+        return this.parent.getParticleIcon();
     }
 
     @Override
-    public ModelTransformation getTransformation() {
-        return this.parent.getTransformation();
+    public ItemTransforms getTransforms() {
+        return this.parent.getTransforms();
     }
 
     @Override
-    public ModelOverrideList getOverrides() {
+    public ItemOverrides getOverrides() {
         return this.parent.getOverrides();
     }
 
     @Override
-    public Collection<Identifier> getModelDependencies() {
+    public Collection<ResourceLocation> getDependencies() {
 //        return List.of(
 //                new Identifier(Metropolis.MOD_ID, "block/monitor")
 //        );
@@ -114,19 +118,19 @@ public class BlockMonitorModel implements UnbakedModel, BakedModel, FabricBakedM
     }
 
     @Override
-    public Collection<SpriteIdentifier> getTextureDependencies(Function<Identifier, UnbakedModel> unbakedModelGetter, Set<Pair<String, String>> unresolvedTextureReferences) {
+    public Collection<Material> getMaterials(Function<ResourceLocation, UnbakedModel> unbakedModelGetter, Set<Pair<String, String>> unresolvedTextureReferences) {
         return List.of(
-                new SpriteIdentifier(SpriteAtlasTexture.BLOCK_ATLAS_TEXTURE, new Identifier("data", "block/light_gray_concrete"))
+                new Material(TextureAtlas.LOCATION_BLOCKS, new ResourceLocation("data", "block/light_gray_concrete"))
         );
     }
 
     @Nullable
     @Override
-    public BakedModel bake(ModelLoader loader, Function<SpriteIdentifier, Sprite> textureGetter, ModelBakeSettings rotationContainer, Identifier modelId) {
+    public BakedModel bake(ModelBakery loader, Function<Material, TextureAtlasSprite> textureGetter, ModelState rotationContainer, ResourceLocation modelId) {
 //        for(int i = 0; i < 2; ++i) {
 //            SPRITES[i] = textureGetter.apply(SPRITE_IDS[i]);
 //        }
-        BakedModel model = loader.getOrLoadModel(new Identifier(Metropolis.MOD_ID, "block/monitor")).bake(loader, textureGetter, rotationContainer, modelId);
+        BakedModel model = loader.getModel(new ResourceLocation(Metropolis.MOD_ID, "block/monitor")).bake(loader, textureGetter, rotationContainer, modelId);
 //        UnbakedModel model1 = loader.getOrLoadModel(new Identifier(Metropolis.MOD_ID, "block/monitor"));
 //        System.out.println(1114514);
 //        if (model != null) {

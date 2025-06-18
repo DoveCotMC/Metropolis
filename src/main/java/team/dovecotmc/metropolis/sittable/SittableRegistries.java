@@ -1,10 +1,9 @@
 package team.dovecotmc.metropolis.sittable;
 
 import com.google.common.collect.ImmutableMap;
-import net.minecraft.block.Block;
-
 import java.util.HashMap;
 import java.util.Map;
+import net.minecraft.world.level.block.Block;
 
 /**
  * @author Arrokoth

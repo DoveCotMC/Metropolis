@@ -1,28 +1,28 @@
 package team.dovecotmc.metropolis.block.entity;
 
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.inventory.Inventories;
-import net.minecraft.inventory.Inventory;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.collection.DefaultedList;
+import net.minecraft.core.NonNullList;
+import net.minecraft.world.Container;
+import net.minecraft.world.ContainerHelper;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
 
 /**
  * @author Arrokoth
  * @project Metropolis
  * @copyright Copyright © 2024 Arrokoth All Rights Reserved.
  */
-public interface BlockTurnstileInventory extends Inventory {
-    DefaultedList<ItemStack> getItems();
+public interface BlockTurnstileInventory extends Container {
+    NonNullList<ItemStack> getItems();
 
     @Override
-    default int size() {
+    default int getContainerSize() {
         return getItems().size();
     }
 
     @Override
     default boolean isEmpty() {
-        for (int i = 0; i < size(); i++) {
-            ItemStack stack = getStack(i);
+        for (int i = 0; i < getContainerSize(); i++) {
+            ItemStack stack = getItem(i);
             if (!stack.isEmpty()) {
                 return false;
             }
@@ -31,39 +31,39 @@ public interface BlockTurnstileInventory extends Inventory {
     }
 
     @Override
-    default ItemStack getStack(int slot) {
+    default ItemStack getItem(int slot) {
         return getItems().get(slot);
     }
 
     @Override
-    default ItemStack removeStack(int slot, int count) {
-        ItemStack result = Inventories.splitStack(getItems(), slot, count);
+    default ItemStack removeItem(int slot, int count) {
+        ItemStack result = ContainerHelper.removeItem(getItems(), slot, count);
         if (!result.isEmpty()) {
-            markDirty();
+            setChanged();
         }
         return result;
     }
 
     @Override
-    default ItemStack removeStack(int slot) {
-        return Inventories.removeStack(getItems(), slot);
+    default ItemStack removeItemNoUpdate(int slot) {
+        return ContainerHelper.takeItem(getItems(), slot);
     }
 
     @Override
-    default void setStack(int slot, ItemStack stack) {
+    default void setItem(int slot, ItemStack stack) {
         getItems().set(slot, stack);
-        if (stack.getCount() > getMaxCountPerStack()) {
-            stack.setCount(getMaxCountPerStack());
+        if (stack.getCount() > getMaxStackSize()) {
+            stack.setCount(getMaxStackSize());
         }
     }
 
     @Override
-    default void clear() {
+    default void clearContent() {
         getItems().clear();
     }
 
     @Override
-    default boolean canPlayerUse(PlayerEntity player) {
+    default boolean stillValid(Player player) {
         return true;
     }
 }

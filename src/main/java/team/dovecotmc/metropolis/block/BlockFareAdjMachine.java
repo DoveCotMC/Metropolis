@@ -1,24 +1,30 @@
 package team.dovecotmc.metropolis.block;
 
-import net.minecraft.block.*;
-import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemPlacementContext;
-import net.minecraft.item.ItemStack;
-import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.sound.SoundCategory;
-import net.minecraft.sound.SoundEvents;
-import net.minecraft.state.StateManager;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.Hand;
-import net.minecraft.util.hit.BlockHitResult;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
-import net.minecraft.util.shape.VoxelShape;
-import net.minecraft.world.BlockView;
-import net.minecraft.world.World;
-import net.minecraft.world.WorldAccess;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.context.BlockPlaceContext;
+import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.EntityBlock;
+import net.minecraft.world.level.block.HorizontalDirectionalBlock;
+import net.minecraft.world.level.block.RenderShape;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.material.Material;
+import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.Nullable;
 import team.dovecotmc.metropolis.block.entity.BlockEntityFareAdj;
 import team.dovecotmc.metropolis.block.entity.BlockEntityTicketVendor;
@@ -32,7 +38,7 @@ import team.dovecotmc.metropolis.util.MetroBlockUtil;
  * @project Metropolis
  * @copyright Copyright © 2024 Arrokoth All Rights Reserved.
  */
-public class BlockFareAdjMachine extends HorizontalFacingBlock implements BlockEntityProvider {
+public class BlockFareAdjMachine extends HorizontalDirectionalBlock implements EntityBlock {
     public final Block defaultUpper;
 
     public BlockFareAdjMachine() {
@@ -40,77 +46,77 @@ public class BlockFareAdjMachine extends HorizontalFacingBlock implements BlockE
     }
 
     public BlockFareAdjMachine(Block defaultUpper) {
-        super(Settings.of(Material.METAL).strength(6.0f).nonOpaque().luminance(value -> 0));
+        super(Properties.of(Material.METAL).strength(6.0f).noOcclusion().lightLevel(value -> 0));
         this.defaultUpper = defaultUpper;
     }
 
-    public BlockState getPlacementState(ItemPlacementContext ctx) {
-        return this.getDefaultState().with(FACING, ctx.getPlayerFacing().getOpposite());
+    public BlockState getStateForPlacement(BlockPlaceContext ctx) {
+        return this.defaultBlockState().setValue(FACING, ctx.getHorizontalDirection().getOpposite());
     }
 
     @Override
-    protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
+    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
         builder.add(FACING);
     }
 
     @Override
-    public VoxelShape getOutlineShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {
-        Direction facing = state.get(FACING);
+    public VoxelShape getShape(BlockState state, BlockGetter world, BlockPos pos, CollisionContext context) {
+        Direction facing = state.getValue(FACING);
         return MetroBlockUtil.getVoxelShapeByDirection(0.0, 0.0, 4.0, 16.0 , 16.0, 16.0, facing);
     }
 
     @Override
-    public void onPlaced(World world, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack itemStack) {
-        super.onPlaced(world, pos, state, placer, itemStack);
-        if (world.getBlockState(pos.up()).isAir()) {
-            world.setBlockState(pos.up(), defaultUpper.getDefaultState().with(FACING, state.get(FACING)));
+    public void setPlacedBy(Level world, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack itemStack) {
+        super.setPlacedBy(world, pos, state, placer, itemStack);
+        if (world.getBlockState(pos.above()).isAir()) {
+            world.setBlockAndUpdate(pos.above(), defaultUpper.defaultBlockState().setValue(FACING, state.getValue(FACING)));
         }
     }
 
     @Override
-    public void onBroken(WorldAccess world, BlockPos pos, BlockState state) {
-        super.onBroken(world, pos, state);
-        if (world.getBlockState(pos.up()).getBlock() instanceof BlockTicketVendorUp) {
-            world.breakBlock(pos.up(), false);
+    public void destroy(LevelAccessor world, BlockPos pos, BlockState state) {
+        super.destroy(world, pos, state);
+        if (world.getBlockState(pos.above()).getBlock() instanceof BlockTicketVendorUp) {
+            world.destroyBlock(pos.above(), false);
         }
     }
 
-    public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand interactionHand, BlockHitResult blockHitResult) {
-        if (!world.isClient) {
+    public InteractionResult use(BlockState state, Level world, BlockPos pos, Player player, InteractionHand interactionHand, BlockHitResult blockHitResult) {
+        if (!world.isClientSide) {
             BlockEntityFareAdj blockEntity = world.getBlockEntity(pos, MetroBlockEntities.FARE_ADJ_BLOCK_ENTITY).orElse(null);
 
-            if (blockEntity != null && !blockEntity.getStack(0).isEmpty()) {
-                world.playSound(null, pos, SoundEvents.BLOCK_WOOL_BREAK, SoundCategory.BLOCKS, 1f, 1f);
-                ServerPlayerEntity serverPlayer = (ServerPlayerEntity) player;
-                serverPlayer.getInventory().insertStack(blockEntity.getStack(0));
-                blockEntity.removeStack(0);
-                serverPlayer.networkHandler.sendPacket(blockEntity.toUpdatePacket());
+            if (blockEntity != null && !blockEntity.getItem(0).isEmpty()) {
+                world.playSound(null, pos, SoundEvents.WOOL_BREAK, SoundSource.BLOCKS, 1f, 1f);
+                ServerPlayer serverPlayer = (ServerPlayer) player;
+                serverPlayer.getInventory().add(blockEntity.getItem(0));
+                blockEntity.removeItemNoUpdate(0);
+                serverPlayer.connection.send(blockEntity.getUpdatePacket());
                 MetroServerNetwork.removeInventoryItem(0, pos, serverPlayer);
-            } else if (blockEntity != null && player.getStackInHand(Hand.MAIN_HAND).getItem().equals(MetroItems.ITEM_CARD)) {
-                world.playSound(null, pos, SoundEvents.BLOCK_WOOL_PLACE, SoundCategory.BLOCKS, 1f, 1f);
-                ServerPlayerEntity serverPlayer = (ServerPlayerEntity) player;
+            } else if (blockEntity != null && player.getItemInHand(InteractionHand.MAIN_HAND).getItem().equals(MetroItems.ITEM_CARD)) {
+                world.playSound(null, pos, SoundEvents.WOOL_PLACE, SoundSource.BLOCKS, 1f, 1f);
+                ServerPlayer serverPlayer = (ServerPlayer) player;
 
-                serverPlayer.networkHandler.sendPacket(blockEntity.toUpdatePacket());
-                MetroServerNetwork.openFareAdjustmentScreen(pos, (ServerPlayerEntity) player);
+                serverPlayer.connection.send(blockEntity.getUpdatePacket());
+                MetroServerNetwork.openFareAdjustmentScreen(pos, (ServerPlayer) player);
             } else {
                 if (blockEntity != null) {
-                    blockEntity.removeStack(1);
-                    MetroServerNetwork.removeInventoryItem(1, pos, (ServerPlayerEntity) player);
-                    MetroServerNetwork.openFareAdjustmentScreen(pos, (ServerPlayerEntity) player);
+                    blockEntity.removeItemNoUpdate(1);
+                    MetroServerNetwork.removeInventoryItem(1, pos, (ServerPlayer) player);
+                    MetroServerNetwork.openFareAdjustmentScreen(pos, (ServerPlayer) player);
                 }
             }
         }
-        return ActionResult.SUCCESS;
+        return InteractionResult.SUCCESS;
     }
 
     @Override
-    public BlockRenderType getRenderType(BlockState state) {
-        return BlockRenderType.MODEL;
+    public RenderShape getRenderShape(BlockState state) {
+        return RenderShape.MODEL;
     }
 
     @Nullable
     @Override
-    public BlockEntity createBlockEntity(BlockPos pos, BlockState state) {
+    public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
         return new BlockEntityFareAdj(pos, state);
     }
 }

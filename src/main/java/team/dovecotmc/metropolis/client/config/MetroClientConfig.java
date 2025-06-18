@@ -5,7 +5,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.Minecraft;
 import team.dovecotmc.metropolis.Metropolis;
 
 import java.io.File;
@@ -20,7 +20,7 @@ import java.nio.file.Path;
  */
 @Environment(EnvType.CLIENT)
 public class MetroClientConfig {
-    public static final Path CONFIG_FILE_PATH = MinecraftClient.getInstance().runDirectory.toPath().resolve("config").resolve("metropolis").resolve("client.json");
+    public static final Path CONFIG_FILE_PATH = Minecraft.getInstance().gameDirectory.toPath().resolve("config").resolve("metropolis").resolve("client.json");
     public JsonObject json;
     public boolean enableGlowingTexture;
     public boolean enableStationInfoOverlay;

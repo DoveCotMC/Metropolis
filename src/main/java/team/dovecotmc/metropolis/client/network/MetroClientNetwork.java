@@ -2,12 +2,12 @@ package team.dovecotmc.metropolis.client.network;
 
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
-import net.minecraft.inventory.Inventory;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.network.PacketByteBuf;
-import net.minecraft.util.math.BlockPos;
+import net.minecraft.core.BlockPos;
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.world.Container;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import team.dovecotmc.metropolis.Metropolis;
 import team.dovecotmc.metropolis.client.gui.fare_adj.FareAdjData;
 import team.dovecotmc.metropolis.client.gui.fare_adj.FareAdjScreenMain;
@@ -23,25 +23,25 @@ import team.dovecotmc.metropolis.network.MetroServerNetwork;
  */
 public class MetroClientNetwork {
     public static void ticketVendorClose(BlockPos pos, ItemStack stack, int balance) {
-        PacketByteBuf buf = PacketByteBufs.create();
+        FriendlyByteBuf buf = PacketByteBufs.create();
         buf.writeBlockPos(pos);
-        buf.writeItemStack(stack);
+        buf.writeItem(stack);
         buf.writeInt(balance);
         ClientPlayNetworking.send(MetroServerNetwork.TICKET_VENDOR_CLOSE, buf);
     }
 
     public static void ticketVendorResult(BlockPos pos, ItemStack stack, int balance) {
-        PacketByteBuf buf = PacketByteBufs.create();
+        FriendlyByteBuf buf = PacketByteBufs.create();
         buf.writeBlockPos(pos);
-        buf.writeItemStack(stack);
+        buf.writeItem(stack);
         buf.writeInt(balance);
         ClientPlayNetworking.send(MetroServerNetwork.TICKET_VENDOR_RESULT, buf);
     }
 
     public static void fareAdjClose(BlockPos pos, ItemStack stack, int balance) {
-        PacketByteBuf buf = PacketByteBufs.create();
+        FriendlyByteBuf buf = PacketByteBufs.create();
         buf.writeBlockPos(pos);
-        buf.writeItemStack(stack);
+        buf.writeItem(stack);
         buf.writeInt(balance);
         ClientPlayNetworking.send(MetroServerNetwork.FARE_ADJ_CLOSE, buf);
     }
@@ -49,7 +49,7 @@ public class MetroClientNetwork {
     private static void registerTicketVendorGuiReceiver() {
         ClientPlayNetworking.registerGlobalReceiver(MetroServerNetwork.TICKET_VENDOR_GUI, (client, handler, buf, responseSender) -> {
             BlockPos pos = buf.readBlockPos();
-            ItemStack itemStack = buf.readItemStack();
+            ItemStack itemStack = buf.readItem();
             client.execute(() -> client.setScreen(new TicketVendorScreen1(pos, new TicketVendorData(itemStack))));
         });
     }
@@ -57,7 +57,7 @@ public class MetroClientNetwork {
     private static void registerTicketVendorChargeGuiReceiver() {
         ClientPlayNetworking.registerGlobalReceiver(MetroServerNetwork.TICKET_VENDOR_CHARGE_GUI, (client, handler, buf, responseSender) -> {
             BlockPos pos = buf.readBlockPos();
-            ItemStack itemStack = buf.readItemStack();
+            ItemStack itemStack = buf.readItem();
             client.execute(() -> client.setScreen(new TicketVendorScreen4(pos, null, new TicketVendorData(itemStack))));
         });
     }
@@ -67,9 +67,9 @@ public class MetroClientNetwork {
             BlockPos pos = buf.readBlockPos();
             int slot = buf.readInt();
             client.execute(() -> {
-                if (client.world != null) {
-                    if (client.world.getBlockEntity(pos) instanceof Inventory inventory) {
-                        inventory.removeStack(slot);
+                if (client.level != null) {
+                    if (client.level.getBlockEntity(pos) instanceof Container inventory) {
+                        inventory.removeItemNoUpdate(slot);
                     }
                 }
             });
@@ -79,7 +79,7 @@ public class MetroClientNetwork {
     private static void registerFareAdjGuiReceiver() {
         ClientPlayNetworking.registerGlobalReceiver(MetroServerNetwork.FARE_ADJ_GUI, (client, handler, buf, responseSender) -> {
             BlockPos pos = buf.readBlockPos();
-            ItemStack stack = buf.readItemStack();
+            ItemStack stack = buf.readItem();
             client.execute(() -> client.setScreen(new FareAdjScreenMain(pos, new FareAdjData(stack))));
         });
     }
@@ -92,7 +92,7 @@ public class MetroClientNetwork {
 
     public static void registerGetCurrencyItemReceiver() {
         ClientPlayNetworking.registerGlobalReceiver(MetroServerNetwork.GET_CURRENCY_ITEM_RECEIVER, (client, handler, buf, responseSender) -> {
-            currencyItem = buf.readItemStack().getItem();
+            currencyItem = buf.readItem().getItem();
         });
     }
 

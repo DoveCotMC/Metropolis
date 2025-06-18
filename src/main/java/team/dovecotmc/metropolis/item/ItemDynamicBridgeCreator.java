@@ -5,21 +5,25 @@ import mtr.data.RailAngle;
 import mtr.data.RailwayData;
 import mtr.data.TransportMode;
 import mtr.item.ItemNodeModifierBase;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.item.TooltipContext;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.ItemUsageContext;
-import net.minecraft.nbt.NbtCompound;
-import net.minecraft.text.Style;
-import net.minecraft.text.Text;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.Formatting;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
+import net.minecraft.ChatFormatting;
+import net.minecraft.client.Minecraft;
+import net.minecraft.core.BlockPos;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.Style;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.InteractionResultHolder;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.item.context.UseOnContext;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.BlockHitResult;
 import team.dovecotmc.metropolis.abstractinterface.util.MALocalizationUtil;
+import team.dovecotmc.metropolis.client.gui.BridgeCreatorConfigurationScreen;
 
 import java.util.List;
 import java.util.Objects;
@@ -40,82 +44,102 @@ public class ItemDynamicBridgeCreator extends ItemNodeModifierBase {
     }
 
     @Override
-    public ActionResult useOnBlock(ItemUsageContext context) {
+    public InteractionResult useOn(UseOnContext context) {
         // TODO: GUI
-        if (!context.getWorld().isClient()) {
-            BlockState state = context.getWorld().getBlockState(context.getBlockPos());
-            NbtCompound nbt = context.getStack().getOrCreateNbt();
+        if (!context.getLevel().isClientSide()) {
+            BlockState state = context.getLevel().getBlockState(context.getClickedPos());
+            CompoundTag nbt = context.getItemInHand().getOrCreateTag();
+            Player player = context.getPlayer();
+
+            if (player == null)
+                return InteractionResult.SUCCESS;
+
             if (state.getBlock() != Blocks.RAIL_NODE.get()) {
-                if (Objects.requireNonNull(context.getPlayer()).isSneaking()) {
-//                    context.getPlayer().sendMessage(MALocalizationUtil.literalText("Width: " + (nbt.getInt(WIDTH) - 2)));
+                if (Objects.requireNonNull(player).isShiftKeyDown()) {
+//                    player.sendMessage(MALocalizationUtil.literalText("Width: " + (nbt.getInt(WIDTH) - 2)));
 //                    nbt.putInt(WIDTH, nbt.getInt(WIDTH) - 2);
-                    context.getPlayer().sendMessage(MALocalizationUtil.literalText("Block: " + MALocalizationUtil.translatableText(state.getBlock().getTranslationKey()).getString()), true);
-                    nbt.putInt(BLOCK_ID, Block.getRawIdFromState(state));
+
+//                    player.sendSystemMessage(MALocalizationUtil.literalText("Block: " + MALocalizationUtil.translatableText(state.getBlock().getDescriptionId()).getString()));
+                    nbt.putInt(BLOCK_ID, Block.getId(state));
                 } else {
-                    context.getPlayer().sendMessage(MALocalizationUtil.literalText("Width: " + (nbt.getInt(WIDTH) + 2)), true);
+//                    player.sendSystemMessage(MALocalizationUtil.literalText("Width: " + (nbt.getInt(WIDTH) + 2)));
                     nbt.putInt(WIDTH, nbt.getInt(WIDTH) + 2);
                 }
             } else {
-                if (nbt.contains(POS_START, NbtCompound.LONG_TYPE)) {
-                    RailwayData railwayData = RailwayData.getInstance(context.getWorld());
-                    BlockPos posStart = BlockPos.fromLong(nbt.getLong(POS_START));
-                    BlockPos posEnd = context.getBlockPos();
+                if (nbt.contains(POS_START, CompoundTag.TAG_LONG)) {
+                    RailwayData railwayData = RailwayData.getInstance(context.getLevel());
+                    BlockPos posStart = BlockPos.of(nbt.getLong(POS_START));
+                    BlockPos posEnd = context.getClickedPos();
 
-                    BlockState state1 = nbt.contains(BLOCK_ID) ? Block.getStateFromRawId(nbt.getInt(BLOCK_ID)) : null;
+                    BlockState state1 = nbt.contains(BLOCK_ID) ? Block.stateById(nbt.getInt(BLOCK_ID)) : null;
 
                     if (!railwayData.containsRail(posStart, posEnd)) {
-                        context.getPlayer().sendMessage(MALocalizationUtil.translatableText("gui.mtr.rail_not_found_action"), true);
+                        player.displayClientMessage(MALocalizationUtil.translatableText("gui.mtr.rail_not_found_action"), true);
                     } else if (state1 == null) {
-                        context.getPlayer().sendMessage(MALocalizationUtil.literalText("No block selected"), true);
+                        player.displayClientMessage(MALocalizationUtil.literalText("No block selected"), true);
                     } else {
                         nbt.remove(POS_START);
-                        railwayData.railwayDataRailActionsModule.markRailForBridge(context.getPlayer(), posStart, posEnd, (nbt.getInt(WIDTH) + 1) / 2, state1);
+                        railwayData.railwayDataRailActionsModule.markRailForBridge(player, posStart, posEnd, (nbt.getInt(WIDTH) + 1) / 2, state1);
                     }
                 } else {
-                    context.getPlayer().sendMessage(MALocalizationUtil.literalText("First pos: " + context.getBlockPos().toShortString()), true);
-                    nbt.putLong(POS_START, context.getBlockPos().asLong());
+//                    player.sendSystemMessage(MALocalizationUtil.literalText("First pos: " + context.getClickedPos().toShortString()));
+                    nbt.putLong(POS_START, context.getClickedPos().asLong());
                 }
             }
         }
 
-        return ActionResult.SUCCESS;
+        return InteractionResult.SUCCESS;
     }
 
     @Override
-    protected final void onConnect(World world, ItemStack stack, TransportMode transportMode, BlockState stateStart, BlockState stateEnd, BlockPos posStart, BlockPos posEnd, RailAngle facingStart, RailAngle facingEnd, PlayerEntity player, RailwayData railwayData) {
-        NbtCompound nbt = stack.getOrCreateNbt();
+    public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand interactionHand) {
+        if (!level.isClientSide())
+            return InteractionResultHolder.success(player.getItemInHand(interactionHand));
+
+        if (!(Minecraft.getInstance().hitResult instanceof BlockHitResult))
+            return InteractionResultHolder.pass(player.getItemInHand(interactionHand));
+
+        CompoundTag nbt = player.getItemInHand(interactionHand).getOrCreateTag();
+        Minecraft.getInstance().setScreen(new BridgeCreatorConfigurationScreen(nbt.getInt(WIDTH)));
+
+        return InteractionResultHolder.success(player.getItemInHand(interactionHand));
+    }
+
+    @Override
+    protected final void onConnect(Level world, ItemStack stack, TransportMode transportMode, BlockState stateStart, BlockState stateEnd, BlockPos posStart, BlockPos posEnd, RailAngle facingStart, RailAngle facingEnd, Player player, RailwayData railwayData) {
+        CompoundTag nbt = stack.getOrCreateTag();
         if (player != null && !this.onConnect(player, stack, railwayData, posStart, posEnd, nbt.getInt(WIDTH), nbt.getInt(HEIGHT))) {
-            player.sendMessage(MALocalizationUtil.translatableText("gui.mtr.rail_not_found_action"), true);
+            player.displayClientMessage(MALocalizationUtil.translatableText("gui.mtr.rail_not_found_action"), true);
         }
     }
 
     @Override
-    protected void onRemove(World world, BlockPos blockPos, BlockPos blockPos1, PlayerEntity playerEntity, RailwayData railwayData) {
+    protected void onRemove(Level world, BlockPos blockPos, BlockPos blockPos1, Player playerEntity, RailwayData railwayData) {
     }
 
-    protected boolean onConnect(PlayerEntity player, ItemStack stack, RailwayData railwayData, BlockPos posStart, BlockPos posEnd, int radius, int height) {
-        NbtCompound nbt = stack.getOrCreateNbt();
-        BlockState state = Block.getStateFromRawId(nbt.getInt(BLOCK_ID));
+    protected boolean onConnect(Player player, ItemStack stack, RailwayData railwayData, BlockPos posStart, BlockPos posEnd, int radius, int height) {
+        CompoundTag nbt = stack.getOrCreateTag();
+        BlockState state = Block.stateById(nbt.getInt(BLOCK_ID));
 //        railwayData.railwayDataRailActionsModule.markRailForBridge(player, posStart, posEnd, this.w, state);
 //        return state == null || railwayData.railwayDataRailActionsModule.markRailForBridge(player, posStart, posEnd, radius, state);
         return state == null || railwayData.railwayDataRailActionsModule.markRailForBridge(player, posStart, posEnd, nbt.getInt(WIDTH) / 2, state);
     }
 
-    public void appendTooltip(ItemStack stack, World level, List<Text> tooltip, TooltipContext tooltipFlag) {
-        NbtCompound nbt = stack.getOrCreateNbt();
+    public void appendHoverText(ItemStack stack, Level level, List<Component> tooltip, TooltipFlag tooltipFlag) {
+        CompoundTag nbt = stack.getOrCreateTag();
 
-        tooltip.add(MALocalizationUtil.translatableText("tooltip.mtr.rail_action_width", nbt.getInt(WIDTH) + 1).setStyle(Style.EMPTY.withColor(Formatting.GRAY)));
+        tooltip.add(MALocalizationUtil.translatableText("tooltip.mtr.rail_action_width", nbt.getInt(WIDTH) + 1).setStyle(Style.EMPTY.withColor(ChatFormatting.GRAY)));
         if (nbt.getInt(HEIGHT) > 0) {
-            tooltip.add(MALocalizationUtil.translatableText("tooltip.mtr.rail_action_height", nbt.getInt(HEIGHT)).setStyle(Style.EMPTY.withColor(Formatting.GRAY)));
+            tooltip.add(MALocalizationUtil.translatableText("tooltip.mtr.rail_action_height", nbt.getInt(HEIGHT)).setStyle(Style.EMPTY.withColor(ChatFormatting.GRAY)));
         }
 
-        BlockState state = Block.getStateFromRawId(nbt.getInt(BLOCK_ID));
-        String[] textSplit = MALocalizationUtil.translatableText(state.isAir() ? "tooltip.mtr.shift_right_click_to_select_material" : "tooltip.mtr.shift_right_click_to_clear", MinecraftClient.getInstance().options.sneakKey.getBoundKeyLocalizedText(), MALocalizationUtil.translatableText(((Block)mtr.Blocks.RAIL_NODE.get()).getTranslationKey())).getString().split("\\|");
+        BlockState state = Block.stateById(nbt.getInt(BLOCK_ID));
+        String[] textSplit = MALocalizationUtil.translatableText(state.isAir() ? "tooltip.mtr.shift_right_click_to_select_material" : "tooltip.mtr.shift_right_click_to_clear", Minecraft.getInstance().options.keyShift.getTranslatedKeyMessage(), MALocalizationUtil.translatableText(((Block)mtr.Blocks.RAIL_NODE.get()).getDescriptionId())).getString().split("\\|");
 
         for (String text : textSplit) {
-            tooltip.add(MALocalizationUtil.literalText(text).setStyle(Style.EMPTY.withColor(Formatting.GRAY).withFormatting(Formatting.ITALIC)));
+            tooltip.add(MALocalizationUtil.literalText(text).setStyle(Style.EMPTY.withColor(ChatFormatting.GRAY).applyFormat(ChatFormatting.ITALIC)));
         }
 
-        tooltip.add(MALocalizationUtil.translatableText("tooltip.mtr.selected_material", MALocalizationUtil.translatableText(state.getBlock().getTranslationKey())).setStyle(Style.EMPTY.withColor(Formatting.GREEN)));
+        tooltip.add(MALocalizationUtil.translatableText("tooltip.mtr.selected_material", MALocalizationUtil.translatableText(state.getBlock().getDescriptionId())).setStyle(Style.EMPTY.withColor(ChatFormatting.GREEN)));
     }
 }

@@ -1,19 +1,19 @@
 package team.dovecotmc.metropolis.client.block.entity;
 
-import net.minecraft.block.BlockState;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.render.RenderLayers;
-import net.minecraft.client.render.VertexConsumerProvider;
-import net.minecraft.client.render.block.entity.BlockEntityRenderer;
-import net.minecraft.client.render.model.BakedModel;
-import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.util.crash.CrashException;
-import net.minecraft.util.crash.CrashReport;
-import net.minecraft.util.crash.CrashReportSection;
-import net.minecraft.util.math.Quaternion;
-import net.minecraft.util.math.Vec3d;
-import net.minecraft.util.math.Vec3f;
 import team.dovecotmc.metropolis.block.entity.BlockEntityITVMonitor;
+import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.math.Quaternion;
+import com.mojang.math.Vector3f;
+import net.minecraft.CrashReport;
+import net.minecraft.CrashReportCategory;
+import net.minecraft.ReportedException;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.ItemBlockRenderTypes;
+import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
+import net.minecraft.client.resources.model.BakedModel;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.Vec3;
 import team.dovecotmc.metropolis.block.BlockITVMonitor;
 
 /**
@@ -23,50 +23,40 @@ import team.dovecotmc.metropolis.block.BlockITVMonitor;
  */
 public class ITVMonitorBlockEntityRenderer implements BlockEntityRenderer<BlockEntityITVMonitor> {
     @Override
-    public void render(BlockEntityITVMonitor entity, float tickDelta, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, int overlay) {
-        MinecraftClient mc = MinecraftClient.getInstance();
-        BlockState state = entity.getCachedState();
-        BakedModel model =  mc.getBakedModelManager().getBlockModels().getModel(state);
+    public void render(BlockEntityITVMonitor entity, float tickDelta, PoseStack matrices, MultiBufferSource vertexConsumers, int light, int overlay) {
+        Minecraft mc = Minecraft.getInstance();
+        BlockState state = entity.getBlockState();
+        BakedModel model =  mc.getModelManager().getBlockModelShaper().getBlockModel(state);
 
-        matrices.push();
+        matrices.pushPose();
         matrices.translate(0.5f, 0.5f, 0.5f);
-        matrices.multiply(Quaternion.fromEulerXyzDegrees(new Vec3f(0, (float) (state.get(BlockITVMonitor.ROTATION) * -22.5), 0)));
+        matrices.mulPose(Quaternion.fromXYZDegrees(new Vector3f(0, (float) (state.getValue(BlockITVMonitor.ROTATION) * -22.5), 0)));
         matrices.translate(-0.5f, -0.5f, -0.5f);
 
-        boolean bl = MinecraftClient.isAmbientOcclusionEnabled() && state.getLuminance() == 0 && model.useAmbientOcclusion();
-        Vec3d vec3d = state.getModelOffset(entity.getWorld(), entity.getPos());
+        boolean bl = Minecraft.useAmbientOcclusion() && state.getLightEmission() == 0 && model.useAmbientOcclusion();
+        Vec3 vec3d = state.getOffset(entity.getLevel(), entity.getBlockPos());
         matrices.translate(vec3d.x, vec3d.y, vec3d.z);
 
         try {
             if (bl) {
-                mc.getBlockRenderManager().getModelRenderer().renderSmooth(entity.getWorld(), model, state, entity.getPos(), matrices, vertexConsumers.getBuffer(RenderLayers.getBlockLayer(state)), false, entity.getWorld().getRandom(), 0, overlay);
+                mc.getBlockRenderer().getModelRenderer().tesselateWithAO(entity.getLevel(), model, state, entity.getBlockPos(), matrices, vertexConsumers.getBuffer(ItemBlockRenderTypes.getChunkRenderType(state)), false, entity.getLevel().getRandom(), 0, overlay);
             } else {
-                mc.getBlockRenderManager().getModelRenderer().renderFlat(entity.getWorld(), model, state, entity.getPos(), matrices, vertexConsumers.getBuffer(RenderLayers.getBlockLayer(state)), false, entity.getWorld().getRandom(), 0, overlay);
+                mc.getBlockRenderer().getModelRenderer().tesselateWithoutAO(entity.getLevel(), model, state, entity.getBlockPos(), matrices, vertexConsumers.getBuffer(ItemBlockRenderTypes.getChunkRenderType(state)), false, entity.getLevel().getRandom(), 0, overlay);
             }
 
         } catch (Throwable var17) {
-            CrashReport crashReport = CrashReport.create(var17, "Tesselating block model");
-            CrashReportSection crashReportSection = crashReport.addElement("Block model being tesselated");
-            CrashReportSection.addBlockInfo(crashReportSection, entity.getWorld(), entity.getPos(), state);
-            crashReportSection.add("Using AO", bl);
-            throw new CrashException(crashReport);
+            CrashReport crashReport = CrashReport.forThrowable(var17, "Tesselating block model");
+            CrashReportCategory crashReportSection = crashReport.addCategory("Block model being tesselated");
+            CrashReportCategory.populateBlockDetails(crashReportSection, entity.getLevel(), entity.getBlockPos(), state);
+            crashReportSection.setDetail("Using AO", bl);
+            throw new ReportedException(crashReport);
         } finally {
-            matrices.pop();
+            matrices.popPose();
         }
     }
 
     @Override
-    public boolean rendersOutsideBoundingBox(BlockEntityITVMonitor blockEntity) {
-        return BlockEntityRenderer.super.rendersOutsideBoundingBox(blockEntity);
-    }
-
-    @Override
-    public int getRenderDistance() {
-        return BlockEntityRenderer.super.getRenderDistance();
-    }
-
-    @Override
-    public boolean isInRenderDistance(BlockEntityITVMonitor blockEntity, Vec3d pos) {
-        return BlockEntityRenderer.super.isInRenderDistance(blockEntity, pos);
+    public int getViewDistance() {
+        return BlockEntityRenderer.super.getViewDistance();
     }
 }

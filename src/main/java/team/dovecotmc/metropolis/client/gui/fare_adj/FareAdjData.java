@@ -1,6 +1,6 @@
 package team.dovecotmc.metropolis.client.gui.fare_adj;
 
-import net.minecraft.item.ItemStack;
+import net.minecraft.world.item.ItemStack;
 
 /**
  * @author Arrokoth

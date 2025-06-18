@@ -1,30 +1,34 @@
 package team.dovecotmc.metropolis.block;
 
-import net.minecraft.block.*;
-import net.minecraft.block.enums.DoubleBlockHalf;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemPlacementContext;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NbtCompound;
-import net.minecraft.nbt.NbtElement;
-import net.minecraft.nbt.NbtList;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.sound.SoundCategory;
-import net.minecraft.state.StateManager;
-import net.minecraft.state.property.BooleanProperty;
-import net.minecraft.state.property.EnumProperty;
-import net.minecraft.state.property.Properties;
-import net.minecraft.util.DyeColor;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.registry.Registry;
-import net.minecraft.util.shape.VoxelShape;
-import net.minecraft.util.shape.VoxelShapes;
-import net.minecraft.world.BlockView;
-import net.minecraft.world.World;
-import net.minecraft.world.WorldAccess;
-import net.minecraft.world.WorldView;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Registry;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.ListTag;
+import net.minecraft.nbt.Tag;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.DyeColor;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.context.BlockPlaceContext;
+import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.LevelReader;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.HorizontalDirectionalBlock;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.block.state.properties.BooleanProperty;
+import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
+import net.minecraft.world.level.block.state.properties.EnumProperty;
+import net.minecraft.world.level.material.Material;
+import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.world.phys.shapes.Shapes;
+import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.Nullable;
 import team.dovecotmc.metropolis.Metropolis;
 import team.dovecotmc.metropolis.abstractinterface.util.MALocalizationUtil;
@@ -39,44 +43,44 @@ import java.util.Random;
  * @copyright Copyright © 2024 Arrokoth All Rights Reserved.
  */
 @SuppressWarnings("deprecation")
-public class BlockSecurityDoor extends HorizontalFacingBlock {
+public class BlockSecurityDoor extends HorizontalDirectionalBlock {
     public static final EnumProperty<DoubleBlockHalf> HALF;
     public static final BooleanProperty OPEN;
 //    public static final EnumProperty<Direction.Axis> AXIS;
 
     public BlockSecurityDoor() {
-        super(Settings.of(Material.METAL, DyeColor.LIGHT_GRAY).strength(6.0f).nonOpaque());
+        super(Properties.of(Material.METAL, DyeColor.LIGHT_GRAY).strength(6.0f).noOcclusion());
     }
 
     @Override
-    public void onPlaced(World world, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack itemStack) {
-        super.onPlaced(world, pos, state, placer, itemStack);
-        world.setBlockState(pos.up(), this.getStateWithProperties(state).with(HALF, DoubleBlockHalf.UPPER));
+    public void setPlacedBy(Level world, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack itemStack) {
+        super.setPlacedBy(world, pos, state, placer, itemStack);
+        world.setBlockAndUpdate(pos.above(), this.withPropertiesOf(state).setValue(HALF, DoubleBlockHalf.UPPER));
     }
 
     @Override
-    public boolean canPlaceAt(BlockState state, WorldView world, BlockPos pos) {
-        return world.getBlockState(pos.up()).isAir();
+    public boolean canSurvive(BlockState state, LevelReader world, BlockPos pos) {
+        return world.getBlockState(pos.above()).isAir();
     }
 
     @Override
-    public void onEntityCollision(BlockState state, World world, BlockPos pos, Entity entity) {
-        if (!world.isClient()) {
-            if (state.get(HALF).equals(DoubleBlockHalf.LOWER) && !state.get(OPEN)) {
-                if (entity instanceof PlayerEntity player) {
+    public void entityInside(BlockState state, Level world, BlockPos pos, Entity entity) {
+        if (!world.isClientSide()) {
+            if (state.getValue(HALF).equals(DoubleBlockHalf.LOWER) && !state.getValue(OPEN)) {
+                if (entity instanceof Player player) {
                     boolean open = true;
 
                     // Block with inventory
-                    for (ItemStack stack : player.getInventory().main) {
-                        if (stack.hasNbt()) {
-                            NbtCompound nbt = stack.getOrCreateNbt();
-                            if (nbt.contains("BlockEntityTag", NbtCompound.COMPOUND_TYPE)) {
-                                NbtCompound blockNbt = nbt.getCompound("BlockEntityTag");
-                                if (blockNbt.contains("Items", NbtCompound.LIST_TYPE)) {
-                                    NbtList itemsList = blockNbt.getList("Items", NbtElement.COMPOUND_TYPE);
-                                    for (NbtElement itemNbtRaw : itemsList) {
-                                        if (itemNbtRaw instanceof NbtCompound itemNbt) {
-                                            if (itemNbt.contains("id", NbtElement.STRING_TYPE)) {
+                    for (ItemStack stack : player.getInventory().items) {
+                        if (stack.hasTag()) {
+                            CompoundTag nbt = stack.getOrCreateTag();
+                            if (nbt.contains("BlockEntityTag", CompoundTag.TAG_COMPOUND)) {
+                                CompoundTag blockNbt = nbt.getCompound("BlockEntityTag");
+                                if (blockNbt.contains("Items", CompoundTag.TAG_LIST)) {
+                                    ListTag itemsList = blockNbt.getList("Items", Tag.TAG_COMPOUND);
+                                    for (Tag itemNbtRaw : itemsList) {
+                                        if (itemNbtRaw instanceof CompoundTag itemNbt) {
+                                            if (itemNbt.contains("id", Tag.TAG_STRING)) {
                                                 if (Metropolis.config.dangerItems.contains(itemNbt.getString("id"))) {
                                                     open = false;
                                                     break;
@@ -87,112 +91,112 @@ public class BlockSecurityDoor extends HorizontalFacingBlock {
                                 }
                             }
                         }
-                        if (Metropolis.config.dangerItems.contains(Registry.ITEM.getId(stack.getItem()).toString())) {
+                        if (Metropolis.config.dangerItems.contains(Registry.ITEM.getKey(stack.getItem()).toString())) {
                             open = false;
                             break;
                         }
                     }
                     if (open) {
-                        world.playSound(null, pos, MtrSoundUtil.TICKET_BARRIER_CONCESSIONARY, SoundCategory.BLOCKS, 1f, 1f);
+                        world.playSound(null, pos, MtrSoundUtil.TICKET_BARRIER_CONCESSIONARY, SoundSource.BLOCKS, 1f, 1f);
                     } else {
-                        player.sendMessage(MALocalizationUtil.translatableText("info.metropolis.has_danger_item"), true);
+                        player.displayClientMessage(MALocalizationUtil.translatableText("info.metropolis.has_danger_item"), true);
                     }
-                    world.setBlockState(pos, state.with(OPEN, open));
-                    world.createAndScheduleBlockTick(pos, state.getBlock(), 20);
+                    world.setBlockAndUpdate(pos, state.setValue(OPEN, open));
+                    world.scheduleTick(pos, state.getBlock(), 20);
                 }
             }
         }
     }
 
     @Override
-    public void onBroken(WorldAccess world, BlockPos pos, BlockState state) {
-        super.onBroken(world, pos, state);
-        if (state.get(HALF).equals(DoubleBlockHalf.UPPER)) {
-            if (world.getBlockState(pos.down()).get(HALF).equals(DoubleBlockHalf.LOWER)) {
-                world.breakBlock(pos.down(), false);
+    public void destroy(LevelAccessor world, BlockPos pos, BlockState state) {
+        super.destroy(world, pos, state);
+        if (state.getValue(HALF).equals(DoubleBlockHalf.UPPER)) {
+            if (world.getBlockState(pos.below()).getValue(HALF).equals(DoubleBlockHalf.LOWER)) {
+                world.destroyBlock(pos.below(), false);
             }
-        } else if (state.get(HALF).equals(DoubleBlockHalf.LOWER)) {
-            if (world.getBlockState(pos.up()).get(HALF).equals(DoubleBlockHalf.UPPER)) {
-                world.breakBlock(pos.up(), false);
+        } else if (state.getValue(HALF).equals(DoubleBlockHalf.LOWER)) {
+            if (world.getBlockState(pos.above()).getValue(HALF).equals(DoubleBlockHalf.UPPER)) {
+                world.destroyBlock(pos.above(), false);
             }
         }
     }
 
     @Override
-    public VoxelShape getSidesShape(BlockState state, BlockView world, BlockPos pos) {
-        return VoxelShapes.union(MetroBlockUtil.getVoxelShapeByDirection(
+    public VoxelShape getBlockSupportShape(BlockState state, BlockGetter world, BlockPos pos) {
+        return Shapes.or(MetroBlockUtil.getVoxelShapeByDirection(
                 0, 0, 0,
                 1, 16, 16,
-                state.get(FACING)
+                state.getValue(FACING)
         ), MetroBlockUtil.getVoxelShapeByDirection(
                 15, 0, 0,
                 16, 16, 16,
-                state.get(FACING)
+                state.getValue(FACING)
         ));
     }
 
     @Override
-    public VoxelShape getOutlineShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {
-        if (state.get(HALF).equals(DoubleBlockHalf.UPPER)) {
-            return VoxelShapes.union(VoxelShapes.union(MetroBlockUtil.getVoxelShapeByDirection(
+    public VoxelShape getShape(BlockState state, BlockGetter world, BlockPos pos, CollisionContext context) {
+        if (state.getValue(HALF).equals(DoubleBlockHalf.UPPER)) {
+            return Shapes.or(Shapes.or(MetroBlockUtil.getVoxelShapeByDirection(
                     0, 0, 0,
                     1, 16, 16,
-                    state.get(FACING)
+                    state.getValue(FACING)
             ), MetroBlockUtil.getVoxelShapeByDirection(
                     15, 0, 0,
                     16, 16, 16,
-                    state.get(FACING)
+                    state.getValue(FACING)
             )), MetroBlockUtil.getVoxelShapeByDirection(
                     0, 15, 0,
                     16, 19, 16,
-                    state.get(FACING)
+                    state.getValue(FACING)
             ));
-        } else if (state.get(HALF).equals(DoubleBlockHalf.LOWER)) {
-            return VoxelShapes.union(MetroBlockUtil.getVoxelShapeByDirection(
+        } else if (state.getValue(HALF).equals(DoubleBlockHalf.LOWER)) {
+            return Shapes.or(MetroBlockUtil.getVoxelShapeByDirection(
                     0, 0, 0,
                     1, 16, 16,
-                    state.get(FACING)
+                    state.getValue(FACING)
             ), MetroBlockUtil.getVoxelShapeByDirection(
                     15, 0, 0,
                     16, 16, 16,
-                    state.get(FACING)
+                    state.getValue(FACING)
             ));
         } else {
-            return VoxelShapes.empty();
+            return Shapes.empty();
         }
     }
 
     @Override
-    public VoxelShape getCollisionShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {
+    public VoxelShape getCollisionShape(BlockState state, BlockGetter world, BlockPos pos, CollisionContext context) {
         VoxelShape shape = super.getCollisionShape(state, world, pos, context);
-        if (state.get(HALF).equals(DoubleBlockHalf.LOWER) && !state.get(OPEN)) {
-            return state.get(OPEN) ?
+        if (state.getValue(HALF).equals(DoubleBlockHalf.LOWER) && !state.getValue(OPEN)) {
+            return state.getValue(OPEN) ?
                     shape :
-                    VoxelShapes.union(
+                    Shapes.or(
                             shape,
-                            MetroBlockUtil.getVoxelShapeByDirection(0, 0, 9, 16, 24, 11, state.get(FACING))
+                            MetroBlockUtil.getVoxelShapeByDirection(0, 0, 9, 16, 24, 11, state.getValue(FACING))
                     );
         }
         return shape;
     }
 
-    public BlockState getPlacementState(ItemPlacementContext ctx) {
-        return this.getDefaultState().with(FACING, ctx.getPlayerFacing().getOpposite()).with(HALF, DoubleBlockHalf.LOWER).with(OPEN, false);
+    public BlockState getStateForPlacement(BlockPlaceContext ctx) {
+        return this.defaultBlockState().setValue(FACING, ctx.getHorizontalDirection().getOpposite()).setValue(HALF, DoubleBlockHalf.LOWER).setValue(OPEN, false);
     }
 
     @Override
-    protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
+    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
         builder.add(FACING).add(HALF).add(OPEN);
     }
 
     @Override
-    public void scheduledTick(BlockState state, ServerWorld world, BlockPos pos, Random random) {
-        world.setBlockState(pos, state.with(OPEN, false));
+    public void tick(BlockState state, ServerLevel world, BlockPos pos, Random random) {
+        world.setBlockAndUpdate(pos, state.setValue(OPEN, false));
     }
 
     static {
-        HALF = Properties.DOUBLE_BLOCK_HALF;
-        OPEN = BooleanProperty.of("open");
+        HALF = BlockStateProperties.DOUBLE_BLOCK_HALF;
+        OPEN = BooleanProperty.create("open");
 //        AXIS = EnumProperty.of("axis", Direction.Axis.class);
     }
 }

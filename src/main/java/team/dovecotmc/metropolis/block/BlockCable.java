@@ -1,18 +1,18 @@
 package team.dovecotmc.metropolis.block;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.HorizontalFacingBlock;
-import net.minecraft.block.ShapeContext;
-import net.minecraft.item.ItemPlacementContext;
-import net.minecraft.item.ItemStack;
-import net.minecraft.state.StateManager;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
-import net.minecraft.util.shape.VoxelShape;
-import net.minecraft.util.shape.VoxelShapes;
-import net.minecraft.world.BlockView;
-import net.minecraft.world.WorldAccess;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.context.BlockPlaceContext;
+import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.HorizontalDirectionalBlock;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.world.phys.shapes.Shapes;
+import net.minecraft.world.phys.shapes.VoxelShape;
 import team.dovecotmc.metropolis.item.MetroItems;
 import team.dovecotmc.metropolis.util.MetroBlockUtil;
 
@@ -22,119 +22,119 @@ import team.dovecotmc.metropolis.util.MetroBlockUtil;
  * @copyright Copyright © 2023 Arrokoth All Rights Reserved.
  */
 @SuppressWarnings({"unused", "deprecation"})
-public class BlockCable extends HorizontalFacingBlock {
+public class BlockCable extends HorizontalDirectionalBlock {
     public final boolean isInnerCorner;
     public final boolean isOuterCorner;
     // False: left, True: right
     public final boolean cornerDirection;
 
-    protected BlockCable(Settings settings, boolean isInnerCorner, boolean isOuterCorner, boolean cornerDirection) {
+    protected BlockCable(Properties settings, boolean isInnerCorner, boolean isOuterCorner, boolean cornerDirection) {
         super(settings);
-        this.setDefaultState((this.stateManager.getDefaultState()).with(FACING, Direction.NORTH));
+        this.registerDefaultState((this.stateDefinition.any()).setValue(FACING, Direction.NORTH));
         this.isInnerCorner = isInnerCorner;
         this.isOuterCorner = isOuterCorner;
         this.cornerDirection = cornerDirection;
     }
 
     @Override
-    protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
+    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
         builder.add(FACING);
     }
 
     @Override
-    public ItemStack getPickStack(BlockView world, BlockPos pos, BlockState state) {
+    public ItemStack getCloneItemStack(BlockGetter world, BlockPos pos, BlockState state) {
         return new ItemStack(MetroItems.ITEM_CABLE);
     }
 
     @Override
-    public VoxelShape getOutlineShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {
+    public VoxelShape getShape(BlockState state, BlockGetter world, BlockPos pos, CollisionContext context) {
         if (isInnerCorner) {
             if (cornerDirection) {
-                return VoxelShapes.union(
-                        MetroBlockUtil.getVoxelShapeByDirection(0, 0, 8, 16, 16, 16, state.get(FACING)),
-                        MetroBlockUtil.getVoxelShapeByDirection(0, 0, 8, 16, 16, 16, state.get(FACING).rotateYCounterclockwise())
+                return Shapes.or(
+                        MetroBlockUtil.getVoxelShapeByDirection(0, 0, 8, 16, 16, 16, state.getValue(FACING)),
+                        MetroBlockUtil.getVoxelShapeByDirection(0, 0, 8, 16, 16, 16, state.getValue(FACING).getCounterClockWise())
                 );
             } else {
-                return VoxelShapes.union(
-                        MetroBlockUtil.getVoxelShapeByDirection(0, 0, 8, 16, 16, 16, state.get(FACING)),
-                        MetroBlockUtil.getVoxelShapeByDirection(0, 0, 8, 16, 16, 16, state.get(FACING).rotateYClockwise())
+                return Shapes.or(
+                        MetroBlockUtil.getVoxelShapeByDirection(0, 0, 8, 16, 16, 16, state.getValue(FACING)),
+                        MetroBlockUtil.getVoxelShapeByDirection(0, 0, 8, 16, 16, 16, state.getValue(FACING).getClockWise())
                 );
             }
         } else if (isOuterCorner) {
             if (cornerDirection) {
-                return MetroBlockUtil.getVoxelShapeByDirection(0, 0, 8, 8, 16, 16, state.get(FACING));
+                return MetroBlockUtil.getVoxelShapeByDirection(0, 0, 8, 8, 16, 16, state.getValue(FACING));
             } else {
-                return MetroBlockUtil.getVoxelShapeByDirection(8, 0, 8, 16, 16, 16, state.get(FACING));
+                return MetroBlockUtil.getVoxelShapeByDirection(8, 0, 8, 16, 16, 16, state.getValue(FACING));
             }
         }
-        return MetroBlockUtil.getVoxelShapeByDirection(0, 0, 8, 16, 16, 16, state.get(FACING));
+        return MetroBlockUtil.getVoxelShapeByDirection(0, 0, 8, 16, 16, 16, state.getValue(FACING));
     }
 
-    public BlockState getPlacementState(ItemPlacementContext ctx) {
-        return getStateForUpdate(ctx.getWorld(), ctx.getBlockPos(), this.getDefaultState().with(FACING, ctx.getPlayerFacing().getOpposite()), ctx.getPlayerFacing().getOpposite());
+    public BlockState getStateForPlacement(BlockPlaceContext ctx) {
+        return getStateForUpdate(ctx.getLevel(), ctx.getClickedPos(), this.defaultBlockState().setValue(FACING, ctx.getHorizontalDirection().getOpposite()), ctx.getHorizontalDirection().getOpposite());
     }
 
     @Override
-    public BlockState getStateForNeighborUpdate(BlockState state, Direction direction, BlockState neighborState, WorldAccess world, BlockPos pos, BlockPos neighborPos) {
-        return getStateForUpdate(world, pos, state, state.get(FACING));
+    public BlockState updateShape(BlockState state, Direction direction, BlockState neighborState, LevelAccessor world, BlockPos pos, BlockPos neighborPos) {
+        return getStateForUpdate(world, pos, state, state.getValue(FACING));
     }
 
-    public BlockState getStateForUpdate(WorldAccess world, BlockPos pos, BlockState state, Direction facing) {
+    public BlockState getStateForUpdate(LevelAccessor world, BlockPos pos, BlockState state, Direction facing) {
         Block finalBlock = MetroBlocks.BLOCK_CABLE;
 
-        BlockState up = world.getBlockState(pos.up());
-        BlockState down = world.getBlockState(pos.down());
-        BlockState right = world.getBlockState(pos.offset(facing.rotateYCounterclockwise()));
-        BlockState left = world.getBlockState(pos.offset(facing.rotateYClockwise()));
-        BlockState front = world.getBlockState(pos.offset(facing.rotateYCounterclockwise().rotateYCounterclockwise()));
-        BlockState end = world.getBlockState(pos.offset(facing.rotateYCounterclockwise().rotateYCounterclockwise().getOpposite()));
+        BlockState up = world.getBlockState(pos.above());
+        BlockState down = world.getBlockState(pos.below());
+        BlockState right = world.getBlockState(pos.relative(facing.getCounterClockWise()));
+        BlockState left = world.getBlockState(pos.relative(facing.getClockWise()));
+        BlockState front = world.getBlockState(pos.relative(facing.getCounterClockWise().getCounterClockWise()));
+        BlockState end = world.getBlockState(pos.relative(facing.getCounterClockWise().getCounterClockWise().getOpposite()));
 
         int connectedCount = 0;
-        if (up.getBlock() instanceof BlockCable && up.get(FACING) == facing) {
+        if (up.getBlock() instanceof BlockCable && up.getValue(FACING) == facing) {
             connectedCount++;
         }
-        if (down.getBlock() instanceof BlockCable && down.get(FACING) == facing) {
+        if (down.getBlock() instanceof BlockCable && down.getValue(FACING) == facing) {
             connectedCount++;
         }
-        if (right.getBlock() instanceof BlockCable && right.get(FACING) == facing) {
+        if (right.getBlock() instanceof BlockCable && right.getValue(FACING) == facing) {
             connectedCount++;
         }
-        if (left.getBlock() instanceof BlockCable && left.get(FACING) == facing) {
+        if (left.getBlock() instanceof BlockCable && left.getValue(FACING) == facing) {
             connectedCount++;
         }
 
-        if (front.getBlock() instanceof BlockCable && front.get(FACING) == facing.rotateYCounterclockwise()) {
+        if (front.getBlock() instanceof BlockCable && front.getValue(FACING) == facing.getCounterClockWise()) {
             finalBlock = MetroBlocks.BLOCK_CABLE_OUTER_CORNER_LEFT;
-        } else if (front.getBlock() instanceof BlockCable && front.get(FACING) == facing.rotateYClockwise()) {
+        } else if (front.getBlock() instanceof BlockCable && front.getValue(FACING) == facing.getClockWise()) {
             finalBlock = MetroBlocks.BLOCK_CABLE_OUTER_CORNER_RIGHT;
-        } else if (end.getBlock() instanceof BlockCable && end.get(FACING) == facing.rotateYCounterclockwise()) {
+        } else if (end.getBlock() instanceof BlockCable && end.getValue(FACING) == facing.getCounterClockWise()) {
             finalBlock = MetroBlocks.BLOCK_CABLE_INNER_CORNER_RIGHT;
-        } else if (end.getBlock() instanceof BlockCable && end.get(FACING) == facing.rotateYClockwise()) {
+        } else if (end.getBlock() instanceof BlockCable && end.getValue(FACING) == facing.getClockWise()) {
             finalBlock = MetroBlocks.BLOCK_CABLE_INNER_CORNER_LEFT;
         } else if (connectedCount == 1) {
              if (
-                    (up.getBlock() instanceof BlockCable && up.get(FACING) == facing) ||
-                            (down.getBlock() instanceof BlockCable && down.get(FACING) == facing)
+                    (up.getBlock() instanceof BlockCable && up.getValue(FACING) == facing) ||
+                            (down.getBlock() instanceof BlockCable && down.getValue(FACING) == facing)
             ) {
                 finalBlock = MetroBlocks.BLOCK_CABLE_HORIZONTAL;
             } else if (
-                    (left.getBlock() instanceof BlockCable && left.get(FACING) == facing) ||
-                            (right.getBlock() instanceof BlockCable && right.get(FACING) == facing)) {
+                    (left.getBlock() instanceof BlockCable && left.getValue(FACING) == facing) ||
+                            (right.getBlock() instanceof BlockCable && right.getValue(FACING) == facing)) {
                 finalBlock = MetroBlocks.BLOCK_CABLE;
             }
         } else if (connectedCount == 2) {
-            if (up.getBlock() instanceof BlockCable && down.getBlock() instanceof BlockCable && up.get(FACING) == facing && down.get(FACING) == facing) {
+            if (up.getBlock() instanceof BlockCable && down.getBlock() instanceof BlockCable && up.getValue(FACING) == facing && down.getValue(FACING) == facing) {
                 finalBlock = MetroBlocks.BLOCK_CABLE_HORIZONTAL;
-            } else if (right.getBlock() instanceof BlockCable && left.getBlock() instanceof BlockCable && right.get(FACING) == facing && left.get(FACING) == facing) {
+            } else if (right.getBlock() instanceof BlockCable && left.getBlock() instanceof BlockCable && right.getValue(FACING) == facing && left.getValue(FACING) == facing) {
                 finalBlock = MetroBlocks.BLOCK_CABLE;
-            } else if (up.getBlock() instanceof BlockCable && up.get(FACING) == facing) {
+            } else if (up.getBlock() instanceof BlockCable && up.getValue(FACING) == facing) {
                 if (right.getBlock() instanceof BlockCable) {
                     finalBlock = MetroBlocks.BLOCK_CABLE_UP_RIGHT;
                 } else if (left.getBlock() instanceof BlockCable) {
                     finalBlock = MetroBlocks.BLOCK_CABLE_UP_LEFT;
                 }
             } else if (down.getBlock() instanceof BlockCable) {
-                if (world.getBlockState(pos.offset(facing.rotateYCounterclockwise())).getBlock() instanceof BlockCable) {
+                if (world.getBlockState(pos.relative(facing.getCounterClockWise())).getBlock() instanceof BlockCable) {
                     finalBlock = MetroBlocks.BLOCK_CABLE_DOWN_RIGHT;
                 } else if (left.getBlock() instanceof BlockCable) {
                     finalBlock = MetroBlocks.BLOCK_CABLE_DOWN_LEFT;
@@ -158,6 +158,6 @@ public class BlockCable extends HorizontalFacingBlock {
 //            }
 //        }
 
-        return finalBlock.getStateWithProperties(state);
+        return finalBlock.withPropertiesOf(state);
     }
 }

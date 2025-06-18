@@ -1,34 +1,39 @@
 package team.dovecotmc.metropolis.block;
 
-import net.minecraft.block.*;
-import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.entity.ItemEntity;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemPlacementContext;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NbtCompound;
-import net.minecraft.nbt.NbtElement;
-import net.minecraft.nbt.NbtList;
-import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.sound.SoundCategory;
-import net.minecraft.state.StateManager;
-import net.minecraft.state.property.EnumProperty;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.DyeColor;
-import net.minecraft.util.Hand;
-import net.minecraft.util.StringIdentifiable;
-import net.minecraft.util.hit.BlockHitResult;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
-import net.minecraft.util.registry.Registry;
-import net.minecraft.util.shape.VoxelShape;
-import net.minecraft.util.shape.VoxelShapes;
-import net.minecraft.world.BlockView;
-import net.minecraft.world.World;
-import net.minecraft.world.WorldAccess;
-import net.minecraft.world.WorldView;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.core.Registry;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.ListTag;
+import net.minecraft.nbt.Tag;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.util.StringRepresentable;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.item.ItemEntity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.DyeColor;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.context.BlockPlaceContext;
+import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.LevelReader;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.EntityBlock;
+import net.minecraft.world.level.block.HorizontalDirectionalBlock;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.block.state.properties.EnumProperty;
+import net.minecraft.world.level.material.Material;
+import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.world.phys.shapes.Shapes;
+import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.Nullable;
 import team.dovecotmc.metropolis.Metropolis;
 import team.dovecotmc.metropolis.block.entity.BlockEntitySecurityInspectionMachine;
@@ -44,60 +49,60 @@ import java.util.Random;
  * @copyright Copyright © 2024 Arrokoth All Rights Reserved.
  */
 @SuppressWarnings("deprecation")
-public class BlockSecurityInspectionMachine extends HorizontalFacingBlock implements BlockEntityProvider {
+public class BlockSecurityInspectionMachine extends HorizontalDirectionalBlock implements EntityBlock {
     public static final int PROCESS_DURATION = 40;
-    public static final EnumProperty<EnumBlockSecurityInspectionMachinePart> PART = EnumProperty.of("part", EnumBlockSecurityInspectionMachinePart.class);
+    public static final EnumProperty<EnumBlockSecurityInspectionMachinePart> PART = EnumProperty.create("part", EnumBlockSecurityInspectionMachinePart.class);
 
     public BlockSecurityInspectionMachine() {
-        super(Settings.of(Material.METAL, DyeColor.LIGHT_GRAY).strength(6.0f));
+        super(Properties.of(Material.METAL, DyeColor.LIGHT_GRAY).strength(6.0f));
     }
 
     @Override
-    public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
-        if (world.isClient()) {
-            return ActionResult.SUCCESS;
+    public InteractionResult use(BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
+        if (world.isClientSide()) {
+            return InteractionResult.SUCCESS;
         }
 
         BlockEntity entityRaw = null;
-        if (state.get(PART).equals(EnumBlockSecurityInspectionMachinePart.HEAD)) {
-            entityRaw = world.getBlockEntity(pos.offset(state.get(FACING).getOpposite()));
-        } else if (state.get(PART).equals(EnumBlockSecurityInspectionMachinePart.TAIL)) {
-            entityRaw = world.getBlockEntity(pos.offset(state.get(FACING)));
-        } else if (state.get(PART).equals(EnumBlockSecurityInspectionMachinePart.CENTER)) {
+        if (state.getValue(PART).equals(EnumBlockSecurityInspectionMachinePart.HEAD)) {
+            entityRaw = world.getBlockEntity(pos.relative(state.getValue(FACING).getOpposite()));
+        } else if (state.getValue(PART).equals(EnumBlockSecurityInspectionMachinePart.TAIL)) {
+            entityRaw = world.getBlockEntity(pos.relative(state.getValue(FACING)));
+        } else if (state.getValue(PART).equals(EnumBlockSecurityInspectionMachinePart.CENTER)) {
             entityRaw = world.getBlockEntity(pos);
         }
 
         if (entityRaw instanceof BlockEntitySecurityInspectionMachine entity) {
-            if (entity.getStack(0).isEmpty()) {
-                NbtCompound nbt = entity.createNbt();
-                nbt.putLong(BlockEntitySecurityInspectionMachine.ITEM_ANIMATION_TIME, world.getTime());
-                entity.readNbt(nbt);
-                entity.setStack(0, player.getStackInHand(Hand.MAIN_HAND));
-                ((ServerPlayerEntity) player).networkHandler.sendPacket(entity.toUpdatePacket());
-                player.setStackInHand(Hand.MAIN_HAND, ItemStack.EMPTY);
-                world.createAndScheduleBlockTick(entity.getPos(), entity.getCachedState().getBlock(), PROCESS_DURATION);
+            if (entity.getItem(0).isEmpty()) {
+                CompoundTag nbt = entity.saveWithoutMetadata();
+                nbt.putLong(BlockEntitySecurityInspectionMachine.ITEM_ANIMATION_TIME, world.getGameTime());
+                entity.load(nbt);
+                entity.setItem(0, player.getItemInHand(InteractionHand.MAIN_HAND));
+                ((ServerPlayer) player).connection.send(entity.getUpdatePacket());
+                player.setItemInHand(InteractionHand.MAIN_HAND, ItemStack.EMPTY);
+                world.scheduleTick(entity.getBlockPos(), entity.getBlockState().getBlock(), PROCESS_DURATION);
             }
         }
 
-        return ActionResult.SUCCESS;
+        return InteractionResult.SUCCESS;
     }
 
     @Override
-    public void scheduledTick(BlockState state, ServerWorld world, BlockPos pos, Random random) {
+    public void tick(BlockState state, ServerLevel world, BlockPos pos, Random random) {
         boolean danger = false;
         if (world.getBlockEntity(pos) instanceof BlockEntitySecurityInspectionMachine entity) {
-            if (!entity.getStack(0).isEmpty()) {
+            if (!entity.getItem(0).isEmpty()) {
 
                 // Block with inventory
-                if (entity.getStack(0).hasNbt()) {
-                    NbtCompound nbt = entity.getStack(0).getOrCreateNbt();
-                    if (nbt.contains("BlockEntityTag", NbtCompound.COMPOUND_TYPE)) {
-                        NbtCompound blockNbt = nbt.getCompound("BlockEntityTag");
-                        if (blockNbt.contains("Items", NbtCompound.LIST_TYPE)) {
-                            NbtList itemsList = blockNbt.getList("Items", NbtElement.COMPOUND_TYPE);
-                            for (NbtElement itemNbtRaw : itemsList) {
-                                if (itemNbtRaw instanceof NbtCompound itemNbt) {
-                                    if (itemNbt.contains("id", NbtElement.STRING_TYPE)) {
+                if (entity.getItem(0).hasTag()) {
+                    CompoundTag nbt = entity.getItem(0).getOrCreateTag();
+                    if (nbt.contains("BlockEntityTag", CompoundTag.TAG_COMPOUND)) {
+                        CompoundTag blockNbt = nbt.getCompound("BlockEntityTag");
+                        if (blockNbt.contains("Items", CompoundTag.TAG_LIST)) {
+                            ListTag itemsList = blockNbt.getList("Items", Tag.TAG_COMPOUND);
+                            for (Tag itemNbtRaw : itemsList) {
+                                if (itemNbtRaw instanceof CompoundTag itemNbt) {
+                                    if (itemNbt.contains("id", Tag.TAG_STRING)) {
                                         if (Metropolis.config.dangerItems.contains(itemNbt.getString("id"))) {
                                             danger = true;
                                             break;
@@ -109,26 +114,26 @@ public class BlockSecurityInspectionMachine extends HorizontalFacingBlock implem
                     }
                 }
 
-                if (Metropolis.config.dangerItems.contains(Registry.ITEM.getId(entity.getStack(0).getItem()).toString())) {
+                if (Metropolis.config.dangerItems.contains(Registry.ITEM.getKey(entity.getItem(0).getItem()).toString())) {
                     danger = true;
                 }
 
                 if (danger) {
                     // TODO: Custom sound
-                    world.playSound(null, pos, MtrSoundUtil.TICKET_BARRIER, SoundCategory.BLOCKS, 1f, 1f);
+                    world.playSound(null, pos, MtrSoundUtil.TICKET_BARRIER, SoundSource.BLOCKS, 1f, 1f);
                 }
 
-                Direction facing = state.get(FACING);
-                BlockPos dropPos = pos.offset(facing.getOpposite());
-                ItemEntity itemEntity = new ItemEntity(world, dropPos.getX(), dropPos.getY(), dropPos.getZ(), entity.getStack(0));
-                itemEntity.setPos(itemEntity.getX() + 0.5, itemEntity.getY() + 0.5, itemEntity.getZ() + 0.5);
+                Direction facing = state.getValue(FACING);
+                BlockPos dropPos = pos.relative(facing.getOpposite());
+                ItemEntity itemEntity = new ItemEntity(world, dropPos.getX(), dropPos.getY(), dropPos.getZ(), entity.getItem(0));
+                itemEntity.setPosRaw(itemEntity.getX() + 0.5, itemEntity.getY() + 0.5, itemEntity.getZ() + 0.5);
                 facing = facing.getOpposite();
-                itemEntity.addVelocity(facing.getOffsetX() * 0.1, 0, facing.getOffsetZ() * 0.1);
-                world.spawnEntity(itemEntity);
+                itemEntity.push(facing.getStepX() * 0.1, 0, facing.getStepZ() * 0.1);
+                world.addFreshEntity(itemEntity);
 
-                for (ServerPlayerEntity player : world.getPlayers()) {
-                    entity.removeStack(0);
-                    player.networkHandler.sendPacket(entity.toUpdatePacket());
+                for (ServerPlayer player : world.players()) {
+                    entity.removeItemNoUpdate(0);
+                    player.connection.send(entity.getUpdatePacket());
                     MetroServerNetwork.removeInventoryItem(0, pos, player);
                 }
             }
@@ -136,62 +141,62 @@ public class BlockSecurityInspectionMachine extends HorizontalFacingBlock implem
     }
 
     @Override
-    public boolean canPlaceAt(BlockState state, WorldView world, BlockPos pos) {
-        Direction facing = state.get(FACING);
+    public boolean canSurvive(BlockState state, LevelReader world, BlockPos pos) {
+        Direction facing = state.getValue(FACING);
         if (facing == null) {
             return false;
         }
-        return world.getBlockState(pos.offset(facing)).isAir() && world.getBlockState(pos.offset(facing.getOpposite())).isAir();
+        return world.getBlockState(pos.relative(facing)).isAir() && world.getBlockState(pos.relative(facing.getOpposite())).isAir();
     }
 
     @Override
-    public void onPlaced(World world, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack itemStack) {
-        super.onPlaced(world, pos, state, placer, itemStack);
-        Direction facing = state.get(FACING);
-        if (world.getBlockState(pos.offset(facing)).isAir()) {
-            world.setBlockState(pos.offset(facing), this.getStateWithProperties(state).with(PART, EnumBlockSecurityInspectionMachinePart.HEAD));
+    public void setPlacedBy(Level world, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack itemStack) {
+        super.setPlacedBy(world, pos, state, placer, itemStack);
+        Direction facing = state.getValue(FACING);
+        if (world.getBlockState(pos.relative(facing)).isAir()) {
+            world.setBlockAndUpdate(pos.relative(facing), this.withPropertiesOf(state).setValue(PART, EnumBlockSecurityInspectionMachinePart.HEAD));
         }
-        if (world.getBlockState(pos.offset(facing.getOpposite())).isAir()) {
-            world.setBlockState(pos.offset(facing.getOpposite()), this.getStateWithProperties(state).with(PART, EnumBlockSecurityInspectionMachinePart.TAIL));
+        if (world.getBlockState(pos.relative(facing.getOpposite())).isAir()) {
+            world.setBlockAndUpdate(pos.relative(facing.getOpposite()), this.withPropertiesOf(state).setValue(PART, EnumBlockSecurityInspectionMachinePart.TAIL));
         }
     }
 
     @Override
-    public void onBroken(WorldAccess world, BlockPos pos, BlockState state) {
-        super.onBroken(world, pos, state);
-        if (state.get(PART).equals(EnumBlockSecurityInspectionMachinePart.CENTER)) {
-            Direction facing = state.get(FACING);
-            BlockState state1 = world.getBlockState(pos.offset(facing));
-            if (state1.getBlock() instanceof BlockSecurityInspectionMachine && state1.get(PART).equals(EnumBlockSecurityInspectionMachinePart.HEAD)) {
-                world.breakBlock(pos.offset(facing), false);
+    public void destroy(LevelAccessor world, BlockPos pos, BlockState state) {
+        super.destroy(world, pos, state);
+        if (state.getValue(PART).equals(EnumBlockSecurityInspectionMachinePart.CENTER)) {
+            Direction facing = state.getValue(FACING);
+            BlockState state1 = world.getBlockState(pos.relative(facing));
+            if (state1.getBlock() instanceof BlockSecurityInspectionMachine && state1.getValue(PART).equals(EnumBlockSecurityInspectionMachinePart.HEAD)) {
+                world.destroyBlock(pos.relative(facing), false);
             }
-            BlockState state2 = world.getBlockState(pos.offset(facing.getOpposite()));
-            if (state2.getBlock() instanceof BlockSecurityInspectionMachine && state2.get(PART).equals(EnumBlockSecurityInspectionMachinePart.TAIL)) {
-                world.breakBlock(pos.offset(facing.getOpposite()), false);
+            BlockState state2 = world.getBlockState(pos.relative(facing.getOpposite()));
+            if (state2.getBlock() instanceof BlockSecurityInspectionMachine && state2.getValue(PART).equals(EnumBlockSecurityInspectionMachinePart.TAIL)) {
+                world.destroyBlock(pos.relative(facing.getOpposite()), false);
             }
         } else {
-            if (state.get(PART).equals(EnumBlockSecurityInspectionMachinePart.HEAD)) {
-                world.breakBlock(pos.offset(state.get(FACING).getOpposite()), true);
-                world.breakBlock(pos.offset(state.get(FACING).getOpposite()).offset(state.get(FACING).getOpposite()), true);
-            } else if (state.get(PART).equals(EnumBlockSecurityInspectionMachinePart.TAIL)) {
-                world.breakBlock(pos.offset(state.get(FACING)), true);
-                world.breakBlock(pos.offset(state.get(FACING)).offset(state.get(FACING)), true);
+            if (state.getValue(PART).equals(EnumBlockSecurityInspectionMachinePart.HEAD)) {
+                world.destroyBlock(pos.relative(state.getValue(FACING).getOpposite()), true);
+                world.destroyBlock(pos.relative(state.getValue(FACING).getOpposite()).relative(state.getValue(FACING).getOpposite()), true);
+            } else if (state.getValue(PART).equals(EnumBlockSecurityInspectionMachinePart.TAIL)) {
+                world.destroyBlock(pos.relative(state.getValue(FACING)), true);
+                world.destroyBlock(pos.relative(state.getValue(FACING)).relative(state.getValue(FACING)), true);
             }
         }
     }
 
     @Override
-    public VoxelShape getSidesShape(BlockState state, BlockView world, BlockPos pos) {
-        return state.get(PART).equals(EnumBlockSecurityInspectionMachinePart.CENTER) ?
-                VoxelShapes.fullCube() : VoxelShapes.empty();
+    public VoxelShape getBlockSupportShape(BlockState state, BlockGetter world, BlockPos pos) {
+        return state.getValue(PART).equals(EnumBlockSecurityInspectionMachinePart.CENTER) ?
+                Shapes.block() : Shapes.empty();
     }
 
     @Override
-    public VoxelShape getOutlineShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {
-        if (state.get(PART).equals(EnumBlockSecurityInspectionMachinePart.HEAD) || state.get(PART).equals(EnumBlockSecurityInspectionMachinePart.TAIL)) {
-            Direction facing = state.get(PART).equals(EnumBlockSecurityInspectionMachinePart.HEAD) ?
-                    state.get(FACING) : state.get(FACING).getOpposite();
-            return VoxelShapes.union(MetroBlockUtil.getVoxelShapeByDirection(
+    public VoxelShape getShape(BlockState state, BlockGetter world, BlockPos pos, CollisionContext context) {
+        if (state.getValue(PART).equals(EnumBlockSecurityInspectionMachinePart.HEAD) || state.getValue(PART).equals(EnumBlockSecurityInspectionMachinePart.TAIL)) {
+            Direction facing = state.getValue(PART).equals(EnumBlockSecurityInspectionMachinePart.HEAD) ?
+                    state.getValue(FACING) : state.getValue(FACING).getOpposite();
+            return Shapes.or(MetroBlockUtil.getVoxelShapeByDirection(
                     1, 0, 2,
                     15, 12, 12,
                             facing
@@ -201,23 +206,23 @@ public class BlockSecurityInspectionMachine extends HorizontalFacingBlock implem
                             16, 24, 16,
                             facing
                     ));
-        } else if (state.get(PART).equals(EnumBlockSecurityInspectionMachinePart.CENTER)) {
+        } else if (state.getValue(PART).equals(EnumBlockSecurityInspectionMachinePart.CENTER)) {
             return MetroBlockUtil.getVoxelShapeByDirection(
                     0, 0, 0,
                     16, 24, 16,
-                    state.get(FACING)
+                    state.getValue(FACING)
             );
         } else {
-            return VoxelShapes.fullCube();
+            return Shapes.block();
         }
     }
 
     @Override
-    public VoxelShape getCollisionShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {
-        if (state.get(PART).equals(EnumBlockSecurityInspectionMachinePart.HEAD) || state.get(PART).equals(EnumBlockSecurityInspectionMachinePart.TAIL)) {
-            Direction facing = state.get(PART).equals(EnumBlockSecurityInspectionMachinePart.HEAD) ?
-                    state.get(FACING) : state.get(FACING).getOpposite();
-            return VoxelShapes.union(MetroBlockUtil.getVoxelShapeByDirection(
+    public VoxelShape getCollisionShape(BlockState state, BlockGetter world, BlockPos pos, CollisionContext context) {
+        if (state.getValue(PART).equals(EnumBlockSecurityInspectionMachinePart.HEAD) || state.getValue(PART).equals(EnumBlockSecurityInspectionMachinePart.TAIL)) {
+            Direction facing = state.getValue(PART).equals(EnumBlockSecurityInspectionMachinePart.HEAD) ?
+                    state.getValue(FACING) : state.getValue(FACING).getOpposite();
+            return Shapes.or(MetroBlockUtil.getVoxelShapeByDirection(
                             1, 0, 2,
                             15, 12, 12,
                             facing
@@ -227,42 +232,42 @@ public class BlockSecurityInspectionMachine extends HorizontalFacingBlock implem
                             16, 24, 16,
                             facing
                     ));
-        } else if (state.get(PART).equals(EnumBlockSecurityInspectionMachinePart.CENTER)) {
+        } else if (state.getValue(PART).equals(EnumBlockSecurityInspectionMachinePart.CENTER)) {
             return MetroBlockUtil.getVoxelShapeByDirection(
                     0, 0, 0,
                     16, 24, 16,
-                    state.get(FACING)
+                    state.getValue(FACING)
             );
         } else {
-            return VoxelShapes.fullCube();
+            return Shapes.block();
         }
     }
 
-    public BlockState getPlacementState(ItemPlacementContext ctx) {
-        return this.getDefaultState().with(FACING, ctx.getPlayerFacing().getOpposite()).with(PART, EnumBlockSecurityInspectionMachinePart.CENTER);
+    public BlockState getStateForPlacement(BlockPlaceContext ctx) {
+        return this.defaultBlockState().setValue(FACING, ctx.getHorizontalDirection().getOpposite()).setValue(PART, EnumBlockSecurityInspectionMachinePart.CENTER);
     }
 
     @Override
-    protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
+    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
         builder.add(FACING).add(PART);
     }
 
     @Nullable
     @Override
-    public BlockEntity createBlockEntity(BlockPos pos, BlockState state) {
-        if (state.get(PART).equals(EnumBlockSecurityInspectionMachinePart.CENTER)) {
+    public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
+        if (state.getValue(PART).equals(EnumBlockSecurityInspectionMachinePart.CENTER)) {
             return new BlockEntitySecurityInspectionMachine(pos, state);
         }
         return null;
     }
 
-    public enum EnumBlockSecurityInspectionMachinePart implements StringIdentifiable {
+    public enum EnumBlockSecurityInspectionMachinePart implements StringRepresentable {
         HEAD,
         CENTER,
         TAIL;
 
         @Override
-        public String asString() {
+        public String getSerializedName() {
             return this.toString().toLowerCase();
         }
     }

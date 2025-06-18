@@ -1,10 +1,7 @@
 package team.dovecotmc.metropolis.util;
 
 import mtr.SoundEvents;
-import net.minecraft.sound.SoundEvent;
-// MTR4
-//import org.mtr.mod.SoundEvents;
-// MTR3
+import net.minecraft.sounds.SoundEvent;
 
 /**
  * @author Arrokoth

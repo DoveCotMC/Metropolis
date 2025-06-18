@@ -1,22 +1,22 @@
 package team.dovecotmc.metropolis.client.gui;
 
 import com.mojang.blaze3d.systems.RenderSystem;
+import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.blaze3d.vertex.VertexConsumer;
 import mtr.Items;
 import mtr.data.Station;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.font.TextRenderer;
-import net.minecraft.client.gui.DrawableHelper;
-import net.minecraft.client.network.ClientPlayerEntity;
-import net.minecraft.client.render.*;
-import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.client.world.ClientWorld;
-import net.minecraft.text.Text;
-import net.minecraft.util.Hand;
-import net.minecraft.util.hit.HitResult;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.ColorHelper;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.Font;
+import net.minecraft.client.gui.GuiComponent;
+import net.minecraft.client.multiplayer.ClientLevel;
+import net.minecraft.client.player.LocalPlayer;
+import net.minecraft.core.BlockPos;
+import net.minecraft.network.chat.Component;
+import net.minecraft.util.FastColor;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.phys.HitResult;
 import team.dovecotmc.metropolis.abstractinterface.util.MALocalizationUtil;
 import team.dovecotmc.metropolis.client.MetropolisClient;
 import team.dovecotmc.metropolis.item.IItemShowStationHUD;
@@ -29,9 +29,9 @@ import team.dovecotmc.metropolis.util.MtrStationUtil;
  */
 @SuppressWarnings("unused")
 @Environment(EnvType.CLIENT)
-public class MetroBlockPlaceHud extends DrawableHelper {
+public class MetroBlockPlaceHud extends GuiComponent {
     public boolean shouldRender = false;
-    public MatrixStack matricesWorld;
+    public PoseStack matricesWorld;
     public VertexConsumer vertexConsumerWorld;
     public BlockPos pos = null;
 
@@ -40,36 +40,36 @@ public class MetroBlockPlaceHud extends DrawableHelper {
         vertexConsumerWorld = null;
     }
 
-    public void render(MatrixStack matrices, float tickDelta) {
+    public void render(PoseStack matrices, float tickDelta) {
         if (!MetropolisClient.config.enableStationInfoOverlay) {
             return;
         }
 
-        MinecraftClient client = MinecraftClient.getInstance();
+        Minecraft client = Minecraft.getInstance();
 
-        if (client.player == null || client.world == null || client.getCameraEntity() == null) {
+        if (client.player == null || client.level == null || client.getCameraEntity() == null) {
             shouldRender = false;
             return;
         }
 
-        ClientPlayerEntity player = client.player;
-        ClientWorld world = client.world;
-        HitResult hitResult = client.crosshairTarget;
-        TextRenderer textRenderer = client.textRenderer;
+        LocalPlayer player = client.player;
+        ClientLevel world = client.level;
+        HitResult hitResult = client.hitResult;
+        Font textRenderer = client.font;
 
-        if (player.isSpectator() || !(player.getStackInHand(Hand.MAIN_HAND).getItem() instanceof IItemShowStationHUD) && player.getStackInHand(Hand.MAIN_HAND).getItem() != Items.BRUSH.get()) {
+        if (player.isSpectator() || !(player.getItemInHand(InteractionHand.MAIN_HAND).getItem() instanceof IItemShowStationHUD) && player.getItemInHand(InteractionHand.MAIN_HAND).getItem() != Items.BRUSH.get()) {
             shouldRender = false;
             return;
         }
 
-        if (hitResult != null && textRenderer != null && hitResult.getType() == net.minecraft.util.hit.HitResult.Type.BLOCK) {
-            BlockPos pos = new BlockPos(hitResult.getPos());
-            int width = client.getWindow().getScaledWidth();
-            int height = client.getWindow().getScaledHeight();
+        if (hitResult != null && textRenderer != null && hitResult.getType() == net.minecraft.world.phys.HitResult.Type.BLOCK) {
+            BlockPos pos = new BlockPos(hitResult.getLocation());
+            int width = client.getWindow().getGuiScaledWidth();
+            int height = client.getWindow().getGuiScaledHeight();
             int centerX = width / 2;
             int centerY = height / 2;
 
-            matrices.push();
+            matrices.pushPose();
 
             RenderSystem.assertOnRenderThread();
             RenderSystem.enableBlend();
@@ -81,15 +81,15 @@ public class MetroBlockPlaceHud extends DrawableHelper {
             boolean shouldRenderName = shouldRender;
 
             if (shouldRenderName) {
-                int r = ColorHelper.Argb.getRed(station.color);
-                int g = ColorHelper.Argb.getGreen(station.color);
-                int b = ColorHelper.Argb.getBlue(station.color);
+                int r = FastColor.ARGB32.red(station.color);
+                int g = FastColor.ARGB32.green(station.color);
+                int b = FastColor.ARGB32.blue(station.color);
                 RenderSystem.setShaderColor(r / 255f, g / 255f, b / 255f, 1);
 
-                int y0 = centerY - 8 - textRenderer.fontHeight;
-                Text pointedStation = MALocalizationUtil.translatableText("hud.title.pointed_station");
-                int pointedStationWidth = textRenderer.getWidth(pointedStation);
-                textRenderer.drawWithShadow(
+                int y0 = centerY - 8 - textRenderer.lineHeight;
+                Component pointedStation = MALocalizationUtil.translatableText("hud.title.pointed_station");
+                int pointedStationWidth = textRenderer.width(pointedStation);
+                textRenderer.drawShadow(
                         matrices,
                         pointedStation,
                         centerX - pointedStationWidth / 2f,
@@ -100,9 +100,9 @@ public class MetroBlockPlaceHud extends DrawableHelper {
                 y0 = centerY + 8;
 
                 String[] stationNames = station.name.split("\\|");
-                Text stationFirstName = MALocalizationUtil.literalText(stationNames[0]);
-                int stationFirstNameWidth = textRenderer.getWidth(stationFirstName);
-                textRenderer.drawWithShadow(
+                Component stationFirstName = MALocalizationUtil.literalText(stationNames[0]);
+                int stationFirstNameWidth = textRenderer.width(stationFirstName);
+                textRenderer.drawShadow(
                         matrices,
                         stationFirstName,
                         centerX - stationFirstNameWidth / 2f,
@@ -111,10 +111,10 @@ public class MetroBlockPlaceHud extends DrawableHelper {
                 );
 
                 if (stationNames.length > 1) {
-                    Text stationSecondName = MALocalizationUtil.literalText(stationNames[1]);
-                    int stationSecondNameWidth = textRenderer.getWidth(stationSecondName);
-                    y0 += textRenderer.fontHeight + 2;
-                    textRenderer.drawWithShadow(
+                    Component stationSecondName = MALocalizationUtil.literalText(stationNames[1]);
+                    int stationSecondNameWidth = textRenderer.width(stationSecondName);
+                    y0 += textRenderer.lineHeight + 2;
+                    textRenderer.drawShadow(
                             matrices,
                             stationSecondName,
                             centerX - stationSecondNameWidth / 2f,
@@ -124,7 +124,7 @@ public class MetroBlockPlaceHud extends DrawableHelper {
                 }
             }
 
-            matrices.pop();
+            matrices.popPose();
         } else {
             shouldRender = false;
         }

@@ -1,19 +1,28 @@
 package team.dovecotmc.metropolis.client.block.entity;
 
 import com.mojang.blaze3d.systems.RenderSystem;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.HorizontalFacingBlock;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.render.*;
-import net.minecraft.client.render.block.entity.BlockEntityRenderer;
-import net.minecraft.client.render.item.ItemRenderer;
-import net.minecraft.client.render.model.json.ModelTransformation;
-import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.text.Text;
-import net.minecraft.util.Hand;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.math.*;
-import net.minecraft.world.World;
+import com.mojang.blaze3d.vertex.BufferBuilder;
+import com.mojang.blaze3d.vertex.DefaultVertexFormat;
+import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.blaze3d.vertex.Tesselator;
+import com.mojang.blaze3d.vertex.VertexFormat;
+import com.mojang.math.Quaternion;
+import com.mojang.math.Vector3f;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.GameRenderer;
+import net.minecraft.client.renderer.LightTexture;
+import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.renderer.block.model.ItemTransforms;
+import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
+import net.minecraft.client.renderer.entity.ItemRenderer;
+import net.minecraft.core.Direction;
+import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.HorizontalDirectionalBlock;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.Vec3;
 import team.dovecotmc.metropolis.Metropolis;
 import team.dovecotmc.metropolis.abstractinterface.util.MALocalizationUtil;
 import team.dovecotmc.metropolis.block.BlockTurnstile;
@@ -27,44 +36,44 @@ import team.dovecotmc.metropolis.client.MetropolisClient;
  */
 public class TurnstileBlockEntityRenderer implements BlockEntityRenderer<BlockEntityTurnstile> {
     @Override
-    public void render(BlockEntityTurnstile entity, float tickDelta, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, int overlay) {
-        MinecraftClient mc = MinecraftClient.getInstance();
-        World world = entity.getWorld();
+    public void render(BlockEntityTurnstile entity, float tickDelta, PoseStack matrices, MultiBufferSource vertexConsumers, int light, int overlay) {
+        Minecraft mc = Minecraft.getInstance();
+        Level world = entity.getLevel();
         ItemRenderer itemRenderer = mc.getItemRenderer();
 
-        matrices.push();
+        matrices.pushPose();
         if (world != null) {
-            BlockState block = entity.getCachedState();
-            Direction facing = block.get(HorizontalFacingBlock.FACING);
+            BlockState block = entity.getBlockState();
+            Direction facing = block.getValue(HorizontalDirectionalBlock.FACING);
 
-            if (mc.player != null && mc.player.getStackInHand(Hand.MAIN_HAND).getItem() == mtr.Items.BRUSH.get()) {
-                matrices.push();
+            if (mc.player != null && mc.player.getItemInHand(InteractionHand.MAIN_HAND).getItem() == mtr.Items.BRUSH.get()) {
+                matrices.pushPose();
 
-                Text text = MALocalizationUtil.translatableText("misc.metropolis.turnstile_mode." + BlockEntityTurnstile.EnumTurnstileType.get(block.get(BlockTurnstile.TYPE)).name().toLowerCase());
+                Component text = MALocalizationUtil.translatableText("misc.metropolis.turnstile_mode." + BlockEntityTurnstile.EnumTurnstileType.get(block.getValue(BlockTurnstile.TYPE)).name().toLowerCase());
 
-                float textScale = (float) (mc.textRenderer.fontHeight) / (float) mc.textRenderer.getWidth(text);
+                float textScale = (float) (mc.font.lineHeight) / (float) mc.font.width(text);
                 matrices.translate(0, 1.25, 0);
                 matrices.scale(1f / 16f, 1f / 16f, 1f / 16f);
                 matrices.translate(8, 8, 8);
                 matrices.scale(textScale, textScale, textScale);
-                matrices.multiply(Quaternion.fromEulerXyzDegrees(new Vec3f(0, -mc.player.getRotationClient().y, 0)));
-                matrices.multiply(Quaternion.fromEulerXyzDegrees(new Vec3f(mc.player.getRotationClient().x, 0, 0)));
-                matrices.multiply(Quaternion.fromEulerXyzDegrees(new Vec3f(0, 0, 180)));
-                matrices.translate(-mc.textRenderer.getWidth(text) / 2f, 0, 0);
+                matrices.mulPose(Quaternion.fromXYZDegrees(new Vector3f(0, -mc.player.getRotationVector().y, 0)));
+                matrices.mulPose(Quaternion.fromXYZDegrees(new Vector3f(mc.player.getRotationVector().x, 0, 0)));
+                matrices.mulPose(Quaternion.fromXYZDegrees(new Vector3f(0, 0, 180)));
+                matrices.translate(-mc.font.width(text) / 2f, 0, 0);
 
-                mc.textRenderer.draw(
+                mc.font.draw(
                         matrices,
                         text,
                         0,
                         0,
                         0xFFFFFF
                 );
-                matrices.pop();
+                matrices.popPose();
             }
 
             matrices.scale(1f / 16f, 1f / 16f, 1f / 16f);
             matrices.translate(8f, 8f, 8f);
-            matrices.multiply(Quaternion.fromEulerXyzDegrees(new Vec3f(0, -facing.asRotation() - 180, 0)));
+            matrices.mulPose(Quaternion.fromXYZDegrees(new Vector3f(0, -facing.toYRot() - 180, 0)));
             matrices.translate(-8f, -8f, -8f);
             matrices.scale(16f, 16f, 16f);
 
@@ -73,60 +82,60 @@ public class TurnstileBlockEntityRenderer implements BlockEntityRenderer<BlockEn
                 RenderSystem.enableDepthTest();
                 RenderSystem.defaultBlendFunc();
 
-                float lightFactor = Math.min(Math.max((Math.max(LightmapTextureManager.getSkyLightCoordinates(light), LightmapTextureManager.getBlockLightCoordinates(light))) / 15f, 7f / 15f), 13f / 15f);
-                Tessellator tessellator = Tessellator.getInstance();
-                BufferBuilder builder = tessellator.getBuffer();
+                float lightFactor = Math.min(Math.max((Math.max(LightTexture.sky(light), LightTexture.block(light))) / 15f, 7f / 15f), 13f / 15f);
+                Tesselator tessellator = Tesselator.getInstance();
+                BufferBuilder builder = tessellator.getBuilder();
                 float d = 4f / 16f;
 
                 // Forwards
-                matrices.push();
+                matrices.pushPose();
                 matrices.translate(0, 0, -d - 0.1f / 16f);
 
-                RenderSystem.setShaderTexture(0, new Identifier(Metropolis.MOD_ID, "textures/block/turnstile_light_entry.png"));
-                builder.begin(VertexFormat.DrawMode.QUADS, VertexFormats.POSITION_TEXTURE);
-                builder.vertex(matrices.peek().getPositionMatrix(), 0, 1, 0).texture(1, 0).next();
-                builder.vertex(matrices.peek().getPositionMatrix(), 1, 1, 0).texture(0, 0).next();
-                builder.vertex(matrices.peek().getPositionMatrix(), 1, 0, 0).texture(0, 1).next();
-                builder.vertex(matrices.peek().getPositionMatrix(), 0, 0, 0).texture(1, 1).next();
+                RenderSystem.setShaderTexture(0, new ResourceLocation(Metropolis.MOD_ID, "textures/block/turnstile_light_entry.png"));
+                builder.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_TEX);
+                builder.vertex(matrices.last().pose(), 0, 1, 0).uv(1, 0).endVertex();
+                builder.vertex(matrices.last().pose(), 1, 1, 0).uv(0, 0).endVertex();
+                builder.vertex(matrices.last().pose(), 1, 0, 0).uv(0, 1).endVertex();
+                builder.vertex(matrices.last().pose(), 0, 0, 0).uv(1, 1).endVertex();
 
                 RenderSystem.setShader(GameRenderer::getPositionTexShader);
                 RenderSystem.setShaderColor(lightFactor, lightFactor, lightFactor, 1f);
 
-                tessellator.draw();
-                matrices.pop();
+                tessellator.end();
+                matrices.popPose();
 
                 // Backwards
-                matrices.push();
+                matrices.pushPose();
                 matrices.translate(0.5f, 0.5f, 0.5f);
-                matrices.multiply(Quaternion.fromEulerXyzDegrees(new Vec3f(0, 180, 0)));
+                matrices.mulPose(Quaternion.fromXYZDegrees(new Vector3f(0, 180, 0)));
                 matrices.translate(-0.5f, -0.5f, -0.5f);
                 matrices.translate(0, 0, -d - 0.1f / 16f);
 
-                RenderSystem.setShaderTexture(0, new Identifier(Metropolis.MOD_ID, "textures/block/turnstile_light_exit.png"));
-                builder.begin(VertexFormat.DrawMode.QUADS, VertexFormats.POSITION_TEXTURE);
-                builder.vertex(matrices.peek().getPositionMatrix(), 0, 1, 0).texture(1, 0).next();
-                builder.vertex(matrices.peek().getPositionMatrix(), 1, 1, 0).texture(0, 0).next();
-                builder.vertex(matrices.peek().getPositionMatrix(), 1, 0, 0).texture(0, 1).next();
-                builder.vertex(matrices.peek().getPositionMatrix(), 0, 0, 0).texture(1, 1).next();
+                RenderSystem.setShaderTexture(0, new ResourceLocation(Metropolis.MOD_ID, "textures/block/turnstile_light_exit.png"));
+                builder.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_TEX);
+                builder.vertex(matrices.last().pose(), 0, 1, 0).uv(1, 0).endVertex();
+                builder.vertex(matrices.last().pose(), 1, 1, 0).uv(0, 0).endVertex();
+                builder.vertex(matrices.last().pose(), 1, 0, 0).uv(0, 1).endVertex();
+                builder.vertex(matrices.last().pose(), 0, 0, 0).uv(1, 1).endVertex();
 
                 RenderSystem.setShader(GameRenderer::getPositionTexShader);
                 RenderSystem.setShaderColor(lightFactor, lightFactor, lightFactor, 1f);
 
-                tessellator.draw();
-                matrices.pop();
+                tessellator.end();
+                matrices.popPose();
 
                 RenderSystem.disableBlend();
                 RenderSystem.disableDepthTest();
             }
 
-            BlockEntityTurnstile.EnumTurnstileType type = BlockEntityTurnstile.EnumTurnstileType.get(block.get(BlockTurnstile.TYPE));
+            BlockEntityTurnstile.EnumTurnstileType type = BlockEntityTurnstile.EnumTurnstileType.get(block.getValue(BlockTurnstile.TYPE));
             if (type == BlockEntityTurnstile.EnumTurnstileType.ENTER) {
-                if (!entity.getStack(0).isEmpty()) {
+                if (!entity.getItem(0).isEmpty()) {
 
-                    float animTime = (float) (world.getTime() - entity.ticketAnimationStartTime) + tickDelta;
+                    float animTime = (float) (world.getGameTime() - entity.ticketAnimationStartTime) + tickDelta;
 
                     if (animTime < 3) {
-                        matrices.push();
+                        matrices.pushPose();
                         matrices.scale(1f / 16f, 1f / 16f, 1f / 16f);
                         matrices.translate(2, 15.75, 0);
                         matrices.scale(16f, 16f, 16f);
@@ -134,21 +143,21 @@ public class TurnstileBlockEntityRenderer implements BlockEntityRenderer<BlockEn
                         matrices.scale(0.33f, 0.33f, 0.33f);
                         double var0 = Math.sqrt((0.3 / 16 * (Math.min(animTime, 3) / 3f)) * 2);
                         matrices.translate(0, -var0, var0);
-                        matrices.multiply(Quaternion.fromEulerXyzDegrees(new Vec3f(-45, 0, 90)));
+                        matrices.mulPose(Quaternion.fromXYZDegrees(new Vector3f(-45, 0, 90)));
 
-                        itemRenderer.renderItem(
-                                entity.getStack(0),
-                                ModelTransformation.Mode.GROUND,
+                        itemRenderer.renderStatic(
+                                entity.getItem(0),
+                                ItemTransforms.TransformType.GROUND,
                                 light,
                                 overlay,
                                 matrices,
                                 vertexConsumers,
                                 0
                         );
-                        matrices.pop();
+                        matrices.popPose();
                     } else if (animTime > 7) {
                         animTime -= 7;
-                        matrices.push();
+                        matrices.pushPose();
                         matrices.scale(1f / 16f, 1f / 16f, 1f / 16f);
                         matrices.translate(2.125, 16.5, 12);
                         matrices.scale(16f, 16f, 16f);
@@ -156,18 +165,18 @@ public class TurnstileBlockEntityRenderer implements BlockEntityRenderer<BlockEn
                         matrices.scale(0.33f, 0.33f, 0.33f);
                         matrices.translate(0, -1d / 16d, 0);
                         matrices.translate(0, Math.sqrt((0.2 / 16) * Math.min(animTime, 5) / 5f), 0);
-                        matrices.multiply(Quaternion.fromEulerXyzDegrees(new Vec3f(15, 0, 90)));
+                        matrices.mulPose(Quaternion.fromXYZDegrees(new Vector3f(15, 0, 90)));
 
-                        itemRenderer.renderItem(
-                                entity.getStack(0),
-                                ModelTransformation.Mode.GROUND,
+                        itemRenderer.renderStatic(
+                                entity.getItem(0),
+                                ItemTransforms.TransformType.GROUND,
                                 light,
                                 overlay,
                                 matrices,
                                 vertexConsumers,
                                 0
                         );
-                        matrices.pop();
+                        matrices.popPose();
                     }
                 }
 
@@ -185,9 +194,9 @@ public class TurnstileBlockEntityRenderer implements BlockEntityRenderer<BlockEn
 //                    }
 //                }
             } else if (type == BlockEntityTurnstile.EnumTurnstileType.EXIT) {
-                float animTime = (float) (world.getTime() - entity.ticketAnimationStartTime) + tickDelta;
+                float animTime = (float) (world.getGameTime() - entity.ticketAnimationStartTime) + tickDelta;
                 if (animTime < 3) {
-                    matrices.push();
+                    matrices.pushPose();
                     matrices.scale(1f / 16f, 1f / 16f, 1f / 16f);
                     matrices.translate(2, 15.75, 0);
                     matrices.scale(16f, 16f, 16f);
@@ -195,36 +204,26 @@ public class TurnstileBlockEntityRenderer implements BlockEntityRenderer<BlockEn
                     matrices.scale(0.33f, 0.33f, 0.33f);
                     double var0 = Math.sqrt((0.3 / 16 * (Math.min(animTime, 3) / 3f)) * 2);
                     matrices.translate(0, -var0, var0);
-                    matrices.multiply(Quaternion.fromEulerXyzDegrees(new Vec3f(-45, 0, 90)));
+                    matrices.mulPose(Quaternion.fromXYZDegrees(new Vector3f(-45, 0, 90)));
 
-                    itemRenderer.renderItem(
-                            entity.getStack(0),
-                            ModelTransformation.Mode.GROUND,
+                    itemRenderer.renderStatic(
+                            entity.getItem(0),
+                            ItemTransforms.TransformType.GROUND,
                             light,
                             overlay,
                             matrices,
                             vertexConsumers,
                             0
                     );
-                    matrices.pop();
+                    matrices.popPose();
                 }
             }
         }
-        matrices.pop();
+        matrices.popPose();
     }
 
     @Override
-    public boolean rendersOutsideBoundingBox(BlockEntityTurnstile blockEntity) {
-        return BlockEntityRenderer.super.rendersOutsideBoundingBox(blockEntity);
-    }
-
-    @Override
-    public int getRenderDistance() {
-        return BlockEntityRenderer.super.getRenderDistance();
-    }
-
-    @Override
-    public boolean isInRenderDistance(BlockEntityTurnstile blockEntity, Vec3d pos) {
-        return BlockEntityRenderer.super.isInRenderDistance(blockEntity, pos);
+    public int getViewDistance() {
+        return BlockEntityRenderer.super.getViewDistance();
     }
 }

@@ -3,15 +3,13 @@ package team.dovecotmc.metropolis.block;
 import mtr.block.BlockPlatform;
 import mtr.block.BlockTrainAnnouncer;
 import mtr.block.BlockTrainScheduleSensor;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.ShapeContext;
-import net.minecraft.item.ItemPlacementContext;
-import net.minecraft.state.StateManager;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.shape.VoxelShape;
-import net.minecraft.world.BlockView;
-import net.minecraft.world.WorldView;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.item.context.BlockPlaceContext;
+import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.LevelReader;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.world.phys.shapes.VoxelShape;
 import team.dovecotmc.metropolis.block.interfaces.IBlockPlatform;
 import team.dovecotmc.metropolis.util.MetroBlockUtil;
 
@@ -21,37 +19,37 @@ import team.dovecotmc.metropolis.util.MetroBlockUtil;
  * @copyright Copyright © 2024 Arrokoth All Rights Reserved.
  */
 public class BlockPSDSmallFenceSemiAuto extends BlockHorizontalFacing implements IBlockPlatform {
-    public BlockPSDSmallFenceSemiAuto(Settings settings) {
-        super(settings.nonOpaque());
+    public BlockPSDSmallFenceSemiAuto(Properties settings) {
+        super(settings.noOcclusion());
 //        mtr.block.BlockPSDDoor
 //        BlockTrainAnnouncer
 //        BlockTrainScheduleSensor
     }
 
     @Override
-    public boolean canPlaceAt(BlockState state, WorldView world, BlockPos pos) {
-        return state.isSolidBlock(world, pos.down()) || world.getBlockState(pos.down()).getBlock() instanceof IBlockPlatform || world.getBlockState(pos.down()).getBlock() instanceof BlockPlatform;
+    public boolean canSurvive(BlockState state, LevelReader world, BlockPos pos) {
+        return state.isRedstoneConductor(world, pos.below()) || world.getBlockState(pos.below()).getBlock() instanceof IBlockPlatform || world.getBlockState(pos.below()).getBlock() instanceof BlockPlatform;
     }
 
-    public BlockState getPlacementState(ItemPlacementContext ctx) {
-        return this.getDefaultState().with(FACING, ctx.getPlayerFacing());
+    public BlockState getStateForPlacement(BlockPlaceContext ctx) {
+        return this.defaultBlockState().setValue(FACING, ctx.getHorizontalDirection());
     }
 
     @Override
-    public VoxelShape getOutlineShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {
+    public VoxelShape getShape(BlockState state, BlockGetter world, BlockPos pos, CollisionContext context) {
         return MetroBlockUtil.getVoxelShapeByDirection(
                 0, 0, 4,
                 16, 16, 9,
-                state.get(FACING)
+                state.getValue(FACING)
         );
     }
 
     @Override
-    public VoxelShape getCollisionShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {
+    public VoxelShape getCollisionShape(BlockState state, BlockGetter world, BlockPos pos, CollisionContext context) {
         return MetroBlockUtil.getVoxelShapeByDirection(
                 0, 0, 4,
                 16, 24, 9,
-                state.get(FACING)
+                state.getValue(FACING)
         );
     }
 }

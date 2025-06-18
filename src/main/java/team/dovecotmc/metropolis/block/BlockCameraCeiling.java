@@ -1,23 +1,29 @@
 package team.dovecotmc.metropolis.block;
 
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
-import net.minecraft.block.*;
-import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.item.ItemPlacementContext;
-import net.minecraft.item.ItemStack;
-import net.minecraft.state.StateManager;
-import net.minecraft.state.property.IntProperty;
-import net.minecraft.state.property.Properties;
-import net.minecraft.util.BlockMirror;
-import net.minecraft.util.BlockRotation;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.shape.VoxelShape;
-import net.minecraft.util.shape.VoxelShapes;
-import net.minecraft.world.BlockView;
-import net.minecraft.world.World;
-import net.minecraft.world.WorldView;
+import net.minecraft.core.BlockPos;
+import net.minecraft.util.Mth;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.context.BlockPlaceContext;
+import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelReader;
+import net.minecraft.world.level.block.BaseEntityBlock;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Mirror;
+import net.minecraft.world.level.block.RenderShape;
+import net.minecraft.world.level.block.Rotation;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.block.state.properties.IntegerProperty;
+import net.minecraft.world.level.material.Material;
+import net.minecraft.world.level.material.MaterialColor;
+import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.world.phys.shapes.Shapes;
+import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.Nullable;
 import team.dovecotmc.metropolis.block.entity.BlockEntityBumper;
 import team.dovecotmc.metropolis.block.entity.BlockEntityCamera;
@@ -27,80 +33,80 @@ import team.dovecotmc.metropolis.block.entity.BlockEntityCamera;
  * @project Metropolis
  * @copyright Copyright © 2024 Arrokoth All Rights Reserved.
  */
-public class BlockCameraCeiling extends BlockWithEntity {
-    public static final IntProperty ROTATION;
+public class BlockCameraCeiling extends BaseEntityBlock {
+    public static final IntegerProperty ROTATION;
 
     static {
-        ROTATION = Properties.ROTATION;
+        ROTATION = BlockStateProperties.ROTATION_16;
     }
 
     public BlockCameraCeiling() {
-        super(FabricBlockSettings.of(Material.METAL, MapColor.YELLOW).strength(4.0f).nonOpaque());
-        this.setDefaultState(this.stateManager.getDefaultState().with(ROTATION, 0));
+        super(FabricBlockSettings.of(Material.METAL, MaterialColor.COLOR_YELLOW).strength(4.0f).noOcclusion());
+        this.registerDefaultState(this.stateDefinition.any().setValue(ROTATION, 0));
     }
 
     @Override
-    public VoxelShape getOutlineShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {
-        return Block.createCuboidShape(
+    public VoxelShape getShape(BlockState state, BlockGetter world, BlockPos pos, CollisionContext context) {
+        return Block.box(
                 4, 6, 4,
                 12, 16, 12
         );
     }
 
     @Override
-    public boolean canPlaceAt(BlockState state, WorldView world, BlockPos pos) {
-        return world.getBlockState(pos.up()).isSolidBlock(world, pos.up());
+    public boolean canSurvive(BlockState state, LevelReader world, BlockPos pos) {
+        return world.getBlockState(pos.above()).isRedstoneConductor(world, pos.above());
     }
 
     @Override
-    public void neighborUpdate(BlockState state, World world, BlockPos pos, Block sourceBlock, BlockPos sourcePos, boolean notify) {
-        if (!canPlaceAt(state, world, pos)) {
-            world.breakBlock(pos, true);
+    public void neighborChanged(BlockState state, Level world, BlockPos pos, Block sourceBlock, BlockPos sourcePos, boolean notify) {
+        if (!canSurvive(state, world, pos)) {
+            world.destroyBlock(pos, true);
         }
-        super.neighborUpdate(state, world, pos, sourceBlock, sourcePos, notify);
+        super.neighborChanged(state, world, pos, sourceBlock, sourcePos, notify);
     }
 
     @Override
-    public void onPlaced(World world, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack itemStack) {
-        super.onPlaced(world, pos, state, placer, itemStack);
+    public void setPlacedBy(Level world, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack itemStack) {
+        super.setPlacedBy(world, pos, state, placer, itemStack);
     }
 
-    public VoxelShape getCullingShape(BlockState state, BlockView world, BlockPos pos) {
-        return VoxelShapes.empty();
+    public VoxelShape getOcclusionShape(BlockState state, BlockGetter world, BlockPos pos) {
+        return Shapes.empty();
     }
 
-    public BlockState getPlacementState(ItemPlacementContext ctx) {
-        return this.getDefaultState().with(ROTATION, MathHelper.floor((double)(ctx.getPlayerYaw() * 16.0F / 360.0F) + 0.5) & 15);
+    public BlockState getStateForPlacement(BlockPlaceContext ctx) {
+        return this.defaultBlockState().setValue(ROTATION, Mth.floor((double)(ctx.getRotation() * 16.0F / 360.0F) + 0.5) & 15);
     }
 
-    public BlockState rotate(BlockState state, BlockRotation rotation) {
-        return state.with(ROTATION, rotation.rotate(state.get(ROTATION), 16));
+    public BlockState rotate(BlockState state, Rotation rotation) {
+        return state.setValue(ROTATION, rotation.rotate(state.getValue(ROTATION), 16));
     }
 
-    public BlockState mirror(BlockState state, BlockMirror mirror) {
-        return state.with(ROTATION, mirror.mirror(state.get(ROTATION), 16));
+    public BlockState mirror(BlockState state, Mirror mirror) {
+        return state.setValue(ROTATION, mirror.mirror(state.getValue(ROTATION), 16));
     }
 
-    protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
+    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
         builder.add(ROTATION);
     }
 
     @Nullable
     @Override
-    public BlockEntity createBlockEntity(BlockPos pos, BlockState state) {
+    public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
         return new BlockEntityCamera(pos, state);
     }
 
     @Override
-    public float getAmbientOcclusionLightLevel(BlockState state, BlockView world, BlockPos pos) {
+    public float getShadeBrightness(BlockState state, BlockGetter world, BlockPos pos) {
         return 1.0f;
     }
 
     @Override
-    public boolean isTranslucent(BlockState state, BlockView world, BlockPos pos) {
+    public boolean propagatesSkylightDown(BlockState state, BlockGetter world, BlockPos pos) {
         return true;
     }
-    public BlockRenderType getRenderType(BlockState state) {
-        return BlockRenderType.INVISIBLE;
+    public RenderShape getRenderShape(BlockState state) {
+        return RenderShape.INVISIBLE;
     }
 }

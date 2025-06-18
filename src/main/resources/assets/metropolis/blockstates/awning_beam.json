@@ -1,0 +1,28 @@
+{
+    "variants": {
+        "axis=x,type=left": {
+            "model": "metropolis:block/awning/awning_beam_edge",
+            "y": 0
+        },
+        "axis=z,type=left": {
+            "model": "metropolis:block/awning/awning_beam_edge",
+            "y": 90
+        },
+        "axis=x,type=right": {
+            "model": "metropolis:block/awning/awning_beam_edge",
+            "y": 180
+        },
+        "axis=z,type=right": {
+            "model": "metropolis:block/awning/awning_beam_edge",
+            "y": 270
+        },
+        "axis=x,type=middle": {
+            "model": "metropolis:block/awning/awning_beam",
+            "y": 0
+        },
+        "axis=z,type=middle": {
+            "model": "metropolis:block/awning/awning_beam",
+            "y": 90
+        }
+    }
+}

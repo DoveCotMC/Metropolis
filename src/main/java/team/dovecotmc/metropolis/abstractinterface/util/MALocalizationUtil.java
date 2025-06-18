@@ -1,9 +1,9 @@
 package team.dovecotmc.metropolis.abstractinterface.util;
 
-import net.minecraft.text.LiteralText;
-import net.minecraft.text.MutableText;
-import net.minecraft.text.Text;
-import net.minecraft.text.TranslatableText;
+import net.minecraft.network.chat.BaseComponent;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TextComponent;
+import net.minecraft.network.chat.TranslatableComponent;
 
 /**
  * @author Arrokoth
@@ -11,19 +11,19 @@ import net.minecraft.text.TranslatableText;
  * @copyright Copyright © 2025 Arrokoth All Rights Reserved.
  */
 public class MALocalizationUtil {
-    public static MutableText translatableText(String key) {
-        return new TranslatableText(key);
+    public static BaseComponent translatableText(String key) {
+        return new TranslatableComponent(key);
     }
 
-    public static MutableText translatableText(String key, Object... args) {
-        return new TranslatableText(key, args);
+    public static BaseComponent translatableText(String key, Object... args) {
+        return new TranslatableComponent(key, args);
     }
 
-    public static MutableText literalText(String text) {
-        return new LiteralText(text);
+    public static BaseComponent literalText(String text) {
+        return new TextComponent(text);
     }
 
-    public static MutableText empty() {
-        return new LiteralText("");
+    public static BaseComponent empty() {
+        return new TextComponent("");
     }
 }

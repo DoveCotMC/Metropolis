@@ -1,20 +1,20 @@
 package team.dovecotmc.metropolis.block;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.HorizontalFacingBlock;
-import net.minecraft.block.ShapeContext;
-import net.minecraft.item.ItemPlacementContext;
-import net.minecraft.state.StateManager;
-import net.minecraft.state.property.EnumProperty;
-import net.minecraft.util.StringIdentifiable;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
-import net.minecraft.util.shape.VoxelShape;
-import net.minecraft.util.shape.VoxelShapes;
-import net.minecraft.world.BlockView;
-import net.minecraft.world.World;
-import net.minecraft.world.WorldAccess;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.util.StringRepresentable;
+import net.minecraft.world.item.context.BlockPlaceContext;
+import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.HorizontalDirectionalBlock;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.block.state.properties.EnumProperty;
+import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.world.phys.shapes.Shapes;
+import net.minecraft.world.phys.shapes.VoxelShape;
 import team.dovecotmc.metropolis.block.interfaces.IBlockPlatform;
 import team.dovecotmc.metropolis.util.MetroBlockUtil;
 
@@ -23,33 +23,33 @@ import team.dovecotmc.metropolis.util.MetroBlockUtil;
  * @project Metropolis
  * @copyright Copyright © 2024 Arrokoth All Rights Reserved.
  */
-public class BlockMetroPlatform extends HorizontalFacingBlock implements IBlockPlatform {
-    public static final EnumProperty<EnumPlatformType> TYPE = EnumProperty.of("type", EnumPlatformType.class);
+public class BlockMetroPlatform extends HorizontalDirectionalBlock implements IBlockPlatform {
+    public static final EnumProperty<EnumPlatformType> TYPE = EnumProperty.create("type", EnumPlatformType.class);
 
-    public BlockMetroPlatform(Settings settings) {
-        super(settings.nonOpaque());
+    public BlockMetroPlatform(Properties settings) {
+        super(settings.noOcclusion());
     }
 
-    public BlockState getPlacementState(ItemPlacementContext ctx) {
-        return getUpdatedState(this.getDefaultState().with(FACING, ctx.getPlayerFacing().getOpposite()).with(TYPE, EnumPlatformType.NORMAL), ctx.getWorld(), ctx.getBlockPos());
-    }
-
-    @Override
-    public void neighborUpdate(BlockState state, World world, BlockPos pos, Block sourceBlock, BlockPos sourcePos, boolean notify) {
-        super.neighborUpdate(state, world, pos, sourceBlock, sourcePos, notify);
-        world.setBlockState(pos, getUpdatedState(state, world, pos));
+    public BlockState getStateForPlacement(BlockPlaceContext ctx) {
+        return getUpdatedState(this.defaultBlockState().setValue(FACING, ctx.getHorizontalDirection().getOpposite()).setValue(TYPE, EnumPlatformType.NORMAL), ctx.getLevel(), ctx.getClickedPos());
     }
 
     @Override
-    protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
+    public void neighborChanged(BlockState state, Level world, BlockPos pos, Block sourceBlock, BlockPos sourcePos, boolean notify) {
+        super.neighborChanged(state, world, pos, sourceBlock, sourcePos, notify);
+        world.setBlockAndUpdate(pos, getUpdatedState(state, world, pos));
+    }
+
+    @Override
+    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
         builder.add(FACING).add(TYPE);
     }
 
     @Override
-    public VoxelShape getOutlineShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {
-        Direction facing = state.get(FACING);
-        if (state.get(TYPE).equals(EnumPlatformType.INNER_CORNER_LEFT)) {
-            return VoxelShapes.union(
+    public VoxelShape getShape(BlockState state, BlockGetter world, BlockPos pos, CollisionContext context) {
+        Direction facing = state.getValue(FACING);
+        if (state.getValue(TYPE).equals(EnumPlatformType.INNER_CORNER_LEFT)) {
+            return Shapes.or(
                     MetroBlockUtil.getVoxelShapeByDirection(
                             0, 0, 0,
                             16, 16, 10,
@@ -58,25 +58,7 @@ public class BlockMetroPlatform extends HorizontalFacingBlock implements IBlockP
                     MetroBlockUtil.getVoxelShapeByDirection(
                             0, 0, 0,
                             16, 16, 10,
-                            facing.rotateYClockwise()
-                    ),
-                    MetroBlockUtil.getVoxelShapeByDirection(
-                            0, 13, 0,
-                            16, 16, 16,
-                            facing
-                    )
-            );
-        } else if (state.get(TYPE).equals(EnumPlatformType.INNER_CORNER_RIGHT)) {
-            return VoxelShapes.union(
-                    MetroBlockUtil.getVoxelShapeByDirection(
-                            0, 0, 0,
-                            16, 16, 10,
-                            facing
-                    ),
-                    MetroBlockUtil.getVoxelShapeByDirection(
-                            0, 0, 0,
-                            16, 16, 10,
-                            facing.rotateYCounterclockwise()
+                            facing.getClockWise()
                     ),
                     MetroBlockUtil.getVoxelShapeByDirection(
                             0, 13, 0,
@@ -84,8 +66,26 @@ public class BlockMetroPlatform extends HorizontalFacingBlock implements IBlockP
                             facing
                     )
             );
-        } else if (state.get(TYPE).equals(EnumPlatformType.OUTER_CORNER_LEFT)) {
-            return VoxelShapes.union(
+        } else if (state.getValue(TYPE).equals(EnumPlatformType.INNER_CORNER_RIGHT)) {
+            return Shapes.or(
+                    MetroBlockUtil.getVoxelShapeByDirection(
+                            0, 0, 0,
+                            16, 16, 10,
+                            facing
+                    ),
+                    MetroBlockUtil.getVoxelShapeByDirection(
+                            0, 0, 0,
+                            16, 16, 10,
+                            facing.getCounterClockWise()
+                    ),
+                    MetroBlockUtil.getVoxelShapeByDirection(
+                            0, 13, 0,
+                            16, 16, 16,
+                            facing
+                    )
+            );
+        } else if (state.getValue(TYPE).equals(EnumPlatformType.OUTER_CORNER_LEFT)) {
+            return Shapes.or(
                     MetroBlockUtil.getVoxelShapeByDirection(
                             6, 0, 0,
                             16, 16, 10,
@@ -97,8 +97,8 @@ public class BlockMetroPlatform extends HorizontalFacingBlock implements IBlockP
                             facing
                     )
             );
-        } else if (state.get(TYPE).equals(EnumPlatformType.OUTER_CORNER_RIGHT)) {
-            return VoxelShapes.union(
+        } else if (state.getValue(TYPE).equals(EnumPlatformType.OUTER_CORNER_RIGHT)) {
+            return Shapes.or(
                     MetroBlockUtil.getVoxelShapeByDirection(
                             0, 0, 0,
                             10, 16, 10,
@@ -111,7 +111,7 @@ public class BlockMetroPlatform extends HorizontalFacingBlock implements IBlockP
                     )
             );
         }
-        return VoxelShapes.union(
+        return Shapes.or(
                 MetroBlockUtil.getVoxelShapeByDirection(
                         0, 0, 0,
                         16, 16, 10,
@@ -125,37 +125,37 @@ public class BlockMetroPlatform extends HorizontalFacingBlock implements IBlockP
         );
     }
 
-    protected BlockState getUpdatedState(BlockState last, WorldAccess world, BlockPos pos) {
-        Direction facing = last.get(FACING);
+    protected BlockState getUpdatedState(BlockState last, LevelAccessor world, BlockPos pos) {
+        Direction facing = last.getValue(FACING);
 
-        BlockState right = world.getBlockState(pos.offset(facing.rotateYCounterclockwise()));
-        BlockState left = world.getBlockState(pos.offset(facing.rotateYClockwise()));
-        BlockState front = world.getBlockState(pos.offset(facing.getOpposite()));
-        BlockState back = world.getBlockState(pos.offset(facing));
+        BlockState right = world.getBlockState(pos.relative(facing.getCounterClockWise()));
+        BlockState left = world.getBlockState(pos.relative(facing.getClockWise()));
+        BlockState front = world.getBlockState(pos.relative(facing.getOpposite()));
+        BlockState back = world.getBlockState(pos.relative(facing));
 
-        if (left.getBlock() instanceof BlockMetroPlatform && left.get(FACING).equals(facing) &&
-                right.getBlock() instanceof BlockMetroPlatform && right.get(FACING).equals(facing)) {
-            return last.with(TYPE, EnumPlatformType.NORMAL);
-        } else if (back.getBlock() instanceof BlockMetroPlatform && back.get(FACING).equals(facing.rotateYClockwise())) {
-            return last.with(TYPE, EnumPlatformType.OUTER_CORNER_LEFT);
-        } else if (back.getBlock() instanceof BlockMetroPlatform && back.get(FACING).equals(facing.rotateYCounterclockwise())) {
-            return last.with(TYPE, EnumPlatformType.OUTER_CORNER_RIGHT);
-        } else if (front.getBlock() instanceof BlockMetroPlatform && front.get(FACING).equals(facing.rotateYClockwise())) {
-            return last.with(TYPE, EnumPlatformType.INNER_CORNER_LEFT);
-        } else if (front.getBlock() instanceof BlockMetroPlatform && front.get(FACING).equals(facing.rotateYCounterclockwise())) {
-            return last.with(TYPE, EnumPlatformType.INNER_CORNER_RIGHT);
-        } else if (left.getBlock() instanceof BlockMetroPlatform && left.get(FACING).equals(facing) &&
+        if (left.getBlock() instanceof BlockMetroPlatform && left.getValue(FACING).equals(facing) &&
+                right.getBlock() instanceof BlockMetroPlatform && right.getValue(FACING).equals(facing)) {
+            return last.setValue(TYPE, EnumPlatformType.NORMAL);
+        } else if (back.getBlock() instanceof BlockMetroPlatform && back.getValue(FACING).equals(facing.getClockWise())) {
+            return last.setValue(TYPE, EnumPlatformType.OUTER_CORNER_LEFT);
+        } else if (back.getBlock() instanceof BlockMetroPlatform && back.getValue(FACING).equals(facing.getCounterClockWise())) {
+            return last.setValue(TYPE, EnumPlatformType.OUTER_CORNER_RIGHT);
+        } else if (front.getBlock() instanceof BlockMetroPlatform && front.getValue(FACING).equals(facing.getClockWise())) {
+            return last.setValue(TYPE, EnumPlatformType.INNER_CORNER_LEFT);
+        } else if (front.getBlock() instanceof BlockMetroPlatform && front.getValue(FACING).equals(facing.getCounterClockWise())) {
+            return last.setValue(TYPE, EnumPlatformType.INNER_CORNER_RIGHT);
+        } else if (left.getBlock() instanceof BlockMetroPlatform && left.getValue(FACING).equals(facing) &&
                 !(right.getBlock() instanceof BlockMetroPlatform)) {
-            return last.with(TYPE, EnumPlatformType.NORMAL);
+            return last.setValue(TYPE, EnumPlatformType.NORMAL);
         } else if (!(left.getBlock() instanceof BlockMetroPlatform) &&
-                right.getBlock() instanceof BlockMetroPlatform && right.get(FACING).equals(facing)) {
-            return last.with(TYPE, EnumPlatformType.NORMAL);
+                right.getBlock() instanceof BlockMetroPlatform && right.getValue(FACING).equals(facing)) {
+            return last.setValue(TYPE, EnumPlatformType.NORMAL);
         } else {
-            return last.with(TYPE, EnumPlatformType.NORMAL);
+            return last.setValue(TYPE, EnumPlatformType.NORMAL);
         }
     }
 
-    public enum EnumPlatformType implements StringIdentifiable {
+    public enum EnumPlatformType implements StringRepresentable {
         NORMAL,
         OUTER_CORNER_LEFT,
         OUTER_CORNER_RIGHT,
@@ -163,7 +163,7 @@ public class BlockMetroPlatform extends HorizontalFacingBlock implements IBlockP
         INNER_CORNER_RIGHT;
 
         @Override
-        public String asString() {
+        public String getSerializedName() {
             return this.toString().toLowerCase();
         }
     }

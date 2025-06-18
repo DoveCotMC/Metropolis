@@ -1,7 +1,7 @@
 package team.dovecotmc.metropolis.client.gui.ticket_vendor;
 
-import net.minecraft.item.ItemStack;
-import net.minecraft.text.Text;
+import net.minecraft.network.chat.Component;
+import net.minecraft.world.item.ItemStack;
 
 /**
  * @author Arrokoth
@@ -11,10 +11,10 @@ import net.minecraft.text.Text;
 public class TicketVendorPaymentData {
     public final EnumTicketVendorPaymentType type;
     public final int value;
-    public final Text[] descriptions;
+    public final Component[] descriptions;
     public final ItemStack resultStack;
 
-    public TicketVendorPaymentData(EnumTicketVendorPaymentType type, int value, Text[] descriptions, ItemStack resultStack) {
+    public TicketVendorPaymentData(EnumTicketVendorPaymentType type, int value, Component[] descriptions, ItemStack resultStack) {
         this.type = type;
         this.value = value;
         this.descriptions = descriptions;

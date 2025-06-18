@@ -1,15 +1,15 @@
 package team.dovecotmc.metropolis.item;
 
-import net.minecraft.client.item.TooltipContext;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NbtCompound;
-import net.minecraft.text.Text;
-import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 import team.dovecotmc.metropolis.abstractinterface.util.MALocalizationUtil;
 
 import java.util.List;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.chat.Component;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.level.Level;
 
 /**
  * @author Arrokoth
@@ -23,18 +23,18 @@ public class ItemCard extends Item implements InterfaceTicket {
     public static final String ENTERED_ZONE = "entered_zone";
     public final boolean infiniteBalance;
 
-    public ItemCard(Settings settings, boolean infiniteBalance) {
-        super(settings.maxCount(1));
+    public ItemCard(Properties settings, boolean infiniteBalance) {
+        super(settings.stacksTo(1));
         this.infiniteBalance = infiniteBalance;
     }
 
     @Override
-    public boolean hasGlint(ItemStack stack) {
+    public boolean isFoil(ItemStack stack) {
         return infiniteBalance;
     }
 
     @Override
-    public int getEnchantability() {
+    public int getEnchantmentValue() {
         return 0;
     }
 
@@ -44,11 +44,11 @@ public class ItemCard extends Item implements InterfaceTicket {
     }
 
     @Override
-    public void appendTooltip(ItemStack stack, @Nullable World world, List<Text> tooltip, TooltipContext context) {
+    public void appendHoverText(ItemStack stack, @Nullable Level world, List<Component> tooltip, TooltipFlag context) {
         if (infiniteBalance) {
             tooltip.add(MALocalizationUtil.translatableText("tooltip.metropolis.infinity_balance"));
         } else {
-            NbtCompound nbt = stack.getOrCreateNbt();
+            CompoundTag nbt = stack.getOrCreateTag();
 
             String stationName = nbt.getString(ENTERED_STATION).split("\\|")[0];
             if (nbt.contains(ENTERED_ZONE) && nbt.contains(ENTERED_STATION))
@@ -59,6 +59,6 @@ public class ItemCard extends Item implements InterfaceTicket {
             tooltip.add(MALocalizationUtil.translatableText("tooltip.metropolis.card.balance", value, maxValue));
         }
 
-        super.appendTooltip(stack, world, tooltip, context);
+        super.appendHoverText(stack, world, tooltip, context);
     }
 }

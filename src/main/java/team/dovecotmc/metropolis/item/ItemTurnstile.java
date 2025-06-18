@@ -1,20 +1,20 @@
 package team.dovecotmc.metropolis.item;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.client.item.TooltipContext;
-import net.minecraft.item.BlockItem;
-import net.minecraft.item.ItemGroup;
-import net.minecraft.item.ItemPlacementContext;
-import net.minecraft.item.ItemStack;
-import net.minecraft.text.Text;
-import net.minecraft.util.collection.DefaultedList;
-import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 import team.dovecotmc.metropolis.block.BlockTurnstile;
 import team.dovecotmc.metropolis.block.entity.BlockEntityTurnstile;
 
 import java.util.List;
+import net.minecraft.core.NonNullList;
+import net.minecraft.network.chat.Component;
+import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.item.CreativeModeTab;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.item.context.BlockPlaceContext;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.BlockState;
 
 /**
  * @author Arrokoth
@@ -24,39 +24,39 @@ import java.util.List;
 public class ItemTurnstile extends BlockItem implements IItemShowStationHUD {
     public final BlockEntityTurnstile.EnumTurnstileType type;
 
-    public ItemTurnstile(Block block, Settings settings, BlockEntityTurnstile.EnumTurnstileType type) {
+    public ItemTurnstile(Block block, Properties settings, BlockEntityTurnstile.EnumTurnstileType type) {
         super(block, settings);
         this.type = type;
     }
 
     @Nullable
     @Override
-    protected BlockState getPlacementState(ItemPlacementContext context) {
-        BlockState blockState = this.getBlock().getPlacementState(context);
+    protected BlockState getPlacementState(BlockPlaceContext context) {
+        BlockState blockState = this.getBlock().getStateForPlacement(context);
         if (blockState == null || !this.canPlace(context, blockState)) {
             return null;
         }
 
-        return blockState.with(BlockTurnstile.TYPE, type.index);
+        return blockState.setValue(BlockTurnstile.TYPE, type.index);
     }
 
     @Override
-    public void appendTooltip(ItemStack stack, @Nullable World world, List<Text> tooltip, TooltipContext context) {
+    public void appendHoverText(ItemStack stack, @Nullable Level world, List<Component> tooltip, TooltipFlag context) {
         // TODO: Translatable
 //        if (stack.getItem() instanceof ItemTurnstile item) {
 //            tooltip.add(MALocalizationUtil.literalText("Type: " + item.type));
 //        }
-        super.appendTooltip(stack, world, tooltip, context);
+        super.appendHoverText(stack, world, tooltip, context);
     }
 
     @Override
-    public String getTranslationKey() {
-        return super.getTranslationKey() + "." + this.type.name().toLowerCase();
+    public String getDescriptionId() {
+        return super.getDescriptionId() + "." + this.type.name().toLowerCase();
     }
 
     @Override
-    public void appendStacks(ItemGroup group, DefaultedList<ItemStack> stacks) {
-        if (this.isIn(group)) {
+    public void fillItemCategory(CreativeModeTab group, NonNullList<ItemStack> stacks) {
+        if (this.allowdedIn(group)) {
             stacks.add(new ItemStack(this));
         }
     }

@@ -2,8 +2,8 @@ package team.dovecotmc.metropolis.client.gui;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.text.Text;
+import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.network.chat.Component;
 
 /**
  * @author Arrokoth
@@ -12,7 +12,7 @@ import net.minecraft.text.Text;
  */
 @Environment(EnvType.CLIENT)
 public class AlphaWarningScreen extends Screen {
-    protected AlphaWarningScreen(Text title) {
+    protected AlphaWarningScreen(Component title) {
         super(title);
     }
 }

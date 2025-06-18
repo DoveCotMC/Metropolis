@@ -2,13 +2,12 @@ package team.dovecotmc.metropolis.datagen;
 
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
-import net.minecraft.block.Block;
-import net.minecraft.block.Material;
-import net.minecraft.tag.TagKey;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.registry.Registry;
+import net.minecraft.core.Registry;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.tags.TagKey;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.material.Material;
 import team.dovecotmc.metropolis.Metropolis;
-import team.dovecotmc.metropolis.abstractinterface.util.MACommonUtil;
 
 import java.util.Objects;
 
@@ -18,38 +17,45 @@ import java.util.Objects;
  * @copyright Copyright © 2024 Arrokoth All Rights Reserved.
  */
 public class MetroBlockTagsGenerator extends FabricTagProvider<Block> {
-    private static final TagKey<Block> PICKAXE_KEY = TagKey.of(Registry.BLOCK_KEY, MACommonUtil.identifier("data", "mineable/pickaxe"));
-    private static final TagKey<Block> NEEDS_STONE_TOOL = TagKey.of(Registry.BLOCK_KEY, MACommonUtil.identifier("data", "mineable/needs_stone_tool"));
-    private static final TagKey<Block> NEEDS_IRON_TOOL = TagKey.of(Registry.BLOCK_KEY, MACommonUtil.identifier("data", "mineable/needs_iron_tool"));
-
-    public MetroBlockTagsGenerator(FabricDataGenerator dataGenerator) {
-//        super(dataGenerator, Registry.BLOCK);
-        super(dataGenerator, Registry.BLOCK, Metropolis.MOD_ID);
+    protected MetroBlockTagsGenerator(FabricDataGenerator dataGenerator, Registry<Block> registry, String name) {
+        super(dataGenerator, registry, name);
     }
 
     @Override
     protected void generateTags() {
-        for (Identifier id : this.registry.getIds()) {
-            if (!Objects.equals(id.getNamespace(), Metropolis.MOD_ID))
-                continue;
 
-            Block block = this.registry.get(id);
-            if (block == null)
-                continue;
-
-            if (block.getDefaultState().getMaterial().equals(Material.STONE)) {
-                getOrCreateTagBuilder(PICKAXE_KEY)
-                        .add(block);
-//                getOrCreateTagBuilder(NEEDS_STONE_TOOL)
-//                        .add(block);
-            } else if (block.getDefaultState().getMaterial().equals(Material.METAL)) {
-                getOrCreateTagBuilder(PICKAXE_KEY)
-                        .add(block);
-                getOrCreateTagBuilder(NEEDS_STONE_TOOL)
-                        .add(block);
-            } else {
-                Metropolis.LOGGER.info("Unexpected material: " + block.getDefaultState().getMaterial());
-            }
-        }
     }
+//    private static final TagKey<Block> PICKAXE_KEY = TagKey.create(Registry.BLOCK_REGISTRY, ResourceLocation.tryBuild("data", "mineable/pickaxe"));
+//    private static final TagKey<Block> NEEDS_STONE_TOOL = TagKey.create(Registry.BLOCK_REGISTRY, ResourceLocation.tryBuild("data", "mineable/needs_stone_tool"));
+//    private static final TagKey<Block> NEEDS_IRON_TOOL = TagKey.create(Registry.BLOCK_REGISTRY, ResourceLocation.tryBuild("data", "mineable/needs_iron_tool"));
+//
+//    public MetroBlockTagsGenerator(FabricDataGenerator dataGenerator) {
+//        super(dataGenerator, Registry.BLOCK);
+//    }
+//
+//    @Override
+//    protected void generateTags() {
+//        for (ResourceLocation id : this.registry.keySet()) {
+//            if (!Objects.equals(id.getNamespace(), Metropolis.MOD_ID))
+//                continue;
+//
+//            Block block = this.registry.get(id);
+//            if (block == null)
+//                continue;
+//
+//            if (block.defaultBlockState().getMaterial().equals(Material.STONE)) {
+//                tag(PICKAXE_KEY)
+//                        .add(block);
+////                getOrCreateTagBuilder(NEEDS_STONE_TOOL)
+////                        .add(block);
+//            } else if (block.defaultBlockState().getMaterial().equals(Material.METAL)) {
+//                tag(PICKAXE_KEY)
+//                        .add(block);
+//                tag(NEEDS_STONE_TOOL)
+//                        .add(block);
+//            } else {
+//                Metropolis.LOGGER.info("Unexpected material: " + block.defaultBlockState().getMaterial());
+//            }
+//        }
+//    }
 }

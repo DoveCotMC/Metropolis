@@ -1,12 +1,12 @@
 package team.dovecotmc.metropolis.client.gui.ticket_vendor;
 
 import com.mojang.blaze3d.systems.RenderSystem;
-import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.inventory.Inventory;
-import net.minecraft.text.Text;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.math.BlockPos;
+import com.mojang.blaze3d.vertex.PoseStack;
+import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.core.BlockPos;
+import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.Container;
 import team.dovecotmc.metropolis.Metropolis;
 import team.dovecotmc.metropolis.abstractinterface.util.MALocalizationUtil;
 import team.dovecotmc.metropolis.client.network.MetroClientNetwork;
@@ -17,11 +17,11 @@ import team.dovecotmc.metropolis.client.network.MetroClientNetwork;
  * @copyright Copyright © 2024 Arrokoth All Rights Reserved.
  */
 public class TicketVendorScreenWarning extends Screen {
-    private static final Identifier BG_TEXTURE_ID = new Identifier(Metropolis.MOD_ID, "textures/gui/ticket_vendor_warning/ticket_vendor_warning_base.png");
+    private static final ResourceLocation BG_TEXTURE_ID = new ResourceLocation(Metropolis.MOD_ID, "textures/gui/ticket_vendor_warning/ticket_vendor_warning_base.png");
     protected static final int BG_TEXTURE_WIDTH = 256;
     protected static final int BG_TEXTURE_HEIGHT = 196;
 
-    private static final Identifier WARNING_TEXTURE_ID = new Identifier(Metropolis.MOD_ID, "textures/gui/ticket_vendor_warning/warning.png");
+    private static final ResourceLocation WARNING_TEXTURE_ID = new ResourceLocation(Metropolis.MOD_ID, "textures/gui/ticket_vendor_warning/warning.png");
     protected static final int WARNING_TEXTURE_WIDTH = 32;
     protected static final int WARNING_TEXTURE_HEIGHT = 32;
 
@@ -33,7 +33,7 @@ public class TicketVendorScreenWarning extends Screen {
     }
 
     @Override
-    public void render(MatrixStack matrices, int mouseX, int mouseY, float delta) {
+    public void render(PoseStack matrices, int mouseX, int mouseY, float delta) {
         this.fillGradient(matrices, 0, 0, this.width, this.height, -1072689136, -804253680);
 
         RenderSystem.assertOnRenderThread();
@@ -42,7 +42,7 @@ public class TicketVendorScreenWarning extends Screen {
         RenderSystem.defaultBlendFunc();
 
         RenderSystem.setShaderTexture(0, BG_TEXTURE_ID);
-        drawTexture(
+        blit(
                 matrices,
                 this.width / 2 - BG_TEXTURE_WIDTH / 2,
                 this.height / 2 - BG_TEXTURE_HEIGHT / 2,
@@ -54,10 +54,10 @@ public class TicketVendorScreenWarning extends Screen {
 
         float scaleFactor = 1.5f;
 
-        matrices.push();
+        matrices.pushPose();
         matrices.scale(scaleFactor, scaleFactor, scaleFactor);
         RenderSystem.setShaderTexture(0, WARNING_TEXTURE_ID);
-        drawTexture(
+        blit(
                 matrices,
                 (int) ((this.width / 2 - WARNING_TEXTURE_WIDTH / 2f * scaleFactor) / scaleFactor),
                 (int) ((this.height / 2 - WARNING_TEXTURE_HEIGHT / 2f * scaleFactor - 16) / scaleFactor),
@@ -66,56 +66,56 @@ public class TicketVendorScreenWarning extends Screen {
                 WARNING_TEXTURE_WIDTH, WARNING_TEXTURE_HEIGHT,
                 WARNING_TEXTURE_WIDTH, WARNING_TEXTURE_HEIGHT
         );
-        matrices.pop();
+        matrices.popPose();
 
-        scaleFactor = 14f / textRenderer.fontHeight;
+        scaleFactor = 14f / font.lineHeight;
 
-        matrices.push();
+        matrices.pushPose();
         matrices.scale(scaleFactor, scaleFactor, scaleFactor);
-        Text warningTitle = MALocalizationUtil.translatableText("gui.metropolis.ticket_vendor_warning.title_warning");
-        textRenderer.drawWithShadow(
+        Component warningTitle = MALocalizationUtil.translatableText("gui.metropolis.ticket_vendor_warning.title_warning");
+        font.drawShadow(
                 matrices,
                 warningTitle,
-                (this.width / 2f - textRenderer.getWidth(warningTitle) * scaleFactor / 2f) / scaleFactor,
-                (this.height / 2f - textRenderer.fontHeight * scaleFactor / 2f + 28) / scaleFactor,
+                (this.width / 2f - font.width(warningTitle) * scaleFactor / 2f) / scaleFactor,
+                (this.height / 2f - font.lineHeight * scaleFactor / 2f + 28) / scaleFactor,
                 0xFFFFFF
         );
-        matrices.pop();
+        matrices.popPose();
 
         scaleFactor = 1f;
 
-        matrices.push();
+        matrices.pushPose();
         matrices.scale(scaleFactor, scaleFactor, scaleFactor);
-        Text warningNoCard = MALocalizationUtil.translatableText("gui.metropolis.ticket_vendor_warning.warning_no_card");
-        textRenderer.drawWithShadow(
+        Component warningNoCard = MALocalizationUtil.translatableText("gui.metropolis.ticket_vendor_warning.warning_no_card");
+        font.drawShadow(
                 matrices,
                 warningNoCard,
-                (this.width / 2f - textRenderer.getWidth(warningNoCard) * scaleFactor / 2f) / scaleFactor,
-                (this.height / 2f - textRenderer.fontHeight * scaleFactor / 2f + 44) / scaleFactor,
+                (this.width / 2f - font.width(warningNoCard) * scaleFactor / 2f) / scaleFactor,
+                (this.height / 2f - font.lineHeight * scaleFactor / 2f + 44) / scaleFactor,
                 0xFFFFFF
         );
-        matrices.pop();
+        matrices.popPose();
 
-        matrices.pop();
+        matrices.popPose();
 
         super.render(matrices, mouseX, mouseY, delta);
     }
 
     @Override
-    public void close() {
-        super.close();
+    public void onClose() {
+        super.onClose();
 
-        if (client != null && client.world != null) {
-            if (client.world.getBlockEntity(pos) instanceof Inventory inventory) {
-                if (!inventory.getStack(1).isEmpty()) {
-                    MetroClientNetwork.ticketVendorClose(pos, inventory.getStack(1), 0);
+        if (minecraft != null && minecraft.level != null) {
+            if (minecraft.level.getBlockEntity(pos) instanceof Container inventory) {
+                if (!inventory.getItem(1).isEmpty()) {
+                    MetroClientNetwork.ticketVendorClose(pos, inventory.getItem(1), 0);
                 }
             }
         }
     }
 
     @Override
-    public boolean shouldPause() {
+    public boolean isPauseScreen() {
         return false;
     }
 }

@@ -1,6 +1,6 @@
 package team.dovecotmc.metropolis.util;
 
-import net.minecraft.item.Item;
+import net.minecraft.world.item.Item;
 
 
 /**
