@@ -1,10 +1,14 @@
 package team.dovecotmc.metropolis.util;
 
-import mtr.client.ClientData;
-import mtr.data.RailwayData;
-import mtr.data.Station;
+import it.unimi.dsi.fastutil.objects.ObjectImmutableList;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.Level;
+import org.mtr.core.data.Station;
+import org.mtr.core.operation.NearbyAreasRequest;
+import org.mtr.core.servlet.OperationProcessor;
+import org.mtr.mod.Init;
+import org.mtr.mod.block.BlockTicketBarrier;
+
 import java.util.Set;
 
 /**
@@ -14,10 +18,10 @@ import java.util.Set;
  */
 public class MtrStationUtil {
     public static Set<Station> getStations(Level world) {
-        if (world.isClientSide()) {
-            return ClientData.STATIONS;
-        }
-        return RailwayData.getInstance(world).stations;
+        Init.sendMessageC2S(OperationProcessor.NEARBY_STATIONS, world.getServer(), world, new NearbyAreasRequest<>(Init.blockPosToPosition(new org.mtr.mapping.holder.BlockPos(BlockPos.ZERO)), 0), response -> {
+            final ObjectImmutableList<Station> stations = response.();
+        });
+        return Station.getInstance(world).stations;
     }
 
     public static Station getStationByPos(BlockPos pos, Level world) {
