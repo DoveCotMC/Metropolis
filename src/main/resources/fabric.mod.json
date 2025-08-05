@@ -1,0 +1,42 @@
+{
+    "schemaVersion": 1,
+    "id": "metropolis",
+    "version": "${version}",
+    "name": "Metropolis",
+    "description": "Chemin de Fer Métropolitain",
+    "authors": [
+        "Arrokoth233",
+        "Radekemia",
+        "HQIDK",
+        "ShirahaneExpress"
+    ],
+    "contact": {
+        "repo": "https://github.com/DoveCotMC/Metropolis"
+    },
+    "license": "MIT License",
+    "icon": "assets/metropolis/metropolis.png",
+    "environment": "*",
+    "mixins": [
+        "metropolis.mixin.json"
+    ],
+    "entrypoints": {
+        "client": [
+            "team.dovecotmc.metropolis.client.MetropolisClient"
+        ],
+        "main": [
+            "team.dovecotmc.metropolis.Metropolis"
+        ],
+        "modmenu": [
+            "team.dovecotmc.metropolis.client.modmenu.MetroModMenu"
+        ],
+        "fabric-datagen": [
+            "team.dovecotmc.metropolis.datagen.MetropolisDataGenerator"
+        ]
+    },
+    "depends": {
+        "fabricloader": ">=${loader_version}",
+        "fabric": "*",
+        "minecraft": "${minecraft_version}",
+        "mtr": ">=1.19.2-3.2.2"
+    }
+}

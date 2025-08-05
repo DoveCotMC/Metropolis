@@ -1,0 +1,52 @@
+{
+    "variants": {
+        "facing=north,part=center": {
+            "model": "metropolis:base/security_inspection_machine",
+            "y": 0
+        },
+        "facing=east,part=center": {
+            "model": "metropolis:base/security_inspection_machine",
+            "y": 90
+        },
+        "facing=south,part=center": {
+            "model": "metropolis:base/security_inspection_machine",
+            "y": 180
+        },
+        "facing=west,part=center": {
+            "model": "metropolis:base/security_inspection_machine",
+            "y": 270
+        },
+        "facing=north,part=head": {
+            "model": "metropolis:base/blanco",
+            "y": 0
+        },
+        "facing=east,part=head": {
+            "model": "metropolis:base/blanco",
+            "y": 90
+        },
+        "facing=south,part=head": {
+            "model": "metropolis:base/blanco",
+            "y": 180
+        },
+        "facing=west,part=head": {
+            "model": "metropolis:base/blanco",
+            "y": 270
+        },
+        "facing=north,part=tail": {
+            "model": "metropolis:base/blanco",
+            "y": 0
+        },
+        "facing=east,part=tail": {
+            "model": "metropolis:base/blanco",
+            "y": 90
+        },
+        "facing=south,part=tail": {
+            "model": "metropolis:base/blanco",
+            "y": 180
+        },
+        "facing=west,part=tail": {
+            "model": "metropolis:base/blanco",
+            "y": 270
+        }
+    }
+}

@@ -1,0 +1,57 @@
+{
+	"credit": "Made with Blockbench",
+	"texture_size": [64, 64],
+	"textures": {
+		"0": "metropolis:block/psd/platform_door_1_door",
+		"particle": "metropolis:block/psd/platform_door_1_door"
+	},
+	"elements": [
+		{
+			"name": "door_noglass",
+			"from": [0, 1, 6],
+			"to": [16, 21, 7],
+			"rotation": {"angle": 0, "axis": "y", "origin": [2, 0, 7]},
+			"faces": {
+				"north": {"uv": [4, 0, 0, 5], "texture": "#0"},
+				"east": {"uv": [0.25, 5, 0, 10], "texture": "#0"},
+				"south": {"uv": [8, 0, 4, 5], "texture": "#0"},
+				"west": {"uv": [0.5, 5, 0.25, 10], "texture": "#0"},
+				"up": {"uv": [0.75, 5, 0.5, 9], "rotation": 270, "texture": "#0"},
+				"down": {"uv": [1, 9, 0.75, 5], "rotation": 90, "texture": "#0"}
+			}
+		}
+	],
+	"display": {
+		"thirdperson_righthand": {
+			"rotation": [75, -60, 0],
+			"translation": [-1, 0.75, 0],
+			"scale": [0.375, 0.375, 0.375]
+		},
+		"thirdperson_lefthand": {
+			"rotation": [75, -60, 0],
+			"translation": [-1, 0.75, 0],
+			"scale": [0.375, 0.375, 0.375]
+		},
+		"firstperson_righthand": {
+			"rotation": [0, -45, 0],
+			"scale": [0.4, 0.4, 0.4]
+		},
+		"firstperson_lefthand": {
+			"rotation": [0, -45, 0],
+			"scale": [0.4, 0.4, 0.4]
+		},
+		"ground": {
+			"translation": [0, 3, 0],
+			"scale": [0.25, 0.25, 0.25]
+		},
+		"gui": {
+			"rotation": [30, 225, 0],
+			"translation": [-0.5, -1, 0],
+			"scale": [0.5, 0.5, 0.5]
+		},
+		"fixed": {
+			"translation": [0, -2, 0],
+			"scale": [0.5, 0.5, 0.5]
+		}
+	}
+}

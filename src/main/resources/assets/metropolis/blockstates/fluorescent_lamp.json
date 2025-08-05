@@ -1,0 +1,12 @@
+{
+    "variants": {
+        "axis=z": {
+            "model": "metropolis:block/fluorescent_lamp",
+            "y": 0
+        },
+        "axis=x": {
+            "model": "metropolis:block/fluorescent_lamp",
+            "y": 90
+        }
+    }
+}

@@ -1,0 +1,187 @@
+{
+    "itemGroup.metropolis.all": "Métropolis.",
+
+    "config.metropolis.client.enable_glowing_texture": "Enable glowing textures",
+    "config.metropolis.client.enable_station_info_overlay": "Enable station information overlay",
+
+    "gui.metropolis.ticket_vendor.title": "Ticket Vendor Machine",
+    "gui.metropolis.ticket_vendor_1.title": "Ticket Vendor Machine",
+    "gui.metropolis.ticket_vendor_1.subtitle": "Press the item of your operation",
+    "gui.metropolis.ticket_vendor_1.button.buy_tickets": "Tickets",
+    "gui.metropolis.ticket_vendor_1.button.special": "Special",
+    "gui.metropolis.ticket_vendor_1.button.refund": "Refund",
+    "gui.metropolis.ticket_vendor_1.button.tickets": "Tickets",
+    "gui.metropolis.ticket_vendor_1.button.charge": "Charge",
+    "gui.metropolis.ticket_vendor_1.button.buy_commuter": "Buy commuter",
+    "gui.metropolis.ticket_vendor_1.button.buy_ic_card": "Buy an IC card",
+
+    "gui.metropolis.ticket_vendor_1.tips": "᛫ Use [Refund] button to return wrong tickets.\n᛫ Dovecot is a Dovecot?\n᛫ This GUI is based on the JR East EV23 TVM.\n᛫ You pull out the ticket, then walk thru. Actually it's not.\n᛫ There was a discussion about changing the Cordon Block to the Condor Block.",
+    "gui.metropolis.ticket_vendor_1.tips_0": "᛫ Use [Refund] button to return wrong tickets.",
+    "gui.metropolis.ticket_vendor_1.tips_1": "᛫ Dovecot is a Dovecot?",
+    "gui.metropolis.ticket_vendor_1.tips_2": "᛫ This GUI is based on the JR East EV23 TVM.",
+    "gui.metropolis.ticket_vendor_1.tips_3": "᛫ You pull out the ticket, then walk thru. Actually it's not.",
+    "gui.metropolis.ticket_vendor_1.tips_4": "᛫ There was a discussion about changing the Cordon Block to the Condor Block.",
+
+    "gui.metropolis.ticket_vendor_2.title": "Tickets",
+    "gui.metropolis.ticket_vendor_2.subtitle": "Single trip tickets",
+    "gui.metropolis.ticket_vendor_2.subtitle_2": "Values",
+    "gui.metropolis.ticket_vendor_2.custom_value_option": "Custom",
+
+    "gui.metropolis.ticket_vendor_3.title": "Tickets",
+    "gui.metropolis.ticket_vendor_3.continue": "Continue",
+
+    "gui.metropolis.ticket_vendor_4.title": "Charge",
+    "gui.metropolis.ticket_vendor_4.continue": "Continue",
+
+    "gui.metropolis.ticket_vendor_buy_ic.title": "Buy IC Card",
+    "gui.metropolis.ticket_vendor_buy_ic.continue": "Continue",
+
+    "gui.metropolis.ticket_vendor_warning.title": "Warning",
+    "gui.metropolis.ticket_vendor_warning.title_warning": "Warning",
+    "gui.metropolis.ticket_vendor_warning.warning_no_card": "Please insert your IC Card.",
+
+    "gui.metropolis.ticket_vendor_payment.title": "Payment",
+    "gui.metropolis.ticket_vendor_payment.subtitle": "Review payment",
+    "gui.metropolis.ticket_vendor_payment.continue_button": "Continue",
+    "gui.metropolis.ticket_vendor_payment.price": "Price: %s",
+    "gui.metropolis.ticket_vendor_payment.balance": "Balance: %s",
+
+    "gui.metropolis.ticket_vendor_payment.from_and_to": "  %s ⥋ %s",
+    "gui.metropolis.ticket_vendor_payment.ticket_value": "  Value: %s",
+    "gui.metropolis.ticket_vendor_payment.amount": "  Amount: %s",
+
+    "gui.metropolis.ticket_vendor_payment.single_trip.title": "Single trip",
+    "gui.metropolis.ticket_vendor_payment.single_trip.from_and_to": "  %s ⥋ %s",
+    "gui.metropolis.ticket_vendor_payment.single_trip.ticket_value": "  Value: %s",
+    "gui.metropolis.ticket_vendor_payment.single_trip.amount": "  Amount: %s",
+
+    "gui.metropolis.ticket_vendor_payment.ic_charge.title": "IC Card charge",
+    "gui.metropolis.ticket_vendor_payment.ic_charge.ticket_value": "  Value: %s",
+
+    "gui.metropolis.ticket_vendor_payment.buy_ic.title": "Buy IC Card",
+    "gui.metropolis.ticket_vendor_payment.buy_ic.ticket_value": "  Initial value: %s",
+
+    "gui.metropolis.fare_adj_main.title": "Fare adjustment",
+    "gui.metropolis.fare_adj_main.subtitle": "Insert ticket/IC Card to enable all functions",
+    "gui.metropolis.fare_adj_main.ic_charge_button_text": "Charge\nFor IC card",
+    "gui.metropolis.fare_adj_main.ticket_charge_button_text": "Fare adjustment\nFor tickets",
+    "gui.metropolis.fare_adj_main.no_ticket": "I don't have a ticket\nPay the fine",
+
+    "gui.metropolis.fare_adj_no_ticket.title": "Fare adjustment",
+    "gui.metropolis.fare_adj_no_ticket.subtitle": "No tickets",
+    "gui.metropolis.fare_adj_no_ticket.if_you_have_receipt": "If you have a\nboarding ticket:",
+    "gui.metropolis.fare_adj_no_ticket.insert_receipt": "Insert ticket to make fare adjustment",
+    "gui.metropolis.fare_adj_no_ticket.if_you_dont_have_receipt": "If you don't have a\nboarding ticket:",
+    "gui.metropolis.fare_adj_no_ticket.pay_fare": "You have to pay the maximum fare.",
+    "gui.metropolis.fare_adj_no_ticket.pay_button": "Pay fare",
+
+    "gui.metropolis.fare_adj_payment.title": "Fare adjustment",
+    "gui.metropolis.fare_adj_payment.subtitle": "Review Payment",
+    "gui.metropolis.fare_adj_payment.price": "Price: %s",
+    "gui.metropolis.fare_adj_payment.balance": "Balance: %s",
+    "gui.metropolis.fare_adj_payment.continue_button": "Continue",
+
+    "gui.metropolis.fare_adj_payment.single_trip.title": "Exit Ticket",
+    "gui.metropolis.fare_adj_payment.single_trip.ticket_value": "  Value: %s",
+    "gui.metropolis.fare_adj_payment.single_trip.amount": "  Amount: %s",
+
+    "gui.metropolis.bridge_creator.title": "Bridge Creator Configuration",
+    "gui.metropolis.bridge_creator.width": "Width: %s",
+
+    "tooltip.metropolis.ticket.from_and_to": "%s ⥋ %s",
+    "tooltip.metropolis.ticket.balance": "Balance: %s",
+    "tooltip.metropolis.ticket.entered_station": "Entered station: %s",
+    "tooltip.metropolis.card.balance": "Balance: %s/%s",
+    "tooltip.metropolis.infinity_balance": "Infinity Balance",
+
+    "info.metropolis.turnstile_type": "Turnstile type: %s",
+    "info.metropolis.unable_switch_turnstile_type": "Unable to switch turnstile type",
+    "info.metropolis.turnstile_error": "Turnstile error",
+    "info.metropolis.to_service_center": "Please go to the service center",
+    "info.metropolis.use_other_turnstile": "Please use other turnstile",
+    "info.metropolis.no_enough_balance": "No enough balance",
+    "info.metropolis.has_danger_item": "Dangerous items found in inventory",
+
+    "hud.title.pointed_station": "Pointed Station",
+
+    "misc.metropolis.cost": "$%s",
+    "misc.metropolis.turnstile_mode.enter": "Enter",
+    "misc.metropolis.turnstile_mode.exit": "Exit",
+
+    "item.metropolis.single_trip_ticket": "Single trip ticket",
+    "item.metropolis.single_trip_ticket_used": "Single trip ticket",
+    "tooltip.metropolis.single_trip_ticket_expired": "Expired",
+    "item.metropolis.card": "IC Card",
+    "item.metropolis.creative_card": "IC Card",
+    "item.metropolis.exit_ticket": "Exit Ticket",
+
+    "block.metropolis.cable": "Cable",
+
+    "block.metropolis.ticket_vendor_top": "Ticket vendor decoration",
+    "tooltip.metropolis.ticket_vendor_top": "§7Top panel",
+    "block.metropolis.ticket_vendor_panel": "Ticket vendor decoration",
+    "tooltip.metropolis.ticket_vendor_panel": "§7Decoration Panel",
+    "block.metropolis.ticket_vendor_em10": "Ticket vendor machine",
+    "tooltip.metropolis.ticket_vendor_em10": "§7JR East EM10",
+    "block.metropolis.ticket_vendor_ev23": "Ticket vendor machine",
+    "tooltip.metropolis.ticket_vendor_ev23": "§7JR East EV23",
+    "block.metropolis.fare_adj_ev23": "Fare adjustment machine",
+    "tooltip.metropolis.fare_adj_ev23": "§7JR East EV23",
+
+    "block.metropolis.ceiling_a": "Ceiling",
+    "block.metropolis.fluorescent_lamp": "Fluorescent lamp",
+
+    "block.metropolis.bumper": "Bumper",
+    "block.metropolis.turnstile.enter": "Turnstile (Enter)",
+    "block.metropolis.turnstile.exit": "Turnstile (Exit)",
+    "block.metropolis.turnstile_ic_only.enter": "Turnstile (IC only, Enter)",
+    "block.metropolis.turnstile_ic_only.exit": "Turnstile (IC only, Exit)",
+
+    "block.metropolis.camera_ceiling": "Security Camera",
+
+    "block.metropolis.sign_no_photo": "Sign (No photos)",
+
+    "block.metropolis.psd_jr_door_1": "Platform Fence Door",
+    "tooltip.metropolis.psd_jr_door_1": "Half Height",
+    "block.metropolis.psd_jr_door_2": "Platform Fence Door",
+    "tooltip.metropolis.psd_jr_door_2": "Half Height Windowed",
+    "block.metropolis.psd_jr_fence_1": "Platform Fence",
+    "tooltip.metropolis.psd_jr_fence_1": "Half Height",
+    "block.metropolis.psd_jr_fence_2": "Platform Fence Controller",
+    "tooltip.metropolis.psd_jr_fence_2": "[WIP] Half Height",
+
+    "block.metropolis.itv_monitor": "Platform ITV Monitor",
+
+    "block.metropolis.security_door": "Security door",
+    "block.metropolis.security_inspection_machine": "Security inspection machine",
+
+    "block.metropolis.concrete": "Concrete",
+
+    "block.metropolis.platform_a": "Platform",
+
+    "block.metropolis.tiles_white": "White tiles",
+    "block.metropolis.tiles_large_white": "Large white tiles",
+    "block.metropolis.tiles_small_white": "Small white tiles",
+    "block.metropolis.tiles_horizontal_white": "Horizontal white tiles",
+
+    "block.metropolis.tiles_gray": "Gray tiles",
+    "block.metropolis.tiles_large_gray": "Large gray tiles",
+    "block.metropolis.tiles_small_gray": "Small gray tiles",
+    "block.metropolis.tiles_horizontal_gray": "Horizontal gray tiles",
+
+    "block.metropolis.cordon_yellow_black": "Cordon block",
+    "tooltip.metropolis.cordon_yellow_black": "§7Yellow-black",
+    "block.metropolis.cordon_yellow_white": "Cordon block",
+    "tooltip.metropolis.cordon_yellow_white": "§7Yellow-white",
+    "block.metropolis.cordon_red_black": "Cordon block",
+    "tooltip.metropolis.cordon_red_black": "§7Red-black",
+    "block.metropolis.cordon_red_white": "Cordon block",
+    "tooltip.metropolis.cordon_red_white": "§7Red-white",
+
+    "block.metropolis.bench": "Bench",
+
+    "block.metropolis.awning_pillar": "Awning Pillar",
+    "block.metropolis.awning_pillar_emergency": "Awning Pillar (Emergency Button)",
+    "block.metropolis.awning_beam": "Awning Beam",
+    "block.metropolis.awning_roof": "Awning Roof"
+}

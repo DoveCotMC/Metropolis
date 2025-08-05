@@ -1,0 +1,6 @@
+{
+	"parent": "metropolis:block/tvmpanel_up",
+	"textures": {
+		"1": "metropolis:block/tvmpanel_up_em10"
+	}
+}

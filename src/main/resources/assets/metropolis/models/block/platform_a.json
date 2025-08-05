@@ -1,0 +1,7 @@
+{
+	"parent": "metropolis:base/platform",
+	"textures": {
+		"0": "metropolis:block/platform_a",
+		"particles": "metropolis:block/platform_a"
+	}
+}

@@ -1,0 +1,17 @@
+{
+    "itemGroup.metropolis.all": "Métropolis.",
+
+    "config.metropolis.client.enable_glowing_texture": "Leuchtende Texturen aktivieren",
+    "config.metropolis.client.enable_station_info_overlay": "Bahnhof Information Hud aktivieren",
+
+    "gui.metropolis.ticket_vendor.title": "Ticketautomat",
+    "gui.metropolis.ticket_vendor_1.title": "Ticketautomat",
+    "gui.metropolis.ticket_vendor_1.subtitle": "Bitte Funktion auswählen",
+    "gui.metropolis.ticket_vendor_1.button.buy_tickets": "Tickets",
+    "gui.metropolis.ticket_vendor_1.button.special": "Sonderpreis",
+    "gui.metropolis.ticket_vendor_1.button.refund": "Erstattung",
+    "gui.metropolis.ticket_vendor_1.button.tickets": "Tickets",
+    "gui.metropolis.ticket_vendor_1.button.charge": "Aufladen",
+    "gui.metropolis.ticket_vendor_1.button.buy_commuter": "Monatsticket",
+    "gui.metropolis.ticket_vendor_1.button.buy_ic_card": "IC Karte"
+}

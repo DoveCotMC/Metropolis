@@ -1,0 +1,84 @@
+{
+    "variants": {
+        "type=normal,facing=north": {
+            "model": "metropolis:block/platform_a",
+            "y": 180
+        },
+        "type=normal,facing=east": {
+            "model": "metropolis:block/platform_a",
+            "y": 270
+        },
+        "type=normal,facing=south": {
+            "model": "metropolis:block/platform_a",
+            "y": 0
+        },
+        "type=normal,facing=west": {
+            "model": "metropolis:block/platform_a",
+            "y": 90
+        },
+        "type=outer_corner_left,facing=north": {
+            "model": "metropolis:block/platform_outer_corner_a",
+            "y": 180
+        },
+        "type=outer_corner_left,facing=east": {
+            "model": "metropolis:block/platform_outer_corner_a",
+            "y": 270
+        },
+        "type=outer_corner_left,facing=south": {
+            "model": "metropolis:block/platform_outer_corner_a",
+            "y": 0
+        },
+        "type=outer_corner_left,facing=west": {
+            "model": "metropolis:block/platform_outer_corner_a",
+            "y": 90
+        },
+        "type=outer_corner_right,facing=north": {
+            "model": "metropolis:block/platform_outer_corner_a",
+            "y": 90
+        },
+        "type=outer_corner_right,facing=east": {
+            "model": "metropolis:block/platform_outer_corner_a",
+            "y": 180
+        },
+        "type=outer_corner_right,facing=south": {
+            "model": "metropolis:block/platform_outer_corner_a",
+            "y": 270
+        },
+        "type=outer_corner_right,facing=west": {
+            "model": "metropolis:block/platform_outer_corner_a",
+            "y": 0
+        },
+        "type=inner_corner_left,facing=north": {
+            "model": "metropolis:block/platform_inner_corner_a",
+            "y": 180
+        },
+        "type=inner_corner_left,facing=east": {
+            "model": "metropolis:block/platform_inner_corner_a",
+            "y": 270
+        },
+        "type=inner_corner_left,facing=south": {
+            "model": "metropolis:block/platform_inner_corner_a",
+            "y": 0
+        },
+        "type=inner_corner_left,facing=west": {
+            "model": "metropolis:block/platform_inner_corner_a",
+            "y": 90
+        },
+        "type=inner_corner_right,facing=north": {
+            "model": "metropolis:block/platform_inner_corner_a",
+            "y": 90
+        },
+        "type=inner_corner_right,facing=east": {
+            "model": "metropolis:block/platform_inner_corner_a",
+            "y": 180
+        },
+        "type=inner_corner_right,facing=south": {
+            "model": "metropolis:block/platform_inner_corner_a",
+            "y": 270
+        },
+        "type=inner_corner_right,facing=west": {
+            "model": "metropolis:block/platform_inner_corner_a",
+            "y": 0
+        }
+    }
+}

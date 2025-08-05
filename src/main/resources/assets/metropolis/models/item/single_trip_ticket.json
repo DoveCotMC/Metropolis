@@ -1,0 +1,6 @@
+{
+    "parent": "metropolis:item/ticket",
+    "textures": {
+        "layer0": "metropolis:item/single_ticket_yellow"
+    }
+}

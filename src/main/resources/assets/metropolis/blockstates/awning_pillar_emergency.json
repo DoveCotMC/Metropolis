@@ -1,0 +1,12 @@
+{
+    "variants": {
+        "axis=x": {
+            "model": "metropolis:block/awning/awning_pillar_emergency",
+            "y": 0
+        },
+        "axis=z": {
+            "model": "metropolis:block/awning/awning_pillar_emergency",
+            "y": 90
+        }
+    }
+}

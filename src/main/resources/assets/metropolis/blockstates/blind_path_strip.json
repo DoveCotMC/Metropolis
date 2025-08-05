@@ -1,0 +1,12 @@
+{
+    "variants": {
+        "axis=z": {
+            "model": "metropolis:block/blind_path_strip",
+            "y": 0
+        },
+        "axis=x": {
+            "model": "metropolis:block/blind_path_strip",
+            "y": 90
+        }
+    }
+}
