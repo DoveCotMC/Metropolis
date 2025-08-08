@@ -41,26 +41,26 @@ public abstract class MixinBlockOutlineRender {
 
     @Inject(at = @At("TAIL"), method = "renderHitOutline")
     public void renderTail(PoseStack matrices, VertexConsumer vertexConsumer, Entity entity, double cameraX, double cameraY, double cameraZ, BlockPos pos, BlockState state, CallbackInfo ci) {
-        if (!MetropolisClient.config.enableStationInfoOverlay) {
-            return;
-        }
-
-        if (MetropolisClient.BLOCK_PLACE_HUD.shouldRender && level != null) {
-            boolean outline = true;
-            if (state.getBlock() instanceof IBlockStationOverlayShouldRender config) {
-                outline = config.shouldRenderOutline();
-            }
-
-            if (outline) {
-                Station station = MtrStationUtil.getStationByPos(pos, level);
-                if (station != null) {
-                    float red = FastColor.ARGB32.red(station.color) / 255f;
-                    float green = FastColor.ARGB32.green(station.color) / 255f;
-                    float blue = FastColor.ARGB32.blue(station.color) / 255f;
-                    float alpha = (float) Math.abs((Math.sin((level.getGameTime() + Minecraft.getInstance().getFrameTime()) / 4f) / 2f));
-                    renderShape(matrices, vertexConsumer, state.getShape(level, pos, CollisionContext.of(entity)), (double)pos.getX() - cameraX, (double)pos.getY() - cameraY, (double)pos.getZ() - cameraZ, red, green, blue, alpha);
-                }
-            }
-        }
+//        if (!MetropolisClient.config.enableStationInfoOverlay) {
+//            return;
+//        }
+//
+//        if (MetropolisClient.BLOCK_PLACE_HUD.shouldRender && level != null) {
+//            boolean outline = true;
+//            if (state.getBlock() instanceof IBlockStationOverlayShouldRender config) {
+//                outline = config.shouldRenderOutline();
+//            }
+//
+//            if (outline) {
+//                Station station = MtrStationUtil.getStationByPos(pos, level);
+//                if (station != null) {
+//                    float red = FastColor.ARGB32.red(station.color) / 255f;
+//                    float green = FastColor.ARGB32.green(station.color) / 255f;
+//                    float blue = FastColor.ARGB32.blue(station.color) / 255f;
+//                    float alpha = (float) Math.abs((Math.sin((level.getGameTime() + Minecraft.getInstance().getFrameTime()) / 4f) / 2f));
+//                    renderShape(matrices, vertexConsumer, state.getShape(level, pos, CollisionContext.of(entity)), (double)pos.getX() - cameraX, (double)pos.getY() - cameraY, (double)pos.getZ() - cameraZ, red, green, blue, alpha);
+//                }
+//            }
+//        }
     }
 }

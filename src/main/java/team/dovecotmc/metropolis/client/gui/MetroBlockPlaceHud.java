@@ -3,13 +3,11 @@ package team.dovecotmc.metropolis.client.gui;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
-import mtr.Items;
-import mtr.data.Station;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
-import net.minecraft.client.gui.GuiComponent;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.Renderable;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.player.LocalPlayer;
@@ -60,10 +58,10 @@ public class MetroBlockPlaceHud {
         HitResult hitResult = client.hitResult;
         Font textRenderer = client.font;
 
-        if (player.isSpectator() || !(player.getItemInHand(InteractionHand.MAIN_HAND).getItem() instanceof IItemShowStationHUD) && player.getItemInHand(InteractionHand.MAIN_HAND).getItem() != Items.BRUSH.get()) {
-            shouldRender = false;
-            return;
-        }
+//        if (player.isSpectator() || !(player.getItemInHand(InteractionHand.MAIN_HAND).getItem() instanceof IItemShowStationHUD) && player.getItemInHand(InteractionHand.MAIN_HAND).getItem() != Items.BRUSH.get()) {
+//            shouldRender = false;
+//            return;
+//        }
 
         if (hitResult != null && hitResult.getType() == HitResult.Type.BLOCK) {
             Vec3 hitPos = hitResult.getLocation();
@@ -93,38 +91,38 @@ public class MetroBlockPlaceHud {
                 int y0 = centerY - 8 - textRenderer.lineHeight;
                 Component pointedStation = MALocalizationUtil.translatableText("hud.title.pointed_station");
                 int pointedStationWidth = textRenderer.width(pointedStation);
-                textRenderer.drawShadow(
-                        matrices,
-                        pointedStation,
-                        centerX - pointedStationWidth / 2f,
-                        y0,
-                        0xFFFFFF
-                );
+//                textRenderer.drawShadow(
+//                        matrices,
+//                        pointedStation,
+//                        centerX - pointedStationWidth / 2f,
+//                        y0,
+//                        0xFFFFFF
+//                );
 
                 y0 = centerY + 8;
 
                 String[] stationNames = station.getName().split("\\|");
                 Component stationFirstName = MALocalizationUtil.literalText(stationNames[0]);
                 int stationFirstNameWidth = textRenderer.width(stationFirstName);
-                textRenderer.drawShadow(
-                        matrices,
-                        stationFirstName,
-                        centerX - stationFirstNameWidth / 2f,
-                        y0,
-                        0xFFFFFF
-                );
+//                textRenderer.drawShadow(
+//                        matrices,
+//                        stationFirstName,
+//                        centerX - stationFirstNameWidth / 2f,
+//                        y0,
+//                        0xFFFFFF
+//                );
 
                 if (stationNames.length > 1) {
                     Component stationSecondName = MALocalizationUtil.literalText(stationNames[1]);
                     int stationSecondNameWidth = textRenderer.width(stationSecondName);
                     y0 += textRenderer.lineHeight + 2;
-                    textRenderer.(
-                            matrices,
-                            stationSecondName,
-                            centerX - stationSecondNameWidth / 2f,
-                            y0,
-                            0x545454
-                    );
+//                    textRenderer.drawShadow(
+//                            matrices,
+//                            stationSecondName,
+//                            centerX - stationSecondNameWidth / 2f,
+//                            y0,
+//                            0x545454
+//                    );
                 }
             }
 

@@ -2,6 +2,7 @@ package team.dovecotmc.metropolis.block;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Registry;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.Tag;
@@ -20,13 +21,14 @@ import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.HorizontalDirectionalBlock;
+import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
 import net.minecraft.world.level.block.state.properties.EnumProperty;
-import net.minecraft.world.level.material.Material;
+import net.minecraft.world.level.material.MapColor;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
@@ -48,7 +50,7 @@ public class BlockSecurityDoor extends HorizontalDirectionalBlock {
 //    public static final EnumProperty<Direction.Axis> AXIS;
 
     public BlockSecurityDoor() {
-        super(Properties.of(Material.METAL, DyeColor.LIGHT_GRAY).strength(6.0f).noOcclusion());
+        super(Properties.of().sound(SoundType.METAL).mapColor(MapColor.COLOR_LIGHT_GRAY).strength(6.0f).noOcclusion());
     }
 
     @Override
@@ -90,10 +92,10 @@ public class BlockSecurityDoor extends HorizontalDirectionalBlock {
                                 }
                             }
                         }
-                        if (Metropolis.config.dangerItems.contains(Registry.ITEM.getKey(stack.getItem()).toString())) {
-                            open = false;
-                            break;
-                        }
+//                        if (Metropolis.config.dangerItems.contains(Registries.ITEM.getKey(stack.getItem()).toString())) {
+//                            open = false;
+//                            break;
+//                        }
                     }
                     if (open) {
                         world.playSound(null, pos, MtrSoundUtil.TICKET_BARRIER_CONCESSIONARY, SoundSource.BLOCKS, 1f, 1f);

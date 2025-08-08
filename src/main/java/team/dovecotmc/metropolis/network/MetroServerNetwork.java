@@ -83,16 +83,14 @@ public class MetroServerNetwork {
                     }
                 }
 
-                Level world = player.getLevel();
-                if (world != null) {
-                    world.playSound(null, pos, SoundEvents.WOOL_PLACE, SoundSource.BLOCKS, 1f, 1f);
-                    if (world.getBlockEntity(pos) instanceof BlockEntityTicketVendor blockEntity) {
-                        blockEntity.setItem(0, stack);
-                        CompoundTag nbt = blockEntity.saveWithoutMetadata();
-                        nbt.putLong(BlockEntityTicketVendor.TICKET_ANIMATION_BEGIN_TIME, world.getGameTime());
-                        blockEntity.load(nbt);
-                        player.connection.send(blockEntity.getUpdatePacket());
-                    }
+                Level world = player.level();
+                world.playSound(null, pos, SoundEvents.WOOL_PLACE, SoundSource.BLOCKS, 1f, 1f);
+                if (world.getBlockEntity(pos) instanceof BlockEntityTicketVendor blockEntity) {
+                    blockEntity.setItem(0, stack);
+                    CompoundTag nbt = blockEntity.saveWithoutMetadata();
+                    nbt.putLong(BlockEntityTicketVendor.TICKET_ANIMATION_BEGIN_TIME, world.getGameTime());
+                    blockEntity.load(nbt);
+                    player.connection.send(blockEntity.getUpdatePacket());
                 }
             });
         });
@@ -115,17 +113,15 @@ public class MetroServerNetwork {
                     }
                 }
 
-                Level world = player.getLevel();
-                if (world != null) {
-                    world.playSound(null, pos, SoundEvents.WOOL_PLACE, SoundSource.BLOCKS, 1f, 1f);
-                    if (world.getBlockEntity(pos) instanceof BlockEntityTicketVendor blockEntity) {
-                        blockEntity.removeItemNoUpdate(1);
-                        CompoundTag nbt = blockEntity.saveWithoutMetadata();
-                        player.setItemInHand(InteractionHand.MAIN_HAND, stack);
-                        blockEntity.load(nbt);
-                        player.connection.send(blockEntity.getUpdatePacket());
-                        MetroServerNetwork.removeInventoryItem(1, pos, player);
-                    }
+                Level world = player.level();
+                world.playSound(null, pos, SoundEvents.WOOL_PLACE, SoundSource.BLOCKS, 1f, 1f);
+                if (world.getBlockEntity(pos) instanceof BlockEntityTicketVendor blockEntity) {
+                    blockEntity.removeItemNoUpdate(1);
+                    CompoundTag nbt = blockEntity.saveWithoutMetadata();
+                    player.setItemInHand(InteractionHand.MAIN_HAND, stack);
+                    blockEntity.load(nbt);
+                    player.connection.send(blockEntity.getUpdatePacket());
+                    MetroServerNetwork.removeInventoryItem(1, pos, player);
                 }
             });
         });
@@ -152,16 +148,14 @@ public class MetroServerNetwork {
                     }
                 }
                 
-                Level world = player.getLevel();
-                if (world != null) {
-                    world.playSound(null, pos, SoundEvents.WOOL_PLACE, SoundSource.BLOCKS, 1f, 1f);
-                    if (world.getBlockEntity(pos) instanceof BlockEntityFareAdj blockEntity) {
-                        blockEntity.setItem(0, stack);
-                        CompoundTag nbt = blockEntity.saveWithoutMetadata();
-                        nbt.putLong(BlockEntityTicketVendor.TICKET_ANIMATION_BEGIN_TIME, world.getGameTime());
-                        blockEntity.load(nbt);
-                        player.connection.send(blockEntity.getUpdatePacket());
-                    }
+                Level world = player.level();
+                world.playSound(null, pos, SoundEvents.WOOL_PLACE, SoundSource.BLOCKS, 1f, 1f);
+                if (world.getBlockEntity(pos) instanceof BlockEntityFareAdj blockEntity) {
+                    blockEntity.setItem(0, stack);
+                    CompoundTag nbt = blockEntity.saveWithoutMetadata();
+                    nbt.putLong(BlockEntityTicketVendor.TICKET_ANIMATION_BEGIN_TIME, world.getGameTime());
+                    blockEntity.load(nbt);
+                    player.connection.send(blockEntity.getUpdatePacket());
                 }
             });
         });

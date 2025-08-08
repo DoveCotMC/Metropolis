@@ -1,8 +1,11 @@
 package team.dovecotmc.metropolis;
 
 import net.fabricmc.api.ModInitializer;
-import net.fabricmc.fabric.api.client.itemgroup.FabricItemGroupBuilder;
 import net.fabricmc.fabric.api.event.player.UseBlockCallback;
+import net.fabricmc.fabric.impl.itemgroup.FabricItemGroup;
+import net.fabricmc.fabric.impl.itemgroup.FabricItemGroupBuilderImpl;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.contents.TranslatableContents;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.item.CreativeModeTab;
@@ -30,7 +33,7 @@ import java.util.Optional;
 public class Metropolis implements ModInitializer {
     public static final String MOD_ID = "metropolis";
     public static final Logger LOGGER = LogManager.getLogger("Metropolis");
-    public static final CreativeModeTab ITEM_GROUP = FabricItemGroupBuilder.create(new ResourceLocation(MOD_ID, "all"))
+    public static final CreativeModeTab ITEM_GROUP = new FabricItemGroupBuilderImpl().title(Component.translatable("itemGroup.metropolis.all"))
             .icon(() -> new ItemStack(MetroItems.ITEM_ITV_MONITOR))
             .build();
     public static final MetroConfig config = MetroConfig.load();
