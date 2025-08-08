@@ -16,7 +16,6 @@ import net.minecraft.world.level.block.HorizontalDirectionalBlock;
 import net.minecraft.world.level.block.RenderShape;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
-import net.minecraft.world.level.material.Material;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
@@ -37,7 +36,7 @@ public class BlockTicketVendorTop extends HorizontalDirectionalBlock {
     public final int id;
 
     public BlockTicketVendorTop() {
-        super(Properties.of(Material.METAL).strength(6.0f).noOcclusion().lightLevel(value -> 0));
+        super(Properties.of().strength(6.0f).noOcclusion().lightLevel(value -> 0));
 
         this.id = TYPES.size();
         TYPES.put(id, this);

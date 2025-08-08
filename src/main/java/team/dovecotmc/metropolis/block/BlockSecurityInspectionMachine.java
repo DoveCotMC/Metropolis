@@ -30,7 +30,6 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.EnumProperty;
-import net.minecraft.world.level.material.Material;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
@@ -53,7 +52,7 @@ public class BlockSecurityInspectionMachine extends HorizontalDirectionalBlock i
     public static final EnumProperty<EnumBlockSecurityInspectionMachinePart> PART = EnumProperty.create("part", EnumBlockSecurityInspectionMachinePart.class);
 
     public BlockSecurityInspectionMachine() {
-        super(Properties.of(Material.METAL, DyeColor.LIGHT_GRAY).strength(6.0f));
+        super(Properties.of().mapColor(DyeColor.LIGHT_GRAY).strength(6.0f));
     }
 
     @Override

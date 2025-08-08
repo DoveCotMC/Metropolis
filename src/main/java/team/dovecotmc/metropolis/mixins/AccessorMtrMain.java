@@ -8,8 +8,8 @@ import org.spongepowered.asm.mixin.gen.Accessor;
 
 @Mixin(Main.class)
 public interface AccessorMtrMain {
-    @Accessor
-    static ObjectImmutableList<Simulator> getSimulators() {
-        throw new AssertionError();
-    }
+//    @Accessor
+//    static ObjectImmutableList<Simulator> getSimulators() {
+//        throw new AssertionError();
+//    }
 }

@@ -1,7 +1,6 @@
 package team.dovecotmc.metropolis.block;
 
 import net.minecraft.world.level.block.HorizontalDirectionalBlock;
-import net.minecraft.world.level.material.Material;
 
 /**
  * @author Arrokoth
@@ -10,6 +9,6 @@ import net.minecraft.world.level.material.Material;
  */
 public class BlockMetroPIDSOne extends HorizontalDirectionalBlock {
     public BlockMetroPIDSOne() {
-        super(Properties.of(Material.METAL).noOcclusion());
+        super(Properties.of().noOcclusion());
     }
 }

@@ -21,13 +21,12 @@ import net.minecraft.world.level.block.RenderShape;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
-import net.minecraft.world.level.material.Material;
+import net.minecraft.world.level.material.MapColor;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.Nullable;
 import team.dovecotmc.metropolis.block.entity.BlockEntityFareAdj;
-import team.dovecotmc.metropolis.block.entity.BlockEntityTicketVendor;
 import team.dovecotmc.metropolis.block.entity.MetroBlockEntities;
 import team.dovecotmc.metropolis.item.MetroItems;
 import team.dovecotmc.metropolis.network.MetroServerNetwork;
@@ -46,7 +45,7 @@ public class BlockFareAdjMachine extends HorizontalDirectionalBlock implements E
     }
 
     public BlockFareAdjMachine(Block defaultUpper) {
-        super(Properties.of(Material.METAL).strength(6.0f).noOcclusion().lightLevel(value -> 0));
+        super(Properties.of().mapColor(MapColor.COLOR_LIGHT_GRAY).strength(6.0f).noOcclusion().lightLevel(value -> 0));
         this.defaultUpper = defaultUpper;
     }
 

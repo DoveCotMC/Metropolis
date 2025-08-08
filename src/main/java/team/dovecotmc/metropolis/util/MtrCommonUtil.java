@@ -11,8 +11,8 @@ import net.minecraft.world.item.Item;
 public class MtrCommonUtil {
     public static Item getBrushItem() {
         // MTR4
-        return org.mtr.mod.Items.BRUSH.get().data;
+        return org.mtr.mod.MtrCommonUtil.getBrushItem().data;
         // MTR3
-//        return mtr.Items.BRUSH.get();
+//        return mtr.MtrCommonUtil.getBrushItem();
     }
 }

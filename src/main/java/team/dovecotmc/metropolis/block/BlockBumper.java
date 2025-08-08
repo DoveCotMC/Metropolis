@@ -18,8 +18,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
-import net.minecraft.world.level.material.Material;
-import net.minecraft.world.level.material.MaterialColor;
+import net.minecraft.world.level.material.MapColor;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
@@ -40,7 +39,7 @@ public class BlockBumper extends BaseEntityBlock {
     }
 
     public BlockBumper() {
-        super(FabricBlockSettings.of(Material.METAL, MaterialColor.COLOR_YELLOW).strength(6.0f).noOcclusion());
+        super(FabricBlockSettings.of().mapColor(MapColor.COLOR_YELLOW).strength(6.0f).noOcclusion());
         this.registerDefaultState(this.stateDefinition.any().setValue(ROTATION, 0));
     }
 

@@ -1,8 +1,6 @@
 package team.dovecotmc.metropolis.client.block.entity;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.math.Quaternion;
-import com.mojang.math.Vector3f;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.MultiBufferSource;
@@ -25,36 +23,36 @@ public class BlockEntityRendererPSDSmallDoorSemiAuto implements BlockEntityRende
 
     @Override
     public void render(BlockEntityPSDSmallDoorSemiAuto entity, float tickDelta, PoseStack matrices, MultiBufferSource vertexConsumers, int light, int overlay) {
-        Minecraft mc = Minecraft.getInstance();
-        Level world = entity.getLevel();
-
-        matrices.pushPose();
-        if (world != null) {
-            BlockState block = entity.getBlockState();
-            Direction facing = block.getValue(HorizontalDirectionalBlock.FACING);
-
-            matrices.scale(1f / 16f, 1f / 16f, 1f / 16f);
-            matrices.translate(8f, 8f, 8f);
-            matrices.mulPose(Quaternion.fromXYZDegrees(new Vector3f(0, -facing.toYRot() - 180, 0)));
-            matrices.translate(-8f, -8f, -8f);
-            matrices.scale(16f, 16f, 16f);
-
-            BlockState state = entity.getBlockState();
-
-            double animTime = easeInOutSine(Math.min(DURATION, (world.getGameTime() - entity.animationStartTime) + tickDelta) / (double) DURATION);
-            int direction = state.getValue(BlockPSDSmallDoorSemiAuto.FLIPPED) ? -1 : 1;
-
-            if (state.getValue(BlockPSDSmallDoorSemiAuto.OPEN)) {
-                matrices.translate(animTime * (14.5f / 16f) * direction, 0f, 0f);
-            } else {
-                matrices.translate((1 - animTime) * (14.5f / 16f) * direction, 0f, 0f);
-            }
-
-            BakedModel model = mc.getBlockRenderer().getBlockModel(state);
-
-            mc.getBlockRenderer().getModelRenderer().tesselateWithAO(entity.getLevel(), model, state, entity.getBlockPos(), matrices, vertexConsumers.getBuffer(ItemBlockRenderTypes.getChunkRenderType(state)), false, entity.getLevel().getRandom(), 0, overlay);
-        }
-        matrices.popPose();
+//        Minecraft mc = Minecraft.getInstance();
+//        Level world = entity.getLevel();
+//
+//        matrices.pushPose();
+//        if (world != null) {
+//            BlockState block = entity.getBlockState();
+//            Direction facing = block.getValue(HorizontalDirectionalBlock.FACING);
+//
+//            matrices.scale(1f / 16f, 1f / 16f, 1f / 16f);
+//            matrices.translate(8f, 8f, 8f);
+//            matrices.mulPose(Quaternion.fromXYZDegrees(new Vector3f(0, -facing.toYRot() - 180, 0)));
+//            matrices.translate(-8f, -8f, -8f);
+//            matrices.scale(16f, 16f, 16f);
+//
+//            BlockState state = entity.getBlockState();
+//
+//            double animTime = easeInOutSine(Math.min(DURATION, (world.getGameTime() - entity.animationStartTime) + tickDelta) / (double) DURATION);
+//            int direction = state.getValue(BlockPSDSmallDoorSemiAuto.FLIPPED) ? -1 : 1;
+//
+//            if (state.getValue(BlockPSDSmallDoorSemiAuto.OPEN)) {
+//                matrices.translate(animTime * (14.5f / 16f) * direction, 0f, 0f);
+//            } else {
+//                matrices.translate((1 - animTime) * (14.5f / 16f) * direction, 0f, 0f);
+//            }
+//
+//            BakedModel model = mc.getBlockRenderer().getBlockModel(state);
+//
+//            mc.getBlockRenderer().getModelRenderer().tesselateWithAO(entity.getLevel(), model, state, entity.getBlockPos(), matrices, vertexConsumers.getBuffer(ItemBlockRenderTypes.getChunkRenderType(state)), false, entity.getLevel().getRandom(), 0, overlay);
+//        }
+//        matrices.popPose();
     }
 
     // https://easings.net/#easeInOutQuad

@@ -1,8 +1,5 @@
 package team.dovecotmc.metropolis.block;
 
-import mtr.block.BlockPlatform;
-import mtr.block.BlockTrainAnnouncer;
-import mtr.block.BlockTrainScheduleSensor;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
@@ -10,6 +7,7 @@ import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
+import org.mtr.mod.block.BlockPlatform;
 import team.dovecotmc.metropolis.block.interfaces.IBlockPlatform;
 import team.dovecotmc.metropolis.util.MetroBlockUtil;
 

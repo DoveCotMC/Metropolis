@@ -58,7 +58,7 @@ public class MetroBlockPlaceHud {
         HitResult hitResult = client.hitResult;
         Font textRenderer = client.font;
 
-//        if (player.isSpectator() || !(player.getItemInHand(InteractionHand.MAIN_HAND).getItem() instanceof IItemShowStationHUD) && player.getItemInHand(InteractionHand.MAIN_HAND).getItem() != Items.BRUSH.get()) {
+//        if (player.isSpectator() || !(player.getItemInHand(InteractionHand.MAIN_HAND).getItem() instanceof IItemShowStationHUD) && player.getItemInHand(InteractionHand.MAIN_HAND).getItem() != MtrCommonUtil.getBrushItem()) {
 //            shouldRender = false;
 //            return;
 //        }

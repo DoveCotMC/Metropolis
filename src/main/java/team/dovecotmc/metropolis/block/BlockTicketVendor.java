@@ -24,7 +24,6 @@ import net.minecraft.world.level.block.RenderShape;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
-import net.minecraft.world.level.material.Material;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
@@ -50,7 +49,7 @@ public class BlockTicketVendor extends HorizontalDirectionalBlock implements Ent
     }
 
     public BlockTicketVendor(boolean isFunctional, Block defaultUpper) {
-        super(Properties.of(Material.METAL).strength(6.0f).noOcclusion().lightLevel(value -> 0));
+        super(Properties.of().strength(6.0f).noOcclusion().lightLevel(value -> 0));
         this.isFunctional = isFunctional;
         this.defaultUpper = defaultUpper;
     }
