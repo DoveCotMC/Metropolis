@@ -10,6 +10,7 @@ import net.fabricmc.api.Environment;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiComponent;
+import net.minecraft.client.gui.components.Renderable;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.core.BlockPos;
@@ -17,6 +18,8 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.util.FastColor;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.phys.HitResult;
+import net.minecraft.world.phys.Vec3;
+import org.mtr.core.data.Station;
 import team.dovecotmc.metropolis.abstractinterface.util.MALocalizationUtil;
 import team.dovecotmc.metropolis.client.MetropolisClient;
 import team.dovecotmc.metropolis.item.IItemShowStationHUD;
@@ -29,7 +32,7 @@ import team.dovecotmc.metropolis.util.MtrStationUtil;
  */
 @SuppressWarnings("unused")
 @Environment(EnvType.CLIENT)
-public class MetroBlockPlaceHud extends GuiComponent {
+public class MetroBlockPlaceHud {
     public boolean shouldRender = false;
     public PoseStack matricesWorld;
     public VertexConsumer vertexConsumerWorld;
@@ -62,8 +65,9 @@ public class MetroBlockPlaceHud extends GuiComponent {
             return;
         }
 
-        if (hitResult != null && textRenderer != null && hitResult.getType() == net.minecraft.world.phys.HitResult.Type.BLOCK) {
-            BlockPos pos = new BlockPos(hitResult.getLocation());
+        if (hitResult != null && hitResult.getType() == HitResult.Type.BLOCK) {
+            Vec3 hitPos = hitResult.getLocation();
+            BlockPos pos = new BlockPos((int) hitPos.x(), (int) hitPos.y(), (int) hitPos.z());
             int width = client.getWindow().getGuiScaledWidth();
             int height = client.getWindow().getGuiScaledHeight();
             int centerX = width / 2;
@@ -81,9 +85,9 @@ public class MetroBlockPlaceHud extends GuiComponent {
             boolean shouldRenderName = shouldRender;
 
             if (shouldRenderName) {
-                int r = FastColor.ARGB32.red(station.color);
-                int g = FastColor.ARGB32.green(station.color);
-                int b = FastColor.ARGB32.blue(station.color);
+                int r = FastColor.ARGB32.red(station.getColor());
+                int g = FastColor.ARGB32.green(station.getColor());
+                int b = FastColor.ARGB32.blue(station.getColor());
                 RenderSystem.setShaderColor(r / 255f, g / 255f, b / 255f, 1);
 
                 int y0 = centerY - 8 - textRenderer.lineHeight;
@@ -99,7 +103,7 @@ public class MetroBlockPlaceHud extends GuiComponent {
 
                 y0 = centerY + 8;
 
-                String[] stationNames = station.name.split("\\|");
+                String[] stationNames = station.getName().split("\\|");
                 Component stationFirstName = MALocalizationUtil.literalText(stationNames[0]);
                 int stationFirstNameWidth = textRenderer.width(stationFirstName);
                 textRenderer.drawShadow(
@@ -114,7 +118,7 @@ public class MetroBlockPlaceHud extends GuiComponent {
                     Component stationSecondName = MALocalizationUtil.literalText(stationNames[1]);
                     int stationSecondNameWidth = textRenderer.width(stationSecondName);
                     y0 += textRenderer.lineHeight + 2;
-                    textRenderer.drawShadow(
+                    textRenderer.(
                             matrices,
                             stationSecondName,
                             centerX - stationSecondNameWidth / 2f,
