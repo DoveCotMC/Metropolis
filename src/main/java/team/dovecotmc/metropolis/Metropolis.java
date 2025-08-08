@@ -30,6 +30,7 @@ import java.util.Optional;
  * @project Metropolis
  * @copyright Copyright © 2023 Arrokoth All Rights Reserved.
  */
+// I wanna rewrite this mod...
 public class Metropolis implements ModInitializer {
     public static final String MOD_ID = "metropolis";
     public static final Logger LOGGER = LogManager.getLogger("Metropolis");
