@@ -1,6 +1,7 @@
 package team.dovecotmc.metropolis.util;
 
 import net.minecraft.world.item.Item;
+import org.mtr.mod.Items;
 
 
 /**
@@ -10,9 +11,6 @@ import net.minecraft.world.item.Item;
  */
 public class MtrCommonUtil {
     public static Item getBrushItem() {
-        // MTR4
-        return org.mtr.mod.MtrCommonUtil.getBrushItem().data;
-        // MTR3
-//        return mtr.MtrCommonUtil.getBrushItem();
+        return Items.BRUSH.get().data;
     }
 }

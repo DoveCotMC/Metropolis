@@ -53,11 +53,4 @@ public class ItemTurnstile extends BlockItem implements IItemShowStationHUD {
     public String getDescriptionId() {
         return super.getDescriptionId() + "." + this.type.name().toLowerCase();
     }
-
-    @Override
-    public void fillItemCategory(CreativeModeTab group, NonNullList<ItemStack> stacks) {
-        if (this.allowedIn(group)) {
-            stacks.add(new ItemStack(this));
-        }
-    }
 }

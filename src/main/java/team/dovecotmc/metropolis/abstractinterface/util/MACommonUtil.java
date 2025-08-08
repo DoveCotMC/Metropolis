@@ -1,6 +1,7 @@
 package team.dovecotmc.metropolis.abstractinterface.util;
 
 import net.minecraft.core.Registry;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
 import net.minecraft.resources.ResourceLocation;
@@ -17,7 +18,7 @@ public class MACommonUtil {
     }
 
     public static Component getTooltip(Item item, Style style) {
-        ResourceLocation id = Registry.ITEM.getKey(item);
+        ResourceLocation id = BuiltInRegistries.ITEM.getKey(item);
         return MALocalizationUtil.translatableText("tooltip." + id.getNamespace() + "." + id.getPath()).setStyle(style);
     }
 }

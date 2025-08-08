@@ -2,8 +2,11 @@ package team.dovecotmc.metropolis;
 
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.event.player.UseBlockCallback;
+import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.fabricmc.fabric.impl.itemgroup.FabricItemGroup;
 import net.fabricmc.fabric.impl.itemgroup.FabricItemGroupBuilderImpl;
+import net.minecraft.core.Registry;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.contents.TranslatableContents;
 import net.minecraft.resources.ResourceLocation;
@@ -36,6 +39,12 @@ public class Metropolis implements ModInitializer {
     public static final Logger LOGGER = LogManager.getLogger("Metropolis");
     public static final CreativeModeTab ITEM_GROUP = new FabricItemGroupBuilderImpl().title(Component.translatable("itemGroup.metropolis.all"))
             .icon(() -> new ItemStack(MetroItems.ITEM_ITV_MONITOR))
+            .displayItems((itemDisplayParameters, output) -> {
+//                output.acceptAll(MetroItems.ITEMS);
+                for (ItemStack stack : MetroItems.ITEMS) {
+                    output.accept(stack);
+                }
+            })
             .build();
     public static final MetroConfig config = MetroConfig.load();
 
@@ -50,6 +59,11 @@ public class Metropolis implements ModInitializer {
 //        MetroEnumUtil.addRailtype("rail_5", 5, MapColor.BLUE, false, true, true, RailType.RailSlopeStyle.CURVE);
 
         // TODO: Ask Haruka: Japanese localization!!!
+
+        // Item group
+        Registry.register(BuiltInRegistries.CREATIVE_MODE_TAB, new ResourceLocation(MOD_ID, "item_group"), ITEM_GROUP);
+//        ItemGroupEvents.modifyEntriesEvent(ITEM_GROUP).register(entries -> {
+//        });
 
         UseBlockCallback.EVENT.register(
                 (player, world, hand, hitResult) -> !player.isShiftKeyDown() && EntitySittable.trySit(world, hitResult.getBlockPos(), world.getBlockState(hitResult.getBlockPos()), hitResult, player) ?

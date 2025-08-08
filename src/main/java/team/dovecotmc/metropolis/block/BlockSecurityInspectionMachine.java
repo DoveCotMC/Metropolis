@@ -3,6 +3,7 @@ package team.dovecotmc.metropolis.block;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Registry;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.Tag;
@@ -112,7 +113,7 @@ public class BlockSecurityInspectionMachine extends HorizontalDirectionalBlock i
                     }
                 }
 
-                if (Metropolis.config.dangerItems.contains(Registry.ITEM.getKey(entity.getItem(0).getItem()).toString())) {
+                if (Metropolis.config.dangerItems.contains(BuiltInRegistries.ITEM.getKey(entity.getItem(0).getItem()).toString())) {
                     danger = true;
                 }
 
