@@ -349,7 +349,7 @@ public class TicketVendorScreenBuyIC extends Screen {
         );
         matrices.popPose();
 
-        matrices.popPose();
+//        matrices.popPose();
 
         RenderSystem.disableBlend();
 
