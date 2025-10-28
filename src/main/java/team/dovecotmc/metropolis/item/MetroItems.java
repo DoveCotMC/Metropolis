@@ -5,9 +5,13 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.level.ItemLike;
 import team.dovecotmc.metropolis.Metropolis;
 import team.dovecotmc.metropolis.block.MetroBlocks;
 import team.dovecotmc.metropolis.block.entity.BlockEntityTurnstile;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author Arrokoth
@@ -16,6 +20,8 @@ import team.dovecotmc.metropolis.block.entity.BlockEntityTurnstile;
  */
 @SuppressWarnings("unused")
 public class MetroItems {
+    private static final List<ItemLike> ITEMS = new ArrayList<>();
+
     public static final Item ITEM_CABLE = register("cable", new BlockItem(MetroBlocks.BLOCK_CABLE, new Item.Properties()));
     // TODO: Tunnel light
 //    public static final Item ITEM_TUNNEL_LIGHT_A = register("tunnel_light_a", new BlockItem(MetroBlocks.BLOCK_TUNNEL_LIGHT_A, new Item.Settings().group(Metropolis.ITEM_GROUP)));
@@ -108,7 +114,12 @@ public class MetroItems {
 //    public static final Item ITEM_BRIDGE_CREATOR = register("bridge_creator", new ItemDynamicBridgeCreator());
 
     public static Item register(String id, Item item) {
+        ITEMS.add(item);
         return Registry.register(BuiltInRegistries.ITEM, new ResourceLocation(Metropolis.MOD_ID, id), item);
+    }
+
+    public static List<ItemLike> getItems() {
+        return ITEMS;
     }
 
     public static void initialize() {
