@@ -5,13 +5,9 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
 import team.dovecotmc.metropolis.Metropolis;
 import team.dovecotmc.metropolis.block.MetroBlocks;
 import team.dovecotmc.metropolis.block.entity.BlockEntityTurnstile;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * @author Arrokoth
@@ -111,15 +107,8 @@ public class MetroItems {
     // TODO: Bridge creator
 //    public static final Item ITEM_BRIDGE_CREATOR = register("bridge_creator", new ItemDynamicBridgeCreator());
 
-    public static List<ItemStack> ITEMS;
-
     public static Item register(String id, Item item) {
-        if (ITEMS == null) {
-            ITEMS = new ArrayList<>();
-        }
-        Item result = Registry.register(BuiltInRegistries.ITEM, new ResourceLocation(Metropolis.MOD_ID, id), item);
-        ITEMS.add(result.getDefaultInstance());
-        return result;
+        return Registry.register(BuiltInRegistries.ITEM, new ResourceLocation(Metropolis.MOD_ID, id), item);
     }
 
     public static void initialize() {

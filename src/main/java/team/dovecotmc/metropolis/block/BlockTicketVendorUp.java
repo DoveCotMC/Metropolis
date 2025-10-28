@@ -1,5 +1,6 @@
 package team.dovecotmc.metropolis.block;
 
+import mtr.Items;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.sounds.SoundEvents;
@@ -17,11 +18,11 @@ import net.minecraft.world.level.block.HorizontalDirectionalBlock;
 import net.minecraft.world.level.block.RenderShape;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.material.MapColor;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import team.dovecotmc.metropolis.util.MetroBlockUtil;
-import team.dovecotmc.metropolis.util.MtrCommonUtil;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -37,7 +38,11 @@ public class BlockTicketVendorUp extends HorizontalDirectionalBlock {
     public final int id;
 
     public BlockTicketVendorUp() {
-        super(Properties.of().strength(6.0f).noOcclusion().lightLevel(value -> 0));
+        super(Properties.of()
+                .mapColor(MapColor.METAL)
+                .strength(6.0f)
+                .noOcclusion()
+                .lightLevel(state -> 0));
 
         this.id = TYPES.size();
         TYPES.put(id, this);
@@ -53,7 +58,7 @@ public class BlockTicketVendorUp extends HorizontalDirectionalBlock {
             return InteractionResult.PASS;
         }
 
-        if (player.getItemInHand(hand).getItem().equals(MtrCommonUtil.getBrushItem())) {
+        if (player.getItemInHand(hand).getItem().equals(Items.BRUSH.get())) {
             int id = ((BlockTicketVendorUp) state.getBlock()).id;
             world.setBlockAndUpdate(pos, TYPES.get((id + 1) % (TYPES.size())).defaultBlockState().setValue(FACING, state.getValue(FACING)));
             world.playSound(null, pos, SoundEvents.COPPER_BREAK, SoundSource.BLOCKS, 1f, 1f);

@@ -8,10 +8,11 @@
         "Arrokoth233",
         "Radekemia",
         "HQIDK",
-        "ShirahaneExpress"
+        "ShirahaneExpress",
+        "Yomi_307"
     ],
     "contact": {
-        "repo": "https://github.com/DoveCotMC/Metropolis"
+        "repo": "https://github.com/yomi-china/Metropolis-1.20.1-fabric"
     },
     "license": "MIT License",
     "icon": "assets/metropolis/metropolis.png",
@@ -37,6 +38,6 @@
         "fabricloader": ">=${loader_version}",
         "fabric": "*",
         "minecraft": "${minecraft_version}",
-        "mtr": ">=1.21.0-4.0.0"
+        "mtr": ">=1.20-3.2.2"
     }
 }

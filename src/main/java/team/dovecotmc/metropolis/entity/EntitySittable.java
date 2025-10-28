@@ -7,15 +7,10 @@ import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.protocol.Packet;
+import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.network.protocol.game.ClientboundAddEntityPacket;
 import net.minecraft.util.Mth;
-import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.EntityDimensions;
-import net.minecraft.world.entity.EntitySelector;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.HumanoidArm;
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.Pose;
+import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.vehicle.DismountHelper;
 import net.minecraft.world.level.Level;
@@ -50,10 +45,10 @@ public class EntitySittable extends Entity {
     }
 
     @Override
-    protected void positionRider(Entity passenger, MoveFunction moveFunction) {
+    protected void positionRider(Entity passenger, Entity.MoveFunction moveFunction) {
         if (this.hasPassenger(passenger)) {
             double d = this.getY() + this.getPassengersRidingOffset() + passenger.getMyRidingOffset();
-            passenger.setPosRaw(this.getX(), d + passenger.getEyeHeight(Pose.CROUCHING), this.getZ());
+            moveFunction.accept(passenger, this.getX(), d + passenger.getEyeHeight(Pose.CROUCHING), this.getZ());
         }
     }
 
@@ -221,12 +216,17 @@ public class EntitySittable extends Entity {
 
     private static final List<Pose> availablePoses = ImmutableList.of(Pose.STANDING, Pose.CROUCHING);
 
+    @Override
+    public Packet<ClientGamePacketListener> getAddEntityPacket() {
+        return new ClientboundAddEntityPacket(this);
+    }
+
     public static boolean isSeatValid(Level world, BlockPos pos) {
         return !world.getBlockState(pos).isAir();
     }
 
     public static boolean isSeatValid(Level world, Vec3 vec) {
-        return isSeatValid(world, new BlockPos((int) Math.floor(vec.x), (int) Math.floor(vec.y - .03), (int) Math.floor(vec.z)));
+        return isSeatValid(world, BlockPos.containing(vec.x, vec.y - .03, vec.z));
     }
 
     public static boolean isPoseValid(Pose pose) {

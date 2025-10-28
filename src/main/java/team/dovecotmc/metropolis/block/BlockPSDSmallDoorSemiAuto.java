@@ -1,5 +1,6 @@
 package team.dovecotmc.metropolis.block;
 
+import mtr.block.BlockPlatform;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
@@ -22,7 +23,6 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.Nullable;
-import org.mtr.mod.block.BlockPlatform;
 import team.dovecotmc.metropolis.block.entity.BlockEntityPSDSmallDoorSemiAuto;
 import team.dovecotmc.metropolis.block.interfaces.IBlockPlatform;
 import team.dovecotmc.metropolis.block.interfaces.IBlockPlatformDoor;

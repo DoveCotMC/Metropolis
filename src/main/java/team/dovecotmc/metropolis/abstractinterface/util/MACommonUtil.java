@@ -1,6 +1,5 @@
 package team.dovecotmc.metropolis.abstractinterface.util;
 
-import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;

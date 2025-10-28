@@ -1,6 +1,5 @@
 package team.dovecotmc.metropolis.block;
 
-import com.google.common.collect.ImmutableMap;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.util.StringRepresentable;
@@ -19,7 +18,6 @@ import org.jetbrains.annotations.NotNull;
 import team.dovecotmc.metropolis.util.MetroBlockUtil;
 
 import java.util.Objects;
-import java.util.function.Function;
 
 public class BlockAwningRoof extends BlockHorizontalAxis {
     public static final EnumProperty<Type> TYPE = EnumProperty.create("type", Type.class);

@@ -1,17 +1,15 @@
 package team.dovecotmc.metropolis.item;
 
-import org.jetbrains.annotations.Nullable;
-import team.dovecotmc.metropolis.abstractinterface.util.MACommonUtil;
-import team.dovecotmc.metropolis.abstractinterface.util.MALocalizationUtil;
-
-import java.util.List;
-import net.minecraft.core.Registry;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
+import org.jetbrains.annotations.Nullable;
+import team.dovecotmc.metropolis.abstractinterface.util.MACommonUtil;
+
+import java.util.List;
 
 /**
  * @author Arrokoth

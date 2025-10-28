@@ -34,7 +34,10 @@ dependencies {
     modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
 
     // Minecraft Transit Railway
-    modImplementation "maven.modrinth:minecraft-transit-railway:FABRIC-4.0.0+1.20.1"
+    modImplementation "maven.modrinth:minecraft-transit-railway:FABRIC-1.20-3.2.2-hotfix-1"
+
+    // NTE
+    modImplementation "maven.modrinth:mtr-nte:0.5.1+1.20.1"
 
     // Mod menu
     modImplementation "maven.modrinth:modmenu:7.2.2"

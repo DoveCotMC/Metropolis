@@ -1,5 +1,6 @@
 package team.dovecotmc.metropolis.block;
 
+import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.level.BlockGetter;
@@ -20,7 +21,12 @@ import team.dovecotmc.metropolis.util.MetroBlockUtil;
 @SuppressWarnings("deprecation")
 public class BlockFluorescentLamp extends BlockHorizontalAxis {
     public BlockFluorescentLamp() {
-        super(Properties.of().mapColor(MapColor.COLOR_LIGHT_GRAY).strength(4.0f).noOcclusion().lightLevel(value -> 15));
+        super(FabricBlockSettings.create()
+                .mapColor(MapColor.COLOR_YELLOW)
+                .strength(4.0f)
+                .noOcclusion()
+                .lightLevel(value -> 15)
+        );
     }
 
     @Override
