@@ -74,6 +74,7 @@ public class MetroItems {
 
     // Platform
     public static final Item ITEM_PLATFORM_A = register("platform_a", new BlockItem(MetroBlocks.BLOCK_PLATFORM_A, new Item.Properties()));
+    public static final Item ITEM_PLATFORM_A_SLIM = register("platform_a_slim", new BlockItem(MetroBlocks.BLOCK_PLATFORM_A_SLIM, new Item.Properties()));
 
     // Tiles
     // White

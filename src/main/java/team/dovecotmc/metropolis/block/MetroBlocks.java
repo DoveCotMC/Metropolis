@@ -86,7 +86,8 @@ public class MetroBlocks {
     public static final Block BLOCK_CONCRETE = register("concrete", new Block(BlockBehaviour.Properties.of().mapColor(DyeColor.LIGHT_GRAY.getMapColor()).strength(6.0f)));
 
     // Platform
-    public static final Block BLOCK_PLATFORM_A = register("platform_a", new BlockMetroPlatform(BlockBehaviour.Properties.of().mapColor(DyeColor.LIGHT_GRAY.getMapColor()).strength(6.0f)));
+    public static final Block BLOCK_PLATFORM_A = register("platform_a", new BlockMetroPlatform(BlockBehaviour.Properties.of().mapColor(DyeColor.LIGHT_GRAY.getMapColor()).strength(6.0f), BlockMetroPlatform.PlatformShape.NORMAL));
+    public static final Block BLOCK_PLATFORM_A_SLIM = register("platform_a_slim", new BlockMetroPlatform(BlockBehaviour.Properties.of().mapColor(DyeColor.LIGHT_GRAY.getMapColor()).strength(6.0f), BlockMetroPlatform.PlatformShape.SLIM));
 
     // Tiles
     // White

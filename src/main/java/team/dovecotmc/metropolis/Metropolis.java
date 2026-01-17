@@ -67,6 +67,7 @@ public class Metropolis implements ModInitializer {
                         output.accept(MetroItems.ITEM_SECURITY_INSPECTION_MACHINE);
                         output.accept(MetroItems.ITEM_CONCRETE);
                         output.accept(MetroItems.ITEM_PLATFORM_A);
+                        output.accept(MetroItems.ITEM_PLATFORM_A_SLIM);
                         output.accept(MetroItems.ITEM_TILES_WHITE);
                         output.accept(MetroItems.ITEM_TILES_LARGE_WHITE);
                         output.accept(MetroItems.ITEM_TILES_HORIZONTAL_WHITE);
