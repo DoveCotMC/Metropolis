@@ -5,8 +5,14 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.tags.ItemTags;
 import net.minecraft.util.RandomSource;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.DyeItem;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
@@ -19,6 +25,7 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
+import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
@@ -42,6 +49,29 @@ public class BlockPSDSmallDoorSemiAuto extends HorizontalDirectionalBlock implem
     }
 
     @Override
+    public InteractionResult use(BlockState blockState, Level level, BlockPos blockPos, Player player, InteractionHand interactionHand, BlockHitResult blockHitResult) {
+//        ItemStack itemStack = player.getItemInHand(InteractionHand.MAIN_HAND);
+//        if (itemStack.getItem() instanceof DyeItem dyeItem) {
+//            if (level.isClientSide())
+//                return InteractionResult.SUCCESS;
+//
+//            if (level.getBlockEntity(blockPos) instanceof BlockEntityPSDSmallDoorSemiAuto blockEntity) {
+//                blockEntity.tint = dyeItem.getDyeColor().getTextColor();
+//                blockEntity.setChanged();
+////                System.out.println("COLOR: " + Integer.toHexString(blockEntity.tint));
+//
+////                for (Player nPlayer : level.players()) {
+////                    if (nPlayer instanceof ServerPlayer serverPlayer) {
+////                        serverPlayer.connection.send(blockEntity.getUpdatePacket());
+////                    }
+////                }
+//            }
+//        }
+
+        return InteractionResult.PASS;
+    }
+
+    @Override
     public void setOpenState(boolean open, float openValue, Level world, BlockPos pos, BlockState state) {
         if (world.getBlockEntity(pos) instanceof BlockEntityPSDSmallDoorSemiAuto entity) {
             final float val0 = entity.open;
@@ -58,6 +88,7 @@ public class BlockPSDSmallDoorSemiAuto extends HorizontalDirectionalBlock implem
                 }
             }
 
+            entity.setChanged();
             for (Player player : world.players()) {
                 if (player instanceof ServerPlayer serverPlayer) {
                     serverPlayer.connection.send(entity.getUpdatePacket());
@@ -97,7 +128,15 @@ public class BlockPSDSmallDoorSemiAuto extends HorizontalDirectionalBlock implem
 
     @Override
     public boolean canSurvive(BlockState state, LevelReader world, BlockPos pos) {
-        return state.isRedstoneConductor(world, pos.below()) || world.getBlockState(pos.below()).getBlock() instanceof IBlockPlatform || world.getBlockState(pos.below()).getBlock() instanceof BlockPlatform;
+        return world.getBlockState(pos.below()).getBlock() instanceof IBlockPlatform || world.getBlockState(pos.below()).getBlock() instanceof BlockPlatform;
+    }
+
+    @Override
+    public void neighborChanged(BlockState state, Level world, BlockPos pos, Block sourceBlock, BlockPos sourcePos, boolean notify) {
+        if (!canSurvive(state, world, pos)) {
+            world.destroyBlock(pos, true);
+        }
+        super.neighborChanged(state, world, pos, sourceBlock, sourcePos, notify);
     }
 
     @Override

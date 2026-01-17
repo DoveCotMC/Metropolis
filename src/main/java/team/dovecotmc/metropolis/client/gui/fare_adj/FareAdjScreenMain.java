@@ -264,7 +264,8 @@ public class FareAdjScreenMain extends Screen {
                     text,
                     x0 + 12,
                     (int)(y1 + (BUTTON_WIDE_HEIGHT - 24 - font.lineHeight * i0 - 2 * i0)),
-                    0x4C75DD, false
+//                    0x4C75DD, false
+                    0xFFFFFF, false
             );
             i0++;
         }
