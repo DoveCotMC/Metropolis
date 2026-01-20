@@ -13,6 +13,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvents;
 import team.dovecotmc.metropolis.Metropolis;
 import team.dovecotmc.metropolis.abstractinterface.util.MALocalizationUtil;
+import team.dovecotmc.metropolis.item.ItemCard;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -68,7 +69,7 @@ public class FareAdjScreenMain extends Screen {
     @Override
     public void render(GuiGraphics guiGraphics, int mouseX, int mouseY, float delta) {
         PoseStack matrices = guiGraphics.pose();
-        boolean inserted = !this.data.ticketStack.isEmpty();
+        boolean cardInserted = this.data.ticketStack.getItem() instanceof ItemCard;
         guiGraphics.fillGradient(0, 0, this.width, this.height, -1072689136, -804253680);
 
         RenderSystem.assertOnRenderThread();
@@ -110,7 +111,7 @@ public class FareAdjScreenMain extends Screen {
         // Four big centered buttons
         // Purple
         boolean purpleHovering = this.mouseX >= x0 && this.mouseY >= y0 && this.mouseX <= x0 + BUTTON_BIG_WIDTH && this.mouseY <= y0 + BUTTON_BIG_HEIGHT;
-        if (inserted) {
+        if (cardInserted) {
             if (purpleHovering) {
                 guiGraphics.blit(
                         BUTTON_PURPLE_HOVER_TEXTURE_ID,
@@ -146,7 +147,7 @@ public class FareAdjScreenMain extends Screen {
 
         // Text
         matrices.pushPose();
-        if (inserted) {
+        if (cardInserted) {
             if (purpleHovering) {
                 matrices.translate(1, 1, 0);
             }
@@ -160,7 +161,7 @@ public class FareAdjScreenMain extends Screen {
                     text,
                     (int)(x0 + (BUTTON_BIG_WIDTH / 2f - font.width(text) / 2f)),
                     (int)(y0 + (BUTTON_BIG_HEIGHT - 20 - font.lineHeight * i0 - 2 * i0)),
-                    inserted ? 0xA9309F : 0xA9A9A9, false
+                    cardInserted ? 0xA9309F : 0xA9A9A9, false
             );
             i0++;
         }
@@ -168,7 +169,7 @@ public class FareAdjScreenMain extends Screen {
 
         // Green
         boolean greenHovering = this.mouseX >= x1 && this.mouseY >= y0 && this.mouseX <= x1 + BUTTON_BIG_WIDTH && this.mouseY <= y0 + BUTTON_BIG_HEIGHT;
-        if (inserted) {
+        if (cardInserted) {
             if (greenHovering) {
                 guiGraphics.blit(
                         BUTTON_GREEN_HOVER_TEXTURE_ID,
@@ -204,7 +205,7 @@ public class FareAdjScreenMain extends Screen {
 
         // Text
         matrices.pushPose();
-        if (inserted) {
+        if (cardInserted) {
             if (greenHovering) {
                 matrices.translate(1, 1, 0);
             }
@@ -218,7 +219,7 @@ public class FareAdjScreenMain extends Screen {
                     text,
                     (int)(x1 + (BUTTON_BIG_WIDTH / 2f - font.width(text) / 2f)),
                     (int)(y0 + (BUTTON_BIG_HEIGHT - 20 - font.lineHeight * i0 - 2 * i0)),
-                    inserted ? 0x5EA919 : 0xA9A9A9, false
+                    cardInserted ? 0x5EA919 : 0xA9A9A9, false
             );
             i0++;
         }
@@ -276,7 +277,7 @@ public class FareAdjScreenMain extends Screen {
         // Handle inputs
         if (minecraft != null) {
             if (pressed) {
-                if (inserted) {
+                if (cardInserted) {
                     if (purpleHovering) {
                         // TODO: Fare adj charge event
                         minecraft.setScreen(null);
