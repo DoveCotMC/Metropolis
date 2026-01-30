@@ -292,6 +292,17 @@ public class FareAdjScreenMain extends Screen {
                         playButtonDownSound();
                     }
                 }
+                if (ticketInserted) {
+                    if (greenHovering) {
+                        // TODO: Fare adj charge event
+                        minecraft.setScreen(new FareAdjCardKeyboardScreen(
+                                pos,
+                                this,
+                                data
+                        ));
+                        playButtonDownSound();
+                    }
+                }
                 if (blueHovering) {
                     minecraft.setScreen(new FareAdjScreenNoTicket(pos, this.data, this));
                     playButtonDownSound();

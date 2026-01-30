@@ -91,7 +91,7 @@
     "tooltip.metropolis.ticket.from_and_to": "%s ⥋ %s",
     "tooltip.metropolis.ticket.balance": "Balance: %s",
     "tooltip.metropolis.ticket.entered_station": "Entered station: %s",
-    "tooltip.metropolis.card.balance": "Balance: %s/%s",
+    "tooltip.metropolis.card.balance": "Balance: %s",
     "tooltip.metropolis.infinity_balance": "Infinity Balance",
 
     "info.metropolis.turnstile_type": "Turnstile type: %s",

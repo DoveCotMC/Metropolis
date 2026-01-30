@@ -90,7 +90,7 @@
     "tooltip.metropolis.ticket.from_and_to": "%s ⥋ %s",
     "tooltip.metropolis.ticket.balance": "余额: %s",
     "tooltip.metropolis.ticket.entered_station": "已进站: %s",
-    "tooltip.metropolis.card.balance": "余额: %s/%s",
+    "tooltip.metropolis.card.balance": "余额: %s",
     "tooltip.metropolis.infinity_balance": "无限余额",
 
     "info.metropolis.turnstile_type": "闸机类型：%s",

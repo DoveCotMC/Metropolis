@@ -31,23 +31,23 @@ import java.util.Objects;
  * @copyright Copyright © 2024 Arrokoth All Rights Reserved.
  */
 public class FareAdjCardKeyboardScreen extends Screen {
-    private static final ResourceLocation BG_TEXTURE_ID = new ResourceLocation(Metropolis.MOD_ID, "textures/gui/fare_adj_card_keyboard/fare_adj_card_keyboard_base.png");
+    private static final ResourceLocation BG_TEXTURE_ID = new ResourceLocation(Metropolis.MOD_ID, "textures/gui/fare_adj_keyboard/fare_adj_keyboard_base.png");
     protected static final int BG_TEXTURE_WIDTH = 256;
     protected static final int BG_TEXTURE_HEIGHT = 196;
 
-    private static final ResourceLocation BUTTON_UPPER_TEXTURE_ID = new ResourceLocation(Metropolis.MOD_ID, "textures/gui/fare_adj_card_keyboard/button_upper.png");
-    private static final ResourceLocation BUTTON_UPPER_TEXTURE_HOVER_ID = new ResourceLocation(Metropolis.MOD_ID, "textures/gui/fare_adj_card_keyboard/button_upper_hover.png");
+    private static final ResourceLocation BUTTON_UPPER_TEXTURE_ID = new ResourceLocation(Metropolis.MOD_ID, "textures/gui/fare_adj_keyboard/button_upper.png");
+    private static final ResourceLocation BUTTON_UPPER_TEXTURE_HOVER_ID = new ResourceLocation(Metropolis.MOD_ID, "textures/gui/fare_adj_keyboard/button_upper_hover.png");
     protected static final int BUTTON_UPPER_TEXTURE_WIDTH = 64;
     protected static final int BUTTON_UPPER_TEXTURE_HEIGHT = 14;
 
-    private static final ResourceLocation BUTTON_CONTINUE_TEXTURE_ID = new ResourceLocation(Metropolis.MOD_ID, "textures/gui/fare_adj_card_keyboard/button_continue.png");
-    private static final ResourceLocation BUTTON_CONTINUE_TEXTURE_HOVER_ID = new ResourceLocation(Metropolis.MOD_ID, "textures/gui/fare_adj_card_keyboard/button_continue_hover.png");
+    private static final ResourceLocation BUTTON_CONTINUE_TEXTURE_ID = new ResourceLocation(Metropolis.MOD_ID, "textures/gui/fare_adj_keyboard/button_continue.png");
+    private static final ResourceLocation BUTTON_CONTINUE_TEXTURE_HOVER_ID = new ResourceLocation(Metropolis.MOD_ID, "textures/gui/fare_adj_keyboard/button_continue_hover.png");
     protected static final int BUTTON_CONTINUE_TEXTURE_WIDTH = 60;
     protected static final int BUTTON_CONTINUE_TEXTURE_HEIGHT = 16;
 
-    private static final ResourceLocation BUTTON_NUMBER_TEXTURE_ID = new ResourceLocation(Metropolis.MOD_ID, "textures/gui/fare_adj_card_keyboard/button_number.png");
-    private static final ResourceLocation BUTTON_NUMBER_TEXTURE_HOVER_ID = new ResourceLocation(Metropolis.MOD_ID, "textures/gui/fare_adj_card_keyboard/button_number_hover.png");
-    private static final ResourceLocation BUTTON_NUMBER_TEXTURE_DOWN_ID = new ResourceLocation(Metropolis.MOD_ID, "textures/gui/fare_adj_card_keyboard/button_number_down.png");
+    private static final ResourceLocation BUTTON_NUMBER_TEXTURE_ID = new ResourceLocation(Metropolis.MOD_ID, "textures/gui/fare_adj_keyboard/button_number.png");
+    private static final ResourceLocation BUTTON_NUMBER_TEXTURE_HOVER_ID = new ResourceLocation(Metropolis.MOD_ID, "textures/gui/fare_adj_keyboard/button_number_hover.png");
+    private static final ResourceLocation BUTTON_NUMBER_TEXTURE_DOWN_ID = new ResourceLocation(Metropolis.MOD_ID, "textures/gui/fare_adj_keyboard/button_number_down.png");
     protected static final int BUTTON_NUMBER_TEXTURE_WIDTH = 18;
     protected static final int BUTTON_NUMBER_TEXTURE_HEIGHT = 14;
 
@@ -62,13 +62,15 @@ public class FareAdjCardKeyboardScreen extends Screen {
     private boolean lastPressing = true;
     protected boolean pressed = false;
     protected String value = "0";
+    protected final FareAdjData data;
 
     public FareAdjCardKeyboardScreen(BlockPos pos, Screen parentScreen, FareAdjData data) {
-        super(MALocalizationUtil.translatableText("gui.metropolis.fare_adj_card_keyboard.title"));
+        super(MALocalizationUtil.translatableText("gui.metropolis.fare_adj_keyboard.title"));
         this.pos = pos;
         this.parentScreen = parentScreen;
         this.inputToHandle = new ArrayList<>();
         this.inputToHandle2 = new ArrayList<>();
+        this.data = data;
     }
 
     @Override
@@ -175,7 +177,7 @@ public class FareAdjCardKeyboardScreen extends Screen {
 
         matrices.pushPose();
         matrices.scale(scaleFactor, scaleFactor, scaleFactor);
-        Component continueText = MALocalizationUtil.translatableText("gui.metropolis.fare_adj_card_keyboard.continue");
+        Component continueText = MALocalizationUtil.translatableText("gui.metropolis.fare_adj_keyboard.continue");
         guiGraphics.drawString(
                 font,
                 continueText,
@@ -189,7 +191,7 @@ public class FareAdjCardKeyboardScreen extends Screen {
         if (continueHovering && pressed) {
             playButtonSound(Minecraft.getInstance().getSoundManager());
 
-            ItemStack ticketStack = new ItemStack(MetroItems.ITEM_SINGLE_TRIP_TICKET);
+            ItemStack ticketStack = data.ticketStack;
             CompoundTag nbt = ticketStack.getOrCreateTag();
             int cost = Integer.parseInt(value);
             nbt.putInt(ItemTicket.BALANCE, cost);
@@ -330,7 +332,7 @@ public class FareAdjCardKeyboardScreen extends Screen {
         MultiBufferSource.BufferSource immediate = MultiBufferSource.immediate(Tesselator.getInstance().getBuilder());
         guiGraphics.drawString(
                 font,
-                MALocalizationUtil.translatableText("gui.metropolis.fare_adj_card_keyboard.title"),
+                MALocalizationUtil.translatableText("gui.metropolis.fare_adj_keyboard.title"),
                 intoTexturePosX(36),
                 intoTexturePosY(12),
                 0xFFFFFF,
