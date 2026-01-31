@@ -75,6 +75,9 @@
     "gui.metropolis.fare_adj_no_ticket.pay_fare": "You have to pay the maximum fare.",
     "gui.metropolis.fare_adj_no_ticket.pay_button": "Pay fare",
 
+    "gui.metropolis.fare_adj_keyboard.title": "Fare adjustment",
+    "gui.metropolis.fare_adj_keyboard.continue": "Continue",
+
     "gui.metropolis.fare_adj_payment.title": "Fare adjustment",
     "gui.metropolis.fare_adj_payment.subtitle": "Review Payment",
     "gui.metropolis.fare_adj_payment.price": "Price: %s",
@@ -84,6 +87,10 @@
     "gui.metropolis.fare_adj_payment.single_trip.title": "Exit Ticket",
     "gui.metropolis.fare_adj_payment.single_trip.ticket_value": "  Value: %s",
     "gui.metropolis.fare_adj_payment.single_trip.amount": "  Amount: %s",
+
+    "gui.metropolis.fare_adj_payment.charge.title": "  Value: %s",
+    "gui.metropolis.fare_adj_payment.charge.ticket_value": "  Value: %s",
+    "gui.metropolis.fare_adj_payment.charge.amount": "  Amount: %s",
 
     "gui.metropolis.bridge_creator.title": "Bridge Creator Configuration",
     "gui.metropolis.bridge_creator.width": "Width: %s",

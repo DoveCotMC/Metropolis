@@ -203,9 +203,9 @@ public class FareAdjCardKeyboardScreen extends Screen {
                                 FareAdjPaymentData.EnumTicketVendorPaymentType.CHARGE_CARD,
                                 cost,
                                 new Component[] {
-                                        MALocalizationUtil.translatableText("gui.metropolis.fare_adj_payment.charge_card.title"),
-                                        MALocalizationUtil.translatableText("gui.metropolis.fare_adj_payment.charge_card.ticket_value", cost),
-                                        MALocalizationUtil.translatableText("gui.metropolis.fare_adj_payment.charge_card.amount", 1)
+                                        MALocalizationUtil.translatableText("gui.metropolis.fare_adj_payment.charge.title"),
+                                        MALocalizationUtil.translatableText("gui.metropolis.fare_adj_payment.charge.ticket_value", cost),
+                                        MALocalizationUtil.translatableText("gui.metropolis.fare_adj_payment.charge.amount", 1)
                                 },
                                 ticketStack
                         ),
