@@ -12,3 +12,4 @@ Miscellaneous stuff of modern railway parts for [Minecraft Transit Railway](http
 - Added Blind Path block
 - Charging functions for Fare Adjustment Machine
 - More rotations for Awning Pillar (Emergency)
+- btw we got a changelog
