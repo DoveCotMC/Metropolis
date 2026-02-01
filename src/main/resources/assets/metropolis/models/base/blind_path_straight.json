@@ -3,8 +3,8 @@
 	"credit": "Made with Blockbench",
 	"texture_size": [32, 32],
 	"textures": {
-		"0": "metropolis:block/blind_path_junction",
-		"particle": "metropolis:block/blind_path_junction"
+		"0": "metropolis:block/blind_path_straight",
+		"particle": "metropolis:block/blind_path_straight"
 	},
 	"elements": [
 		{

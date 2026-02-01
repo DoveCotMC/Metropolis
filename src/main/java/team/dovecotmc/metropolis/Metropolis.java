@@ -84,6 +84,7 @@ public class Metropolis implements ModInitializer {
                         output.accept(MetroItems.ITEM_AWNING_PILLAR_EMERGENCY);
                         output.accept(MetroItems.ITEM_AWNING_BEAM);
                         output.accept(MetroItems.ITEM_AWNING_ROOF);
+                        output.accept(MetroItems.ITEM_BLIND_PATH);
                     })
                     .build()
     );

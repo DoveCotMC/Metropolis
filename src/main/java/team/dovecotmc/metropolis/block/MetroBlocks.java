@@ -114,6 +114,9 @@ public class MetroBlocks {
     public static final Block BLOCK_AWNING_BEAM = register("awning_beam", new BlockAwningBeam(BlockBehaviour.Properties.of().mapColor(DyeColor.LIGHT_GRAY.getMapColor()).strength(6.0f)));
     public static final Block BLOCK_AWNING_ROOF = register("awning_roof", new BlockAwningRoof(BlockBehaviour.Properties.of().mapColor(DyeColor.GRAY.getMapColor()).strength(6.0f)));
 
+    // Blind path
+    public static final Block BLOCK_BLIND_PATH = register("blind_path", new BlockBlindPath(BlockBehaviour.Properties.of().mapColor(DyeColor.YELLOW.getMapColor()).strength(4.0f)));
+
     // TODO: Blind path
 //    public static final Block BLOCK_BLIND_PATH_STRIP = register("blind_path_strip", new BlockHorizontalAxis(BlockBehaviour.Properties.of().mapColor(DyeColor.YELLOW.getMapColor())));
 //    public static final Block BLOCK_BLIND_PATH_POINT = register("blind_path_point", new Block(BlockBehaviour.Properties.of().mapColor(DyeColor.YELLOW.getMapColor())));

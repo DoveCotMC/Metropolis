@@ -1,0 +1,20 @@
+{
+    "variants": {
+        "axis=x,shape=junction": {
+            "model": "metropolis:base/blind_path_junction",
+            "y": 0
+        },
+        "axis=z,shape=junction": {
+            "model": "metropolis:base/blind_path_junction",
+            "y": 0
+        },
+        "axis=x,shape=straight": {
+            "model": "metropolis:base/blind_path_straight",
+            "y": 90
+        },
+        "axis=z,shape=straight": {
+            "model": "metropolis:base/blind_path_straight",
+            "y": 0
+        }
+    }
+}
