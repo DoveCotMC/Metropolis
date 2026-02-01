@@ -26,13 +26,16 @@ public class BlockAwningPillarEmergency extends BlockHorizontalAxis implements I
 
     @Override
     public BlockState getStateForPlacement(BlockPlaceContext ctx) {
+        BlockState state;
         if (ctx.getLevel().getBlockState(ctx.getClickedPos().above()).getBlock() instanceof IBlockAwningPillar) {
-            return Objects.requireNonNull(super.getStateForPlacement(ctx)).setValue(AXIS, ctx.getLevel().getBlockState(ctx.getClickedPos().above()).getValue(AXIS));
+            state = Objects.requireNonNull(super.getStateForPlacement(ctx)).setValue(AXIS, ctx.getLevel().getBlockState(ctx.getClickedPos().above()).getValue(AXIS));
         } else if (ctx.getLevel().getBlockState(ctx.getClickedPos().below()).getBlock() instanceof IBlockAwningPillar) {
-            return Objects.requireNonNull(super.getStateForPlacement(ctx)).setValue(AXIS, ctx.getLevel().getBlockState(ctx.getClickedPos().below()).getValue(AXIS));
+            state = Objects.requireNonNull(super.getStateForPlacement(ctx)).setValue(AXIS, ctx.getLevel().getBlockState(ctx.getClickedPos().below()).getValue(AXIS));
         } else {
-            return super.getStateForPlacement(ctx);
+            state = super.getStateForPlacement(ctx);
         }
+
+        return state;
     }
 
     @Override
