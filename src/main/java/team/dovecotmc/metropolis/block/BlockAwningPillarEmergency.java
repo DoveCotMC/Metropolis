@@ -1,6 +1,8 @@
 package team.dovecotmc.metropolis.block;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.util.Mth;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.Block;
@@ -27,12 +29,35 @@ public class BlockAwningPillarEmergency extends BlockHorizontalAxis implements I
     @Override
     public BlockState getStateForPlacement(BlockPlaceContext ctx) {
         BlockState state;
+
         if (ctx.getLevel().getBlockState(ctx.getClickedPos().above()).getBlock() instanceof IBlockAwningPillar) {
             state = Objects.requireNonNull(super.getStateForPlacement(ctx)).setValue(AXIS, ctx.getLevel().getBlockState(ctx.getClickedPos().above()).getValue(AXIS));
         } else if (ctx.getLevel().getBlockState(ctx.getClickedPos().below()).getBlock() instanceof IBlockAwningPillar) {
             state = Objects.requireNonNull(super.getStateForPlacement(ctx)).setValue(AXIS, ctx.getLevel().getBlockState(ctx.getClickedPos().below()).getValue(AXIS));
         } else {
             state = super.getStateForPlacement(ctx);
+        }
+
+        // Additional rotation detection
+        Direction direction = Direction.fromYRot(ctx.getRotation());
+        if (state.getValue(AXIS).equals(Direction.Axis.X)) {
+            Direction d0 = Direction.fromAxisAndDirection(state.getValue(AXIS), Direction.AxisDirection.POSITIVE);
+            float delta = Mth.wrapDegrees(d0.toYRot() - ctx.getRotation() + 90);
+
+            if (Mth.abs(delta) < 90) {
+                state = state.setValue(FLIPPED, true);
+            } else {
+                state = state.setValue(FLIPPED, false);
+            }
+        } else {
+            Direction d0 = Direction.fromAxisAndDirection(state.getValue(AXIS), Direction.AxisDirection.POSITIVE);
+            float delta = Mth.wrapDegrees(d0.toYRot() - ctx.getRotation() + 90);
+
+            if (Mth.abs(delta) < 90) {
+                state = state.setValue(FLIPPED, true);
+            } else {
+                state = state.setValue(FLIPPED, false);
+            }
         }
 
         return state;
