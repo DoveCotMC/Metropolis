@@ -191,5 +191,7 @@
     "block.metropolis.awning_pillar": "Awning Pillar",
     "block.metropolis.awning_pillar_emergency": "Awning Pillar (Emergency Button)",
     "block.metropolis.awning_beam": "Awning Beam",
-    "block.metropolis.awning_roof": "Awning Roof"
+    "block.metropolis.awning_roof": "Awning Roof",
+
+    "block.metropolis.blind_path": "Blind Path"
 }

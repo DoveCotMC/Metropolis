@@ -1,5 +1,6 @@
 package team.dovecotmc.metropolis.block;
 
+import net.fabricmc.fabric.api.block.v1.FabricBlock;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.util.StringRepresentable;
@@ -26,9 +27,16 @@ public class BlockBlindPath extends BlockHorizontalAxis {
 
     @Override
     public VoxelShape getShape(BlockState blockState, BlockGetter blockGetter, BlockPos blockPos, CollisionContext collisionContext) {
+        if (blockState.getValue(SHAPE).equals(Shape.STRAIGHT))
+            return MetroBlockUtil.getVoxelShapeByDirection(
+                    2, 0, 0,
+                    14, 0.5, 16,
+                    Direction.fromAxisAndDirection(blockState.getValue(AXIS), Direction.AxisDirection.POSITIVE)
+            );
+
         return MetroBlockUtil.getVoxelShapeByDirection(
-                2, 0, 2,
-                14, 0.5, 14,
+                0, 0, 0,
+                16, 0.5, 16,
                 Direction.NORTH
         );
     }
@@ -54,28 +62,52 @@ public class BlockBlindPath extends BlockHorizontalAxis {
             world.setBlockAndUpdate(pos, newState);
     }
 
-    private @Nullable BlockState getUpdatedState(Level level, BlockPos pos, @Nullable BlockState superState) {
+    @Override
+    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
+        builder.add(AXIS).add(SHAPE);
+    }
+
+    public static @Nullable BlockState getUpdatedState(Level level, BlockPos pos, @Nullable BlockState superState) {
         if (superState == null)
             return null;
 
         if (!level.getBlockState(pos.below()).isSolid())
             return null;
 
-        Direction.Axis axis = superState.getValue(AXIS);
-        BlockState forwardState = level.getBlockState(pos.relative(Direction.fromAxisAndDirection(axis, Direction.AxisDirection.POSITIVE)));
-        BlockState backwardState = level.getBlockState(pos.relative(Direction.fromAxisAndDirection(axis, Direction.AxisDirection.NEGATIVE)));
-        if (forwardState.getBlock() instanceof BlockBlindPath && backwardState.getBlock() instanceof BlockBlindPath) {
-            superState = superState.setValue(SHAPE, Shape.STRAIGHT);
-        } else {
-            superState = superState.setValue(SHAPE, Shape.JUNCTION);
+        BlockState northState = level.getBlockState(pos.north());
+        BlockState southState = level.getBlockState(pos.south());
+        BlockState westState = level.getBlockState(pos.west());
+        BlockState eastState = level.getBlockState(pos.east());
+
+        int amountJunction = 0;
+
+        if (isBlindPath(northState))
+            amountJunction++;
+        if (isBlindPath(southState))
+            amountJunction++;
+        if (isBlindPath(westState))
+            amountJunction++;
+        if (isBlindPath(eastState))
+            amountJunction++;
+
+        switch (amountJunction) {
+            case 0, 1, 3, 4 -> superState = superState.setValue(AXIS, Direction.Axis.X).setValue(SHAPE, Shape.JUNCTION);
+            case 2 -> {
+                if (isBlindPath(northState) && isBlindPath(southState)) {
+                    superState = superState.setValue(AXIS, Direction.Axis.Z).setValue(SHAPE, Shape.STRAIGHT);
+                } else if (isBlindPath(westState) && isBlindPath(eastState)) {
+                    superState = superState.setValue(AXIS, Direction.Axis.X).setValue(SHAPE, Shape.STRAIGHT);
+                } else {
+                    superState = superState.setValue(AXIS, Direction.Axis.X).setValue(SHAPE, Shape.JUNCTION);
+                }
+            }
         }
 
         return superState;
     }
 
-    @Override
-    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
-        builder.add(AXIS).add(SHAPE);
+    public static boolean isBlindPath(BlockState blockState) {
+        return blockState.getBlock() instanceof BlockBlindPath;
     }
 
     public enum Shape implements StringRepresentable {

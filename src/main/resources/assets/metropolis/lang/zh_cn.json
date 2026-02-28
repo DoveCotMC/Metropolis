@@ -190,5 +190,7 @@
     "block.metropolis.awning_pillar": "雨棚支柱",
     "block.metropolis.awning_pillar_emergency": "雨棚支柱（紧急按钮）",
     "block.metropolis.awning_beam": "雨棚横梁",
-    "block.metropolis.awning_roof": "雨棚顶棚"
+    "block.metropolis.awning_roof": "雨棚顶棚",
+
+    "block.metropolis.blind_path": "盲道"
 }

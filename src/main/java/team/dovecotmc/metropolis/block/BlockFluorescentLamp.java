@@ -24,6 +24,7 @@ public class BlockFluorescentLamp extends BlockHorizontalAxis {
         super(FabricBlockSettings.create()
                 .mapColor(MapColor.COLOR_YELLOW)
                 .strength(4.0f)
+                .noCollission()
                 .noOcclusion()
                 .lightLevel(value -> 15)
         );
