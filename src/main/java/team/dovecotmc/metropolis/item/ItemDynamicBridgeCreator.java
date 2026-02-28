@@ -1,10 +1,5 @@
 package team.dovecotmc.metropolis.item;
 
-import mtr.Blocks;
-import mtr.data.RailAngle;
-import mtr.data.RailwayData;
-import mtr.data.TransportMode;
-import mtr.item.ItemNodeModifierBase;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
@@ -15,6 +10,7 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.context.UseOnContext;
@@ -33,16 +29,18 @@ import java.util.Objects;
  * @project Metropolis
  * @copyright Copyright © 2024 Arrokoth All Rights Reserved.
  */
-public class ItemDynamicBridgeCreator extends ItemNodeModifierBase {
+public class ItemDynamicBridgeCreator extends Item /*ItemNodeModifierBase*/ {
     public static final String WIDTH = "width";
     public static final String HEIGHT = "height";
     public static final String BLOCK_ID = "block_id";
     public static final String POS_START = "pos_start";
 
     public ItemDynamicBridgeCreator() {
-        super(true, false, false, true);
+//        super(true, false, false, true);
+        super(new Properties().stacksTo(1));
     }
 
+    /*
     @Override
     public InteractionResult useOn(UseOnContext context) {
         // TODO: GUI
@@ -141,4 +139,6 @@ public class ItemDynamicBridgeCreator extends ItemNodeModifierBase {
 
         tooltip.add(MALocalizationUtil.translatableText("tooltip.mtr.selected_material", MALocalizationUtil.translatableText(state.getBlock().getDescriptionId())).setStyle(Style.EMPTY.withColor(ChatFormatting.GREEN)));
     }
+
+     */
 }

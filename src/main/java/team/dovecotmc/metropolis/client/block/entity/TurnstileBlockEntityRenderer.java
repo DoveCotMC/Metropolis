@@ -24,6 +24,7 @@ import team.dovecotmc.metropolis.abstractinterface.util.MALocalizationUtil;
 import team.dovecotmc.metropolis.block.BlockTurnstile;
 import team.dovecotmc.metropolis.block.entity.BlockEntityTurnstile;
 import team.dovecotmc.metropolis.client.MetropolisClient;
+import team.dovecotmc.metropolis.util.MtrCommonUtil;
 
 /**
  * @author Arrokoth
@@ -43,7 +44,7 @@ public class TurnstileBlockEntityRenderer implements BlockEntityRenderer<BlockEn
             BlockState block = entity.getBlockState();
             Direction facing = block.getValue(HorizontalDirectionalBlock.FACING);
 
-            if (mc.player != null && mc.player.getItemInHand(InteractionHand.MAIN_HAND).getItem() == mtr.Items.BRUSH.get()) {
+            if (mc.player != null && mc.player.getItemInHand(InteractionHand.MAIN_HAND).getItem() == MtrCommonUtil.getBrushItem()) {
                 matrices.pushPose();
 
                 Component text = MALocalizationUtil.translatableText("misc.metropolis.turnstile_mode." + BlockEntityTurnstile.EnumTurnstileType.get(block.getValue(BlockTurnstile.TYPE)).name().toLowerCase());

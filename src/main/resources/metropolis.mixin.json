@@ -5,8 +5,7 @@
     "compatibilityLevel": "JAVA_17",
     "mixins": [
       "MixinVehicleHelper",
-      "MixinPersistentVehicleData",
-        "MixinTrainServer"
+      "MixinPersistentVehicleData"
     ],
     "server": [
     ],

@@ -1,6 +1,5 @@
 package team.dovecotmc.metropolis.block;
 
-import mtr.Items;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.sounds.SoundEvents;
@@ -22,7 +21,9 @@ import net.minecraft.world.level.material.MapColor;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
+import org.mtr.mod.Items;
 import team.dovecotmc.metropolis.util.MetroBlockUtil;
+import team.dovecotmc.metropolis.util.MtrCommonUtil;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -58,7 +59,7 @@ public class BlockTicketVendorUp extends HorizontalDirectionalBlock {
             return InteractionResult.PASS;
         }
 
-        if (player.getItemInHand(hand).getItem().equals(Items.BRUSH.get())) {
+        if (player.getItemInHand(hand).getItem().equals(MtrCommonUtil.getBrushItem())) {
             int id = ((BlockTicketVendorUp) state.getBlock()).id;
             world.setBlockAndUpdate(pos, TYPES.get((id + 1) % (TYPES.size())).defaultBlockState().setValue(FACING, state.getValue(FACING)));
             world.playSound(null, pos, SoundEvents.COPPER_BREAK, SoundSource.BLOCKS, 1f, 1f);

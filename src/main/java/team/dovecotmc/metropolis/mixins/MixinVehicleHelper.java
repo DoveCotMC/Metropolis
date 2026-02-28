@@ -21,17 +21,18 @@ import team.dovecotmc.metropolis.block.interfaces.IBlockPlatformDoor;
  */
 @Mixin(RenderVehicleHelper.class)
 public abstract class MixinVehicleHelper {
-    @Shadow
+    @Shadow(remap = false)
     @Final
     private static int CHECK_DOOR_RADIUS_XZ;
 
-    @Shadow
+    @Shadow(remap = false)
     @Final
     private static int CHECK_DOOR_RADIUS_Y;
 
     @Inject(
             method = "canOpenDoors",
-            at = @At("RETURN")
+            at = @At("RETURN"),
+            remap = false
     )
     private static void met$InjectPlatformDetection(Box doorway, PositionAndRotation positionAndRotation, double doorValue, CallbackInfoReturnable<Boolean> cir) {
         final ClientWorld clientWorld = MinecraftClient.getInstance().getWorldMapped();

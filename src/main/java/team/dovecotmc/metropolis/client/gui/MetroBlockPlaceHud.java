@@ -3,8 +3,6 @@ package team.dovecotmc.metropolis.client.gui;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
-import mtr.Items;
-import mtr.data.Station;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.Minecraft;
@@ -18,9 +16,12 @@ import net.minecraft.util.FastColor;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
+import org.mtr.core.map.Station;
+import org.mtr.mod.Items;
 import team.dovecotmc.metropolis.abstractinterface.util.MALocalizationUtil;
 import team.dovecotmc.metropolis.client.MetropolisClient;
 import team.dovecotmc.metropolis.item.IItemShowStationHUD;
+import team.dovecotmc.metropolis.util.MtrCommonUtil;
 import team.dovecotmc.metropolis.util.MtrStationUtil;
 
 /**
@@ -58,7 +59,7 @@ public class MetroBlockPlaceHud {
         HitResult hitResult = client.hitResult;
         Font textRenderer = client.font;
 
-        if (player.isSpectator() || !(player.getItemInHand(InteractionHand.MAIN_HAND).getItem() instanceof IItemShowStationHUD) && player.getItemInHand(InteractionHand.MAIN_HAND).getItem() != Items.BRUSH.get()) {
+        if (player.isSpectator() || !(player.getItemInHand(InteractionHand.MAIN_HAND).getItem() instanceof IItemShowStationHUD) && player.getItemInHand(InteractionHand.MAIN_HAND).getItem() != MtrCommonUtil.getBrushItem()) {
             shouldRender = false;
             return;
         }
@@ -83,9 +84,12 @@ public class MetroBlockPlaceHud {
             boolean shouldRenderName = shouldRender;
 
             if (shouldRenderName) {
-                int r = FastColor.ARGB32.red(station.color);
-                int g = FastColor.ARGB32.green(station.color);
-                int b = FastColor.ARGB32.blue(station.color);
+                int r = 0;
+                int g = 0;
+                int b = 0;
+//                int r = FastColor.ARGB32.red(station.color);
+//                int g = FastColor.ARGB32.green(station.color);
+//                int b = FastColor.ARGB32.blue(station.color);
                 RenderSystem.setShaderColor(r / 255f, g / 255f, b / 255f, 1);
 
                 int y0 = centerY - 8 - textRenderer.lineHeight;
@@ -102,7 +106,8 @@ public class MetroBlockPlaceHud {
 
                 y0 = centerY + 8;
 
-                String[] stationNames = station.name.split("\\|");
+                String[] stationNames = new String[] {"WIP: MTR4"};
+//                String[] stationNames = station.name.split("\\|");
                 Component stationFirstName = MALocalizationUtil.literalText(stationNames[0]);
                 int stationFirstNameWidth = textRenderer.width(stationFirstName);
                 guiGraphics.drawString(

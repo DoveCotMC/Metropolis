@@ -2,7 +2,6 @@ package team.dovecotmc.metropolis.mixins;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
-import mtr.data.Station;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.Minecraft;
@@ -55,11 +54,11 @@ public abstract class MixinBlockOutlineRender {
             if (outline) {
                 org.mtr.core.map.Station station = MtrStationUtil.getStationByPos(pos, level);
                 if (station != null) {
-                    float red = FastColor.ARGB32.red(station.color) / 255f;
-                    float green = FastColor.ARGB32.green(station.color) / 255f;
-                    float blue = FastColor.ARGB32.blue(station.color) / 255f;
-                    float alpha = (float) Math.abs((Math.sin((level.getGameTime() + Minecraft.getInstance().getFrameTime()) / 4f) / 2f));
-                    renderShape(matrices, vertexConsumer, state.getShape(level, pos, CollisionContext.of(entity)), (double)pos.getX() - cameraX, (double)pos.getY() - cameraY, (double)pos.getZ() - cameraZ, red, green, blue, alpha);
+//                    float red = FastColor.ARGB32.red(station.color) / 255f;
+//                    float green = FastColor.ARGB32.green(station.color) / 255f;
+//                    float blue = FastColor.ARGB32.blue(station.color) / 255f;
+//                    float alpha = (float) Math.abs((Math.sin((level.getGameTime() + Minecraft.getInstance().getFrameTime()) / 4f) / 2f));
+//                    renderShape(matrices, vertexConsumer, state.getShape(level, pos, CollisionContext.of(entity)), (double)pos.getX() - cameraX, (double)pos.getY() - cameraY, (double)pos.getZ() - cameraZ, red, green, blue, alpha);
                 }
             }
         }
