@@ -86,7 +86,8 @@ public class MetroBlocks {
     public static final Block BLOCK_CONCRETE = register("concrete", new Block(BlockBehaviour.Properties.of().mapColor(DyeColor.LIGHT_GRAY.getMapColor()).strength(6.0f)));
 
     // Platform
-    public static final Block BLOCK_PLATFORM_A = register("platform_a", new BlockMetroPlatform(BlockBehaviour.Properties.of().mapColor(DyeColor.LIGHT_GRAY.getMapColor()).strength(6.0f)));
+    public static final Block BLOCK_PLATFORM_A = register("platform_a", new BlockMetroPlatform(BlockBehaviour.Properties.of().mapColor(DyeColor.LIGHT_GRAY.getMapColor()).strength(6.0f), BlockMetroPlatform.PlatformShape.NORMAL));
+    public static final Block BLOCK_PLATFORM_A_SLIM = register("platform_a_slim", new BlockMetroPlatform(BlockBehaviour.Properties.of().mapColor(DyeColor.LIGHT_GRAY.getMapColor()).strength(6.0f), BlockMetroPlatform.PlatformShape.SLIM));
 
     // Tiles
     // White
@@ -112,6 +113,9 @@ public class MetroBlocks {
     public static final Block BLOCK_AWNING_PILLAR_EMERGENCY = register("awning_pillar_emergency", new BlockAwningPillarEmergency(BlockBehaviour.Properties.of().mapColor(DyeColor.LIGHT_GRAY.getMapColor()).strength(6.0f)));
     public static final Block BLOCK_AWNING_BEAM = register("awning_beam", new BlockAwningBeam(BlockBehaviour.Properties.of().mapColor(DyeColor.LIGHT_GRAY.getMapColor()).strength(6.0f)));
     public static final Block BLOCK_AWNING_ROOF = register("awning_roof", new BlockAwningRoof(BlockBehaviour.Properties.of().mapColor(DyeColor.GRAY.getMapColor()).strength(6.0f)));
+
+    // Blind path
+    public static final Block BLOCK_BLIND_PATH = register("blind_path", new BlockBlindPath(BlockBehaviour.Properties.of().mapColor(DyeColor.YELLOW.getMapColor()).strength(4.0f)));
 
     // TODO: Blind path
 //    public static final Block BLOCK_BLIND_PATH_STRIP = register("blind_path_strip", new BlockHorizontalAxis(BlockBehaviour.Properties.of().mapColor(DyeColor.YELLOW.getMapColor())));

@@ -1,0 +1,34 @@
+{
+	"format_version": "1.21.6",
+	"credit": "Made with Blockbench",
+	"texture_size": [64, 64],
+	"textures": {
+		"0": "metropolis:block/platform_a_slim_outer_corner",
+		"particle": "metropolis:block/platform_a_slim_outer_corner"
+	},
+	"elements": [
+		{
+			"from": [0, 13, 4],
+			"to": [12, 16, 16],
+			"faces": {
+				"north": {"uv": [2, 6.5, 5, 7.25], "texture": "#0", "cullface": "north"},
+				"east": {"uv": [5, 6.5, 8, 7.25], "texture": "#0", "cullface": "east"},
+				"south": {"uv": [7, 0, 10, 0.75], "texture": "#0", "cullface": "south"},
+				"west": {"uv": [7, 0.75, 10, 1.5], "texture": "#0", "cullface": "west"},
+				"up": {"uv": [3, 3, 0, 0], "texture": "#0", "cullface": "up"},
+				"down": {"uv": [3, 3, 0, 6], "texture": "#0"}
+			}
+		},
+		{
+			"from": [0, 0, 8],
+			"to": [8, 13, 16],
+			"faces": {
+				"north": {"uv": [3, 0, 5, 3.25], "texture": "#0"},
+				"east": {"uv": [3, 3.25, 5, 6.5], "texture": "#0", "cullface": "east"},
+				"south": {"uv": [5, 0, 7, 3.25], "texture": "#0", "cullface": "south"},
+				"west": {"uv": [5, 3.25, 7, 6.5], "texture": "#0", "cullface": "west"},
+				"down": {"uv": [2, 6, 0, 8], "texture": "#0", "cullface": "down"}
+			}
+		}
+	]
+}

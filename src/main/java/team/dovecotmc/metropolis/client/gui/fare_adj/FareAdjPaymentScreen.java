@@ -226,9 +226,11 @@ public class FareAdjPaymentScreen extends Screen {
             minecraft.setScreen(null);
             // TODO: Response
             if (paymentData.type == FareAdjPaymentData.EnumTicketVendorPaymentType.PAY_FARE) {
-                MetroClientNetwork.fareAdjClose(pos, paymentData.resultStack, paymentData.value);
+                MetroClientNetwork.fareAdjClose(pos, paymentData.resultStack, paymentData.value, false);
+            } else if (paymentData.type == FareAdjPaymentData.EnumTicketVendorPaymentType.CHARGE_CARD) {
+                MetroClientNetwork.fareAdjClose(pos, paymentData.resultStack, paymentData.value, true);
             } else {
-                MetroClientNetwork.fareAdjClose(pos, paymentData.resultStack, paymentData.value);
+                MetroClientNetwork.fareAdjClose(pos, paymentData.resultStack, paymentData.value, false);
             }
         }
 

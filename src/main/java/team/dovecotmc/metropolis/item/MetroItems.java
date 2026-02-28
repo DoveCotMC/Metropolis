@@ -5,13 +5,9 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.level.ItemLike;
 import team.dovecotmc.metropolis.Metropolis;
 import team.dovecotmc.metropolis.block.MetroBlocks;
 import team.dovecotmc.metropolis.block.entity.BlockEntityTurnstile;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * @author Arrokoth
@@ -20,8 +16,6 @@ import java.util.List;
  */
 @SuppressWarnings("unused")
 public class MetroItems {
-    private static final List<ItemLike> ITEMS = new ArrayList<>();
-
     public static final Item ITEM_CABLE = register("cable", new BlockItem(MetroBlocks.BLOCK_CABLE, new Item.Properties()));
     // TODO: Tunnel light
 //    public static final Item ITEM_TUNNEL_LIGHT_A = register("tunnel_light_a", new BlockItem(MetroBlocks.BLOCK_TUNNEL_LIGHT_A, new Item.Settings().group(Metropolis.ITEM_GROUP)));
@@ -80,6 +74,7 @@ public class MetroItems {
 
     // Platform
     public static final Item ITEM_PLATFORM_A = register("platform_a", new BlockItem(MetroBlocks.BLOCK_PLATFORM_A, new Item.Properties()));
+    public static final Item ITEM_PLATFORM_A_SLIM = register("platform_a_slim", new BlockItem(MetroBlocks.BLOCK_PLATFORM_A_SLIM, new Item.Properties()));
 
     // Tiles
     // White
@@ -87,22 +82,29 @@ public class MetroItems {
     public static final Item ITEM_TILES_LARGE_WHITE = register("tiles_large_white", new BlockItem(MetroBlocks.BLOCK_TILES_LARGE_WHITE, new Item.Properties()));
     public static final Item ITEM_TILES_HORIZONTAL_WHITE = register("tiles_horizontal_white", new BlockItem(MetroBlocks.BLOCK_TILES_HORIZONTAL_WHITE, new Item.Properties()));
     public static final Item ITEM_TILES_SMALL_WHITE = register("tiles_small_white", new BlockItem(MetroBlocks.BLOCK_TILES_SMALL_WHITE, new Item.Properties()));
+
     // Gray
     public static final Item ITEM_TILES_GRAY = register("tiles_gray", new BlockItem(MetroBlocks.BLOCK_TILES_GRAY, new Item.Properties()));
     public static final Item ITEM_TILES_HORIZONTAL_GRAY = register("tiles_horizontal_gray", new BlockItem(MetroBlocks.BLOCK_TILES_HORIZONTAL_GRAY, new Item.Properties()));
     public static final Item ITEM_TILES_SMALL_GRAY = register("tiles_small_gray", new BlockItem(MetroBlocks.BLOCK_TILES_SMALL_GRAY, new Item.Properties()));
+
     // Cordon blocks
     public static final Item ITEM_CORDON_YELLOW_BLACK = register("cordon_yellow_black", new ItemBlockWithTooltips(MetroBlocks.BLOCK_CORDON_YELLOW_BLACK, new Item.Properties()));
     public static final Item ITEM_CORDON_YELLOW_WHITE = register("cordon_yellow_white", new ItemBlockWithTooltips(MetroBlocks.BLOCK_CORDON_YELLOW_WHITE, new Item.Properties()));
     public static final Item ITEM_CORDON_RED_BLACK = register("cordon_red_black", new ItemBlockWithTooltips(MetroBlocks.BLOCK_CORDON_RED_BLACK, new Item.Properties()));
     public static final Item ITEM_CORDON_RED_WHITE = register("cordon_red_white", new ItemBlockWithTooltips(MetroBlocks.BLOCK_CORDON_RED_WHITE, new Item.Properties()));
+
     // Bench
     public static final Item ITEM_BENCH = register("bench", new BlockItem(MetroBlocks.BLOCK_BENCH, new Item.Properties()));
+
     // Awning
     public static final Item ITEM_AWNING_PILLAR = register("awning_pillar", new BlockItem(MetroBlocks.BLOCK_AWNING_PILLAR, new Item.Properties()));
     public static final Item ITEM_AWNING_PILLAR_EMERGENCY = register("awning_pillar_emergency", new BlockItem(MetroBlocks.BLOCK_AWNING_PILLAR_EMERGENCY, new Item.Properties()));
     public static final Item ITEM_AWNING_BEAM = register("awning_beam", new BlockItem(MetroBlocks.BLOCK_AWNING_BEAM, new Item.Properties()));
     public static final Item ITEM_AWNING_ROOF = register("awning_roof", new BlockItem(MetroBlocks.BLOCK_AWNING_ROOF, new Item.Properties()));
+
+    // Blind path
+    public static final Item ITEM_BLIND_PATH = register("blind_path", new BlockItem(MetroBlocks.BLOCK_BLIND_PATH, new Item.Properties()));
 
     // TODO: Blind path
 //    public static final Item ITEM_BLIND_PATH_STRIP = register("blind_path_strip", new BlockItem(MetroBlocks.BLOCK_BLIND_PATH_STRIP, new Item.Settings().group(Metropolis.ITEM_GROUP)));
@@ -114,12 +116,7 @@ public class MetroItems {
 //    public static final Item ITEM_BRIDGE_CREATOR = register("bridge_creator", new ItemDynamicBridgeCreator());
 
     public static Item register(String id, Item item) {
-        ITEMS.add(item);
         return Registry.register(BuiltInRegistries.ITEM, new ResourceLocation(Metropolis.MOD_ID, id), item);
-    }
-
-    public static List<ItemLike> getItems() {
-        return ITEMS;
     }
 
     public static void initialize() {

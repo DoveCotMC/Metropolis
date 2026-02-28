@@ -80,7 +80,7 @@
     "tooltip.metropolis.ticket.from_and_to": "%s ⥋ %s",
     "tooltip.metropolis.ticket.balance": "餘額: %s",
     "tooltip.metropolis.ticket.entered_station": "已入閘: %s",
-    "tooltip.metropolis.card.balance": "餘額: %s/%s",
+    "tooltip.metropolis.card.balance": "餘額: %s",
     "tooltip.metropolis.infinity_balance": "無限餘額",
 
     "info.metropolis.turnstile_type": "閘機類型：%s",
@@ -145,6 +145,7 @@
     "block.metropolis.security_inspection_machine": "安检机",
 
     "block.metropolis.platform_a": "月台",
+    "block.metropolis.platform_a": "窄體月台",
 
     "block.metropolis.concrete": "混凝土",
 

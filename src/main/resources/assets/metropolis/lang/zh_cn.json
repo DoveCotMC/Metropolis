@@ -77,6 +77,9 @@
     "gui.metropolis.fare_adj_no_ticket.pay_fare": "您需支付线网最高票价",
     "gui.metropolis.fare_adj_no_ticket.pay_button": "支付最高票价",
 
+    "gui.metropolis.fare_adj_keyboard.title": "补票机",
+    "gui.metropolis.fare_adj_keyboard.continue": "确认",
+
     "gui.metropolis.fare_adj_payment.title": "补票机",
     "gui.metropolis.fare_adj_payment.subtitle": "订单详情",
     "gui.metropolis.fare_adj_payment.continue_button": "继续支付",
@@ -87,10 +90,14 @@
     "gui.metropolis.fare_adj_payment.single_trip.ticket_value": "  价格：%s",
     "gui.metropolis.fare_adj_payment.single_trip.amount": "  %s 人",
 
+    "gui.metropolis.fare_adj_payment.charge.title": "充值",
+    "gui.metropolis.fare_adj_payment.charge.ticket_value": "  价格：%s",
+    "gui.metropolis.fare_adj_payment.charge.amount": "  %s 人",
+
     "tooltip.metropolis.ticket.from_and_to": "%s ⥋ %s",
     "tooltip.metropolis.ticket.balance": "余额: %s",
     "tooltip.metropolis.ticket.entered_station": "已进站: %s",
-    "tooltip.metropolis.card.balance": "余额: %s/%s",
+    "tooltip.metropolis.card.balance": "余额: %s",
     "tooltip.metropolis.infinity_balance": "无限余额",
 
     "info.metropolis.turnstile_type": "闸机类型：%s",
@@ -155,6 +162,7 @@
     "block.metropolis.security_inspection_machine": "安检机",
 
     "block.metropolis.platform_a": "站台",
+    "block.metropolis.platform_a_slim": "窄体站台",
 
     "block.metropolis.concrete": "混凝土",
 
@@ -182,5 +190,7 @@
     "block.metropolis.awning_pillar": "雨棚支柱",
     "block.metropolis.awning_pillar_emergency": "雨棚支柱（紧急按钮）",
     "block.metropolis.awning_beam": "雨棚横梁",
-    "block.metropolis.awning_roof": "雨棚顶棚"
+    "block.metropolis.awning_roof": "雨棚顶棚",
+
+    "block.metropolis.blind_path": "盲道"
 }

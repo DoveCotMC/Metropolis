@@ -1,5 +1,6 @@
 package team.dovecotmc.metropolis.client.block.entity;
 
+import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
@@ -55,7 +56,35 @@ public class BlockEntityRendererPSDSmallDoorSemiAuto implements BlockEntityRende
 
             BakedModel model = mc.getBlockRenderer().getBlockModel(state);
 
-            mc.getBlockRenderer().getModelRenderer().tesselateWithAO(entity.getLevel(), model, state, entity.getBlockPos(), matrices, vertexConsumers.getBuffer(ItemBlockRenderTypes.getChunkRenderType(state)), false, entity.getLevel().getRandom(), 0, overlay);
+            int r = (entity.tint >> 16) & 0xFF;
+            int g = (entity.tint >> 8) & 0xFF;
+            int b = (entity.tint) & 0xFF;
+//            System.out.printf("%s/%s/%s\n", r, g, b);
+//            RenderSystem.setShaderColor(r / 255f, g / 255f, b / 255f, 1f);
+            if (entity.getLevel() != null) {
+//                mc.getBlockRenderer().getModelRenderer().renderModel(
+//                        matrices.last(),
+//                        vertexConsumers.getBuffer(ItemBlockRenderTypes.getChunkRenderType(state)),
+//                        entity.getBlockState(),
+//                        model,
+//                        r / 255f, g / 255f, b / 255f,
+//                        light,
+//                        overlay
+//                );
+                mc.getBlockRenderer().getModelRenderer().tesselateWithAO(
+                        entity.getLevel(),
+                        model,
+                        state,
+                        entity.getBlockPos(),
+                        matrices,
+                        vertexConsumers.getBuffer(ItemBlockRenderTypes.getChunkRenderType(state)),
+                        false,
+                        entity.getLevel().getRandom(),
+                        entity.tint,
+                        overlay
+                );
+            }
+//            RenderSystem.setShaderColor(1f, 1f, 1f, 1f);
         }
         matrices.popPose();
     }

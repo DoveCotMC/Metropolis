@@ -1,4 +1,4 @@
-package team.dovecotmc.metropolis.client.gui.ticket_vendor;
+package team.dovecotmc.metropolis.client.gui.fare_adj;
 
 import com.mojang.blaze3d.platform.InputConstants;
 import com.mojang.blaze3d.systems.RenderSystem;
@@ -30,24 +30,24 @@ import java.util.Objects;
  * @project Metropolis
  * @copyright Copyright © 2024 Arrokoth All Rights Reserved.
  */
-public class TicketVendorScreen3 extends Screen {
-    private static final ResourceLocation BG_TEXTURE_ID = new ResourceLocation(Metropolis.MOD_ID, "textures/gui/ticket_vendor_3/fare_adj_keyboard_base.png");
+public class FareAdjCardKeyboardScreen extends Screen {
+    private static final ResourceLocation BG_TEXTURE_ID = new ResourceLocation(Metropolis.MOD_ID, "textures/gui/fare_adj_keyboard/fare_adj_keyboard_base.png");
     protected static final int BG_TEXTURE_WIDTH = 256;
     protected static final int BG_TEXTURE_HEIGHT = 196;
 
-    private static final ResourceLocation BUTTON_UPPER_TEXTURE_ID = new ResourceLocation(Metropolis.MOD_ID, "textures/gui/ticket_vendor_3/button_upper.png");
-    private static final ResourceLocation BUTTON_UPPER_TEXTURE_HOVER_ID = new ResourceLocation(Metropolis.MOD_ID, "textures/gui/ticket_vendor_3/button_upper_hover.png");
+    private static final ResourceLocation BUTTON_UPPER_TEXTURE_ID = new ResourceLocation(Metropolis.MOD_ID, "textures/gui/fare_adj_keyboard/button_upper.png");
+    private static final ResourceLocation BUTTON_UPPER_TEXTURE_HOVER_ID = new ResourceLocation(Metropolis.MOD_ID, "textures/gui/fare_adj_keyboard/button_upper_hover.png");
     protected static final int BUTTON_UPPER_TEXTURE_WIDTH = 64;
     protected static final int BUTTON_UPPER_TEXTURE_HEIGHT = 14;
 
-    private static final ResourceLocation BUTTON_CONTINUE_TEXTURE_ID = new ResourceLocation(Metropolis.MOD_ID, "textures/gui/ticket_vendor_3/button_continue.png");
-    private static final ResourceLocation BUTTON_CONTINUE_TEXTURE_HOVER_ID = new ResourceLocation(Metropolis.MOD_ID, "textures/gui/ticket_vendor_3/button_continue_hover.png");
+    private static final ResourceLocation BUTTON_CONTINUE_TEXTURE_ID = new ResourceLocation(Metropolis.MOD_ID, "textures/gui/fare_adj_keyboard/button_continue.png");
+    private static final ResourceLocation BUTTON_CONTINUE_TEXTURE_HOVER_ID = new ResourceLocation(Metropolis.MOD_ID, "textures/gui/fare_adj_keyboard/button_continue_hover.png");
     protected static final int BUTTON_CONTINUE_TEXTURE_WIDTH = 60;
     protected static final int BUTTON_CONTINUE_TEXTURE_HEIGHT = 16;
 
-    private static final ResourceLocation BUTTON_NUMBER_TEXTURE_ID = new ResourceLocation(Metropolis.MOD_ID, "textures/gui/ticket_vendor_3/button_number.png");
-    private static final ResourceLocation BUTTON_NUMBER_TEXTURE_HOVER_ID = new ResourceLocation(Metropolis.MOD_ID, "textures/gui/ticket_vendor_3/button_number_hover.png");
-    private static final ResourceLocation BUTTON_NUMBER_TEXTURE_DOWN_ID = new ResourceLocation(Metropolis.MOD_ID, "textures/gui/ticket_vendor_3/button_number_down.png");
+    private static final ResourceLocation BUTTON_NUMBER_TEXTURE_ID = new ResourceLocation(Metropolis.MOD_ID, "textures/gui/fare_adj_keyboard/button_number.png");
+    private static final ResourceLocation BUTTON_NUMBER_TEXTURE_HOVER_ID = new ResourceLocation(Metropolis.MOD_ID, "textures/gui/fare_adj_keyboard/button_number_hover.png");
+    private static final ResourceLocation BUTTON_NUMBER_TEXTURE_DOWN_ID = new ResourceLocation(Metropolis.MOD_ID, "textures/gui/fare_adj_keyboard/button_number_down.png");
     protected static final int BUTTON_NUMBER_TEXTURE_WIDTH = 18;
     protected static final int BUTTON_NUMBER_TEXTURE_HEIGHT = 14;
 
@@ -62,13 +62,15 @@ public class TicketVendorScreen3 extends Screen {
     private boolean lastPressing = true;
     protected boolean pressed = false;
     protected String value = "0";
+    protected final FareAdjData data;
 
-    public TicketVendorScreen3(BlockPos pos, Screen parentScreen, TicketVendorData data) {
-        super(MALocalizationUtil.translatableText("gui.metropolis.ticket_vendor_3.title"));
+    public FareAdjCardKeyboardScreen(BlockPos pos, Screen parentScreen, FareAdjData data) {
+        super(MALocalizationUtil.translatableText("gui.metropolis.fare_adj_keyboard.title"));
         this.pos = pos;
         this.parentScreen = parentScreen;
         this.inputToHandle = new ArrayList<>();
         this.inputToHandle2 = new ArrayList<>();
+        this.data = data;
     }
 
     @Override
@@ -175,7 +177,7 @@ public class TicketVendorScreen3 extends Screen {
 
         matrices.pushPose();
         matrices.scale(scaleFactor, scaleFactor, scaleFactor);
-        Component continueText = MALocalizationUtil.translatableText("gui.metropolis.ticket_vendor_3.continue");
+        Component continueText = MALocalizationUtil.translatableText("gui.metropolis.fare_adj_keyboard.continue");
         guiGraphics.drawString(
                 font,
                 continueText,
@@ -189,21 +191,21 @@ public class TicketVendorScreen3 extends Screen {
         if (continueHovering && pressed) {
             playButtonSound(Minecraft.getInstance().getSoundManager());
 
-            ItemStack ticketStack = new ItemStack(MetroItems.ITEM_SINGLE_TRIP_TICKET);
+            ItemStack ticketStack = data.ticketStack;
             CompoundTag nbt = ticketStack.getOrCreateTag();
             int cost = Integer.parseInt(value);
             nbt.putInt(ItemTicket.BALANCE, cost);
 
             if (this.minecraft != null) {
-                this.minecraft.setScreen(new TicketVendorPaymentScreen(
+                this.minecraft.setScreen(new FareAdjPaymentScreen(
                         pos,
-                        new TicketVendorPaymentData(
-                                TicketVendorPaymentData.EnumTicketVendorPaymentType.SINGLE_TRIP,
+                        new FareAdjPaymentData(
+                                FareAdjPaymentData.EnumTicketVendorPaymentType.CHARGE_CARD,
                                 cost,
                                 new Component[] {
-                                        MALocalizationUtil.translatableText("gui.metropolis.ticket_vendor_payment.single_trip.title"),
-                                        MALocalizationUtil.translatableText("gui.metropolis.ticket_vendor_payment.single_trip.ticket_value", cost),
-                                        MALocalizationUtil.translatableText("gui.metropolis.ticket_vendor_payment.single_trip.amount", 1),
+                                        MALocalizationUtil.translatableText("gui.metropolis.fare_adj_payment.charge.title"),
+                                        MALocalizationUtil.translatableText("gui.metropolis.fare_adj_payment.charge.ticket_value", cost),
+                                        MALocalizationUtil.translatableText("gui.metropolis.fare_adj_payment.charge.amount", 1)
                                 },
                                 ticketStack
                         ),
@@ -330,7 +332,7 @@ public class TicketVendorScreen3 extends Screen {
         MultiBufferSource.BufferSource immediate = MultiBufferSource.immediate(Tesselator.getInstance().getBuilder());
         guiGraphics.drawString(
                 font,
-                MALocalizationUtil.translatableText("gui.metropolis.ticket_vendor_3.title"),
+                MALocalizationUtil.translatableText("gui.metropolis.fare_adj_keyboard.title"),
                 intoTexturePosX(36),
                 intoTexturePosY(12),
                 0xFFFFFF,

@@ -55,8 +55,8 @@ public class ItemCard extends Item implements InterfaceTicket {
                 tooltip.add(MALocalizationUtil.translatableText("tooltip.metropolis.ticket.entered_station", stationName));
 
             String value = MALocalizationUtil.translatableText("misc.metropolis.cost", nbt.getInt(BALANCE)).getString();
-            String maxValue = MALocalizationUtil.translatableText("misc.metropolis.cost", nbt.getInt(MAX_VALUE)).getString();
-            tooltip.add(MALocalizationUtil.translatableText("tooltip.metropolis.card.balance", value, maxValue));
+//            String maxValue = MALocalizationUtil.translatableText("misc.metropolis.cost", nbt.getInt(MAX_VALUE)).getString();
+            tooltip.add(MALocalizationUtil.translatableText("tooltip.metropolis.card.balance", value));
         }
 
         super.appendHoverText(stack, world, tooltip, context);

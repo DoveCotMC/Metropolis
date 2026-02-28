@@ -22,6 +22,7 @@ public class FareAdjPaymentData {
     }
 
     public enum EnumTicketVendorPaymentType {
-        PAY_FARE
+        PAY_FARE,
+        CHARGE_CARD
     }
 }

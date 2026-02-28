@@ -18,6 +18,8 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import team.dovecotmc.metropolis.block.interfaces.IBlockPlatform;
 import team.dovecotmc.metropolis.util.MetroBlockUtil;
 
+import java.util.Objects;
+
 /**
  * @author Arrokoth
  * @project Metropolis
@@ -26,8 +28,15 @@ import team.dovecotmc.metropolis.util.MetroBlockUtil;
 public class BlockMetroPlatform extends HorizontalDirectionalBlock implements IBlockPlatform {
     public static final EnumProperty<EnumPlatformType> TYPE = EnumProperty.create("type", EnumPlatformType.class);
 
+    public final PlatformShape platformShape;
+
     public BlockMetroPlatform(Properties settings) {
+        this(settings, PlatformShape.NORMAL);
+    }
+
+    public BlockMetroPlatform(Properties settings, PlatformShape shape) {
         super(settings.noOcclusion());
+        this.platformShape = shape;
     }
 
     public BlockState getStateForPlacement(BlockPlaceContext ctx) {
@@ -48,16 +57,103 @@ public class BlockMetroPlatform extends HorizontalDirectionalBlock implements IB
     @Override
     public VoxelShape getShape(BlockState state, BlockGetter world, BlockPos pos, CollisionContext context) {
         Direction facing = state.getValue(FACING);
+        if (Objects.requireNonNull(platformShape) == PlatformShape.SLIM) {
+            if (state.getValue(TYPE).equals(EnumPlatformType.INNER_CORNER_LEFT)) {
+                return Shapes.or(
+                        MetroBlockUtil.getVoxelShapeByDirection(
+                                0, 0, 0,
+                                16, 16, 8,
+                                facing
+                        ),
+                        MetroBlockUtil.getVoxelShapeByDirection(
+                                0, 0, 0,
+                                16, 16, 8,
+                                facing.getClockWise()
+                        ),
+                        MetroBlockUtil.getVoxelShapeByDirection(
+                                0, 13, 0,
+                                16, 16, 12,
+                                facing
+                        ),
+                        MetroBlockUtil.getVoxelShapeByDirection(
+                                0, 13, 0,
+                                16, 16, 12,
+                                facing.getClockWise()
+                        )
+                );
+            } else if (state.getValue(TYPE).equals(EnumPlatformType.INNER_CORNER_RIGHT)) {
+                return Shapes.or(
+                        MetroBlockUtil.getVoxelShapeByDirection(
+                                0, 0, 0,
+                                16, 16, 8,
+                                facing
+                        ),
+                        MetroBlockUtil.getVoxelShapeByDirection(
+                                0, 0, 0,
+                                16, 16, 8,
+                                facing.getCounterClockWise()
+                        ),
+                        MetroBlockUtil.getVoxelShapeByDirection(
+                                0, 13, 0,
+                                16, 16, 12,
+                                facing
+                        ),
+                        MetroBlockUtil.getVoxelShapeByDirection(
+                                0, 13, 0,
+                                16, 16, 12,
+                                facing.getCounterClockWise()
+                        )
+                );
+            } else if (state.getValue(TYPE).equals(EnumPlatformType.OUTER_CORNER_LEFT)) {
+                return Shapes.or(
+                        MetroBlockUtil.getVoxelShapeByDirection(
+                                8, 0, 0,
+                                16, 16, 8,
+                                facing
+                        ),
+                        MetroBlockUtil.getVoxelShapeByDirection(
+                                4, 13, 0,
+                                16, 16, 12,
+                                facing
+                        )
+                );
+            } else if (state.getValue(TYPE).equals(EnumPlatformType.OUTER_CORNER_RIGHT)) {
+                return Shapes.or(
+                        MetroBlockUtil.getVoxelShapeByDirection(
+                                0, 0, 0,
+                                8, 16, 8,
+                                facing
+                        ),
+                        MetroBlockUtil.getVoxelShapeByDirection(
+                                0, 13, 0,
+                                12, 16, 12,
+                                facing
+                        )
+                );
+            }
+            return Shapes.or(
+                    MetroBlockUtil.getVoxelShapeByDirection(
+                            0, 0, 0,
+                            16, 16, 8,
+                            facing
+                    ),
+                    MetroBlockUtil.getVoxelShapeByDirection(
+                            0, 13, 0,
+                            16, 16, 12,
+                            facing
+                    )
+            );
+        }
         if (state.getValue(TYPE).equals(EnumPlatformType.INNER_CORNER_LEFT)) {
             return Shapes.or(
                     MetroBlockUtil.getVoxelShapeByDirection(
                             0, 0, 0,
-                            16, 16, 10,
+                            16, 16, 8,
                             facing
                     ),
                     MetroBlockUtil.getVoxelShapeByDirection(
                             0, 0, 0,
-                            16, 16, 10,
+                            16, 16, 8,
                             facing.getClockWise()
                     ),
                     MetroBlockUtil.getVoxelShapeByDirection(
@@ -70,12 +166,12 @@ public class BlockMetroPlatform extends HorizontalDirectionalBlock implements IB
             return Shapes.or(
                     MetroBlockUtil.getVoxelShapeByDirection(
                             0, 0, 0,
-                            16, 16, 10,
+                            16, 16, 8,
                             facing
                     ),
                     MetroBlockUtil.getVoxelShapeByDirection(
                             0, 0, 0,
-                            16, 16, 10,
+                            16, 16, 8,
                             facing.getCounterClockWise()
                     ),
                     MetroBlockUtil.getVoxelShapeByDirection(
@@ -166,5 +262,10 @@ public class BlockMetroPlatform extends HorizontalDirectionalBlock implements IB
         public String getSerializedName() {
             return this.toString().toLowerCase();
         }
+    }
+
+    public enum PlatformShape {
+        NORMAL,
+        SLIM
     }
 }

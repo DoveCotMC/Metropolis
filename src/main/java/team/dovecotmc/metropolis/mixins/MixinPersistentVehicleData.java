@@ -6,12 +6,12 @@ package team.dovecotmc.metropolis.mixins;
  * @copyright Copyright © 2024 Arrokoth All Rights Reserved.
  */
 
-import mtr.data.Train;
+import org.mtr.mod.data.PersistentVehicleData;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.gen.Accessor;
 
-@Mixin(Train.class)
-public interface MixinTrainAccessor {
+@Mixin(PersistentVehicleData.class)
+public interface MixinPersistentVehicleData {
     @Accessor(remap = false)
-    float getDoorValue();
+    double getDoorValue();
 }

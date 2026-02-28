@@ -16,6 +16,8 @@ import net.minecraft.world.level.Level;
 import team.dovecotmc.metropolis.Metropolis;
 import team.dovecotmc.metropolis.block.entity.BlockEntityFareAdj;
 import team.dovecotmc.metropolis.block.entity.BlockEntityTicketVendor;
+import team.dovecotmc.metropolis.item.ItemCard;
+import team.dovecotmc.metropolis.item.ItemTicket;
 
 /**
  * @author Arrokoth
@@ -52,11 +54,9 @@ public class MetroServerNetwork {
         FriendlyByteBuf packet = PacketByteBufs.create();
         packet.writeBlockPos(pos);
         ItemStack stack = player.getItemInHand(InteractionHand.MAIN_HAND);
-        // TODO: Card charger
-        stack = ItemStack.EMPTY;
-//        if (!(stack.getItem() instanceof ItemTicket || stack.getItem() instanceof ItemCard)) {
-//            stack = ItemStack.EMPTY;
-//        }
+        if (!(stack.getItem() instanceof ItemTicket || stack.getItem() instanceof ItemCard)) {
+            stack = ItemStack.EMPTY;
+        }
         packet.writeItem(stack);
         ServerPlayNetworking.send(player, FARE_ADJ_GUI, packet);
     }
@@ -135,11 +135,14 @@ public class MetroServerNetwork {
             BlockPos pos = buf.readBlockPos();
             ItemStack stack = buf.readItem();
             int balance = buf.readInt();
+            boolean replace = buf.readBoolean();
             Item item = Metropolis.config.currencyItem;
             server.execute(() -> {
+                // TODO: Debug
                 System.out.println(pos);
                 System.out.println(stack);
                 System.out.println(balance);
+                System.out.println(replace);
                 System.out.println(item);
                 if (balance > 0) {
                     for (int i = 0; i < balance / item.getMaxStackSize(); i++) {
@@ -151,7 +154,9 @@ public class MetroServerNetwork {
                 }
                 
                 Level world = player.serverLevel();
-                if (world != null) {
+                if (replace) {
+                    player.setItemInHand(InteractionHand.MAIN_HAND, stack);
+                } else {
                     world.playSound(null, pos, SoundEvents.WOOL_PLACE, SoundSource.BLOCKS, 1f, 1f);
                     if (world.getBlockEntity(pos) instanceof BlockEntityFareAdj blockEntity) {
                         blockEntity.setItem(0, stack);

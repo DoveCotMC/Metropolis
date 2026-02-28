@@ -9,10 +9,12 @@ import net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback;
 import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
 import net.fabricmc.fabric.api.resource.SimpleSynchronousResourceReloadListener;
 import net.fabricmc.loader.api.FabricLoader;
+import net.minecraft.client.KeyMapping;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.PackType;
 import net.minecraft.server.packs.resources.ResourceManager;
+import org.lwjgl.glfw.GLFW;
 import team.dovecotmc.metropolis.Metropolis;
 import team.dovecotmc.metropolis.block.MetroBlocks;
 import team.dovecotmc.metropolis.block.entity.MetroBlockEntities;
@@ -34,6 +36,8 @@ public class MetropolisClient implements ClientModInitializer {
     public static final MetroBlockPlaceHud BLOCK_PLACE_HUD = new MetroBlockPlaceHud();
     public static MetroClientConfig config = MetroClientConfig.load();
 
+    public static final KeyMapping KEY_TOGGLE_SWITCH = new KeyMapping("metropolis.key.toggle_switch", GLFW.GLFW_KEY_LEFT_ALT, "metropolis.key.category.general");
+
     @Override
     public void onInitializeClient() {
         // Some nte stuff maybe?
@@ -53,6 +57,7 @@ public class MetropolisClient implements ClientModInitializer {
         BlockRenderLayerMap.INSTANCE.putBlock(MetroBlocks.BLOCK_TICKET_VENDOR_PANEL, RenderType.cutout());
         BlockRenderLayerMap.INSTANCE.putBlock(MetroBlocks.BLOCK_TICKET_VENDOR_TOP, RenderType.cutout());
         BlockRenderLayerMap.INSTANCE.putBlock(MetroBlocks.BLOCK_SECURITY_INSPECTION_MACHINE, RenderType.cutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(MetroBlocks.BLOCK_BLIND_PATH, RenderType.cutout());
 
         ModelLoadingRegistry.INSTANCE.registerResourceProvider(rm -> new MetroModelProvicer());
 

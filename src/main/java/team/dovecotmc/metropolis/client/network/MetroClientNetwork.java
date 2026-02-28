@@ -38,11 +38,12 @@ public class MetroClientNetwork {
         ClientPlayNetworking.send(MetroServerNetwork.TICKET_VENDOR_RESULT, buf);
     }
 
-    public static void fareAdjClose(BlockPos pos, ItemStack stack, int balance) {
+    public static void fareAdjClose(BlockPos pos, ItemStack stack, int balance, boolean replace) {
         FriendlyByteBuf buf = PacketByteBufs.create();
         buf.writeBlockPos(pos);
         buf.writeItem(stack);
         buf.writeInt(balance);
+        buf.writeBoolean(replace);
         ClientPlayNetworking.send(MetroServerNetwork.FARE_ADJ_CLOSE, buf);
     }
 

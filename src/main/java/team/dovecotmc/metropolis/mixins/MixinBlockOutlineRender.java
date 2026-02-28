@@ -15,6 +15,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.Nullable;
+import org.mtr.core.map.Station;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
@@ -52,7 +53,7 @@ public abstract class MixinBlockOutlineRender {
             }
 
             if (outline) {
-                Station station = MtrStationUtil.getStationByPos(pos, level);
+                org.mtr.core.map.Station station = MtrStationUtil.getStationByPos(pos, level);
                 if (station != null) {
                     float red = FastColor.ARGB32.red(station.color) / 255f;
                     float green = FastColor.ARGB32.green(station.color) / 255f;
