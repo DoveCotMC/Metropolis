@@ -16,7 +16,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.FastColor;
 import net.minecraft.world.item.ItemStack;
-import org.mtr.core.map.Station;
+import org.mtr.core.data.Station;
 import team.dovecotmc.metropolis.Metropolis;
 import team.dovecotmc.metropolis.abstractinterface.util.MALocalizationUtil;
 import team.dovecotmc.metropolis.item.ItemTicket;
@@ -145,9 +145,7 @@ public class TicketVendorScreen2 extends Screen {
             }
             int stationsSize = stations.size();
 
-//            List<Station> sortedStations = stations.stream().sorted(Comparator.comparingInt(o -> (Math.abs(o.zone - locatedStation.zone)))).toList();
-            // TODO: WIP MTR4!
-            List<Station> sortedStations = new ArrayList<>();
+            List<Station> sortedStations = stations.stream().sorted(Comparator.comparingInt(o -> Math.toIntExact((Math.abs(o.getZone1() - locatedStation.getZone1()))))).toList();
 
             final int maxStrWidth = 96;
 //                int h0 = 128;
@@ -205,12 +203,9 @@ public class TicketVendorScreen2 extends Screen {
                 }
 
                 // Station color
-//                float r = FastColor.ARGB32.red(station.color);
-//                float g = FastColor.ARGB32.green(station.color);
-//                float b = FastColor.ARGB32.blue(station.color);
-                float r = 0;
-                float g = 0;
-                float b = 0;
+                float r = FastColor.ARGB32.red(station.getColor());
+                float g = FastColor.ARGB32.green(station.getColor());
+                float b = FastColor.ARGB32.blue(station.getColor());
                 RenderSystem.setShaderColor(r / 256f, g / 256f, b / 255f, 1f);
                 guiGraphics.blit(
                         new ResourceLocation(Metropolis.MOD_ID, "textures/blanco.png"),
@@ -261,8 +256,7 @@ public class TicketVendorScreen2 extends Screen {
                 }
 
                 // Station cost
-//                int cost = Math.abs(station.zone - locatedStation.zone) + 1;
-                int cost = 0;
+                int cost = Math.toIntExact(Math.abs(station.getZone1() - locatedStation.getZone1()) + 1);
                 Component costText = MALocalizationUtil.translatableText("misc.metropolis.cost", cost);
                 guiGraphics.drawString(
                         this.font,
@@ -287,41 +281,41 @@ public class TicketVendorScreen2 extends Screen {
 
                 // Go to payment
                 if (thisTabHovering && pressed) {
-//                    if (this.minecraft.level != null) {
-//                        playDownSound(Minecraft.getInstance().getSoundManager());
-//                    }
-//                    String locatedStationFirstName = station.name;
-//                    String[] arr1 = locatedStation.name.split("\\|");
-//                    if (arr1.length > 1) {
-//                        locatedStationFirstName = arr1[0];
-//                    }
-//                    String stationFirstName = station.name;
-//                    String[] arr2 = station.name.split("\\|");
-//                    if (arr2.length > 1) {
-//                        stationFirstName = arr2[0];
-//                    }
-//
-//                    ItemStack ticketStack = new ItemStack(MetroItems.ITEM_SINGLE_TRIP_TICKET);
-//                    CompoundTag nbt = ticketStack.getOrCreateTag();
-//                    nbt.putInt(ItemTicket.BALANCE, cost);
-//                    nbt.putString(ItemTicket.START_STATION, locatedStationFirstName);
-//                    nbt.putString(ItemTicket.END_STATION, stationFirstName);
-//
-//                    this.minecraft.setScreen(new TicketVendorPaymentScreen(
-//                            pos,
-//                            new TicketVendorPaymentData(
-//                                    TicketVendorPaymentData.EnumTicketVendorPaymentType.SINGLE_TRIP,
-//                                    cost,
-//                                    new Component[] {
-//                                            MALocalizationUtil.translatableText("gui.metropolis.ticket_vendor_payment.single_trip.title"),
-//                                            MALocalizationUtil.translatableText("gui.metropolis.ticket_vendor_payment.single_trip.from_and_to", locatedStationFirstName, stationFirstName),
-//                                            MALocalizationUtil.translatableText("gui.metropolis.ticket_vendor_payment.single_trip.ticket_value", cost),
-//                                            MALocalizationUtil.translatableText("gui.metropolis.ticket_vendor_payment.single_trip.amount", 1),
-//                                    },
-//                                    ticketStack
-//                            ),
-//                            this
-//                    ));
+                    if (this.minecraft.level != null) {
+                        playDownSound(Minecraft.getInstance().getSoundManager());
+                    }
+                    String locatedStationFirstName = station.getName();
+                    String[] arr1 = locatedStation.getName().split("\\|");
+                    if (arr1.length > 1) {
+                        locatedStationFirstName = arr1[0];
+                    }
+                    String stationFirstName = station.getName();
+                    String[] arr2 = station.getName().split("\\|");
+                    if (arr2.length > 1) {
+                        stationFirstName = arr2[0];
+                    }
+
+                    ItemStack ticketStack = new ItemStack(MetroItems.ITEM_SINGLE_TRIP_TICKET);
+                    CompoundTag nbt = ticketStack.getOrCreateTag();
+                    nbt.putInt(ItemTicket.BALANCE, cost);
+                    nbt.putString(ItemTicket.START_STATION, locatedStationFirstName);
+                    nbt.putString(ItemTicket.END_STATION, stationFirstName);
+
+                    this.minecraft.setScreen(new TicketVendorPaymentScreen(
+                            pos,
+                            new TicketVendorPaymentData(
+                                    TicketVendorPaymentData.EnumTicketVendorPaymentType.SINGLE_TRIP,
+                                    cost,
+                                    new Component[] {
+                                            MALocalizationUtil.translatableText("gui.metropolis.ticket_vendor_payment.single_trip.title"),
+                                            MALocalizationUtil.translatableText("gui.metropolis.ticket_vendor_payment.single_trip.from_and_to", locatedStationFirstName, stationFirstName),
+                                            MALocalizationUtil.translatableText("gui.metropolis.ticket_vendor_payment.single_trip.ticket_value", cost),
+                                            MALocalizationUtil.translatableText("gui.metropolis.ticket_vendor_payment.single_trip.amount", 1),
+                                    },
+                                    ticketStack
+                            ),
+                            this
+                    ));
                 }
 
                 i0++;

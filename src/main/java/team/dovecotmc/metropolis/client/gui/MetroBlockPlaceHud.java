@@ -16,8 +16,7 @@ import net.minecraft.util.FastColor;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
-import org.mtr.core.map.Station;
-import org.mtr.mod.Items;
+import org.mtr.core.data.Station;
 import team.dovecotmc.metropolis.abstractinterface.util.MALocalizationUtil;
 import team.dovecotmc.metropolis.client.MetropolisClient;
 import team.dovecotmc.metropolis.item.IItemShowStationHUD;
@@ -84,12 +83,12 @@ public class MetroBlockPlaceHud {
             boolean shouldRenderName = shouldRender;
 
             if (shouldRenderName) {
-                int r = 0;
-                int g = 0;
-                int b = 0;
-//                int r = FastColor.ARGB32.red(station.color);
-//                int g = FastColor.ARGB32.green(station.color);
-//                int b = FastColor.ARGB32.blue(station.color);
+//                int r = 0;
+//                int g = 0;
+//                int b = 0;
+                int r = FastColor.ARGB32.red(station.getColor());
+                int g = FastColor.ARGB32.green(station.getColor());
+                int b = FastColor.ARGB32.blue(station.getColor());
                 RenderSystem.setShaderColor(r / 255f, g / 255f, b / 255f, 1);
 
                 int y0 = centerY - 8 - textRenderer.lineHeight;
@@ -136,6 +135,7 @@ public class MetroBlockPlaceHud {
             }
 
             matrices.popPose();
+            RenderSystem.setShaderColor(1, 1, 1, 1);
         } else {
             shouldRender = false;
         }

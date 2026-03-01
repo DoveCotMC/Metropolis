@@ -14,7 +14,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.Nullable;
-import org.mtr.core.map.Station;
+import org.mtr.core.data.Station;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
@@ -52,13 +52,13 @@ public abstract class MixinBlockOutlineRender {
             }
 
             if (outline) {
-                org.mtr.core.map.Station station = MtrStationUtil.getStationByPos(pos, level);
+                Station station = MtrStationUtil.getStationByPos(pos, level);
                 if (station != null) {
-//                    float red = FastColor.ARGB32.red(station.color) / 255f;
-//                    float green = FastColor.ARGB32.green(station.color) / 255f;
-//                    float blue = FastColor.ARGB32.blue(station.color) / 255f;
-//                    float alpha = (float) Math.abs((Math.sin((level.getGameTime() + Minecraft.getInstance().getFrameTime()) / 4f) / 2f));
-//                    renderShape(matrices, vertexConsumer, state.getShape(level, pos, CollisionContext.of(entity)), (double)pos.getX() - cameraX, (double)pos.getY() - cameraY, (double)pos.getZ() - cameraZ, red, green, blue, alpha);
+                    float red = FastColor.ARGB32.red(station.getColor()) / 255f;
+                    float green = FastColor.ARGB32.green(station.getColor()) / 255f;
+                    float blue = FastColor.ARGB32.blue(station.getColor()) / 255f;
+                    float alpha = (float) Math.abs((Math.sin((level.getGameTime() + Minecraft.getInstance().getFrameTime()) / 4f) / 2f));
+                    renderShape(matrices, vertexConsumer, state.getShape(level, pos, CollisionContext.of(entity)), (double)pos.getX() - cameraX, (double)pos.getY() - cameraY, (double)pos.getZ() - cameraZ, red, green, blue, alpha);
                 }
             }
         }
