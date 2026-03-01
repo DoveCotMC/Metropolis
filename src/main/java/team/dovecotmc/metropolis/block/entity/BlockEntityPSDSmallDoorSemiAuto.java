@@ -9,11 +9,6 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.Nullable;
 
-/**
- * @author Arrokoth
- * @project Metropolis
- * @copyright Copyright © 2024 Arrokoth All Rights Reserved.
- */
 public class BlockEntityPSDSmallDoorSemiAuto extends BlockEntity {
     public static final String KEY_OPEN = "open";
     public float open = 0;

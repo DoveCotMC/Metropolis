@@ -19,11 +19,6 @@ import team.dovecotmc.metropolis.Metropolis;
 import team.dovecotmc.metropolis.block.entity.BlockEntityFareAdj;
 import team.dovecotmc.metropolis.client.MetropolisClient;
 
-/**
- * @author Arrokoth
- * @project Metropolis
- * @copyright Copyright © 2024 Arrokoth All Rights Reserved.
- */
 public class FareAdjBlockEntityRenderer implements BlockEntityRenderer<BlockEntityFareAdj> {
     @Override
     public void render(BlockEntityFareAdj entity, float tickDelta, PoseStack matrices, MultiBufferSource vertexConsumers, int light, int overlay) {

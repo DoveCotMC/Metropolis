@@ -42,11 +42,6 @@ import team.dovecotmc.metropolis.network.MetroServerNetwork;
 import team.dovecotmc.metropolis.util.MetroBlockUtil;
 import team.dovecotmc.metropolis.util.MtrSoundUtil;
 
-/**
- * @author Arrokoth
- * @project Metropolis
- * @copyright Copyright © 2024 Arrokoth All Rights Reserved.
- */
 @SuppressWarnings("deprecation")
 public class BlockSecurityInspectionMachine extends HorizontalDirectionalBlock implements EntityBlock {
     public static final int PROCESS_DURATION = 40;

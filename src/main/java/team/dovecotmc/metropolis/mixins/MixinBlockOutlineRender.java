@@ -24,11 +24,6 @@ import team.dovecotmc.metropolis.block.IBlockStationOverlayShouldRender;
 import team.dovecotmc.metropolis.client.MetropolisClient;
 import team.dovecotmc.metropolis.util.MtrStationUtil;
 
-/**
- * @author Arrokoth
- * @project Metropolis
- * @copyright Copyright © 2024 Arrokoth All Rights Reserved.
- */
 @Environment(EnvType.CLIENT)
 @Mixin(LevelRenderer.class)
 public abstract class MixinBlockOutlineRender {

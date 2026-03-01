@@ -19,11 +19,6 @@ import team.dovecotmc.metropolis.config.MetroConfig;
 
 import java.util.Optional;
 
-/**
- * @author Arrokoth
- * @project Metropolis
- * @copyright Copyright © 2024 Arrokoth All Rights Reserved.
- */
 public class MetroModMenuConfigScreen extends Screen {
     private final Screen parent;
     public static final ResourceLocation SWITCH_ON_TEXTURE_ID = new ResourceLocation(Metropolis.MOD_ID, "textures/gui/config/switch_on.png");

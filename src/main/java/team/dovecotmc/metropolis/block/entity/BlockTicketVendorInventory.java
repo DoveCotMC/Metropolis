@@ -6,11 +6,6 @@ import net.minecraft.world.ContainerHelper;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 
-/**
- * @author Arrokoth
- * @project Metropolis
- * @copyright Copyright © 2024 Arrokoth All Rights Reserved.
- */
 public interface BlockTicketVendorInventory extends Container {
     NonNullList<ItemStack> getItems();
 

@@ -12,11 +12,6 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.Nullable;
 
-/**
- * @author Arrokoth
- * @project Metropolis
- * @copyright Copyright © 2024 Arrokoth All Rights Reserved.
- */
 public class BlockEntityFareAdj extends BlockEntity implements BlockFareAdjInventory {
     public static final String TICKET_ANIMATION_BEGIN_TIME = "ticket_animation_begin_time";
     public long ticket_animation_begin_time = 0;

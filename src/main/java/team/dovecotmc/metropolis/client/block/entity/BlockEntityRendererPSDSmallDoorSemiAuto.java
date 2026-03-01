@@ -15,11 +15,6 @@ import org.joml.Quaternionf;
 import team.dovecotmc.metropolis.block.BlockPSDSmallDoorSemiAuto;
 import team.dovecotmc.metropolis.block.entity.BlockEntityPSDSmallDoorSemiAuto;
 
-/**
- * @author Arrokoth
- * @project Metropolis
- * @copyright Copyright © 2024 Arrokoth All Rights Reserved.
- */
 public class BlockEntityRendererPSDSmallDoorSemiAuto implements BlockEntityRenderer<BlockEntityPSDSmallDoorSemiAuto> {
     public static final int DURATION = 40;
 

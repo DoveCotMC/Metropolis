@@ -26,11 +26,6 @@ import team.dovecotmc.metropolis.util.MtrCommonUtil;
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- * @author Arrokoth
- * @project Metropolis
- * @copyright Copyright © 2024 Arrokoth All Rights Reserved.
- */
 @SuppressWarnings("deprecation")
 public class BlockTicketVendorTop extends HorizontalDirectionalBlock {
     public static final Map<Integer, BlockTicketVendorTop> TYPES = new HashMap<>();

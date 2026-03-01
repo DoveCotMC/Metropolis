@@ -13,11 +13,6 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import team.dovecotmc.metropolis.block.interfaces.IBlockPlatform;
 import team.dovecotmc.metropolis.util.MetroBlockUtil;
 
-/**
- * @author Arrokoth
- * @project Metropolis
- * @copyright Copyright © 2024 Arrokoth All Rights Reserved.
- */
 public class BlockPSDSmallFenceSemiAuto extends BlockHorizontalFacing implements IBlockPlatform {
     public BlockPSDSmallFenceSemiAuto(Properties settings) {
         super(settings.noOcclusion());

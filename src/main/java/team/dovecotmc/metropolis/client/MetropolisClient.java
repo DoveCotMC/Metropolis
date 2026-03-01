@@ -26,11 +26,6 @@ import team.dovecotmc.metropolis.client.gui.MetroBlockPlaceHud;
 import team.dovecotmc.metropolis.client.network.MetroClientNetwork;
 import team.dovecotmc.metropolis.entity.MetroEntities;
 
-/**
- * @author Arrokoth
- * @project Metropolis
- * @copyright Copyright © 2023 Arrokoth All Rights Reserved.
- */
 @SuppressWarnings("deprecation")
 public class MetropolisClient implements ClientModInitializer {
     public static final MetroBlockPlaceHud BLOCK_PLACE_HUD = new MetroBlockPlaceHud();

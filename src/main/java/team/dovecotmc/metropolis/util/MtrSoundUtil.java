@@ -3,11 +3,6 @@ package team.dovecotmc.metropolis.util;
 import mtr.SoundEvents;
 import net.minecraft.sounds.SoundEvent;
 
-/**
- * @author Arrokoth
- * @project Metropolis
- * @copyright Copyright © 2024 Arrokoth All Rights Reserved.
- */
 public class MtrSoundUtil {
     // MTR4
 //    public static final SoundEvent TICKET_BARRIER = SoundEvents.TICKET_BARRIER.get().data;

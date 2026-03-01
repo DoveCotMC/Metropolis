@@ -15,11 +15,6 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import team.dovecotmc.metropolis.block.interfaces.IBlockPlatform;
 
-/**
- * @author Arrokoth
- * @project Metropolis
- * @copyright Copyright © 2024 Arrokoth All Rights Reserved.
- */
 @Mixin(Train.class)
 public abstract class MixinTrain {
     @Invoker(value = "skipScanBlocks", remap = false)

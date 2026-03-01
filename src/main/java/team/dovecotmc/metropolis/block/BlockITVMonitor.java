@@ -16,11 +16,6 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.Nullable;
 import team.dovecotmc.metropolis.block.entity.BlockEntityITVMonitor;
 
-/**
- * @author Arrokoth
- * @project Metropolis
- * @copyright Copyright © 2024 Arrokoth All Rights Reserved.
- */
 @SuppressWarnings("deprecation")
 public class BlockITVMonitor extends BaseEntityBlock {
     public static final IntegerProperty ROTATION;

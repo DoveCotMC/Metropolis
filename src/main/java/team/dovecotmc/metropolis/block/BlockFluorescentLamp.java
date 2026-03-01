@@ -13,11 +13,6 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import team.dovecotmc.metropolis.util.MetroBlockUtil;
 
-/**
- * @author Arrokoth
- * @project Metropolis
- * @copyright Copyright © 2024 Arrokoth All Rights Reserved.
- */
 @SuppressWarnings("deprecation")
 public class BlockFluorescentLamp extends BlockHorizontalAxis {
     public BlockFluorescentLamp() {

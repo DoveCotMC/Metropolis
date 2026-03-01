@@ -6,11 +6,6 @@ import net.minecraft.world.level.block.Block;
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- * @author Arrokoth
- * @project Metropolis
- * @copyright Copyright © 2024 Arrokoth All Rights Reserved.
- */
 public class SittableRegistries {
     private static final Map<Block, SittableRegistry> registries = new HashMap<>();
 

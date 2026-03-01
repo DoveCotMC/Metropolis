@@ -8,11 +8,6 @@ import net.minecraft.world.level.Level;
 
 import java.util.Set;
 
-/**
- * @author Arrokoth
- * @project Metropolis
- * @copyright Copyright © 2024 Arrokoth All Rights Reserved.
- */
 public class MtrStationUtil {
     public static Set<Station> getStations(Level world) {
         if (world.isClientSide()) {

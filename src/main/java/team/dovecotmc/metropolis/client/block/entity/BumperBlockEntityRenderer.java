@@ -15,11 +15,6 @@ import net.minecraft.world.phys.Vec3;
 import team.dovecotmc.metropolis.block.BlockITVMonitor;
 import team.dovecotmc.metropolis.block.entity.BlockEntityBumper;
 
-/**
- * @author Arrokoth
- * @project Metropolis
- * @copyright Copyright © 2024 Arrokoth All Rights Reserved.
- */
 public class BumperBlockEntityRenderer implements BlockEntityRenderer<BlockEntityBumper> {
     @Override
     public void render(BlockEntityBumper entity, float tickDelta, PoseStack matrices, MultiBufferSource vertexConsumers, int light, int overlay) {

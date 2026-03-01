@@ -8,11 +8,6 @@ import net.minecraft.resources.ResourceLocation;
 import org.jetbrains.annotations.Nullable;
 import team.dovecotmc.metropolis.Metropolis;
 
-/**
- * @author Arrokoth
- * @project Metropolis
- * @copyright Copyright © 2024 Arrokoth All Rights Reserved.
- */
 public class MetroModelProvicer implements ModelResourceProvider {
 //    public static final Identifier MONITOR_MODEL = new Identifier(Metropolis.MOD_ID, "block/embedded/monitor");
     public static final ResourceLocation TURNSTILE_R_MODEL = new ResourceLocation(Metropolis.MOD_ID, "block/embedded/turnstile_r_model");

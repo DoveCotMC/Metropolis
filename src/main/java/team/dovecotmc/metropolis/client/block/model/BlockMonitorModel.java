@@ -27,11 +27,6 @@ import java.util.Set;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
-/**
- * @author Arrokoth
- * @project Metropolis
- * @copyright Copyright © 2024 Arrokoth All Rights Reserved.
- */
 public class BlockMonitorModel implements UnbakedModel, BakedModel, FabricBakedModel {
     private BakedModel parent = null;
 

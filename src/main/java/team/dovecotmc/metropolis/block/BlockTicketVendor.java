@@ -35,11 +35,6 @@ import team.dovecotmc.metropolis.item.MetroItems;
 import team.dovecotmc.metropolis.network.MetroServerNetwork;
 import team.dovecotmc.metropolis.util.MetroBlockUtil;
 
-/**
- * @author Arrokoth
- * @project Metropolis
- * @copyright Copyright © 2024 Arrokoth All Rights Reserved.
- */
 @SuppressWarnings({"deprecation", "unused"})
 public class BlockTicketVendor extends HorizontalDirectionalBlock implements EntityBlock {
     public final boolean isFunctional;

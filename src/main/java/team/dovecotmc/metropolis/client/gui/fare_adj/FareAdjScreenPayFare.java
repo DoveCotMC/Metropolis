@@ -14,11 +14,6 @@ import net.minecraft.sounds.SoundEvents;
 import team.dovecotmc.metropolis.Metropolis;
 import team.dovecotmc.metropolis.abstractinterface.util.MALocalizationUtil;
 
-/**
- * @author Arrokoth
- * @project Metropolis
- * @copyright Copyright © 2024 Arrokoth All Rights Reserved.
- */
 public class FareAdjScreenPayFare extends Screen {
     private static final ResourceLocation BG_TEXTURE_ID = new ResourceLocation(Metropolis.MOD_ID, "textures/gui/fare_adj_pay_fare/base.png");
     protected static final int BG_TEXTURE_WIDTH = 256;

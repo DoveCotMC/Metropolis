@@ -9,11 +9,6 @@ import team.dovecotmc.metropolis.Metropolis;
 import team.dovecotmc.metropolis.block.MetroBlocks;
 import team.dovecotmc.metropolis.block.entity.BlockEntityTurnstile;
 
-/**
- * @author Arrokoth
- * @project Metropolis
- * @copyright Copyright © 2023 Arrokoth All Rights Reserved.
- */
 @SuppressWarnings("unused")
 public class MetroItems {
     public static final Item ITEM_CABLE = register("cable", new BlockItem(MetroBlocks.BLOCK_CABLE, new Item.Properties()));

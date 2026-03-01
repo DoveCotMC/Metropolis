@@ -10,11 +10,6 @@ import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.material.MapColor;
 import team.dovecotmc.metropolis.Metropolis;
 
-/**
- * @author Arrokoth
- * @project Metropolis
- * @copyright Copyright © 2023 Arrokoth All Rights Reserved.
- */
 @SuppressWarnings("unused")
 public class MetroBlocks {
     // Cables

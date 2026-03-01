@@ -28,11 +28,6 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
-/**
- * @author Arrokoth
- * @project Metropolis
- * @copyright Copyright © 2024 Arrokoth All Rights Reserved.
- */
 public class EntitySittable extends Entity {
     private static final ImmutableMap<Pose, ImmutableList<Integer>> DISMOUNT_FREE_Y_SPACES_NEEDED;
     private int tick = 0;

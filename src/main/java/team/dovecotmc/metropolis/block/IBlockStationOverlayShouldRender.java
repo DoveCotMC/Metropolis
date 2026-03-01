@@ -1,10 +1,5 @@
 package team.dovecotmc.metropolis.block;
 
-/**
- * @author Arrokoth
- * @project Metropolis
- * @copyright Copyright © 2024 Arrokoth All Rights Reserved.
- */
 @SuppressWarnings("unused")
 public interface IBlockStationOverlayShouldRender {
     default boolean shouldRenderName() {

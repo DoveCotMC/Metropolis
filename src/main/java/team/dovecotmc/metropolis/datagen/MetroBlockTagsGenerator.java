@@ -13,11 +13,6 @@ import team.dovecotmc.metropolis.Metropolis;
 import java.util.Objects;
 import java.util.concurrent.CompletableFuture;
 
-/**
- * @author Arrokoth
- * @project Metropolis
- * @copyright Copyright © 2024 Arrokoth All Rights Reserved.
- */
 public class MetroBlockTagsGenerator extends FabricTagProvider<Block> {
     private static final TagKey<Block> PICKAXE_KEY = TagKey.create(Registries.BLOCK, new ResourceLocation("mineable/pickaxe"));
     private static final TagKey<Block> NEEDS_STONE_TOOL = TagKey.create(Registries.BLOCK, new ResourceLocation("needs_stone_tool"));

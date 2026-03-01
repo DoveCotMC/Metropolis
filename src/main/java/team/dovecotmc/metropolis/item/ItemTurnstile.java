@@ -16,11 +16,6 @@ import team.dovecotmc.metropolis.block.entity.BlockEntityTurnstile;
 
 import java.util.List;
 
-/**
- * @author Arrokoth
- * @project Metropolis
- * @copyright Copyright © 2024 Arrokoth All Rights Reserved.
- */
 public class ItemTurnstile extends BlockItem implements IItemShowStationHUD {
     public final BlockEntityTurnstile.EnumTurnstileType type;
 

@@ -1,10 +1,5 @@
 package team.dovecotmc.metropolis.mixins;
 
-/**
- * @author Arrokoth
- * @project Metropolis
- * @copyright Copyright © 2024 Arrokoth All Rights Reserved.
- */
 
 import mtr.data.Train;
 import org.spongepowered.asm.mixin.Mixin;

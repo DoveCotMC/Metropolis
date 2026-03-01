@@ -16,11 +16,6 @@ import team.dovecotmc.metropolis.client.gui.ticket_vendor.TicketVendorScreen1;
 import team.dovecotmc.metropolis.client.gui.ticket_vendor.TicketVendorScreen4;
 import team.dovecotmc.metropolis.network.MetroServerNetwork;
 
-/**
- * @author Arrokoth
- * @project Metropolis
- * @copyright Copyright © 2024 Arrokoth All Rights Reserved.
- */
 public class MetroClientNetwork {
     public static void ticketVendorClose(BlockPos pos, ItemStack stack, int balance) {
         FriendlyByteBuf buf = PacketByteBufs.create();

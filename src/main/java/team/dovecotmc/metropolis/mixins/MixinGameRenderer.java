@@ -16,11 +16,6 @@ import team.dovecotmc.metropolis.abstractinterface.util.MALocalizationUtil;
 
 import java.util.Optional;
 
-/**
- * @author Arrokoth
- * @project Metropolis
- * @copyright Copyright © 2024 Arrokoth All Rights Reserved.
- */
 @Mixin(GameRenderer.class)
 public class MixinGameRenderer {
     @Inject(method = "render", at = @At("TAIL"))

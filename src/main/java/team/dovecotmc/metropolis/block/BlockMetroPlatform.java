@@ -20,11 +20,6 @@ import team.dovecotmc.metropolis.util.MetroBlockUtil;
 
 import java.util.Objects;
 
-/**
- * @author Arrokoth
- * @project Metropolis
- * @copyright Copyright © 2024 Arrokoth All Rights Reserved.
- */
 public class BlockMetroPlatform extends HorizontalDirectionalBlock implements IBlockPlatform {
     public static final EnumProperty<EnumPlatformType> TYPE = EnumProperty.create("type", EnumPlatformType.class);
 

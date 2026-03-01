@@ -23,11 +23,6 @@ import team.dovecotmc.metropolis.client.MetropolisClient;
 import team.dovecotmc.metropolis.item.IItemShowStationHUD;
 import team.dovecotmc.metropolis.util.MtrStationUtil;
 
-/**
- * @author Arrokoth
- * @project Metropolis
- * @copyright Copyright © 2024 Arrokoth All Rights Reserved.
- */
 @SuppressWarnings("unused")
 @Environment(EnvType.CLIENT)
 public class MetroBlockPlaceHud {

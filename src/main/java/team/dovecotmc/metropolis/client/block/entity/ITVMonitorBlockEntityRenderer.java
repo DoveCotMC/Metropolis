@@ -15,11 +15,6 @@ import net.minecraft.world.phys.Vec3;
 import team.dovecotmc.metropolis.block.BlockITVMonitor;
 import team.dovecotmc.metropolis.block.entity.BlockEntityITVMonitor;
 
-/**
- * @author Arrokoth
- * @project Metropolis
- * @copyright Copyright © 2024 Arrokoth All Rights Reserved.
- */
 public class ITVMonitorBlockEntityRenderer implements BlockEntityRenderer<BlockEntityITVMonitor> {
     @Override
     public void render(BlockEntityITVMonitor entity, float tickDelta, PoseStack matrices, MultiBufferSource vertexConsumers, int light, int overlay) {

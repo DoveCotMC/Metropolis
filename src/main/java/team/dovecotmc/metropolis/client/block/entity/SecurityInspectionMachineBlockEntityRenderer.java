@@ -13,11 +13,6 @@ import net.minecraft.world.level.block.HorizontalDirectionalBlock;
 import team.dovecotmc.metropolis.block.BlockSecurityInspectionMachine;
 import team.dovecotmc.metropolis.block.entity.BlockEntitySecurityInspectionMachine;
 
-/**
- * @author Arrokoth
- * @project Metropolis
- * @copyright Copyright © 2024 Arrokoth All Rights Reserved.
- */
 public class SecurityInspectionMachineBlockEntityRenderer implements BlockEntityRenderer<BlockEntitySecurityInspectionMachine> {
     @Override
     public void render(BlockEntitySecurityInspectionMachine entity, float tickDelta, PoseStack matrices, MultiBufferSource vertexConsumers, int light, int overlay) {

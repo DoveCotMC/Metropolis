@@ -8,11 +8,6 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import team.dovecotmc.metropolis.Metropolis;
 
-/**
- * @author Arrokoth
- * @project Metropolis
- * @copyright Copyright © 2024 Arrokoth All Rights Reserved.
- */
 public class MetroEntities {
     public static final EntityType<Entity> SITTABLE = Registry.register(BuiltInRegistries.ENTITY_TYPE, new ResourceLocation(Metropolis.MOD_ID, "sittable"), FabricEntityTypeBuilder.create().entityFactory(EntitySittable::new).build());
 

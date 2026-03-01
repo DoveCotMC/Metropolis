@@ -28,11 +28,6 @@ import team.dovecotmc.metropolis.client.gui.BridgeCreatorConfigurationScreen;
 import java.util.List;
 import java.util.Objects;
 
-/**
- * @author Arrokoth
- * @project Metropolis
- * @copyright Copyright © 2024 Arrokoth All Rights Reserved.
- */
 public class ItemDynamicBridgeCreator extends ItemNodeModifierBase {
     public static final String WIDTH = "width";
     public static final String HEIGHT = "height";

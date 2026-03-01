@@ -45,11 +45,6 @@ import team.dovecotmc.metropolis.util.MtrCommonUtil;
 import team.dovecotmc.metropolis.util.MtrSoundUtil;
 import team.dovecotmc.metropolis.util.MtrStationUtil;
 
-/**
- * @author Arrokoth
- * @project Metropolis
- * @copyright Copyright © 2024 Arrokoth All Rights Reserved.
- */
 @SuppressWarnings("deprecation")
 public class BlockTurnstile extends HorizontalDirectionalBlock implements EntityBlock, IBlockStationOverlayShouldRender {
     public static final int CLOSE_DELAY = 80;

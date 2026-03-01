@@ -12,11 +12,6 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.Nullable;
 
-/**
- * @author Arrokoth
- * @project Metropolis
- * @copyright Copyright © 2024 Arrokoth All Rights Reserved.
- */
 public class BlockEntityTurnstile extends BlockEntity implements BlockTurnstileInventory {
     public static final String TICKET_ANIMATION_START = "ticket_animation_start_time";
     public long ticketAnimationStartTime;

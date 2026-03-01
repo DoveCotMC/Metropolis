@@ -25,11 +25,6 @@ import team.dovecotmc.metropolis.block.BlockTurnstile;
 import team.dovecotmc.metropolis.block.entity.BlockEntityTurnstile;
 import team.dovecotmc.metropolis.client.MetropolisClient;
 
-/**
- * @author Arrokoth
- * @project Metropolis
- * @copyright Copyright © 2024 Arrokoth All Rights Reserved.
- */
 public class TurnstileBlockEntityRenderer implements BlockEntityRenderer<BlockEntityTurnstile> {
     @Override
     public void render(BlockEntityTurnstile entity, float tickDelta, PoseStack matrices, MultiBufferSource vertexConsumers, int light, int overlay) {

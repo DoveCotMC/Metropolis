@@ -13,11 +13,6 @@ import team.dovecotmc.metropolis.abstractinterface.util.MACommonUtil;
 
 import java.util.List;
 
-/**
- * @author Arrokoth
- * @project Metropolis
- * @copyright Copyright © 2024 Arrokoth All Rights Reserved.
- */
 public class ItemBlockWithTooltipShowStationHUD extends BlockItem implements IItemShowStationHUD {
     public final Style style;
     public ItemBlockWithTooltipShowStationHUD(Block block, Item.Properties settings) {

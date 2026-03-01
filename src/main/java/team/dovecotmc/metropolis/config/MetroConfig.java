@@ -20,11 +20,6 @@ import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * @author Arrokoth
- * @project Metropolis
- * @copyright Copyright © 2024 Arrokoth All Rights Reserved.
- */
 public class MetroConfig {
     public static final Path CONFIG_FILE_PATH = FabricLoader.getInstance().getGameDir().resolve("config").resolve("metropolis").resolve("common.json");
     public JsonObject json;

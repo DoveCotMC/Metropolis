@@ -15,11 +15,6 @@ import net.minecraft.world.phys.Vec3;
 import team.dovecotmc.metropolis.block.BlockITVMonitor;
 import team.dovecotmc.metropolis.block.entity.BlockEntityCamera;
 
-/**
- * @author Arrokoth
- * @project Metropolis
- * @copyright Copyright © 2024 Arrokoth All Rights Reserved.
- */
 public class CameraBlockEntityRenderer implements BlockEntityRenderer<BlockEntityCamera> {
     @Override
     public void render(BlockEntityCamera entity, float tickDelta, PoseStack matrices, MultiBufferSource vertexConsumers, int light, int overlay) {

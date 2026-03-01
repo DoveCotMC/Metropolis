@@ -24,11 +24,6 @@ import team.dovecotmc.metropolis.sittable.SittableRegistry;
 
 import java.util.Optional;
 
-/**
- * @author Arrokoth
- * @project Metropolis
- * @copyright Copyright © 2023 Arrokoth All Rights Reserved.
- */
 public class Metropolis implements ModInitializer {
     public static final String MOD_ID = "metropolis";
     public static final Logger LOGGER = LogManager.getLogger("Metropolis");

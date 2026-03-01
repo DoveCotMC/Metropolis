@@ -3,11 +3,6 @@ package team.dovecotmc.metropolis.abstractinterface.util;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 
-/**
- * @author Arrokoth
- * @project Metropolis
- * @copyright Copyright © 2025 Arrokoth All Rights Reserved.
- */
 public class MALocalizationUtil {
     public static MutableComponent translatableText(String key) {
         return Component.translatable(key);

@@ -11,11 +11,6 @@ import team.dovecotmc.metropolis.abstractinterface.util.MALocalizationUtil;
 
 import java.util.List;
 
-/**
- * @author Arrokoth
- * @project Metropolis
- * @copyright Copyright © 2024 Arrokoth All Rights Reserved.
- */
 public class ItemTicket extends Item implements InterfaceTicket {
     public static final String BALANCE = "balance";
     public static final String ENTERED_STATION = "entered_station";

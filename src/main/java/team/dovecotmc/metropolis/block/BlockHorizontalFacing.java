@@ -6,11 +6,6 @@ import net.minecraft.world.level.block.HorizontalDirectionalBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 
-/**
- * @author Arrokoth
- * @project Metropolis
- * @copyright Copyright © 2024 Arrokoth All Rights Reserved.
- */
 public class BlockHorizontalFacing extends HorizontalDirectionalBlock {
     public BlockHorizontalFacing(Properties settings) {
         super(settings);

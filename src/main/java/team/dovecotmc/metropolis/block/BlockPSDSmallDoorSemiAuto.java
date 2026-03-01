@@ -35,11 +35,6 @@ import team.dovecotmc.metropolis.block.interfaces.IBlockPlatform;
 import team.dovecotmc.metropolis.block.interfaces.IBlockPlatformDoor;
 import team.dovecotmc.metropolis.util.MetroBlockUtil;
 
-/**
- * @author Arrokoth
- * @project Metropolis
- * @copyright Copyright © 2024 Arrokoth All Rights Reserved.
- */
 public class BlockPSDSmallDoorSemiAuto extends HorizontalDirectionalBlock implements EntityBlock, IBlockPlatform, IBlockPlatformDoor {
     public static final BooleanProperty OPEN = BooleanProperty.create("open");
     public static final BooleanProperty FLIPPED = BooleanProperty.create("flipped");

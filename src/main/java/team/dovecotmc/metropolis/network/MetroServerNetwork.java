@@ -19,11 +19,6 @@ import team.dovecotmc.metropolis.block.entity.BlockEntityTicketVendor;
 import team.dovecotmc.metropolis.item.ItemCard;
 import team.dovecotmc.metropolis.item.ItemTicket;
 
-/**
- * @author Arrokoth
- * @project Metropolis
- * @copyright Copyright © 2024 Arrokoth All Rights Reserved.
- */
 public class MetroServerNetwork {
     public static final ResourceLocation TICKET_VENDOR_GUI = new ResourceLocation(Metropolis.MOD_ID, "ticket_vendor_gui");
     public static void openTicketVendorScreen(BlockPos pos, ServerPlayer player, ItemStack ticketStack) {
