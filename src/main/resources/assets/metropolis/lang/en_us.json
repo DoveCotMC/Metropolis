@@ -1,4 +1,6 @@
 {
+    "help.metropolis.localization": "",
+
     "itemGroup.metropolis.all": "Métropolis.",
 
     "config.metropolis.client.enable_glowing_texture": "Enable glowing textures",
