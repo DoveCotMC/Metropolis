@@ -29,6 +29,7 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.Nullable;
+import org.mtr.core.tool.Utilities;
 import org.mtr.mod.block.PlatformHelper;
 import team.dovecotmc.metropolis.block.entity.BlockEntityPSDSmallDoorSemiAuto;
 import team.dovecotmc.metropolis.block.interfaces.IBlockPlatform;
@@ -40,7 +41,7 @@ import team.dovecotmc.metropolis.util.MetroBlockUtil;
  * @project Metropolis
  * @copyright Copyright © 2024 Arrokoth All Rights Reserved.
  */
-public class BlockPSDSmallDoorSemiAuto extends HorizontalDirectionalBlock implements EntityBlock, IBlockPlatform, IBlockPlatformDoor {
+public class BlockPSDSmallDoorSemiAuto extends HorizontalDirectionalBlock implements EntityBlock, IBlockPlatformDoor {
     public static final BooleanProperty OPEN = BooleanProperty.create("open");
     public static final BooleanProperty FLIPPED = BooleanProperty.create("flipped");
 
@@ -72,31 +73,38 @@ public class BlockPSDSmallDoorSemiAuto extends HorizontalDirectionalBlock implem
     }
 
     @Override
-    public void setOpenState(boolean open, float openValue, Level world, BlockPos pos, BlockState state) {
-        if (world.getBlockEntity(pos) instanceof BlockEntityPSDSmallDoorSemiAuto entity) {
-            final float val0 = entity.open;
-            entity.open = openValue;
-            if (val0 > openValue) {
-                if (state.getValue(OPEN) && openValue <= 0.4f) {
-                    entity.animationStartTime = world.getGameTime();
-                    world.setBlockAndUpdate(pos, state.setValue(OPEN, false));
-                }
-            } else if (val0 < openValue) {
-                if (state.getValue(OPEN) != open) {
-                    entity.animationStartTime = world.getGameTime();
-                    world.setBlockAndUpdate(pos, state.setValue(OPEN, open));
-                }
-            }
-
-            entity.setChanged();
-            for (Player player : world.players()) {
-                if (player instanceof ServerPlayer serverPlayer) {
-                    serverPlayer.connection.send(entity.getUpdatePacket());
-                }
-            }
-        } else {
-            world.setBlockAndUpdate(pos, state.setValue(OPEN, false));
+    public void setOpenState(boolean open, float doorValue, Level level, BlockPos pos, BlockState state) {
+        if (level.getBlockEntity(pos) instanceof BlockEntityPSDSmallDoorSemiAuto entity) {
+            entity.open = Utilities.clamp(doorValue, 0.0F, 1.0F);
         }
+
+//        if (true)
+//            return;
+
+//        if (level.getBlockEntity(pos) instanceof BlockEntityPSDSmallDoorSemiAuto entity) {
+//            final float val0 = entity.open;
+//            entity.open = doorValue;
+//            if (val0 > doorValue) {
+//                if (state.getValue(OPEN) && doorValue <= 0.4f) {
+//                    entity.animationStartTime = level.getGameTime();
+//                    level.setBlockAndUpdate(pos, state.setValue(OPEN, false));
+//                }
+//            } else if (val0 < doorValue) {
+//                if (state.getValue(OPEN) != open) {
+//                    entity.animationStartTime = level.getGameTime();
+//                    level.setBlockAndUpdate(pos, state.setValue(OPEN, open));
+//                }
+//            }
+//
+//            entity.setChanged();
+//            for (Player player : level.players()) {
+//                if (player instanceof ServerPlayer serverPlayer) {
+//                    serverPlayer.connection.send(entity.getUpdatePacket());
+//                }
+//            }
+//        } else {
+//            level.setBlockAndUpdate(pos, state.setValue(OPEN, false));
+//        }
     }
 
     @Override
@@ -110,19 +118,23 @@ public class BlockPSDSmallDoorSemiAuto extends HorizontalDirectionalBlock implem
 
     @Override
     public VoxelShape getCollisionShape(BlockState state, BlockGetter world, BlockPos pos, CollisionContext context) {
-//        if (world.getBlockEntity(pos) instanceof BlockEntityPSDSmallDoorSemiAuto entity && entity.open) {
-//            return VoxelShapes.empty();
-//        }
-        return state.getValue(OPEN) ? Shapes.empty() : MetroBlockUtil.getVoxelShapeByDirection(
-                0, 0, 5,
-                16, 24, 8,
-                state.getValue(FACING)
-        );
+        if (world.getBlockEntity(pos) instanceof BlockEntityPSDSmallDoorSemiAuto entity && entity.getLevel() != null) {
+            if (entity.getLevel().isClientSide() && entity.open > 0) {
+                return Shapes.empty();
+            } else {
+                return entity.getLevel().isClientSide() ? MetroBlockUtil.getVoxelShapeByDirection(
+                        0, 0, 5,
+                        16, 24, 8,
+                        state.getValue(FACING)
+                ) : Shapes.empty();
+            }
+        } else {
+            return Shapes.empty();
+        }
     }
 
     @Override
     public void tick(BlockState state, ServerLevel world, BlockPos pos, RandomSource random) {
-        this.setOpenState(false, 0, world, pos, state);
         super.tick(state, world, pos, random);
     }
 

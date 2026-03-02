@@ -9,6 +9,6 @@ import net.minecraft.world.level.block.state.BlockState;
  * @project Metropolis
  * @copyright Copyright © 2024 Arrokoth All Rights Reserved.
  */
-public interface IBlockPlatformDoor {
-    void setOpenState(boolean open, float openValue, Level world, BlockPos pos, BlockState state);
+public interface IBlockPlatformDoor extends IBlockPlatform {
+    void setOpenState(boolean open, float doorValue, Level world, BlockPos pos, BlockState state);
 }

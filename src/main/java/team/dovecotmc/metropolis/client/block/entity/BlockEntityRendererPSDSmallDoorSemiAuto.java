@@ -45,14 +45,9 @@ public class BlockEntityRendererPSDSmallDoorSemiAuto implements BlockEntityRende
 
             BlockState state = entity.getBlockState();
 
-            double animTime = easeInOutSine(Math.min(DURATION, (world.getGameTime() - entity.animationStartTime) + tickDelta) / (double) DURATION);
             int direction = state.getValue(BlockPSDSmallDoorSemiAuto.FLIPPED) ? -1 : 1;
 
-            if (state.getValue(BlockPSDSmallDoorSemiAuto.OPEN)) {
-                matrices.translate(animTime * (14.5f / 16f) * direction, 0f, 0f);
-            } else {
-                matrices.translate((1 - animTime) * (14.5f / 16f) * direction, 0f, 0f);
-            }
+            matrices.translate(easeInOutSine(entity.open) * (14.5f / 16f) * direction, 0f, 0f);
 
             BakedModel model = mc.getBlockRenderer().getBlockModel(state);
 

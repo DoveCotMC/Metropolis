@@ -18,8 +18,8 @@ public class BlockEntityPSDSmallDoorSemiAuto extends BlockEntity {
     public static final String KEY_OPEN = "open";
     public float open = 0;
 
-    public static final String KEY_ANIMATION_START_TIME = "animation_start_time";
-    public long animationStartTime = 0L;
+//    public static final String KEY_ANIMATION_START_TIME = "animation_start_time";
+//    public long animationStartTime = 0L;
 
     public static final String KEY_TINT = "animation_start_tint";
     public int tint = 0xFFFFFF;
@@ -30,8 +30,8 @@ public class BlockEntityPSDSmallDoorSemiAuto extends BlockEntity {
 
     @Override
     public void load(CompoundTag nbt) {
-        open = nbt.getFloat(KEY_OPEN);
-        animationStartTime = nbt.getLong(KEY_ANIMATION_START_TIME);
+//        open = nbt.getFloat(KEY_OPEN);
+//        animationStartTime = nbt.getLong(KEY_ANIMATION_START_TIME);
 
         if (nbt.contains(KEY_TINT, CompoundTag.TAG_INT)) {
             tint = nbt.getInt(KEY_TINT);
@@ -42,8 +42,8 @@ public class BlockEntityPSDSmallDoorSemiAuto extends BlockEntity {
 
     @Override
     protected void saveAdditional(CompoundTag nbt) {
-        nbt.putFloat(KEY_OPEN, open);
-        nbt.putLong(KEY_ANIMATION_START_TIME, animationStartTime);
+//        nbt.putFloat(KEY_OPEN, open);
+//        nbt.putLong(KEY_ANIMATION_START_TIME, animationStartTime);
         nbt.putInt(KEY_TINT, tint);
     }
 

@@ -1,5 +1,6 @@
 package team.dovecotmc.metropolis.mixins;
 
+import net.minecraft.world.level.block.entity.BlockEntity;
 import org.mtr.mapping.holder.*;
 import org.mtr.mod.Init;
 import org.mtr.mod.block.PlatformHelper;
@@ -12,6 +13,8 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
+import team.dovecotmc.metropolis.block.entity.BlockEntityPSDSmallDoorSemiAuto;
+import team.dovecotmc.metropolis.block.interfaces.IBlockPlatform;
 import team.dovecotmc.metropolis.block.interfaces.IBlockPlatformDoor;
 
 /**
@@ -32,12 +35,12 @@ public abstract class MixinVehicleHelper {
     @Inject(
             method = "canOpenDoors",
             at = @At("RETURN"),
+            cancellable = true,
             remap = false
     )
     private static void met$InjectPlatformDetection(Box doorway, PositionAndRotation positionAndRotation, double doorValue, CallbackInfoReturnable<Boolean> cir) {
         final ClientWorld clientWorld = MinecraftClient.getInstance().getWorldMapped();
         if (clientWorld == null) {
-            cir.setReturnValue(false);
             return;
         }
 
@@ -60,31 +63,35 @@ public abstract class MixinVehicleHelper {
                     final BlockPos checkPos = Init.newBlockPos(checkX, checkY, checkZ);
                     final BlockState blockState = clientWorld.getBlockState(checkPos);
                     final Block block = blockState.getBlock();
-                    if (block.data instanceof PlatformHelper) {
+                    if (block.data instanceof IBlockPlatform) {
                         canOpenDoors = true;
-                    } else if (block.data instanceof IBlockPlatformDoor door) {
-                        canOpenDoors = true;
-                        final BlockEntity blockEntity = clientWorld.getBlockEntity(checkPos);
-//                        if (blockEntity != null && blockEntity.data instanceof BlockPSDAPGDoorBase.BlockEntityBase) {
-//                            ((BlockPSDAPGDoorBase.BlockEntityBase) blockEntity.data).setDoorValue(doorValue);
-//                        }
+
+                        if (block.data instanceof IBlockPlatformDoor door) {
+                            door.setOpenState(
+                                    false,
+                                    (float) doorValue,
+                                    clientWorld.data,
+                                    checkPos.data,
+                                    blockState.data
+                            );
+                        }
                     }
                 }
             }
         }
 
-        for (double checkX = minX - CHECK_DOOR_RADIUS_XZ; checkX <= maxX + CHECK_DOOR_RADIUS_XZ; checkX++) {
-            for (double checkY = minY - CHECK_DOOR_RADIUS_Y; checkY <= maxY + CHECK_DOOR_RADIUS_Y; checkY++) {
-                for (double checkZ = minZ - CHECK_DOOR_RADIUS_XZ; checkZ <= maxZ + CHECK_DOOR_RADIUS_XZ; checkZ++) {
-                    final BlockPos checkPos = Init.newBlockPos(checkX, checkY, checkZ);
-                    final BlockState blockState = clientWorld.getBlockState(checkPos);
-                    final Block block = blockState.getBlock();
-                    if (block.data instanceof PlatformHelper) {
-                        canOpenDoors = true;
-                    }
-                }
-            }
-        }
+//        for (double checkX = minX - CHECK_DOOR_RADIUS_XZ; checkX <= maxX + CHECK_DOOR_RADIUS_XZ; checkX++) {
+//            for (double checkY = minY - CHECK_DOOR_RADIUS_Y; checkY <= maxY + CHECK_DOOR_RADIUS_Y; checkY++) {
+//                for (double checkZ = minZ - CHECK_DOOR_RADIUS_XZ; checkZ <= maxZ + CHECK_DOOR_RADIUS_XZ; checkZ++) {
+//                    final BlockPos checkPos = Init.newBlockPos(checkX, checkY, checkZ);
+//                    final BlockState blockState = clientWorld.getBlockState(checkPos);
+//                    final Block block = blockState.getBlock();
+//                    if (block.data instanceof PlatformHelper) {
+//                        canOpenDoors = true;
+//                    }
+//                }
+//            }
+//        }
 
         cir.setReturnValue(canOpenDoors || cir.getReturnValue());
     }
