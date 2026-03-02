@@ -38,6 +38,6 @@
         "fabricloader": ">=${loader_version}",
         "fabric": "*",
         "minecraft": "${minecraft_version}",
-        "mtr": ">=1.20-3.2.2"
+        "mtr": ">=1.20-4.0.3"
     }
 }
