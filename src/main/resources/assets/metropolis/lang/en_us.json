@@ -8,7 +8,7 @@
 
     "gui.metropolis.ticket_vendor.title": "Ticket Vendor Machine",
     "gui.metropolis.ticket_vendor_1.title": "Ticket Vendor Machine",
-    "gui.metropolis.ticket_vendor_1.subtitle": "Press the item of your operation",
+    "gui.metropolis.ticket_vendor_1.subtitle": "Please select an operation",
     "gui.metropolis.ticket_vendor_1.button.buy_tickets": "Tickets",
     "gui.metropolis.ticket_vendor_1.button.special": "Special",
     "gui.metropolis.ticket_vendor_1.button.refund": "Refund",

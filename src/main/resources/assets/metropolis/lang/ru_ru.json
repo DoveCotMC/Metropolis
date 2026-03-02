@@ -1,0 +1,199 @@
+{
+    "help.metropolis.localization": "",
+
+    "itemGroup.metropolis.all": "Métropolis.",
+
+    "config.metropolis.client.enable_glowing_texture": "Включить светящиеся текстуры",
+    "config.metropolis.client.enable_station_info_overlay": "Включить оверлей информации о станции",
+
+    "gui.metropolis.ticket_vendor.title": "Билетный автомат",
+    "gui.metropolis.ticket_vendor_1.title": "Билетный автомат",
+    "gui.metropolis.ticket_vendor_1.subtitle": "Пожалуйста, выберите операцию",
+    "gui.metropolis.ticket_vendor_1.button.buy_tickets": "Билеты",
+    "gui.metropolis.ticket_vendor_1.button.special": "Специальное",
+    "gui.metropolis.ticket_vendor_1.button.refund": "Вернуть деньги",
+    "gui.metropolis.ticket_vendor_1.button.tickets": "Билеты",
+    "gui.metropolis.ticket_vendor_1.button.charge": "Пополнить",
+    "gui.metropolis.ticket_vendor_1.button.buy_commuter": "Купить проездной",
+    "gui.metropolis.ticket_vendor_1.button.buy_ic_card": "Купить IC карту",
+
+    "gui.metropolis.ticket_vendor_1.tips": "᛫ Нажмите кнопку [Вернуть деньги], чтобы вернуть неправильный билет.\n᛫ Dovecot is a Dovecot?\n᛫ Этот интерфейс основан на билетном автомате JR East EV23\n᛫ You pull out the ticket, then walk thru. Actually it's not.\n᛫ There was a discussion about changing the Cordon Block to the Condor Block.",
+    "gui.metropolis.ticket_vendor_1.tips_0": "᛫ Нажмите кнопку [Вернуть деньги], чтобы вернуть неправильный билет.",
+    "gui.metropolis.ticket_vendor_1.tips_1": "᛫ Dovecot is a Dovecot?",
+    "gui.metropolis.ticket_vendor_1.tips_2": "᛫ Этот интерфейс основан на билетном автомате JR East EV23",
+    "gui.metropolis.ticket_vendor_1.tips_3": "᛫ You pull out the ticket, then walk thru. Actually it's not.",
+    "gui.metropolis.ticket_vendor_1.tips_4": "᛫ There was a discussion about changing the Cordon Block to the Condor Block.",
+
+    "gui.metropolis.ticket_vendor_2.title": "Билеты",
+    "gui.metropolis.ticket_vendor_2.subtitle": "Билеты в одну сторону",
+    "gui.metropolis.ticket_vendor_2.subtitle_2": "Суммы",
+    "gui.metropolis.ticket_vendor_2.custom_value_option": "Свой вариант",
+
+    "gui.metropolis.ticket_vendor_3.title": "Билеты",
+    "gui.metropolis.ticket_vendor_3.continue": "Продолжить",
+
+    "gui.metropolis.ticket_vendor_4.title": "Пополнить",
+    "gui.metropolis.ticket_vendor_4.continue": "Продолжить",
+
+    "gui.metropolis.ticket_vendor_buy_ic.title": "Купить IC карту",
+    "gui.metropolis.ticket_vendor_buy_ic.continue": "Продолжить",
+
+    "gui.metropolis.ticket_vendor_warning.title": "Предупреждение",
+    "gui.metropolis.ticket_vendor_warning.title_warning": "Предупреждение",
+    "gui.metropolis.ticket_vendor_warning.warning_no_card": "Пожалуйста, вставьте IC карту.",
+
+    "gui.metropolis.ticket_vendor_payment.title": "Оплата",
+    "gui.metropolis.ticket_vendor_payment.subtitle": "Проверьте оплату",
+    "gui.metropolis.ticket_vendor_payment.continue_button": "Продолжить",
+    "gui.metropolis.ticket_vendor_payment.price": "Цена: %s",
+    "gui.metropolis.ticket_vendor_payment.balance": "Баланс: %s",
+
+    "gui.metropolis.ticket_vendor_payment.from_and_to": "  %s ⥋ %s",
+    "gui.metropolis.ticket_vendor_payment.ticket_value": "  Сумма: %s",
+    "gui.metropolis.ticket_vendor_payment.amount": "  Количество: %s",
+
+    "gui.metropolis.ticket_vendor_payment.single_trip.title": "В одну сторону",
+    "gui.metropolis.ticket_vendor_payment.single_trip.from_and_to": "  %s ⥋ %s",
+    "gui.metropolis.ticket_vendor_payment.single_trip.ticket_value": "  Сумма: %s",
+    "gui.metropolis.ticket_vendor_payment.single_trip.amount": "  Количество: %s",
+
+    "gui.metropolis.ticket_vendor_payment.ic_charge.title": "Пополнение IC карты",
+    "gui.metropolis.ticket_vendor_payment.ic_charge.ticket_value": "  Сумма: %s",
+
+    "gui.metropolis.ticket_vendor_payment.buy_ic.title": "Покупка IC карты",
+    "gui.metropolis.ticket_vendor_payment.buy_ic.ticket_value": "    Начальный баланс: %s",
+
+    "gui.metropolis.fare_adj_main.title": "Исправление тарифа",
+    "gui.metropolis.fare_adj_main.subtitle": "Вставьте билет/карту, чтобы использовать все функции",
+    "gui.metropolis.fare_adj_main.ic_charge_button_text": "Пополнение\nIC карты",
+    "gui.metropolis.fare_adj_main.ticket_charge_button_text": "Исправление тарифа\nДля билетов",
+    "gui.metropolis.fare_adj_main.no_ticket": "У меня нет билтета\nОплатить штраф",
+
+    "gui.metropolis.fare_adj_no_ticket.title": "Исправление тарифа",
+    "gui.metropolis.fare_adj_no_ticket.subtitle": "Нет билетов",
+    "gui.metropolis.fare_adj_no_ticket.if_you_have_receipt": "Если у вас есть билет:",
+    "gui.metropolis.fare_adj_no_ticket.insert_receipt": "Вставьте билет для исправление тарифа",
+    "gui.metropolis.fare_adj_no_ticket.if_you_dont_have_receipt": "Если у вас нет билета:",
+    "gui.metropolis.fare_adj_no_ticket.pay_fare": "Оплатите максимальную сумму.",
+    "gui.metropolis.fare_adj_no_ticket.pay_button": "Оплатить",
+
+    "gui.metropolis.fare_adj_keyboard.title": "Исправление тарифа",
+    "gui.metropolis.fare_adj_keyboard.continue": "Продолжить",
+
+    "gui.metropolis.fare_adj_payment.title": "Исправление тарифа",
+    "gui.metropolis.fare_adj_payment.subtitle": "Проверка оплаты",
+    "gui.metropolis.fare_adj_payment.price": "Сумма: %s",
+    "gui.metropolis.fare_adj_payment.balance": "Баланс: %s",
+    "gui.metropolis.fare_adj_payment.continue_button": "Продолжить",
+
+    "gui.metropolis.fare_adj_payment.single_trip.title": "Билет для выхода",
+    "gui.metropolis.fare_adj_payment.single_trip.ticket_value": "  Сумма: %s",
+    "gui.metropolis.fare_adj_payment.single_trip.amount": "  Количество: %s",
+
+    "gui.metropolis.fare_adj_payment.charge.title": "  Сумма: %s",
+    "gui.metropolis.fare_adj_payment.charge.ticket_value": " Сумма: %s",
+    "gui.metropolis.fare_adj_payment.charge.amount": "  Количество: %s",
+
+    "gui.metropolis.bridge_creator.title": "Настройка создания моста",
+    "gui.metropolis.bridge_creator.width": "Ширина: %s",
+
+    "tooltip.metropolis.ticket.from_and_to": "%s ⥋ %s",
+    "tooltip.metropolis.ticket.balance": "Баланс: %s",
+    "tooltip.metropolis.ticket.entered_station": "Вошли на станцию: %s",
+    "tooltip.metropolis.card.balance": "Баланс: %s",
+    "tooltip.metropolis.infinity_balance": "Бесконечный баланс",
+
+    "info.metropolis.turnstile_type": "Тип турникета: %s",
+    "info.metropolis.unable_switch_turnstile_type": "Невозможно изменить тип турникета",
+    "info.metropolis.turnstile_error": "Ошибка турникета",
+    "info.metropolis.to_service_center": "Пожалуйста, обратитесь в центр обслуживания",
+    "info.metropolis.use_other_turnstile": "Пожалуйста, воспользуйтесь другим турникетом",
+    "info.metropolis.no_enough_balance": "Недостаточно денег",
+    "info.metropolis.has_danger_item": "Найдены опасные предметы в инвентаре",
+
+    "hud.title.pointed_station": "Эта станция:",
+
+    "misc.metropolis.cost": "$%s",
+    "misc.metropolis.turnstile_mode.enter": "Вход",
+    "misc.metropolis.turnstile_mode.exit": "Выход",
+
+    "item.metropolis.single_trip_ticket": "Билет в одну сторону",
+    "item.metropolis.single_trip_ticket_used": "Билет в одну сторону",
+    "tooltip.metropolis.single_trip_ticket_expired": "Использован",
+    "item.metropolis.card": "IC карта",
+    "item.metropolis.creative_card": "IC карта",
+    "item.metropolis.exit_ticket": "Билет для выхода",
+
+    "block.metropolis.cable": "Кабель",
+
+    "block.metropolis.ticket_vendor_top": "Декорация билетного автомата",
+    "tooltip.metropolis.ticket_vendor_top": "§7Верхняя панель",
+    "block.metropolis.ticket_vendor_panel": "Декорация билетного автомата",
+    "tooltip.metropolis.ticket_vendor_panel": "§7Декоративная панель",
+    "block.metropolis.ticket_vendor_em10": "Билетный автомат",
+    "tooltip.metropolis.ticket_vendor_em10": "§7JR East EM10",
+    "block.metropolis.ticket_vendor_ev23": "Билетный автомат",
+    "tooltip.metropolis.ticket_vendor_ev23": "§7JR East EV23",
+    "block.metropolis.fare_adj_ev23": "Автомат исправления тарифа",
+    "tooltip.metropolis.fare_adj_ev23": "§7JR East EV23",
+
+    "block.metropolis.ceiling_a": "Потолок",
+    "block.metropolis.fluorescent_lamp": "Флуорисцентная лампа",
+
+    "block.metropolis.bumper": "Тупиковый упор",
+    "block.metropolis.turnstile.enter": "Турникет (Вход)",
+    "block.metropolis.turnstile.exit": "Турникет (Выход)",
+    "block.metropolis.turnstile_ic_only.enter": "Турникет (Только карта, вход)",
+    "block.metropolis.turnstile_ic_only.exit": "Турникет (Только карта, выход)",
+
+    "block.metropolis.camera_ceiling": "Камера видеонаблюдения",
+
+    "block.metropolis.sign_no_photo": "Знак (Фото запрещены)",
+
+    "block.metropolis.psd_jr_door_1": "Автоматические платформенные двери",
+    "tooltip.metropolis.psd_jr_door_1": "Half Height",
+    "block.metropolis.psd_jr_door_2": "Автоматические платформенные двери",
+    "tooltip.metropolis.psd_jr_door_2": "Half Height Windowed",
+    "block.metropolis.psd_jr_fence_1": "Платформенное заграждение",
+    "tooltip.metropolis.psd_jr_fence_1": "Half Height",
+    "block.metropolis.psd_jr_fence_2": "Контроллер платформенных дверей",
+    "tooltip.metropolis.psd_jr_fence_2": "[WIP] Half Height",
+
+    "block.metropolis.itv_monitor": "Монитор наблюдения машиниста",
+
+    "block.metropolis.security_door": "Security door",
+    "block.metropolis.security_inspection_machine": "Металлодетектор",
+
+    "block.metropolis.concrete": "Бетон",
+
+    "block.metropolis.platform_a": "Платформа",
+    "block.metropolis.platform_a_slim": "Узкая платформа",
+
+    "block.metropolis.tiles_white": "Белая плитка",
+    "block.metropolis.tiles_large_white": "Крупная белая плитка",
+    "block.metropolis.tiles_small_white": "Мелкая белая плитка",
+    "block.metropolis.tiles_horizontal_white": "Горизонтальная белая плитка",
+
+    "block.metropolis.tiles_gray": "Серая плитка",
+    "block.metropolis.tiles_large_gray": "Крупная серая плитка",
+    "block.metropolis.tiles_small_gray": "Мелкая серая плитка",
+    "block.metropolis.tiles_horizontal_gray": "Горизонтальная серая плитка",
+
+    "block.metropolis.cordon_yellow_black": "Cordon block",
+    "tooltip.metropolis.cordon_yellow_black": "§7Yellow-black",
+    "block.metropolis.cordon_yellow_white": "Cordon block",
+    "tooltip.metropolis.cordon_yellow_white": "§7Yellow-white",
+    "block.metropolis.cordon_red_black": "Cordon block",
+    "tooltip.metropolis.cordon_red_black": "§7Red-black",
+    "block.metropolis.cordon_red_white": "Cordon block",
+    "tooltip.metropolis.cordon_red_white": "§7Red-white",
+
+    "block.metropolis.bench": "Лавка",
+
+    "block.metropolis.awning_pillar": "Металлическая опора",
+    "block.metropolis.awning_pillar_emergency": "Металлическая опора (Аварийная кнопка)",
+    "block.metropolis.awning_beam": "Металлическое перекрытие",
+    "block.metropolis.awning_roof": "Металлическая крыша",
+
+    "block.metropolis.blind_path": "Направляющая плитка для слепых"
+}
