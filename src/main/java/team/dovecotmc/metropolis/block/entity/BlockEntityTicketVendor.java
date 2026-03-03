@@ -11,6 +11,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.Nullable;
+import team.dovecotmc.old.metropolis.block.entities.OldMetroBlockEntities;
 
 /**
  * @author Arrokoth
@@ -28,7 +29,7 @@ public class BlockEntityTicketVendor extends BlockEntity implements BlockTicketV
     private final NonNullList<ItemStack> items = NonNullList.withSize(2, ItemStack.EMPTY);
 
     public BlockEntityTicketVendor(BlockPos pos, BlockState state) {
-        super(MetroBlockEntities.TICKET_VENDOR_BLOCK_ENTITY, pos, state);
+        super(OldMetroBlockEntities.TICKET_VENDOR_BLOCK_ENTITY, pos, state);
     }
 
     @Nullable

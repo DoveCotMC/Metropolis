@@ -22,6 +22,7 @@ import team.dovecotmc.metropolis.abstractinterface.util.MALocalizationUtil;
 import team.dovecotmc.metropolis.item.ItemTicket;
 import team.dovecotmc.metropolis.item.MetroItems;
 import team.dovecotmc.metropolis.util.MtrStationUtil;
+import team.dovecotmc.old.metropolis.item.OldMetroItems;
 
 import java.util.*;
 
@@ -221,10 +222,8 @@ public class TicketVendorScreen2 extends Screen {
                 // Station name
                 poseStack.pushPose();
                 poseStack.scale(scaleFactor, scaleFactor, scaleFactor);
-//                String stationName = station.name;
-//                String[] arr0 = station.name.split("\\|");
-                String stationName = "WIP: MTR4";
-                String[] arr0 = new String[] {"WIP: MTR4"};
+                String stationName = station.getName();
+                String[] arr0 = station.getName().split("\\|");
                 if (arr0.length > 1) {
                     stationName = arr0[0] + " " + arr0[1];
                 }
@@ -295,7 +294,7 @@ public class TicketVendorScreen2 extends Screen {
                         stationFirstName = arr2[0];
                     }
 
-                    ItemStack ticketStack = new ItemStack(MetroItems.ITEM_SINGLE_TRIP_TICKET);
+                    ItemStack ticketStack = new ItemStack(OldMetroItems.ITEM_SINGLE_TRIP_TICKET);
                     CompoundTag nbt = ticketStack.getOrCreateTag();
                     nbt.putInt(ItemTicket.BALANCE, cost);
                     nbt.putString(ItemTicket.START_STATION, locatedStationFirstName);
@@ -385,7 +384,7 @@ public class TicketVendorScreen2 extends Screen {
                     playDownSound(Minecraft.getInstance().getSoundManager());
                 }
 
-                ItemStack ticketStack = new ItemStack(MetroItems.ITEM_SINGLE_TRIP_TICKET);
+                ItemStack ticketStack = new ItemStack(OldMetroItems.ITEM_SINGLE_TRIP_TICKET);
                 CompoundTag nbt = ticketStack.getOrCreateTag();
                 nbt.putInt(ItemTicket.BALANCE, i + 1);
 

@@ -2,22 +2,19 @@ package team.dovecotmc.metropolis.util;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.Level;
+import org.mtr.core.Main;
 import org.mtr.core.data.Station;
-import org.mtr.core.map.UpdateWebMap;
-import org.mtr.core.operation.NearbyAreasRequest;
-import org.mtr.core.operation.NearbyAreasResponse;
-import org.mtr.core.servlet.OperationProcessor;
-import org.mtr.mapping.holder.MinecraftServer;
+import org.mtr.core.simulation.Simulator;
 import org.mtr.mapping.holder.World;
 import org.mtr.mod.Init;
+import org.mtr.mod.block.BlockTicketBarrier;
 import org.mtr.mod.client.MinecraftClientData;
-import org.mtr.mod.screen.DashboardScreen;
 import team.dovecotmc.metropolis.Metropolis;
+import team.dovecotmc.metropolis.mixins.accessor.AccessorMTRInit;
+import team.dovecotmc.metropolis.mixins.accessor.AccessorMTRMain;
 
 import java.util.HashSet;
 import java.util.Set;
-import java.util.concurrent.atomic.AtomicBoolean;
-import java.util.concurrent.atomic.AtomicReference;
 
 /**
  * @author Arrokoth
@@ -25,19 +22,23 @@ import java.util.concurrent.atomic.AtomicReference;
  * @copyright Copyright © 2024 Arrokoth All Rights Reserved.
  */
 public class MtrStationUtil {
-    public static Set<Station> getStations(Level world) {
+    public static Set<Station> getStations(Level level) {
 //        if (world.isClientSide()) {
 //            return ClientData.STATIONS;
 //        }
 //        return RailwayData.getInstance(world).stations;
-        if (world.isClientSide()) {
+        if (level.isClientSide()) {
             MinecraftClientData clientData = MinecraftClientData.getInstance();
             if (clientData != null) {
                 return clientData.stations;
             }
         } else {
-            // TODO: Seems like we don't need this anymore
-            Metropolis.LOGGER.warn("MtrStationUtil.getStations was called on server although it was not implemented!");
+            World world = new World(level);
+            for (Simulator simulator : ((AccessorMTRMain) AccessorMTRInit.getMain()).getSimulators()) {
+                if (simulator.dimension.equals(Init.getWorldId(world))) {
+                    return simulator.stations;
+                }
+            }
         }
 
         return new HashSet<>();
@@ -61,8 +62,24 @@ public class MtrStationUtil {
                 }
             }
         } else {
-            // TODO: Seems like we don't need this anymore
-            Metropolis.LOGGER.warn("MtrStationUtil.getStationByPos was called on server although it was not implemented!");
+            World world = new World(level);
+            for (Simulator simulator : ((AccessorMTRMain) AccessorMTRInit.getMain()).getSimulators()) {
+                if (simulator.dimension.equals(Init.getWorldId(world))) {
+                    int x = pos.getX();
+                    int y = pos.getY();
+                    int z = pos.getZ();
+                    for (Station station : simulator.stations) {
+                        if (
+                                station.getMinX() <= x && x <= station.getMaxX() &&
+                                        station.getMinY() <= y && y <= station.getMaxY() &&
+                                        station.getMinZ() <= z && z <= station.getMaxZ()
+                        ) {
+                            return station;
+                        }
+                    }
+                    break;
+                }
+            }
         }
         return null;
     }

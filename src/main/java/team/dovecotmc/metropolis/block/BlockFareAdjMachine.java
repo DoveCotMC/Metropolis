@@ -32,6 +32,9 @@ import team.dovecotmc.metropolis.block.entity.MetroBlockEntities;
 import team.dovecotmc.metropolis.item.MetroItems;
 import team.dovecotmc.metropolis.network.MetroServerNetwork;
 import team.dovecotmc.metropolis.util.MetroBlockUtil;
+import team.dovecotmc.old.metropolis.block.OldMetroBlocks;
+import team.dovecotmc.old.metropolis.block.entities.OldMetroBlockEntities;
+import team.dovecotmc.old.metropolis.item.OldMetroItems;
 
 /**
  * @author Arrokoth
@@ -42,7 +45,7 @@ public class BlockFareAdjMachine extends HorizontalDirectionalBlock implements E
     public final Block defaultUpper;
 
     public BlockFareAdjMachine() {
-        this(MetroBlocks.BLOCK_TICKET_VENDOR_UP_1);
+        this(OldMetroBlocks.BLOCK_TICKET_VENDOR_UP_1);
     }
 
     public BlockFareAdjMachine(Block defaultUpper) {
@@ -88,7 +91,7 @@ public class BlockFareAdjMachine extends HorizontalDirectionalBlock implements E
 
     public InteractionResult use(BlockState state, Level world, BlockPos pos, Player player, InteractionHand interactionHand, BlockHitResult blockHitResult) {
         if (!world.isClientSide) {
-            BlockEntityFareAdj blockEntity = world.getBlockEntity(pos, MetroBlockEntities.FARE_ADJ_BLOCK_ENTITY).orElse(null);
+            BlockEntityFareAdj blockEntity = world.getBlockEntity(pos, OldMetroBlockEntities.FARE_ADJ_BLOCK_ENTITY).orElse(null);
 
             if (blockEntity != null && !blockEntity.getItem(0).isEmpty()) {
                 world.playSound(null, pos, SoundEvents.WOOL_BREAK, SoundSource.BLOCKS, 1f, 1f);
@@ -97,7 +100,7 @@ public class BlockFareAdjMachine extends HorizontalDirectionalBlock implements E
                 blockEntity.removeItemNoUpdate(0);
                 serverPlayer.connection.send(blockEntity.getUpdatePacket());
                 MetroServerNetwork.removeInventoryItem(0, pos, serverPlayer);
-            } else if (blockEntity != null && player.getItemInHand(InteractionHand.MAIN_HAND).getItem().equals(MetroItems.ITEM_CARD)) {
+            } else if (blockEntity != null && player.getItemInHand(InteractionHand.MAIN_HAND).getItem().equals(OldMetroItems.ITEM_CARD)) {
                 world.playSound(null, pos, SoundEvents.WOOL_PLACE, SoundSource.BLOCKS, 1f, 1f);
                 ServerPlayer serverPlayer = (ServerPlayer) player;
 

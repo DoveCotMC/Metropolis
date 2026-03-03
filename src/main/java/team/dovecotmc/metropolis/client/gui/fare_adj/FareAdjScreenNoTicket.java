@@ -17,6 +17,7 @@ import team.dovecotmc.metropolis.Metropolis;
 import team.dovecotmc.metropolis.abstractinterface.util.MALocalizationUtil;
 import team.dovecotmc.metropolis.client.network.MetroClientNetwork;
 import team.dovecotmc.metropolis.item.MetroItems;
+import team.dovecotmc.old.metropolis.item.OldMetroItems;
 
 /**
  * @author Arrokoth
@@ -234,7 +235,7 @@ public class FareAdjScreenNoTicket extends Screen {
                                     MALocalizationUtil.translatableText("gui.metropolis.fare_adj_payment.single_trip.title"),
                                     MALocalizationUtil.translatableText("gui.metropolis.fare_adj_payment.single_trip.ticket_value", price),
                                     MALocalizationUtil.translatableText("gui.metropolis.fare_adj_payment.single_trip.amount", 1)
-                            }, new ItemStack(MetroItems.ITEM_EXIT_TICKET)),
+                            }, new ItemStack(OldMetroItems.ITEM_EXIT_TICKET)),
                             this
                     ));
                 }

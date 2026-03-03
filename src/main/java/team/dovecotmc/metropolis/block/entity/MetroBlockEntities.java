@@ -7,6 +7,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import team.dovecotmc.metropolis.Metropolis;
 import team.dovecotmc.metropolis.block.MetroBlocks;
+import team.dovecotmc.old.metropolis.block.OldMetroBlocks;
 
 /**
  * @author Arrokoth
@@ -14,28 +15,10 @@ import team.dovecotmc.metropolis.block.MetroBlocks;
  * @copyright Copyright © 2024 Arrokoth All Rights Reserved.
  */
 public class MetroBlockEntities {
-    public static final BlockEntityType<BlockEntityTicketVendor> TICKET_VENDOR_BLOCK_ENTITY = Registry.register(
-            BuiltInRegistries.BLOCK_ENTITY_TYPE,
-            new ResourceLocation(Metropolis.MOD_ID, "ticket_vendor"),
-            FabricBlockEntityTypeBuilder.create(BlockEntityTicketVendor::new, MetroBlocks.BLOCK_TICKET_VENDOR_EM10, MetroBlocks.BLOCK_TICKET_VENDOR_EV23).build()
-    );
-
-    public static final BlockEntityType<BlockEntityFareAdj> FARE_ADJ_BLOCK_ENTITY = Registry.register(
-            BuiltInRegistries.BLOCK_ENTITY_TYPE,
-            new ResourceLocation(Metropolis.MOD_ID, "fare_adj"),
-            FabricBlockEntityTypeBuilder.create(BlockEntityFareAdj::new, MetroBlocks.BLOCK_FARE_ADJ_EV23_YELLOW).build()
-    );
-
     public static final BlockEntityType<BlockEntityITVMonitor> ITV_MONITOR_BLOCK_ENTITY = Registry.register(
             BuiltInRegistries.BLOCK_ENTITY_TYPE,
             new ResourceLocation(Metropolis.MOD_ID, "itv_monitor"),
             FabricBlockEntityTypeBuilder.create(BlockEntityITVMonitor::new, MetroBlocks.BLOCK_ITV_MONITOR).build()
-    );
-
-    public static final BlockEntityType<BlockEntityTurnstile> TURNSTILE_BLOCK_ENTITY = Registry.register(
-            BuiltInRegistries.BLOCK_ENTITY_TYPE,
-            new ResourceLocation(Metropolis.MOD_ID, "turnstile"),
-            FabricBlockEntityTypeBuilder.create(BlockEntityTurnstile::new, MetroBlocks.BLOCK_TURNSTILE, MetroBlocks.BLOCK_TURNSTILE_IC_ONLY).build()
     );
 
     public static final BlockEntityType<BlockEntityBumper> BUMPER_BLOCK_ENTITY = Registry.register(

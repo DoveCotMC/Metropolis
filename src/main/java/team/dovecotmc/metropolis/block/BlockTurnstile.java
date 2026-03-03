@@ -44,6 +44,7 @@ import team.dovecotmc.metropolis.util.MetroBlockUtil;
 import team.dovecotmc.metropolis.util.MtrCommonUtil;
 import team.dovecotmc.metropolis.util.MtrSoundUtil;
 import team.dovecotmc.metropolis.util.MtrStationUtil;
+import team.dovecotmc.old.metropolis.item.OldMetroItems;
 
 /**
  * @author Arrokoth
@@ -160,7 +161,7 @@ public class BlockTurnstile extends HorizontalDirectionalBlock implements Entity
                     stackNbt.putString(ItemTicket.ENTERED_STATION, station.getName());
                     stackNbt.putInt(ItemTicket.ENTERED_ZONE, (int) station.getZone1());
 
-                    ItemStack newStack = new ItemStack(MetroItems.ITEM_SINGLE_TRIP_TICKET_USED);
+                    ItemStack newStack = new ItemStack(OldMetroItems.ITEM_SINGLE_TRIP_TICKET_USED);
                     newStack.setTag(stackNbt);
                     blockEntity.setItem(0, newStack);
                     player.setItemInHand(InteractionHand.MAIN_HAND, ItemStack.EMPTY);
@@ -347,20 +348,20 @@ public class BlockTurnstile extends HorizontalDirectionalBlock implements Entity
         switch (type) {
             case ENTER -> {
                 if (this.icOnly) {
-                    return new ItemStack(MetroItems.ITEM_TURNSTILE_IC_ONLY_ENTER);
+                    return new ItemStack(OldMetroItems.ITEM_TURNSTILE_IC_ONLY_ENTER);
                 } else {
-                    return new ItemStack(MetroItems.ITEM_TURNSTILE_ENTER);
+                    return new ItemStack(OldMetroItems.ITEM_TURNSTILE_ENTER);
                 }
             }
             case EXIT -> {
                 if (this.icOnly) {
-                    return new ItemStack(MetroItems.ITEM_TURNSTILE_IC_ONLY_EXIT);
+                    return new ItemStack(OldMetroItems.ITEM_TURNSTILE_IC_ONLY_EXIT);
                 } else {
-                    return new ItemStack(MetroItems.ITEM_TURNSTILE_EXIT);
+                    return new ItemStack(OldMetroItems.ITEM_TURNSTILE_EXIT);
                 }
             }
         }
-        return new ItemStack(MetroItems.ITEM_TURNSTILE_ENTER);
+        return new ItemStack(OldMetroItems.ITEM_TURNSTILE_ENTER);
     }
 
     @Override

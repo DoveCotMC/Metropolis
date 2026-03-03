@@ -1,10 +1,7 @@
 package team.dovecotmc.metropolis.mixins;
 
-import net.minecraft.world.level.block.entity.BlockEntity;
 import org.mtr.mapping.holder.*;
 import org.mtr.mod.Init;
-import org.mtr.mod.block.PlatformHelper;
-import org.mtr.mod.data.PersistentVehicleData;
 import org.mtr.mod.render.PositionAndRotation;
 import org.mtr.mod.render.RenderVehicleHelper;
 import org.spongepowered.asm.mixin.Final;
@@ -13,7 +10,6 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
-import team.dovecotmc.metropolis.block.entity.BlockEntityPSDSmallDoorSemiAuto;
 import team.dovecotmc.metropolis.block.interfaces.IBlockPlatform;
 import team.dovecotmc.metropolis.block.interfaces.IBlockPlatformDoor;
 
@@ -23,7 +19,7 @@ import team.dovecotmc.metropolis.block.interfaces.IBlockPlatformDoor;
  * @copyright Copyright © 2024 Arrokoth All Rights Reserved.
  */
 @Mixin(RenderVehicleHelper.class)
-public abstract class MixinVehicleHelper {
+public abstract class MixinRenderVehicleHelper {
     @Shadow(remap = false)
     @Final
     private static int CHECK_DOOR_RADIUS_XZ;

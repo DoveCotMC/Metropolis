@@ -20,6 +20,7 @@ import team.dovecotmc.metropolis.Metropolis;
 import team.dovecotmc.metropolis.abstractinterface.util.MALocalizationUtil;
 import team.dovecotmc.metropolis.item.ItemTicket;
 import team.dovecotmc.metropolis.item.MetroItems;
+import team.dovecotmc.old.metropolis.item.OldMetroItems;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -189,7 +190,7 @@ public class TicketVendorScreen3 extends Screen {
         if (continueHovering && pressed) {
             playButtonSound(Minecraft.getInstance().getSoundManager());
 
-            ItemStack ticketStack = new ItemStack(MetroItems.ITEM_SINGLE_TRIP_TICKET);
+            ItemStack ticketStack = new ItemStack(OldMetroItems.ITEM_SINGLE_TRIP_TICKET);
             CompoundTag nbt = ticketStack.getOrCreateTag();
             int cost = Integer.parseInt(value);
             nbt.putInt(ItemTicket.BALANCE, cost);

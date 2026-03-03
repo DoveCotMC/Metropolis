@@ -31,21 +31,6 @@ public class MetroBlocks {
     // Tunnel light
 //    public static final Block BLOCK_TUNNEL_LIGHT_A = register("tunnel_light_a", new BlockTunnelLight(FabricBlockSettings.create().mapColor(MapColor.STONE_GRAY).nonOpaque()));
 
-    // Ticket Vendor Decos
-    public static final Block BLOCK_TICKET_VENDOR_UP_1 = register("ticket_vendor_up_1", new BlockTicketVendorUp());
-    public static final Block BLOCK_TICKET_VENDOR_UP_EM10 = register("ticket_vendor_up_em10", new BlockTicketVendorUp());
-    public static final Block BLOCK_TICKET_VENDOR_UP_EV23 = register("ticket_vendor_up_ev23", new BlockTicketVendorUp());
-    public static final Block BLOCK_TICKET_VENDOR_UP_EV23_GREEN = register("ticket_vendor_up_ev23_green", new BlockTicketVendorUp());
-    public static final Block BLOCK_TICKET_VENDOR_UP_EV23_YELLOW = register("ticket_vendor_up_ev23_yellow", new BlockTicketVendorUp());
-
-    public static final Block BLOCK_TICKET_VENDOR_TOP = register("ticket_vendor_top", new BlockTicketVendorTop());
-
-    // Ticket Vendor
-    public static final Block BLOCK_TICKET_VENDOR_PANEL = register("ticket_vendor_panel", new BlockTicketVendor(false));
-    public static final Block BLOCK_TICKET_VENDOR_EM10 = register("ticket_vendor_em10", new BlockTicketVendor(true, BLOCK_TICKET_VENDOR_UP_EM10));
-    public static final Block BLOCK_TICKET_VENDOR_EV23 = register("ticket_vendor_ev23", new BlockTicketVendor(true, BLOCK_TICKET_VENDOR_UP_EV23_GREEN));
-    public static final Block BLOCK_FARE_ADJ_EV23_YELLOW = register("fare_adj_ev23", new BlockFareAdjMachine(BLOCK_TICKET_VENDOR_UP_EV23_YELLOW));
-
     // Ceiling
     public static final Block BLOCK_CEILING_A = register("ceiling_a", new BlockCeilingA(FabricBlockSettings.create().mapColor(MapColor.COLOR_GRAY).strength(6.0f).noOcclusion().lightLevel((blockState) -> 1)));
 
@@ -55,10 +40,6 @@ public class MetroBlocks {
     public static final Block BLOCK_BUMPER = register("bumper", new BlockBumper());
     // Cameras
     public static final Block BLOCK_CAMERA_CEILING = register("camera_ceiling", new BlockCameraCeiling());
-
-    // Turnstile
-    public static final Block BLOCK_TURNSTILE = register("turnstile", new BlockTurnstile(false));
-    public static final Block BLOCK_TURNSTILE_IC_ONLY = register("turnstile_ic_only", new BlockTurnstile(true));
 
     // Sign
     public static final Block BLOCK_SIGN_NO_PHOTO = register("sign_no_photo", new BlockSign(BlockBehaviour.Properties.of().mapColor(MapColor.METAL).strength(6.0f)));

@@ -11,6 +11,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.Nullable;
+import team.dovecotmc.old.metropolis.block.entities.OldMetroBlockEntities;
 
 /**
  * @author Arrokoth
@@ -24,7 +25,7 @@ public class BlockEntityTurnstile extends BlockEntity implements BlockTurnstileI
     private final NonNullList<ItemStack> items = NonNullList.withSize(1, ItemStack.EMPTY);
 
     public BlockEntityTurnstile(BlockPos pos, BlockState state) {
-        super(MetroBlockEntities.TURNSTILE_BLOCK_ENTITY, pos, state);
+        super(OldMetroBlockEntities.TURNSTILE_BLOCK_ENTITY, pos, state);
         this.ticketAnimationStartTime = 0;
     }
 

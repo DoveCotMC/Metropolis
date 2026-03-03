@@ -13,7 +13,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import team.dovecotmc.metropolis.Metropolis;
 
 @Mixin(CreativeModeInventoryScreen.class)
-public class MixinCreativeModeTab {
+public abstract class MixinCreativeModeTab {
     @Shadow
     private static CreativeModeTab selectedTab;
 

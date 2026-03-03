@@ -7,7 +7,10 @@ import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import team.dovecotmc.metropolis.Metropolis;
 import team.dovecotmc.metropolis.block.MetroBlocks;
-import team.dovecotmc.metropolis.block.entity.BlockEntityTurnstile;
+import team.dovecotmc.old.metropolis.OldMetropolis;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author Arrokoth
@@ -16,14 +19,10 @@ import team.dovecotmc.metropolis.block.entity.BlockEntityTurnstile;
  */
 @SuppressWarnings("unused")
 public class MetroItems {
+    public static final List<Item> TAB_ITEMS = new ArrayList<>();
+
     public static final Item ITEM_CABLE = register("cable", new BlockItem(MetroBlocks.BLOCK_CABLE, new Item.Properties()));
-    // TODO: Tunnel light
-//    public static final Item ITEM_TUNNEL_LIGHT_A = register("tunnel_light_a", new BlockItem(MetroBlocks.BLOCK_TUNNEL_LIGHT_A, new Item.Settings().group(Metropolis.ITEM_GROUP)));
-    public static final Item ITEM_TICKET_VENDOR_TOP = register("ticket_vendor_top", new ItemBlockWithTooltips(MetroBlocks.BLOCK_TICKET_VENDOR_TOP, new Item.Properties()));
-    public static final Item ITEM_TICKET_VENDOR_PANEL = register("ticket_vendor_panel", new ItemBlockWithTooltips(MetroBlocks.BLOCK_TICKET_VENDOR_PANEL, new Item.Properties()));
-    public static final Item ITEM_TICKET_VENDOR_EM10 = register("ticket_vendor_em10", new ItemBlockWithTooltipShowStationHUD(MetroBlocks.BLOCK_TICKET_VENDOR_EM10, new Item.Properties()));
-    public static final Item ITEM_TICKET_VENDOR_EV23 = register("ticket_vendor_ev23", new ItemBlockWithTooltipShowStationHUD(MetroBlocks.BLOCK_TICKET_VENDOR_EV23, new Item.Properties()));
-    public static final Item ITEM_FARE_ADJ_EV23 = register("fare_adj_ev23", new ItemBlockWithTooltipShowStationHUD(MetroBlocks.BLOCK_FARE_ADJ_EV23_YELLOW, new Item.Properties()));
+
     // Ceiling
     public static final Item ITEM_CEILING_A = register("ceiling_a", new BlockItem(MetroBlocks.BLOCK_CEILING_A, new Item.Properties()));
 
@@ -32,12 +31,6 @@ public class MetroItems {
 
     public static final Item ITEM_BUMPER = register("bumper", new BlockItem(MetroBlocks.BLOCK_BUMPER, new Item.Properties()));
     public static final Item ITEM_CAMERA = register("camera", new BlockItem(MetroBlocks.BLOCK_CAMERA_CEILING, new Item.Properties()));
-
-    // Turnstile
-    public static final Item ITEM_TURNSTILE_ENTER = register("turnstile_enter", new ItemTurnstile(MetroBlocks.BLOCK_TURNSTILE, new Item.Properties(), BlockEntityTurnstile.EnumTurnstileType.ENTER));
-    public static final Item ITEM_TURNSTILE_EXIT = register("turnstile_exit", new ItemTurnstile(MetroBlocks.BLOCK_TURNSTILE, new Item.Properties(), BlockEntityTurnstile.EnumTurnstileType.EXIT));
-    public static final Item ITEM_TURNSTILE_IC_ONLY_ENTER = register("turnstile_ic_only_enter", new ItemTurnstile(MetroBlocks.BLOCK_TURNSTILE_IC_ONLY, new Item.Properties(), BlockEntityTurnstile.EnumTurnstileType.ENTER));
-    public static final Item ITEM_TURNSTILE_IC_ONLY_EXIT = register("turnstile_ic_only_exit", new ItemTurnstile(MetroBlocks.BLOCK_TURNSTILE_IC_ONLY, new Item.Properties(), BlockEntityTurnstile.EnumTurnstileType.EXIT));
 
     // Sign
     public static final Item ITEM_SIGN_NO_PHOTO = register("sign_no_photo", new BlockItem(MetroBlocks.BLOCK_SIGN_NO_PHOTO, new Item.Properties()));
@@ -54,12 +47,6 @@ public class MetroItems {
     public static final Item ITEM_PSD_JR_FENCE_1 = register("psd_jr_fence_1", new ItemBlockWithTooltips(MetroBlocks.BLOCK_PSD_JR_FENCE_1, new Item.Properties()));
     public static final Item ITEM_PSD_JR_FENCE_2 = register("psd_jr_fence_2", new ItemBlockWithTooltips(MetroBlocks.BLOCK_PSD_JR_FENCE_2, new Item.Properties()/**/));
 
-    // Ticket
-    public static final Item ITEM_SINGLE_TRIP_TICKET = register("single_trip_ticket", new ItemTicket(new Item.Properties(), true));
-    public static final Item ITEM_SINGLE_TRIP_TICKET_USED = register("single_trip_ticket_used", new ItemTicket(new Item.Properties(), true));
-    public static final Item ITEM_CARD = register("card", new ItemCard(new Item.Properties(), false));
-    public static final Item ITEM_CREATIVE_CARD = register("creative_card", new ItemCard(new Item.Properties(), true));
-    public static final Item ITEM_EXIT_TICKET = register("exit_ticket", new ItemExitTicket(new Item.Properties()));
     // Monitor
     public static final Item ITEM_ITV_MONITOR = register("itv_monitor", new BlockItem(MetroBlocks.BLOCK_ITV_MONITOR, new Item.Properties()));
     // Security instruments
@@ -115,8 +102,21 @@ public class MetroItems {
     // TODO: Bridge creator
 //    public static final Item ITEM_BRIDGE_CREATOR = register("bridge_creator", new ItemDynamicBridgeCreator());
 
+
     public static Item register(String id, Item item) {
-        return Registry.register(BuiltInRegistries.ITEM, new ResourceLocation(Metropolis.MOD_ID, id), item);
+        return register(id, item, true);
+    }
+
+    public static Item register(String id, Item item, boolean addToTab) {
+        Item registered = Registry.register(BuiltInRegistries.ITEM, new ResourceLocation(Metropolis.MOD_ID, id), item);
+        if (addToTab) {
+            TAB_ITEMS.add(registered);
+        }
+        return registered;
+    }
+
+    public static List<Item> getTabItems() {
+        return TAB_ITEMS;
     }
 
     public static void initialize() {

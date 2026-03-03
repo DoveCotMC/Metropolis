@@ -105,8 +105,7 @@ public class MetroBlockPlaceHud {
 
                 y0 = centerY + 8;
 
-                String[] stationNames = new String[] {"WIP: MTR4"};
-//                String[] stationNames = station.name.split("\\|");
+                String[] stationNames = station.getName().split("\\|");
                 Component stationFirstName = MALocalizationUtil.literalText(stationNames[0]);
                 int stationFirstNameWidth = textRenderer.width(stationFirstName);
                 guiGraphics.drawString(

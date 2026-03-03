@@ -34,6 +34,9 @@ import team.dovecotmc.metropolis.block.entity.MetroBlockEntities;
 import team.dovecotmc.metropolis.item.MetroItems;
 import team.dovecotmc.metropolis.network.MetroServerNetwork;
 import team.dovecotmc.metropolis.util.MetroBlockUtil;
+import team.dovecotmc.old.metropolis.block.OldMetroBlocks;
+import team.dovecotmc.old.metropolis.block.entities.OldMetroBlockEntities;
+import team.dovecotmc.old.metropolis.item.OldMetroItems;
 
 /**
  * @author Arrokoth
@@ -46,7 +49,7 @@ public class BlockTicketVendor extends HorizontalDirectionalBlock implements Ent
     public final Block defaultUpper;
 
     public BlockTicketVendor(boolean isFunctional) {
-        this(isFunctional, MetroBlocks.BLOCK_TICKET_VENDOR_UP_1);
+        this(isFunctional, OldMetroBlocks.BLOCK_TICKET_VENDOR_UP_1);
     }
 
     public BlockTicketVendor(boolean isFunctional, Block defaultUpper) {
@@ -96,7 +99,7 @@ public class BlockTicketVendor extends HorizontalDirectionalBlock implements Ent
         }
 
         if (!world.isClientSide) {
-            BlockEntityTicketVendor blockEntity = world.getBlockEntity(pos, MetroBlockEntities.TICKET_VENDOR_BLOCK_ENTITY).orElse(null);
+            BlockEntityTicketVendor blockEntity = world.getBlockEntity(pos, OldMetroBlockEntities.TICKET_VENDOR_BLOCK_ENTITY).orElse(null);
 
             if (blockEntity != null && !blockEntity.getItem(0).isEmpty()) {
                 world.playSound(null, pos, SoundEvents.WOOL_BREAK, SoundSource.BLOCKS, 1f, 1f);
@@ -105,7 +108,7 @@ public class BlockTicketVendor extends HorizontalDirectionalBlock implements Ent
                 blockEntity.removeItemNoUpdate(0);
                 serverPlayer.connection.send(blockEntity.getUpdatePacket());
                 MetroServerNetwork.removeInventoryItem(0, pos, serverPlayer);
-            } else if (blockEntity != null && player.getItemInHand(InteractionHand.MAIN_HAND).getItem().equals(MetroItems.ITEM_CARD)) {
+            } else if (blockEntity != null && player.getItemInHand(InteractionHand.MAIN_HAND).getItem().equals(OldMetroItems.ITEM_CARD)) {
                 world.playSound(null, pos, SoundEvents.WOOL_PLACE, SoundSource.BLOCKS, 1f, 1f);
                 ServerPlayer serverPlayer = (ServerPlayer) player;
 
