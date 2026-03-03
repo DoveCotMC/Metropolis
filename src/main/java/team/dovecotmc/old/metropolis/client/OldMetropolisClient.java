@@ -3,11 +3,11 @@ package team.dovecotmc.old.metropolis.client;
 import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
 import net.fabricmc.fabric.api.client.rendering.v1.BlockEntityRendererRegistry;
 import net.minecraft.client.renderer.RenderType;
-import team.dovecotmc.metropolis.client.block.entity.FareAdjBlockEntityRenderer;
-import team.dovecotmc.metropolis.client.block.entity.TicketVendorBlockEntityRenderer;
-import team.dovecotmc.metropolis.client.block.entity.TurnstileBlockEntityRenderer;
-import team.dovecotmc.old.metropolis.block.OldMetroBlocks;
-import team.dovecotmc.old.metropolis.block.entities.OldMetroBlockEntities;
+import team.dovecotmc.old.metropolis.client.block.entity.FareAdjBlockEntityRenderer;
+import team.dovecotmc.old.metropolis.client.block.entity.TicketVendorBlockEntityRenderer;
+import team.dovecotmc.old.metropolis.client.block.entity.TurnstileBlockEntityRenderer;
+import team.dovecotmc.old.metropolis.init.OldMetroBlocks;
+import team.dovecotmc.old.metropolis.init.OldMetroBlockEntities;
 
 public class OldMetropolisClient {
     public static void initializeContent() {

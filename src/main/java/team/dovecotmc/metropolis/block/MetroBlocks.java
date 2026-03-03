@@ -9,6 +9,9 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.material.MapColor;
 import team.dovecotmc.metropolis.Metropolis;
+import team.dovecotmc.old.metropolis.block.BlockMetroPlatform;
+import team.dovecotmc.old.metropolis.block.BlockPSDSmallDoorSemiAuto;
+import team.dovecotmc.old.metropolis.block.BlockPSDSmallFenceSemiAuto;
 
 /**
  * @author Arrokoth

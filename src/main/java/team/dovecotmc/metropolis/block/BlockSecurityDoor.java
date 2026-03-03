@@ -1,7 +1,6 @@
 package team.dovecotmc.metropolis.block;
 
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
@@ -34,7 +33,7 @@ import org.jetbrains.annotations.Nullable;
 import team.dovecotmc.metropolis.Metropolis;
 import team.dovecotmc.metropolis.abstractinterface.util.MALocalizationUtil;
 import team.dovecotmc.metropolis.util.MetroBlockUtil;
-import team.dovecotmc.metropolis.util.MtrSoundUtil;
+import team.dovecotmc.old.metropolis.util.MtrSoundUtil;
 
 /**
  * @author Arrokoth

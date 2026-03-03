@@ -1,7 +1,7 @@
 package team.dovecotmc.old.metropolis;
 
-import team.dovecotmc.old.metropolis.block.OldMetroBlocks;
-import team.dovecotmc.old.metropolis.item.OldMetroItems;
+import team.dovecotmc.old.metropolis.init.OldMetroBlocks;
+import team.dovecotmc.old.metropolis.init.OldMetroItems;
 
 public class OldMetropolis {
     public static final boolean ADD_ITEMS_TO_TAB = true;

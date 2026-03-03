@@ -22,10 +22,10 @@ import team.dovecotmc.metropolis.client.block.entity.*;
 import team.dovecotmc.metropolis.client.block.model.provider.MetroModelProvicer;
 import team.dovecotmc.metropolis.client.config.MetroClientConfig;
 import team.dovecotmc.metropolis.client.entity.EntitySittableRenderer;
-import team.dovecotmc.metropolis.client.gui.MetroBlockPlaceHud;
-import team.dovecotmc.metropolis.client.network.MetroClientNetwork;
+import team.dovecotmc.old.metropolis.client.gui.MetroBlockPlaceHud;
+import team.dovecotmc.old.metropolis.client.network.OldMetroClientNetwork;
 import team.dovecotmc.metropolis.entity.MetroEntities;
-import team.dovecotmc.old.metropolis.block.entities.OldMetroBlockEntities;
+import team.dovecotmc.old.metropolis.client.block.entity.BlockEntityRendererPSDSmallDoorSemiAuto;
 import team.dovecotmc.old.metropolis.client.OldMetropolisClient;
 
 /**
@@ -51,7 +51,7 @@ public class MetropolisClient implements ClientModInitializer {
             Metropolis.LOGGER.info("Mod menu detected!");
         }
 
-        MetroClientNetwork.registerAll();
+        OldMetroClientNetwork.registerAll();
 
         BlockRenderLayerMap.INSTANCE.putBlock(MetroBlocks.BLOCK_SECURITY_INSPECTION_MACHINE, RenderType.cutout());
         BlockRenderLayerMap.INSTANCE.putBlock(MetroBlocks.BLOCK_BLIND_PATH, RenderType.cutout());

@@ -20,9 +20,9 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import team.dovecotmc.metropolis.block.IBlockStationOverlayShouldRender;
+import team.dovecotmc.old.metropolis.block.IBlockStationOverlayShouldRender;
 import team.dovecotmc.metropolis.client.MetropolisClient;
-import team.dovecotmc.metropolis.util.MtrStationUtil;
+import team.dovecotmc.old.metropolis.util.MtrStationUtil;
 
 /**
  * @author Arrokoth
