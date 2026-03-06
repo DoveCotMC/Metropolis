@@ -20,6 +20,7 @@ import org.mtr.core.data.Station;
 import team.dovecotmc.metropolis.abstractinterface.util.MALocalizationUtil;
 import team.dovecotmc.metropolis.client.MetropolisClient;
 import team.dovecotmc.old.metropolis.item.IItemShowStationHUD;
+import team.dovecotmc.old.metropolis.mtr.WrappedMtrStation;
 import team.dovecotmc.old.metropolis.util.MtrCommonUtil;
 import team.dovecotmc.old.metropolis.util.MtrStationUtil;
 
@@ -77,7 +78,7 @@ public class MetroBlockPlaceHud {
             RenderSystem.enableBlend();
             RenderSystem.defaultBlendFunc();
 
-            Station station = MtrStationUtil.getStationByPos(pos, world);
+            WrappedMtrStation station = MtrStationUtil.getStationByPos(pos, world);
             shouldRender = station != null;
 
             boolean shouldRenderName = shouldRender;

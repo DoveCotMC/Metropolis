@@ -38,6 +38,7 @@ import team.dovecotmc.old.metropolis.block.entity.BlockEntityTurnstile;
 import team.dovecotmc.old.metropolis.item.IItemOpenGate;
 import team.dovecotmc.old.metropolis.item.ItemCard;
 import team.dovecotmc.old.metropolis.item.ItemTicket;
+import team.dovecotmc.old.metropolis.mtr.WrappedMtrStation;
 import team.dovecotmc.old.metropolis.network.OldMetroServerNetwork;
 import team.dovecotmc.metropolis.util.MetroBlockUtil;
 import team.dovecotmc.old.metropolis.util.MtrCommonUtil;
@@ -73,7 +74,7 @@ public class BlockTurnstile extends HorizontalDirectionalBlock implements Entity
         }
 
         if (world.getBlockEntity(pos) instanceof BlockEntityTurnstile blockEntity && !state.getValue(OPEN)) {
-            Station station = MtrStationUtil.getStationByPos(pos, world);
+            WrappedMtrStation station = MtrStationUtil.getStationByPos(pos, world);
             if (station == null) {
                 player.displayClientMessage(MALocalizationUtil.translatableText("info.metropolis.turnstile_error"), true);
                 return InteractionResult.SUCCESS;
@@ -158,7 +159,7 @@ public class BlockTurnstile extends HorizontalDirectionalBlock implements Entity
 
                     CompoundTag stackNbt = stack.getOrCreateTag();
                     stackNbt.putString(ItemTicket.ENTERED_STATION, station.getName());
-                    stackNbt.putInt(ItemTicket.ENTERED_ZONE, (int) station.getZone1());
+                    stackNbt.putInt(ItemTicket.ENTERED_ZONE, (int) station.getZone());
 
                     ItemStack newStack = new ItemStack(OldMetroItems.ITEM_SINGLE_TRIP_TICKET_USED);
                     newStack.setTag(stackNbt);
@@ -178,7 +179,7 @@ public class BlockTurnstile extends HorizontalDirectionalBlock implements Entity
                     // TODO: Custom Cards sound
                     CompoundTag stackNbt = stack.getOrCreateTag();
                     stackNbt.putString(ItemCard.ENTERED_STATION, station.getName());
-                    stackNbt.putInt(ItemCard.ENTERED_ZONE, (int) station.getZone1());
+                    stackNbt.putInt(ItemCard.ENTERED_ZONE, (int) station.getZone());
                     world.playSound(null, pos, MtrSoundUtil.TICKET_BARRIER_CONCESSIONARY, SoundSource.BLOCKS, 1f, 1f);
 
                     world.setBlockAndUpdate(pos, state.setValue(OPEN, true));
@@ -199,7 +200,7 @@ public class BlockTurnstile extends HorizontalDirectionalBlock implements Entity
                         return InteractionResult.SUCCESS;
                     }
 
-                    int cost = Math.toIntExact(Math.abs(station.getZone1() - stackNbt.getInt(ItemTicket.ENTERED_ZONE)) + 1);
+                    int cost = Math.toIntExact(Math.abs(station.getZone() - stackNbt.getInt(ItemTicket.ENTERED_ZONE)) + 1);
                     int balance = stackNbt.getInt(ItemTicket.BALANCE);
 
                     if (balance < cost && !(stack.getItem() instanceof IItemOpenGate)) {
@@ -220,7 +221,7 @@ public class BlockTurnstile extends HorizontalDirectionalBlock implements Entity
                     world.setBlockAndUpdate(pos, state.setValue(OPEN, true));
                     world.scheduleTick(pos, this, CLOSE_DELAY);
                 } else if (stack.getItem() instanceof ItemCard) {
-                    int cost = Math.toIntExact(Math.abs(station.getZone1() - stackNbt.getInt(ItemCard.ENTERED_ZONE)) + 1);
+                    int cost = Math.toIntExact(Math.abs(station.getZone() - stackNbt.getInt(ItemCard.ENTERED_ZONE)) + 1);
                     int balance = stackNbt.getInt(ItemCard.BALANCE);
 
                     if (balance < cost) {

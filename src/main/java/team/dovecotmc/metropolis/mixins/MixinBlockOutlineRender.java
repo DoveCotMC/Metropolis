@@ -22,6 +22,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import team.dovecotmc.old.metropolis.block.IBlockStationOverlayShouldRender;
 import team.dovecotmc.metropolis.client.MetropolisClient;
+import team.dovecotmc.old.metropolis.mtr.WrappedMtrStation;
 import team.dovecotmc.old.metropolis.util.MtrStationUtil;
 
 /**
@@ -52,7 +53,7 @@ public abstract class MixinBlockOutlineRender {
             }
 
             if (outline) {
-                Station station = MtrStationUtil.getStationByPos(pos, level);
+                WrappedMtrStation station = MtrStationUtil.getStationByPos(pos, level);
                 if (station != null) {
                     float red = FastColor.ARGB32.red(station.getColor()) / 255f;
                     float green = FastColor.ARGB32.green(station.getColor()) / 255f;
