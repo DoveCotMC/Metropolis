@@ -9,7 +9,6 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.material.MapColor;
 import team.dovecotmc.metropolis.Metropolis;
-import team.dovecotmc.old.metropolis.block.*;
 
 /**
  * @author Arrokoth
@@ -48,12 +47,6 @@ public class MetroBlocks {
     // PIDS
 //    public static final Block BLOCK_PIDS_1 = register("pids_1", new BlockMetroPIDSOne());
 
-    // Platform Fence door
-    public static final Block BLOCK_PSD_JR_DOOR_1 = register("psd_jr_door_1", new BlockPSDSmallDoorSemiAuto(BlockBehaviour.Properties.of().mapColor(MapColor.METAL).strength(6.0f)));
-    public static final Block BLOCK_PSD_JR_DOOR_2 = register("psd_jr_door_2", new BlockPSDSmallDoorSemiAuto(BlockBehaviour.Properties.of().mapColor(MapColor.METAL).strength(6.0f)));
-    public static final Block BLOCK_PSD_JR_FENCE_1 = register("psd_jr_fence_1", new BlockPSDSmallFenceSemiAuto(BlockBehaviour.Properties.of().mapColor(MapColor.METAL).strength(6.0f)));
-    public static final Block BLOCK_PSD_JR_FENCE_2 = register("psd_jr_fence_2", new BlockPSDSmallFenceSemiAuto(BlockBehaviour.Properties.of().mapColor(MapColor.METAL).strength(6.0f)));
-
     // Monitor
     public static final Block BLOCK_ITV_MONITOR = register("itv_monitor", new BlockITVMonitor());
 
@@ -62,10 +55,6 @@ public class MetroBlocks {
      * =========== */
     // Concrete
     public static final Block BLOCK_CONCRETE = register("concrete", new Block(BlockBehaviour.Properties.of().mapColor(DyeColor.LIGHT_GRAY.getMapColor()).strength(6.0f)));
-
-    // Platform
-    public static final Block BLOCK_PLATFORM_A = register("platform_a", new BlockMetroPlatform(BlockBehaviour.Properties.of().mapColor(DyeColor.LIGHT_GRAY.getMapColor()).strength(6.0f), BlockMetroPlatform.PlatformShape.NORMAL));
-    public static final Block BLOCK_PLATFORM_A_SLIM = register("platform_a_slim", new BlockMetroPlatform(BlockBehaviour.Properties.of().mapColor(DyeColor.LIGHT_GRAY.getMapColor()).strength(6.0f), BlockMetroPlatform.PlatformShape.SLIM));
 
     // Tiles
     // White

@@ -22,7 +22,7 @@ import team.dovecotmc.metropolis.Metropolis;
 import team.dovecotmc.metropolis.abstractinterface.util.MALocalizationUtil;
 import team.dovecotmc.old.metropolis.block.BlockTurnstile;
 import team.dovecotmc.old.metropolis.block.entity.BlockEntityTurnstile;
-import team.dovecotmc.metropolis.client.MetropolisClient;
+import team.dovecotmc.old.metropolis.client.OldMetropolisClient;
 import team.dovecotmc.old.metropolis.util.MtrCommonUtil;
 
 /**
@@ -80,7 +80,7 @@ public class TurnstileBlockEntityRenderer implements BlockEntityRenderer<BlockEn
             matrices.translate(-8f, -8f, -8f);
             matrices.scale(16f, 16f, 16f);
 
-            if (MetropolisClient.config.enableGlowingTexture) {
+            if (OldMetropolisClient.config.enableGlowingTexture) {
                 RenderSystem.enableBlend();
                 RenderSystem.enableDepthTest();
                 RenderSystem.defaultBlendFunc();

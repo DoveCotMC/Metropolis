@@ -19,7 +19,7 @@
     "icon": "assets/metropolis/metropolis.png",
     "environment": "*",
     "mixins": [
-        "metropolis.mixin.json"
+        "old.metropolis.mixin.json"
     ],
     "entrypoints": {
         "client": [
@@ -29,7 +29,7 @@
             "team.dovecotmc.metropolis.Metropolis"
         ],
         "modmenu": [
-            "team.dovecotmc.metropolis.client.modmenu.MetroModMenu"
+            "team.dovecotmc.old.metropolis.client.modmenu.OldMetroModMenu"
         ],
         "fabric-datagen": [
             "team.dovecotmc.metropolis.datagen.MetropolisDataGenerator"

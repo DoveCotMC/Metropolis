@@ -1,4 +1,4 @@
-package team.dovecotmc.metropolis.client.modmenu;
+package team.dovecotmc.old.metropolis.client.modmenu;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
@@ -13,8 +13,8 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvents;
 import team.dovecotmc.metropolis.Metropolis;
 import team.dovecotmc.metropolis.abstractinterface.util.MALocalizationUtil;
-import team.dovecotmc.metropolis.client.MetropolisClient;
-import team.dovecotmc.metropolis.client.config.MetroClientConfig;
+import team.dovecotmc.old.metropolis.client.OldMetropolisClient;
+import team.dovecotmc.old.metropolis.client.config.OldMetroClientConfig;
 import team.dovecotmc.metropolis.config.MetroConfig;
 
 import java.util.Optional;
@@ -24,7 +24,7 @@ import java.util.Optional;
  * @project Metropolis
  * @copyright Copyright © 2024 Arrokoth All Rights Reserved.
  */
-public class MetroModMenuConfigScreen extends Screen {
+public class OldMetroModMenuConfigScreen extends Screen {
     private final Screen parent;
     public static final ResourceLocation SWITCH_ON_TEXTURE_ID = new ResourceLocation(Metropolis.MOD_ID, "textures/gui/config/switch_on.png");
     public static final ResourceLocation SWITCH_ON_HOVER_TEXTURE_ID = new ResourceLocation(Metropolis.MOD_ID, "textures/gui/config/switch_on_hover.png");
@@ -39,7 +39,7 @@ public class MetroModMenuConfigScreen extends Screen {
     private boolean lastPressing = false;
     protected boolean pressed = false;
 
-    public MetroModMenuConfigScreen(Screen parent) {
+    public OldMetroModMenuConfigScreen(Screen parent) {
         super(MALocalizationUtil.translatableText("metropolis.modmenu.config.title"));
         this.parent = parent;
     }
@@ -92,15 +92,15 @@ public class MetroModMenuConfigScreen extends Screen {
         boolean isGlowingTextureHovered = mouseX >= x0 && mouseY >= y0 && mouseX <= x0 + SWITCH_TEXTURE_WIDTH && mouseY <= y0 + SWITCH_TEXTURE_HEIGHT;
 
         ResourceLocation switchTexture;
-        if (MetropolisClient.config.enableGlowingTexture) {
+        if (OldMetropolisClient.config.enableGlowingTexture) {
             switchTexture = isGlowingTextureHovered ? SWITCH_ON_HOVER_TEXTURE_ID : SWITCH_ON_TEXTURE_ID;
         } else {
             switchTexture = isGlowingTextureHovered ? SWITCH_OFF_HOVER_TEXTURE_ID : SWITCH_OFF_TEXTURE_ID;
         }
 
         if (isGlowingTextureHovered && pressed) {
-            MetropolisClient.config.enableGlowingTexture = !MetropolisClient.config.enableGlowingTexture;
-            MetroClientConfig.save(MetropolisClient.config);
+            OldMetropolisClient.config.enableGlowingTexture = !OldMetropolisClient.config.enableGlowingTexture;
+            OldMetroClientConfig.save(OldMetropolisClient.config);
             playDownSound();
         }
 
@@ -131,15 +131,15 @@ public class MetroModMenuConfigScreen extends Screen {
         int y1 = 64 + (16 + font.lineHeight) - button_offset;
         boolean isEnableStationInfoDisplayHovered = mouseX >= x0 && mouseY >= y1 && mouseX <= x0 + SWITCH_TEXTURE_WIDTH && mouseY <= y1 + SWITCH_TEXTURE_HEIGHT;
 
-        if (MetropolisClient.config.enableStationInfoOverlay) {
+        if (OldMetropolisClient.config.enableStationInfoOverlay) {
             switchTexture = isEnableStationInfoDisplayHovered ? SWITCH_ON_HOVER_TEXTURE_ID : SWITCH_ON_TEXTURE_ID;
         } else {
             switchTexture = isEnableStationInfoDisplayHovered ? SWITCH_OFF_HOVER_TEXTURE_ID : SWITCH_OFF_TEXTURE_ID;
         }
 
         if (isEnableStationInfoDisplayHovered && pressed) {
-            MetropolisClient.config.enableStationInfoOverlay = !MetropolisClient.config.enableStationInfoOverlay;
-            MetroClientConfig.save(MetropolisClient.config);
+            OldMetropolisClient.config.enableStationInfoOverlay = !OldMetropolisClient.config.enableStationInfoOverlay;
+            OldMetroClientConfig.save(OldMetropolisClient.config);
             playDownSound();
         }
 
@@ -169,7 +169,7 @@ public class MetroModMenuConfigScreen extends Screen {
         if (this.minecraft != null) {
             this.minecraft.setScreen(this.parent);
             MetroConfig.save(Metropolis.config);
-            MetroClientConfig.save(MetropolisClient.config);
+            OldMetroClientConfig.save(OldMetropolisClient.config);
         }
     }
 

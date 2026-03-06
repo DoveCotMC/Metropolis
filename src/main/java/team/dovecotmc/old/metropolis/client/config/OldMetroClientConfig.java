@@ -1,4 +1,4 @@
-package team.dovecotmc.metropolis.client.config;
+package team.dovecotmc.old.metropolis.client.config;
 
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
@@ -19,13 +19,13 @@ import java.nio.file.Path;
  * @copyright Copyright © 2024 Arrokoth All Rights Reserved.
  */
 @Environment(EnvType.CLIENT)
-public class MetroClientConfig {
+public class OldMetroClientConfig {
     public static final Path CONFIG_FILE_PATH = Minecraft.getInstance().gameDirectory.toPath().resolve("config").resolve("metropolis").resolve("client.json");
     public JsonObject json;
     public boolean enableGlowingTexture;
     public boolean enableStationInfoOverlay;
 
-    public MetroClientConfig() {
+    public OldMetroClientConfig() {
         this.json = new JsonObject();
         this.enableGlowingTexture = true;
         this.enableStationInfoOverlay = true;
@@ -53,9 +53,9 @@ public class MetroClientConfig {
         json.addProperty("enable_station_info_overlay", this.enableStationInfoOverlay);
     }
 
-    public static MetroClientConfig load() {
+    public static OldMetroClientConfig load() {
         JsonObject obj = null;
-        MetroClientConfig config = new MetroClientConfig();
+        OldMetroClientConfig config = new OldMetroClientConfig();
         if (Files.exists(CONFIG_FILE_PATH)) {
             try {
                 byte[] bytes = Files.readAllBytes(CONFIG_FILE_PATH);
@@ -73,7 +73,7 @@ public class MetroClientConfig {
         return config;
     }
 
-    public static void save(MetroClientConfig config) {
+    public static void save(OldMetroClientConfig config) {
         try {
             config.refresh();
             new File(CONFIG_FILE_PATH.getParent().toUri()).mkdirs();

@@ -9,6 +9,7 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.Nullable;
 import team.dovecotmc.metropolis.block.entity.MetroBlockEntities;
+import team.dovecotmc.old.metropolis.init.OldMetroBlockEntities;
 
 /**
  * @author Arrokoth
@@ -26,7 +27,7 @@ public class BlockEntityPSDSmallDoorSemiAuto extends BlockEntity {
     public int tint = 0xFFFFFF;
 
     public BlockEntityPSDSmallDoorSemiAuto(BlockPos pos, BlockState state) {
-        super(MetroBlockEntities.PSD_SMALL_DOOR, pos, state);
+        super(OldMetroBlockEntities.PSD_SMALL_DOOR, pos, state);
     }
 
     @Override

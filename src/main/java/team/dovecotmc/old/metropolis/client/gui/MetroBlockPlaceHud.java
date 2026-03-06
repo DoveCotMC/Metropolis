@@ -16,9 +16,8 @@ import net.minecraft.util.FastColor;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
-import org.mtr.core.data.Station;
 import team.dovecotmc.metropolis.abstractinterface.util.MALocalizationUtil;
-import team.dovecotmc.metropolis.client.MetropolisClient;
+import team.dovecotmc.old.metropolis.client.OldMetropolisClient;
 import team.dovecotmc.old.metropolis.item.IItemShowStationHUD;
 import team.dovecotmc.old.metropolis.mtr.WrappedMtrStation;
 import team.dovecotmc.old.metropolis.util.MtrCommonUtil;
@@ -43,7 +42,7 @@ public class MetroBlockPlaceHud {
     }
 
     public void render(GuiGraphics guiGraphics, float tickDelta) {
-        if (!MetropolisClient.config.enableStationInfoOverlay) {
+        if (!OldMetropolisClient.config.enableStationInfoOverlay) {
             return;
         }
 

@@ -20,7 +20,6 @@ import team.dovecotmc.metropolis.config.MetroConfig;
 import team.dovecotmc.metropolis.entity.EntitySittable;
 import team.dovecotmc.metropolis.entity.MetroEntities;
 import team.dovecotmc.metropolis.item.MetroItems;
-import team.dovecotmc.old.metropolis.network.OldMetroServerNetwork;
 import team.dovecotmc.metropolis.sittable.SittableRegistries;
 import team.dovecotmc.metropolis.sittable.SittableRegistry;
 
@@ -101,7 +100,6 @@ public class Metropolis implements ModInitializer {
         MetroBlockEntities.initialize();
         MetroEntities.initialize();
         MetroItems.initialize();
-        OldMetroServerNetwork.registerAll();
         SittableRegistries.registerSittable(new SittableRegistry(MetroBlocks.BLOCK_BENCH, (state, player, hit) -> Optional.of(new Vec3(0.5, 0.1, 0.5))));
 //        MetroEnumUtil.addRailtype("rail_5", 5, MapColor.BLUE, false, true, true, RailType.RailSlopeStyle.CURVE);
 

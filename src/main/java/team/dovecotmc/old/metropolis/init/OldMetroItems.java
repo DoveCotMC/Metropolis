@@ -3,6 +3,7 @@ package team.dovecotmc.old.metropolis.init;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import team.dovecotmc.metropolis.Metropolis;
 import team.dovecotmc.old.metropolis.block.entity.BlockEntityTurnstile;
@@ -11,6 +12,20 @@ import team.dovecotmc.old.metropolis.OldMetropolis;
 import team.dovecotmc.old.metropolis.item.*;
 
 public class OldMetroItems {
+    // Security instruments
+    public static final Item ITEM_SECURITY_DOOR = register("security_door", new BlockItem(OldMetroBlocks.BLOCK_SECURITY_DOOR, new Item.Properties()));
+    public static final Item ITEM_SECURITY_INSPECTION_MACHINE = register("security_inspection_machine", new BlockItem(OldMetroBlocks.BLOCK_SECURITY_INSPECTION_MACHINE, new Item.Properties()));
+
+    // PSD
+    public static final Item ITEM_PSD_JR_DOOR_1 = register("psd_jr_door_1", new ItemBlockWithTooltips(OldMetroBlocks.BLOCK_PSD_JR_DOOR_1, new Item.Properties()));
+    public static final Item ITEM_PSD_JR_DOOR_2 = register("psd_jr_door_2", new ItemBlockWithTooltips(OldMetroBlocks.BLOCK_PSD_JR_DOOR_2, new Item.Properties()));
+    public static final Item ITEM_PSD_JR_FENCE_1 = register("psd_jr_fence_1", new ItemBlockWithTooltips(OldMetroBlocks.BLOCK_PSD_JR_FENCE_1, new Item.Properties()));
+    public static final Item ITEM_PSD_JR_FENCE_2 = register("psd_jr_fence_2", new ItemBlockWithTooltips(OldMetroBlocks.BLOCK_PSD_JR_FENCE_2, new Item.Properties()/**/));
+
+    // Platform
+    public static final Item ITEM_PLATFORM_A = register("platform_a", new BlockItem(OldMetroBlocks.BLOCK_PLATFORM_A, new Item.Properties()));
+    public static final Item ITEM_PLATFORM_A_SLIM = register("platform_a_slim", new BlockItem(OldMetroBlocks.BLOCK_PLATFORM_A_SLIM, new Item.Properties()));
+
     // Ticket System
     public static final Item ITEM_SINGLE_TRIP_TICKET = register("single_trip_ticket", new ItemTicket(new Item.Properties(), true));
     public static final Item ITEM_SINGLE_TRIP_TICKET_USED = register("single_trip_ticket_used", new ItemTicket(new Item.Properties(), true));
@@ -18,6 +33,7 @@ public class OldMetroItems {
     public static final Item ITEM_CREATIVE_CARD = register("creative_card", new ItemCard(new Item.Properties(), true));
     public static final Item ITEM_EXIT_TICKET = register("exit_ticket", new ItemExitTicket(new Item.Properties()));
 
+    // Vendors
     public static final Item ITEM_TICKET_VENDOR_TOP = register("ticket_vendor_top", new ItemBlockWithTooltips(OldMetroBlocks.BLOCK_TICKET_VENDOR_TOP, new Item.Properties()));
     public static final Item ITEM_TICKET_VENDOR_PANEL = register("ticket_vendor_panel", new ItemBlockWithTooltips(OldMetroBlocks.BLOCK_TICKET_VENDOR_PANEL, new Item.Properties()));
     public static final Item ITEM_TICKET_VENDOR_EM10 = register("ticket_vendor_em10", new ItemBlockWithTooltipShowStationHUD(OldMetroBlocks.BLOCK_TICKET_VENDOR_EM10, new Item.Properties()));

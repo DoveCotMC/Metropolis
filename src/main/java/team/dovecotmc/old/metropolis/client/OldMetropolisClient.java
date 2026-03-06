@@ -4,17 +4,20 @@ import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
 import net.fabricmc.fabric.api.client.rendering.v1.BlockEntityRendererRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback;
 import net.minecraft.client.renderer.RenderType;
-import team.dovecotmc.metropolis.block.MetroBlocks;
-import team.dovecotmc.metropolis.block.entity.MetroBlockEntities;
-import team.dovecotmc.metropolis.client.block.entity.SecurityInspectionMachineBlockEntityRenderer;
+import team.dovecotmc.metropolis.Metropolis;
+import team.dovecotmc.old.metropolis.client.block.entity.SecurityInspectionMachineBlockEntityRenderer;
+import team.dovecotmc.old.metropolis.client.block.entity.BlockEntityRendererPSDSmallDoorSemiAuto;
 import team.dovecotmc.old.metropolis.client.block.entity.FareAdjBlockEntityRenderer;
 import team.dovecotmc.old.metropolis.client.block.entity.TicketVendorBlockEntityRenderer;
 import team.dovecotmc.old.metropolis.client.block.entity.TurnstileBlockEntityRenderer;
+import team.dovecotmc.old.metropolis.client.config.OldMetroClientConfig;
 import team.dovecotmc.old.metropolis.client.gui.MetroBlockPlaceHud;
+import team.dovecotmc.old.metropolis.client.network.OldMetroClientNetwork;
 import team.dovecotmc.old.metropolis.init.OldMetroBlocks;
 import team.dovecotmc.old.metropolis.init.OldMetroBlockEntities;
 
 public class OldMetropolisClient {
+    public static OldMetroClientConfig config = OldMetroClientConfig.load();
     public static final MetroBlockPlaceHud BLOCK_PLACE_HUD = new MetroBlockPlaceHud();
 
     public static void initializeContent() {
@@ -28,6 +31,9 @@ public class OldMetropolisClient {
         }
 
         if (isMtr4Loaded) {
+            Metropolis.LOGGER.info("MTR 4 detected! Loading legacy client content.");
+            OldMetroClientNetwork.registerAll();
+
             HudRenderCallback.EVENT.register(BLOCK_PLACE_HUD::render);
 
             BlockRenderLayerMap.INSTANCE.putBlock(OldMetroBlocks.BLOCK_SECURITY_INSPECTION_MACHINE, RenderType.cutout());
@@ -41,6 +47,9 @@ public class OldMetropolisClient {
             BlockEntityRendererRegistry.register(OldMetroBlockEntities.TURNSTILE_BLOCK_ENTITY, ctx -> new TurnstileBlockEntityRenderer());
             BlockEntityRendererRegistry.register(OldMetroBlockEntities.FARE_ADJ_BLOCK_ENTITY, ctx -> new FareAdjBlockEntityRenderer());
             BlockEntityRendererRegistry.register(OldMetroBlockEntities.TICKET_VENDOR_BLOCK_ENTITY, ctx -> new TicketVendorBlockEntityRenderer());
+            BlockEntityRendererRegistry.register(OldMetroBlockEntities.PSD_SMALL_DOOR, ctx -> new BlockEntityRendererPSDSmallDoorSemiAuto());
+        } else {
+            Metropolis.LOGGER.info("MTR 4 not detected! Skipped legacy client content.");
         }
     }
 }

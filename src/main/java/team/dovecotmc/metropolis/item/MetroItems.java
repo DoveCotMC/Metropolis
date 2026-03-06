@@ -7,7 +7,6 @@ import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import team.dovecotmc.metropolis.Metropolis;
 import team.dovecotmc.metropolis.block.MetroBlocks;
-import team.dovecotmc.old.metropolis.OldMetropolis;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,27 +40,14 @@ public class MetroItems {
     // PIDS
 //    public static final Item ITEM_PIDS_1 = register("pids_1", new ItemBlockShowStationHUD(MetroBlocks.BLOCK_PIDS_1, new Item.Settings().group(Metropolis.ITEM_GROUP)));
 
-    // PSD
-    public static final Item ITEM_PSD_JR_DOOR_1 = register("psd_jr_door_1", new ItemBlockWithTooltips(MetroBlocks.BLOCK_PSD_JR_DOOR_1, new Item.Properties()));
-    public static final Item ITEM_PSD_JR_DOOR_2 = register("psd_jr_door_2", new ItemBlockWithTooltips(MetroBlocks.BLOCK_PSD_JR_DOOR_2, new Item.Properties()));
-    public static final Item ITEM_PSD_JR_FENCE_1 = register("psd_jr_fence_1", new ItemBlockWithTooltips(MetroBlocks.BLOCK_PSD_JR_FENCE_1, new Item.Properties()));
-    public static final Item ITEM_PSD_JR_FENCE_2 = register("psd_jr_fence_2", new ItemBlockWithTooltips(MetroBlocks.BLOCK_PSD_JR_FENCE_2, new Item.Properties()/**/));
-
     // Monitor
     public static final Item ITEM_ITV_MONITOR = register("itv_monitor", new BlockItem(MetroBlocks.BLOCK_ITV_MONITOR, new Item.Properties()));
-    // Security instruments
-    public static final Item ITEM_SECURITY_DOOR = register("security_door", new BlockItem(MetroBlocks.BLOCK_SECURITY_DOOR, new Item.Properties()));
-    public static final Item ITEM_SECURITY_INSPECTION_MACHINE = register("security_inspection_machine", new BlockItem(MetroBlocks.BLOCK_SECURITY_INSPECTION_MACHINE, new Item.Properties()));
 
     /* =========== *
      * Decorations *
      * =========== */
     // Concrete
     public static final Item ITEM_CONCRETE = register("concrete", new BlockItem(MetroBlocks.BLOCK_CONCRETE, new Item.Properties()));
-
-    // Platform
-    public static final Item ITEM_PLATFORM_A = register("platform_a", new BlockItem(MetroBlocks.BLOCK_PLATFORM_A, new Item.Properties()));
-    public static final Item ITEM_PLATFORM_A_SLIM = register("platform_a_slim", new BlockItem(MetroBlocks.BLOCK_PLATFORM_A_SLIM, new Item.Properties()));
 
     // Tiles
     // White

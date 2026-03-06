@@ -1,4 +1,4 @@
-package team.dovecotmc.metropolis.client.modmenu;
+package team.dovecotmc.old.metropolis.client.modmenu;
 
 import com.terraformersmc.modmenu.api.ConfigScreenFactory;
 import com.terraformersmc.modmenu.api.ModMenuApi;
@@ -8,9 +8,9 @@ import com.terraformersmc.modmenu.api.ModMenuApi;
  * @project Metropolis
  * @copyright Copyright © 2024 Arrokoth All Rights Reserved.
  */
-public class MetroModMenu implements ModMenuApi {
+public class OldMetroModMenu implements ModMenuApi {
     @Override
     public ConfigScreenFactory<?> getModConfigScreenFactory() {
-        return (ConfigScreenFactory<MetroModMenuConfigScreen>) MetroModMenuConfigScreen::new;
+        return (ConfigScreenFactory<OldMetroModMenuConfigScreen>) OldMetroModMenuConfigScreen::new;
     }
 }
