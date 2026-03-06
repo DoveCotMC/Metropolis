@@ -20,6 +20,7 @@ import org.mtr.core.data.Station;
 import team.dovecotmc.metropolis.Metropolis;
 import team.dovecotmc.metropolis.abstractinterface.util.MALocalizationUtil;
 import team.dovecotmc.old.metropolis.item.ItemTicket;
+import team.dovecotmc.old.metropolis.mtr.WrappedMtrStation;
 import team.dovecotmc.old.metropolis.util.MtrStationUtil;
 import team.dovecotmc.old.metropolis.init.OldMetroItems;
 
@@ -61,7 +62,7 @@ public class TicketVendorScreen2 extends Screen {
     private boolean lastPressing = true;
     protected boolean pressed = false;
 
-    protected Set<Station> stations;
+    protected Set<WrappedMtrStation> stations;
     protected int sliderPos = 0;
 
     protected int tipId = 0;
@@ -72,7 +73,8 @@ public class TicketVendorScreen2 extends Screen {
         this.parentScreen = parentScreen;
         this.data = data;
         if (this.minecraft != null && this.minecraft.level != null) {
-            this.stations = MtrStationUtil.getStations(this.minecraft.level);
+//            this.stations = MtrStationUtil.getStations(this.minecraft.level);
+            this.stations = data.stations;
         } else {
             this.stations = new HashSet<>();
         }
@@ -136,16 +138,17 @@ public class TicketVendorScreen2 extends Screen {
         // Station selection
         float scaleFactor = 12f / 14f;
         if (this.minecraft != null && this.minecraft.level != null) {
-            stations = MtrStationUtil.getStations(this.minecraft.level);
+//            stations = MtrStationUtil.getStations(this.minecraft.level);
+            stations = data.stations;
 
-            Station locatedStation = MtrStationUtil.getStationByPos(pos, minecraft.level);
+            WrappedMtrStation locatedStation = MtrStationUtil.getStationByPos(pos, minecraft.level);
             if (locatedStation == null) {
                 minecraft.setScreen(new TicketVendorScreen3(pos, this.parentScreen, this.data));
                 return;
             }
             int stationsSize = stations.size();
 
-            List<Station> sortedStations = stations.stream().sorted(Comparator.comparingInt(o -> Math.toIntExact((Math.abs(o.getZone1() - locatedStation.getZone1()))))).toList();
+            List<WrappedMtrStation> sortedStations = stations.stream().sorted(Comparator.comparingInt(o -> Math.abs(o.getZone() - locatedStation.getZone()))).toList();
 
             final int maxStrWidth = 96;
 //                int h0 = 128;
@@ -168,7 +171,7 @@ public class TicketVendorScreen2 extends Screen {
                     SLIDER_WIDTH, SLIDER_HEIGHT
             );
 
-            for (Station station : sortedStations) {
+            for (WrappedMtrStation station : sortedStations) {
                 // Station base
                 if (i0 < 0) {
                     i0++;
@@ -254,7 +257,7 @@ public class TicketVendorScreen2 extends Screen {
                 }
 
                 // Station cost
-                int cost = Math.toIntExact(Math.abs(station.getZone1() - locatedStation.getZone1()) + 1);
+                int cost = Math.toIntExact(Math.abs(station.getZone() - locatedStation.getZone()) + 1);
                 Component costText = MALocalizationUtil.translatableText("misc.metropolis.cost", cost);
                 guiGraphics.drawString(
                         this.font,

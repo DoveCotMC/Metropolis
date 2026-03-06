@@ -8,13 +8,18 @@ import net.minecraft.world.Container;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import org.mtr.core.data.Station;
 import team.dovecotmc.metropolis.Metropolis;
 import team.dovecotmc.old.metropolis.client.gui.fare_adj.FareAdjData;
 import team.dovecotmc.old.metropolis.client.gui.fare_adj.FareAdjScreenMain;
 import team.dovecotmc.old.metropolis.client.gui.ticket_vendor.TicketVendorData;
 import team.dovecotmc.old.metropolis.client.gui.ticket_vendor.TicketVendorScreen1;
 import team.dovecotmc.old.metropolis.client.gui.ticket_vendor.TicketVendorScreen4;
+import team.dovecotmc.old.metropolis.mtr.WrappedMtrStation;
 import team.dovecotmc.old.metropolis.network.OldMetroServerNetwork;
+
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * @author Arrokoth
@@ -51,7 +56,18 @@ public class OldMetroClientNetwork {
         ClientPlayNetworking.registerGlobalReceiver(OldMetroServerNetwork.TICKET_VENDOR_GUI, (client, handler, buf, responseSender) -> {
             BlockPos pos = buf.readBlockPos();
             ItemStack itemStack = buf.readItem();
-            client.execute(() -> client.setScreen(new TicketVendorScreen1(pos, new TicketVendorData(itemStack))));
+
+            int stationSize = buf.readInt();
+            Set<WrappedMtrStation> stations = new HashSet<>();
+            for (int i = 0; i < stationSize; i++) {
+                stations.add(new WrappedMtrStation(
+                        buf.readUtf(),
+                        buf.readInt(),
+                        buf.readInt()
+                ));
+            }
+
+            client.execute(() -> client.setScreen(new TicketVendorScreen1(pos, new TicketVendorData(itemStack, stations))));
         });
     }
 
@@ -59,7 +75,18 @@ public class OldMetroClientNetwork {
         ClientPlayNetworking.registerGlobalReceiver(OldMetroServerNetwork.TICKET_VENDOR_CHARGE_GUI, (client, handler, buf, responseSender) -> {
             BlockPos pos = buf.readBlockPos();
             ItemStack itemStack = buf.readItem();
-            client.execute(() -> client.setScreen(new TicketVendorScreen4(pos, null, new TicketVendorData(itemStack))));
+
+            int stationSize = buf.readInt();
+            Set<WrappedMtrStation> stations = new HashSet<>();
+            for (int i = 0; i < stationSize; i++) {
+                stations.add(new WrappedMtrStation(
+                        buf.readUtf(),
+                        buf.readInt(),
+                        buf.readInt()
+                ));
+            }
+
+            client.execute(() -> client.setScreen(new TicketVendorScreen4(pos, null, new TicketVendorData(itemStack, stations))));
         });
     }
 

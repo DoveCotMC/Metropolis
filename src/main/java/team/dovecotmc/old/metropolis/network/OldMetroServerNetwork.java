@@ -18,6 +18,11 @@ import team.dovecotmc.old.metropolis.block.entity.BlockEntityFareAdj;
 import team.dovecotmc.old.metropolis.block.entity.BlockEntityTicketVendor;
 import team.dovecotmc.old.metropolis.item.ItemCard;
 import team.dovecotmc.old.metropolis.item.ItemTicket;
+import team.dovecotmc.old.metropolis.mtr.WrappedMtrStation;
+import team.dovecotmc.old.metropolis.util.MtrStationUtil;
+
+import java.util.List;
+import java.util.Set;
 
 /**
  * @author Arrokoth
@@ -30,6 +35,15 @@ public class OldMetroServerNetwork {
         FriendlyByteBuf packet = PacketByteBufs.create();
         packet.writeBlockPos(pos);
         packet.writeItem(ticketStack);
+
+        Set<WrappedMtrStation> stations = MtrStationUtil.getStations(player.level());
+        packet.writeInt(stations.size());
+        for (WrappedMtrStation station : stations) {
+            packet.writeUtf(station.getName());
+            packet.writeInt(station.getColor());
+            packet.writeInt(station.getZone());
+        }
+
         ServerPlayNetworking.send(player, TICKET_VENDOR_GUI, packet);
     }
 
@@ -38,6 +52,15 @@ public class OldMetroServerNetwork {
         FriendlyByteBuf packet = PacketByteBufs.create();
         packet.writeBlockPos(pos);
         packet.writeItem(ticketStack);
+
+        Set<WrappedMtrStation> stations = MtrStationUtil.getStations(player.level());
+        packet.writeInt(stations.size());
+        for (WrappedMtrStation station : stations) {
+            packet.writeUtf(station.getName());
+            packet.writeInt(station.getColor());
+            packet.writeInt(station.getZone());
+        }
+
         ServerPlayNetworking.send(player, TICKET_VENDOR_CHARGE_GUI, packet);
     }
 

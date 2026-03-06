@@ -9,6 +9,7 @@ import org.mtr.mod.Init;
 import org.mtr.mod.client.MinecraftClientData;
 import team.dovecotmc.metropolis.mixins.accessor.AccessorMTRInit;
 import team.dovecotmc.metropolis.mixins.accessor.AccessorMTRMain;
+import team.dovecotmc.old.metropolis.mtr.WrappedMtrStation;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -19,7 +20,7 @@ import java.util.Set;
  * @copyright Copyright © 2024 Arrokoth All Rights Reserved.
  */
 public class MtrStationUtil {
-    public static Set<Station> getStations(Level level) {
+    public static Set<WrappedMtrStation> getStations(Level level) {
 //        if (world.isClientSide()) {
 //            return ClientData.STATIONS;
 //        }
@@ -27,13 +28,21 @@ public class MtrStationUtil {
         if (level.isClientSide()) {
             MinecraftClientData clientData = MinecraftClientData.getInstance();
             if (clientData != null) {
-                return clientData.stations;
+                Set<WrappedMtrStation> stations = new HashSet<>();
+                for (Station station : clientData.stations) {
+                    stations.add(new WrappedMtrStation(station.getName(), station.getColor(), (int) station.getZone1()));
+                }
+                return stations;
             }
         } else {
             World world = new World(level);
             for (Simulator simulator : ((AccessorMTRMain) AccessorMTRInit.getMain()).getSimulators()) {
                 if (simulator.dimension.equals(Init.getWorldId(world))) {
-                    return simulator.stations;
+                    Set<WrappedMtrStation> stations = new HashSet<>();
+                    for (Station station : simulator.stations) {
+                        stations.add(new WrappedMtrStation(station.getName(), station.getColor(), (int) station.getZone1()));
+                    }
+                    return stations;
                 }
             }
         }
@@ -41,7 +50,7 @@ public class MtrStationUtil {
         return new HashSet<>();
     }
 
-    public static Station getStationByPos(BlockPos pos, Level level) {
+    public static WrappedMtrStation getStationByPos(BlockPos pos, Level level) {
         if (level.isClientSide()) {
             MinecraftClientData clientData = MinecraftClientData.getInstance();
             int x = pos.getX();
@@ -54,7 +63,7 @@ public class MtrStationUtil {
                             station.getMinY() <= y && y <= station.getMaxY() &&
                             station.getMinZ() <= z && z <= station.getMaxZ()
                     ) {
-                        return station;
+                        return new WrappedMtrStation(station.getName(), station.getColor(), (int) station.getZone1());
                     }
                 }
             }
@@ -71,7 +80,7 @@ public class MtrStationUtil {
                                         station.getMinY() <= y && y <= station.getMaxY() &&
                                         station.getMinZ() <= z && z <= station.getMaxZ()
                         ) {
-                            return station;
+                            return new WrappedMtrStation(station.getName(), station.getColor(), (int) station.getZone1());
                         }
                     }
                     break;
