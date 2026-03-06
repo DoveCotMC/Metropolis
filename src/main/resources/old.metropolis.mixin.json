@@ -5,14 +5,14 @@
     "compatibilityLevel": "JAVA_17",
     "mixins": [
         "accessor.AccessorMTRMain",
-        "accessor.AccessorMTRInit",
-        "MixinCreativeModeTab"
+        "accessor.AccessorMTRInit"
     ],
     "server": [
     ],
     "client": [
-        "MixinRenderVehicleHelper",
-        "MixinBlockOutlineRender"
+        "MixinBlockOutlineRender",
+        "MixinCreativeModeTab",
+        "MixinRenderVehicleHelper"
     ],
     "injectors": {
         "defaultRequire": 0
