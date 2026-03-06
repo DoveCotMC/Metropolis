@@ -27,7 +27,7 @@ import org.jetbrains.annotations.Nullable;
 import org.mtr.core.tool.Utilities;
 import org.mtr.mod.block.PlatformHelper;
 import team.dovecotmc.old.metropolis.block.entity.BlockEntityPSDSmallDoorSemiAuto;
-import team.dovecotmc.old.metropolis.block.interfaces.IBlockMTRPlatform;
+import team.dovecotmc.metropolis.block.interfaces.IBlockPlatform;
 import team.dovecotmc.old.metropolis.block.interfaces.IBlockMTRPlatformDoor;
 import team.dovecotmc.metropolis.util.MetroBlockUtil;
 
@@ -135,7 +135,7 @@ public class BlockPSDSmallDoorSemiAuto extends HorizontalDirectionalBlock implem
 
     @Override
     public boolean canSurvive(BlockState state, LevelReader world, BlockPos pos) {
-        return world.getBlockState(pos.below()).getBlock() instanceof IBlockMTRPlatform || world.getBlockState(pos.below()).getBlock() instanceof PlatformHelper;
+        return world.getBlockState(pos.below()).getBlock() instanceof IBlockPlatform || world.getBlockState(pos.below()).getBlock() instanceof PlatformHelper;
     }
 
     @Override

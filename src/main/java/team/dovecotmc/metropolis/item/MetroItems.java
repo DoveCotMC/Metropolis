@@ -7,6 +7,7 @@ import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import team.dovecotmc.metropolis.Metropolis;
 import team.dovecotmc.metropolis.block.MetroBlocks;
+import team.dovecotmc.old.metropolis.init.OldMetroBlocks;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -78,6 +79,10 @@ public class MetroItems {
 
     // Blind path
     public static final Item ITEM_BLIND_PATH = register("blind_path", new BlockItem(MetroBlocks.BLOCK_BLIND_PATH, new Item.Properties()));
+
+    // Platform
+    public static final Item ITEM_PLATFORM_A = register("platform_a", new BlockItem(MetroBlocks.BLOCK_PLATFORM_A, new Item.Properties()));
+    public static final Item ITEM_PLATFORM_A_SLIM = register("platform_a_slim", new BlockItem(MetroBlocks.BLOCK_PLATFORM_A_SLIM, new Item.Properties()));
 
     // TODO: Blind path
 //    public static final Item ITEM_BLIND_PATH_STRIP = register("blind_path_strip", new BlockItem(MetroBlocks.BLOCK_BLIND_PATH_STRIP, new Item.Settings().group(Metropolis.ITEM_GROUP)));

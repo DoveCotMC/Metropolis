@@ -10,7 +10,7 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
-import team.dovecotmc.old.metropolis.block.interfaces.IBlockMTRPlatform;
+import team.dovecotmc.metropolis.block.interfaces.IBlockPlatform;
 import team.dovecotmc.old.metropolis.block.interfaces.IBlockMTRPlatformDoor;
 
 /**
@@ -59,7 +59,7 @@ public abstract class MixinRenderVehicleHelper {
                     final BlockPos checkPos = Init.newBlockPos(checkX, checkY, checkZ);
                     final BlockState blockState = clientWorld.getBlockState(checkPos);
                     final Block block = blockState.getBlock();
-                    if (block.data instanceof IBlockMTRPlatform) {
+                    if (block.data instanceof IBlockPlatform) {
                         canOpenDoors = true;
 
                         if (block.data instanceof IBlockMTRPlatformDoor door) {

@@ -11,7 +11,7 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.mtr.mod.block.PlatformHelper;
 import team.dovecotmc.metropolis.block.BlockHorizontalFacing;
-import team.dovecotmc.old.metropolis.block.interfaces.IBlockMTRPlatform;
+import team.dovecotmc.metropolis.block.interfaces.IBlockPlatform;
 import team.dovecotmc.metropolis.util.MetroBlockUtil;
 
 /**
@@ -19,14 +19,14 @@ import team.dovecotmc.metropolis.util.MetroBlockUtil;
  * @project Metropolis
  * @copyright Copyright © 2024 Arrokoth All Rights Reserved.
  */
-public class BlockPSDSmallFenceSemiAuto extends BlockHorizontalFacing implements IBlockMTRPlatform {
+public class BlockPSDSmallFenceSemiAuto extends BlockHorizontalFacing implements IBlockPlatform {
     public BlockPSDSmallFenceSemiAuto(Properties settings) {
         super(settings.noOcclusion());
     }
 
     @Override
     public boolean canSurvive(BlockState state, LevelReader world, BlockPos pos) {
-        return world.getBlockState(pos.below()).getBlock() instanceof IBlockMTRPlatform || world.getBlockState(pos.below()).getBlock() instanceof PlatformHelper;
+        return world.getBlockState(pos.below()).getBlock() instanceof IBlockPlatform || world.getBlockState(pos.below()).getBlock() instanceof PlatformHelper;
     }
 
     @Override

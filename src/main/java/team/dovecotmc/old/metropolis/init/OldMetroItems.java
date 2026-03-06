@@ -22,10 +22,6 @@ public class OldMetroItems {
     public static final Item ITEM_PSD_JR_FENCE_1 = register("psd_jr_fence_1", new ItemBlockWithTooltips(OldMetroBlocks.BLOCK_PSD_JR_FENCE_1, new Item.Properties()));
     public static final Item ITEM_PSD_JR_FENCE_2 = register("psd_jr_fence_2", new ItemBlockWithTooltips(OldMetroBlocks.BLOCK_PSD_JR_FENCE_2, new Item.Properties()/**/));
 
-    // Platform
-    public static final Item ITEM_PLATFORM_A = register("platform_a", new BlockItem(OldMetroBlocks.BLOCK_PLATFORM_A, new Item.Properties()));
-    public static final Item ITEM_PLATFORM_A_SLIM = register("platform_a_slim", new BlockItem(OldMetroBlocks.BLOCK_PLATFORM_A_SLIM, new Item.Properties()));
-
     // Ticket System
     public static final Item ITEM_SINGLE_TRIP_TICKET = register("single_trip_ticket", new ItemTicket(new Item.Properties(), true));
     public static final Item ITEM_SINGLE_TRIP_TICKET_USED = register("single_trip_ticket_used", new ItemTicket(new Item.Properties(), true));

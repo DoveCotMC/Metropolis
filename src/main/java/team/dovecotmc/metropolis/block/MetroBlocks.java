@@ -84,6 +84,10 @@ public class MetroBlocks {
     // Blind path
     public static final Block BLOCK_BLIND_PATH = register("blind_path", new BlockBlindPath(BlockBehaviour.Properties.of().mapColor(DyeColor.YELLOW.getMapColor()).strength(4.0f)));
 
+    // Platform
+    public static final Block BLOCK_PLATFORM_A = register("platform_a", new BlockMetroPlatform(BlockBehaviour.Properties.of().mapColor(DyeColor.LIGHT_GRAY.getMapColor()).strength(6.0f), BlockMetroPlatform.PlatformShape.NORMAL));
+    public static final Block BLOCK_PLATFORM_A_SLIM = register("platform_a_slim", new BlockMetroPlatform(BlockBehaviour.Properties.of().mapColor(DyeColor.LIGHT_GRAY.getMapColor()).strength(6.0f), BlockMetroPlatform.PlatformShape.SLIM));
+
     // TODO: Blind path
 //    public static final Block BLOCK_BLIND_PATH_STRIP = register("blind_path_strip", new BlockHorizontalAxis(BlockBehaviour.Properties.of().mapColor(DyeColor.YELLOW.getMapColor())));
 //    public static final Block BLOCK_BLIND_PATH_POINT = register("blind_path_point", new Block(BlockBehaviour.Properties.of().mapColor(DyeColor.YELLOW.getMapColor())));

@@ -1,4 +1,4 @@
-package team.dovecotmc.old.metropolis.block;
+package team.dovecotmc.metropolis.block;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -15,7 +15,7 @@ import net.minecraft.world.level.block.state.properties.EnumProperty;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import team.dovecotmc.old.metropolis.block.interfaces.IBlockMTRPlatform;
+import team.dovecotmc.metropolis.block.interfaces.IBlockPlatform;
 import team.dovecotmc.metropolis.util.MetroBlockUtil;
 
 import java.util.Objects;
@@ -25,7 +25,7 @@ import java.util.Objects;
  * @project Metropolis
  * @copyright Copyright © 2024 Arrokoth All Rights Reserved.
  */
-public class BlockMetroPlatform extends HorizontalDirectionalBlock implements IBlockMTRPlatform {
+public class BlockMetroPlatform extends HorizontalDirectionalBlock implements IBlockPlatform {
     public static final EnumProperty<EnumPlatformType> TYPE = EnumProperty.create("type", EnumPlatformType.class);
 
     public final PlatformShape platformShape;

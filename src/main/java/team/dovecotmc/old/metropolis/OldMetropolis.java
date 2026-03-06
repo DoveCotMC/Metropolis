@@ -30,6 +30,10 @@ public class OldMetropolis {
         }
     }
 
+    public static boolean shouldEnableMtrContent() {
+        return enableMtrContent;
+    }
+
     public static boolean shouldAddItemsToTab() {
         return ADD_ITEMS_TO_TAB && enableMtrContent;
     }

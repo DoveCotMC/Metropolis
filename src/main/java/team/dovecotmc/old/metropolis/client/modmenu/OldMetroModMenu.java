@@ -11,6 +11,11 @@ import com.terraformersmc.modmenu.api.ModMenuApi;
 public class OldMetroModMenu implements ModMenuApi {
     @Override
     public ConfigScreenFactory<?> getModConfigScreenFactory() {
-        return (ConfigScreenFactory<OldMetroModMenuConfigScreen>) OldMetroModMenuConfigScreen::new;
+        try {
+            Class<?> clazz = Class.forName("org.mtr.mod.Init");
+            return (ConfigScreenFactory<OldMetroModMenuConfigScreen>) OldMetroModMenuConfigScreen::new;
+        } catch (ClassNotFoundException e) {
+            return screen -> null;
+        }
     }
 }
