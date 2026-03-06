@@ -211,7 +211,11 @@ public class BlockTurnstile extends HorizontalDirectionalBlock implements Entity
                     world.playSound(null, pos, MtrSoundUtil.TICKET_BARRIER_CONCESSIONARY, SoundSource.BLOCKS, 1f, 1f);
                     world.playSound(null, pos, SoundEvents.WOOL_BREAK, SoundSource.BLOCKS, 1f, 1f);
 
-                    blockEntity.setItem(0, stack);
+                    if (stack.getItem() instanceof IItemOpenGate) {
+                        blockEntity.removeItemNoUpdate(0);
+                    } else {
+                        blockEntity.setItem(0, stack);
+                    }
                     player.setItemInHand(InteractionHand.MAIN_HAND, ItemStack.EMPTY);
 
                     nbt = blockEntity.saveWithoutMetadata();
