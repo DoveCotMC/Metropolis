@@ -6,11 +6,19 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import team.dovecotmc.metropolis.Metropolis;
+import team.dovecotmc.metropolis.block.MetroBlocks;
 import team.dovecotmc.old.metropolis.block.entity.BlockEntityFareAdj;
+import team.dovecotmc.old.metropolis.block.entity.BlockEntitySecurityInspectionMachine;
 import team.dovecotmc.old.metropolis.block.entity.BlockEntityTicketVendor;
 import team.dovecotmc.old.metropolis.block.entity.BlockEntityTurnstile;
 
 public class OldMetroBlockEntities {
+    public static final BlockEntityType<BlockEntitySecurityInspectionMachine> SECURITY_INSPECTION_MACHINE_BLOCK_ENTITY = Registry.register(
+            BuiltInRegistries.BLOCK_ENTITY_TYPE,
+            new ResourceLocation(Metropolis.MOD_ID, "security_inspection_machine"),
+            FabricBlockEntityTypeBuilder.create(BlockEntitySecurityInspectionMachine::new, MetroBlocks.BLOCK_SECURITY_INSPECTION_MACHINE).build()
+    );
+
     public static final BlockEntityType<BlockEntityTicketVendor> TICKET_VENDOR_BLOCK_ENTITY = Registry.register(
             BuiltInRegistries.BLOCK_ENTITY_TYPE,
             new ResourceLocation(Metropolis.MOD_ID, "ticket_vendor"),

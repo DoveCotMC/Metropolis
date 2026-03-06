@@ -1,4 +1,4 @@
-package team.dovecotmc.metropolis.mixins;
+package team.dovecotmc.old.metropolis.mixins;
 
 import org.mtr.mapping.holder.*;
 import org.mtr.mod.Init;

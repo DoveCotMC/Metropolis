@@ -1,4 +1,4 @@
-package team.dovecotmc.metropolis.mixins;
+package team.dovecotmc.old.metropolis.mixins;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;

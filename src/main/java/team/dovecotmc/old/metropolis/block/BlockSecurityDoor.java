@@ -1,4 +1,4 @@
-package team.dovecotmc.metropolis.block;
+package team.dovecotmc.old.metropolis.block;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.registries.BuiltInRegistries;

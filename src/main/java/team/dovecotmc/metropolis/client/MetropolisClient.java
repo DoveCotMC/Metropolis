@@ -35,7 +35,6 @@ import team.dovecotmc.old.metropolis.client.OldMetropolisClient;
  */
 @SuppressWarnings("deprecation")
 public class MetropolisClient implements ClientModInitializer {
-    public static final MetroBlockPlaceHud BLOCK_PLACE_HUD = new MetroBlockPlaceHud();
     public static MetroClientConfig config = MetroClientConfig.load();
 
     public static final KeyMapping KEY_TOGGLE_SWITCH = new KeyMapping("metropolis.key.toggle_switch", GLFW.GLFW_KEY_LEFT_ALT, "metropolis.key.category.general");
@@ -53,7 +52,6 @@ public class MetropolisClient implements ClientModInitializer {
 
         OldMetroClientNetwork.registerAll();
 
-        BlockRenderLayerMap.INSTANCE.putBlock(MetroBlocks.BLOCK_SECURITY_INSPECTION_MACHINE, RenderType.cutout());
         BlockRenderLayerMap.INSTANCE.putBlock(MetroBlocks.BLOCK_BLIND_PATH, RenderType.cutout());
 
         ModelLoadingRegistry.INSTANCE.registerResourceProvider(rm -> new MetroModelProvicer());
@@ -61,12 +59,10 @@ public class MetropolisClient implements ClientModInitializer {
         BlockEntityRendererRegistry.register(MetroBlockEntities.BUMPER_BLOCK_ENTITY, ctx -> new BumperBlockEntityRenderer());
         BlockEntityRendererRegistry.register(MetroBlockEntities.CAMERA_BLOCK_ENTITY, ctx -> new CameraBlockEntityRenderer());
         BlockEntityRendererRegistry.register(MetroBlockEntities.ITV_MONITOR_BLOCK_ENTITY, ctx -> new ITVMonitorBlockEntityRenderer());
-        BlockEntityRendererRegistry.register(MetroBlockEntities.SECURITY_INSPECTION_MACHINE_BLOCK_ENTITY, ctx -> new SecurityInspectionMachineBlockEntityRenderer());
         BlockEntityRendererRegistry.register(MetroBlockEntities.PSD_SMALL_DOOR, ctx -> new BlockEntityRendererPSDSmallDoorSemiAuto());
 
         EntityRendererRegistry.register(MetroEntities.SITTABLE, EntitySittableRenderer::new);
 
-        HudRenderCallback.EVENT.register(BLOCK_PLACE_HUD::render);
         ResourceManagerHelper.get(PackType.CLIENT_RESOURCES).registerReloadListener(new ResourceReloadListener());
 
         OldMetropolisClient.initializeContent();

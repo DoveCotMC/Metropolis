@@ -1,4 +1,4 @@
-package team.dovecotmc.metropolis.mixins.accessor;
+package team.dovecotmc.old.metropolis.mixins.accessor;
 
 import org.mtr.core.Main;
 import org.mtr.core.simulation.Simulator;

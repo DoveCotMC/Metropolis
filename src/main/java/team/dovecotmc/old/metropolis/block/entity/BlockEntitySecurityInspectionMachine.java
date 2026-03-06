@@ -1,4 +1,4 @@
-package team.dovecotmc.metropolis.block.entity;
+package team.dovecotmc.old.metropolis.block.entity;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.NonNullList;
@@ -11,6 +11,8 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.Nullable;
+import team.dovecotmc.metropolis.block.entity.MetroBlockEntities;
+import team.dovecotmc.old.metropolis.init.OldMetroBlockEntities;
 
 /**
  * @author Arrokoth
@@ -24,7 +26,7 @@ public class BlockEntitySecurityInspectionMachine extends BlockEntity implements
     public long itemAnimationTime;
 
     public BlockEntitySecurityInspectionMachine(BlockPos pos, BlockState state) {
-        super(MetroBlockEntities.SECURITY_INSPECTION_MACHINE_BLOCK_ENTITY, pos, state);
+        super(OldMetroBlockEntities.SECURITY_INSPECTION_MACHINE_BLOCK_ENTITY, pos, state);
         this.itemAnimationTime = 0;
     }
 

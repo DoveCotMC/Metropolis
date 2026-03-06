@@ -9,9 +9,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.material.MapColor;
 import team.dovecotmc.metropolis.Metropolis;
-import team.dovecotmc.old.metropolis.block.BlockMetroPlatform;
-import team.dovecotmc.old.metropolis.block.BlockPSDSmallDoorSemiAuto;
-import team.dovecotmc.old.metropolis.block.BlockPSDSmallFenceSemiAuto;
+import team.dovecotmc.old.metropolis.block.*;
 
 /**
  * @author Arrokoth
@@ -58,10 +56,6 @@ public class MetroBlocks {
 
     // Monitor
     public static final Block BLOCK_ITV_MONITOR = register("itv_monitor", new BlockITVMonitor());
-
-    // Security instruments
-    public static final Block BLOCK_SECURITY_DOOR = register("security_door", new BlockSecurityDoor());
-    public static final Block BLOCK_SECURITY_INSPECTION_MACHINE = register("security_inspection_machine", new BlockSecurityInspectionMachine());
 
     /* =========== *
      * Decorations *

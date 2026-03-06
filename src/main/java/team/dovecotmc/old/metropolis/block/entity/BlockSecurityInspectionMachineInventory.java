@@ -1,4 +1,4 @@
-package team.dovecotmc.metropolis.block.entity;
+package team.dovecotmc.old.metropolis.block.entity;
 
 import net.minecraft.core.NonNullList;
 import net.minecraft.world.Container;

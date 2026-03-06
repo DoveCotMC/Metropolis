@@ -1,4 +1,4 @@
-package team.dovecotmc.metropolis.block;
+package team.dovecotmc.old.metropolis.block;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -36,7 +36,7 @@ import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.Nullable;
 import team.dovecotmc.metropolis.Metropolis;
-import team.dovecotmc.metropolis.block.entity.BlockEntitySecurityInspectionMachine;
+import team.dovecotmc.old.metropolis.block.entity.BlockEntitySecurityInspectionMachine;
 import team.dovecotmc.old.metropolis.network.OldMetroServerNetwork;
 import team.dovecotmc.metropolis.util.MetroBlockUtil;
 import team.dovecotmc.old.metropolis.util.MtrSoundUtil;

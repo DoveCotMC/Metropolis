@@ -8,6 +8,10 @@ import team.dovecotmc.metropolis.Metropolis;
 import team.dovecotmc.old.metropolis.block.*;
 
 public class OldMetroBlocks {
+    // Security instruments
+    public static final Block BLOCK_SECURITY_DOOR = register("security_door", new BlockSecurityDoor());
+    public static final Block BLOCK_SECURITY_INSPECTION_MACHINE = register("security_inspection_machine", new BlockSecurityInspectionMachine());
+
     // Ticket Vendors
     public static final Block BLOCK_TICKET_VENDOR_UP_1 = register("ticket_vendor_up_1", new BlockTicketVendorUp());
     public static final Block BLOCK_TICKET_VENDOR_UP_EM10 = register("ticket_vendor_up_em10", new BlockTicketVendorUp());

@@ -7,8 +7,8 @@ import org.mtr.core.simulation.Simulator;
 import org.mtr.mapping.holder.World;
 import org.mtr.mod.Init;
 import org.mtr.mod.client.MinecraftClientData;
-import team.dovecotmc.metropolis.mixins.accessor.AccessorMTRInit;
-import team.dovecotmc.metropolis.mixins.accessor.AccessorMTRMain;
+import team.dovecotmc.old.metropolis.mixins.accessor.AccessorMTRInit;
+import team.dovecotmc.old.metropolis.mixins.accessor.AccessorMTRMain;
 import team.dovecotmc.old.metropolis.mtr.WrappedMtrStation;
 
 import java.util.HashSet;

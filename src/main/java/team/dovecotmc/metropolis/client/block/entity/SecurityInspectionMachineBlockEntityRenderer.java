@@ -9,8 +9,8 @@ import net.minecraft.client.renderer.entity.ItemRenderer;
 import net.minecraft.util.Mth;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.level.block.HorizontalDirectionalBlock;
-import team.dovecotmc.metropolis.block.BlockSecurityInspectionMachine;
-import team.dovecotmc.metropolis.block.entity.BlockEntitySecurityInspectionMachine;
+import team.dovecotmc.old.metropolis.block.BlockSecurityInspectionMachine;
+import team.dovecotmc.old.metropolis.block.entity.BlockEntitySecurityInspectionMachine;
 
 /**
  * @author Arrokoth

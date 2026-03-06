@@ -8,6 +8,7 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import team.dovecotmc.metropolis.Metropolis;
 import team.dovecotmc.metropolis.block.MetroBlocks;
 import team.dovecotmc.old.metropolis.block.entity.BlockEntityPSDSmallDoorSemiAuto;
+import team.dovecotmc.old.metropolis.block.entity.BlockEntitySecurityInspectionMachine;
 
 /**
  * @author Arrokoth
@@ -31,12 +32,6 @@ public class MetroBlockEntities {
             BuiltInRegistries.BLOCK_ENTITY_TYPE,
             new ResourceLocation(Metropolis.MOD_ID, "camera"),
             FabricBlockEntityTypeBuilder.create(BlockEntityCamera::new, MetroBlocks.BLOCK_CAMERA_CEILING).build()
-    );
-
-    public static final BlockEntityType<BlockEntitySecurityInspectionMachine> SECURITY_INSPECTION_MACHINE_BLOCK_ENTITY = Registry.register(
-            BuiltInRegistries.BLOCK_ENTITY_TYPE,
-            new ResourceLocation(Metropolis.MOD_ID, "security_inspection_machine"),
-            FabricBlockEntityTypeBuilder.create(BlockEntitySecurityInspectionMachine::new, MetroBlocks.BLOCK_SECURITY_INSPECTION_MACHINE).build()
     );
 
     public static final BlockEntityType<BlockEntityPSDSmallDoorSemiAuto> PSD_SMALL_DOOR = Registry.register(
