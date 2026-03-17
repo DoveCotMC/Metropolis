@@ -424,11 +424,11 @@ public class FareAdjCardKeyboardScreen extends Screen {
     }
 
     private int intoTexturePosX(double x) {
-        return (int) (this.width / 2 - BG_TEXTURE_WIDTH / 2 + x);
+        return (int) ((double) this.width / 2 - (double) BG_TEXTURE_WIDTH / 2 + x);
     }
 
     private int intoTexturePosY(double y) {
-        return (int) (this.height / 2 - BG_TEXTURE_HEIGHT / 2 + y);
+        return (int) ((double) this.height / 2 - (double) BG_TEXTURE_HEIGHT / 2 + y);
     }
 
     public void playButtonSound(SoundManager soundManager) {
