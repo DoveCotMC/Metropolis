@@ -41,6 +41,8 @@ dependencies {
 
     // Mod menu
     modImplementation "maven.modrinth:modmenu:7.2.2"
+
+    configurationPreLaunch ("org.lwjgl:lwjgl:3.4.1")
 }
 
 processResources {

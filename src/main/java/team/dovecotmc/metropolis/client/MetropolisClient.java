@@ -33,11 +33,6 @@ public class MetropolisClient implements ClientModInitializer {
 
     @Override
     public void onInitializeClient() {
-        // Some nte stuff maybe?
-        if (FabricLoader.getInstance().isModLoaded("mtrsteamloco")) {
-            Metropolis.LOGGER.info("MTR-NTE detected!");
-            // ??
-        }
         if (FabricLoader.getInstance().isModLoaded("modmenu")) {
             Metropolis.LOGGER.info("Mod menu detected!");
         }
