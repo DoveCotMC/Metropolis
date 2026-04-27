@@ -61,6 +61,9 @@ public class TicketVendorScreen2 extends Screen {
     protected boolean pressing = true;
     private boolean lastPressing = true;
     protected boolean pressed = false;
+    private int sliderMousePressedX = -1;
+    private int sliderMousePressedY = -1;
+    private int oldSliderY = -1;
 
     protected Set<WrappedMtrStation> stations;
     protected int sliderPos = 0;
@@ -161,10 +164,38 @@ public class TicketVendorScreen2 extends Screen {
             int x1 = 174;
             int y1 = (int) (51 + (float) sliderPos / (float) (stationsSize - MAX_VISIBLE) * h1);
 
+            int sliderX = intoTexturePosX(x1);
+            int sliderY = intoTexturePosY(y1);
+
+            // idk maybe slider dragging but what im i doing lol
+            if (
+                    pressed &&
+                            mouseX >= sliderX && mouseX <= sliderX + SLIDER_WIDTH &&
+                            mouseY >= sliderY && mouseY <= sliderY + SLIDER_HEIGHT
+            ) {
+                sliderMousePressedX = mouseX;
+                sliderMousePressedY = mouseY;
+                oldSliderY = sliderY;
+            }
+
+            // ok release mouse
+            // dunno why i write such comments xddddd
+            if (!pressing) {
+                sliderMousePressedX = -1;
+                sliderMousePressedY = -1;
+            }
+
+            if (pressing && sliderMousePressedX != -1 && sliderMousePressedY != -1) {
+//                int deltaY = mouseY - sliderMousePressedY;
+//                int newSliderY = (int) fromTexturePosY(sliderY + deltaY);
+//                newSliderY = (int) (51 + (float) newSliderY / (float) (stationsSize - MAX_VISIBLE) * h1);
+//                sliderY = intoTexturePosY(newSliderY);
+            }
+
             guiGraphics.blit(
                     SLIDER_ID,
-                    intoTexturePosX(x1),
-                    intoTexturePosY(y1),
+                    sliderX,
+                    sliderY,
                     0,
                     0,
                     SLIDER_WIDTH, SLIDER_HEIGHT,
@@ -502,11 +533,15 @@ public class TicketVendorScreen2 extends Screen {
     }
 
     private int intoTexturePosX(double x) {
-        return (int) (this.width / 2 - BG_TEXTURE_WIDTH / 2 + x);
+        return (int) (this.width / 2f - BG_TEXTURE_WIDTH / 2f + x);
     }
 
     private int intoTexturePosY(double y) {
-        return (int) (this.height / 2 - BG_TEXTURE_HEIGHT / 2 + y);
+        return (int) (this.height / 2f - BG_TEXTURE_HEIGHT / 2f + y);
+    }
+
+    private double fromTexturePosY(double y) {
+        return y - (this.height / 2f - BG_TEXTURE_HEIGHT / 2f);
     }
 
     public void playDownSound(SoundManager soundManager) {
