@@ -33,13 +33,10 @@ public class MetroItems {
     public static final Item ITEM_CAMERA = register("camera", new BlockItem(MetroBlocks.BLOCK_CAMERA_CEILING, new Item.Properties()));
 
     // Sign
-    public static final Item ITEM_SIGN_NO_PHOTO = register("sign_no_photo", new BlockItem(MetroBlocks.BLOCK_SIGN_NO_PHOTO, new Item.Properties()));
+    public static final Item ITEM_SIGN_NO_PHOTO = register("sign_no_photo", new BlockItem(MetroBlocks.BLOCK_SIGN_NO_PHOTO, new Item.Properties()), false);
 
     // Ticket Machine
 //    public static final Item ITEM_TICKET_MACHINE = register("ticket_machine", new BlockItem(MetroBlocks.BLOCK_TICKET_MACHINE, new Item.Settings().group(Metropolis.ITEM_GROUP)));
-
-    // PIDS
-//    public static final Item ITEM_PIDS_1 = register("pids_1", new ItemBlockShowStationHUD(MetroBlocks.BLOCK_PIDS_1, new Item.Settings().group(Metropolis.ITEM_GROUP)));
 
     // Monitor
     public static final Item ITEM_ITV_MONITOR = register("itv_monitor", new BlockItem(MetroBlocks.BLOCK_ITV_MONITOR, new Item.Properties()));
@@ -84,23 +81,13 @@ public class MetroItems {
     public static final Item ITEM_PLATFORM_A = register("platform_a", new BlockItem(MetroBlocks.BLOCK_PLATFORM_A, new Item.Properties()));
     public static final Item ITEM_PLATFORM_A_SLIM = register("platform_a_slim", new BlockItem(MetroBlocks.BLOCK_PLATFORM_A_SLIM, new Item.Properties()));
 
-    // TODO: Blind path
-//    public static final Item ITEM_BLIND_PATH_STRIP = register("blind_path_strip", new BlockItem(MetroBlocks.BLOCK_BLIND_PATH_STRIP, new Item.Settings().group(Metropolis.ITEM_GROUP)));
-//    public static final Item ITEM_BLIND_PATH_POINT = register("blind_path_point", new BlockItem(MetroBlocks.BLOCK_BLIND_PATH_POINT, new Item.Settings().group(Metropolis.ITEM_GROUP)));
-
-    // TODO?: Rails
-//    public static final Item ITEM_RAIL_CONNECTOR_5 = register("rail_connector_5", new ItemRailModifier());
-    // TODO: Bridge creator
-//    public static final Item ITEM_BRIDGE_CREATOR = register("bridge_creator", new ItemDynamicBridgeCreator());
-
-
     public static Item register(String id, Item item) {
         return register(id, item, true);
     }
 
-    public static Item register(String id, Item item, boolean addToTab) {
+    public static Item register(String id, Item item, boolean displayInTab) {
         Item registered = Registry.register(BuiltInRegistries.ITEM, new ResourceLocation(Metropolis.MOD_ID, id), item);
-        if (addToTab) {
+        if (displayInTab) {
             TAB_ITEMS.add(registered);
         }
         return registered;

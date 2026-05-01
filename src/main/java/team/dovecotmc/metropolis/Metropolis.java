@@ -40,52 +40,6 @@ public class Metropolis implements ModInitializer {
                     .icon(() -> new ItemStack(MetroItems.ITEM_ITV_MONITOR))
                     .title(Component.translatable("itemGroup.metropolis.all"))
                     .displayItems((parameters, output) -> {
-//                        output.accept(MetroItems.ITEM_CABLE);
-//                        output.accept(MetroItems.ITEM_TICKET_VENDOR_TOP);
-//                        output.accept(MetroItems.ITEM_TICKET_VENDOR_PANEL);
-//                        output.accept(MetroItems.ITEM_TICKET_VENDOR_EM10);
-//                        output.accept(MetroItems.ITEM_TICKET_VENDOR_EV23);
-//                        output.accept(MetroItems.ITEM_FARE_ADJ_EV23);
-//                        output.accept(MetroItems.ITEM_CEILING_A);
-//                        output.accept(MetroItems.ITEM_FLUORESCENT_LAMP);
-//                        output.accept(MetroItems.ITEM_BUMPER);
-//                        output.accept(MetroItems.ITEM_CAMERA);
-//                        output.accept(MetroItems.ITEM_TURNSTILE_ENTER);
-//                        output.accept(MetroItems.ITEM_TURNSTILE_EXIT);
-//                        output.accept(MetroItems.ITEM_TURNSTILE_IC_ONLY_ENTER);
-//                        output.accept(MetroItems.ITEM_TURNSTILE_IC_ONLY_EXIT);
-//                        output.accept(MetroItems.ITEM_SIGN_NO_PHOTO);
-//                        output.accept(MetroItems.ITEM_PSD_JR_DOOR_1);
-//                        output.accept(MetroItems.ITEM_PSD_JR_DOOR_2);
-//                        output.accept(MetroItems.ITEM_PSD_JR_FENCE_1);
-//                        output.accept(MetroItems.ITEM_PSD_JR_FENCE_2);
-//                        output.accept(MetroItems.ITEM_SINGLE_TRIP_TICKET);
-//                        output.accept(MetroItems.ITEM_CARD);
-//                        output.accept(MetroItems.ITEM_CREATIVE_CARD);
-//                        output.accept(MetroItems.ITEM_EXIT_TICKET);
-//                        output.accept(MetroItems.ITEM_ITV_MONITOR);
-//                        output.accept(MetroItems.ITEM_SECURITY_DOOR);
-//                        output.accept(MetroItems.ITEM_SECURITY_INSPECTION_MACHINE);
-//                        output.accept(MetroItems.ITEM_CONCRETE);
-//                        output.accept(MetroItems.ITEM_PLATFORM_A);
-//                        output.accept(MetroItems.ITEM_PLATFORM_A_SLIM);
-//                        output.accept(MetroItems.ITEM_TILES_WHITE);
-//                        output.accept(MetroItems.ITEM_TILES_LARGE_WHITE);
-//                        output.accept(MetroItems.ITEM_TILES_HORIZONTAL_WHITE);
-//                        output.accept(MetroItems.ITEM_TILES_SMALL_WHITE);
-//                        output.accept(MetroItems.ITEM_TILES_GRAY);
-//                        output.accept(MetroItems.ITEM_TILES_HORIZONTAL_GRAY);
-//                        output.accept(MetroItems.ITEM_TILES_SMALL_GRAY);
-//                        output.accept(MetroItems.ITEM_CORDON_YELLOW_BLACK);
-//                        output.accept(MetroItems.ITEM_CORDON_YELLOW_WHITE);
-//                        output.accept(MetroItems.ITEM_CORDON_RED_BLACK);
-//                        output.accept(MetroItems.ITEM_CORDON_RED_WHITE);
-//                        output.accept(MetroItems.ITEM_BENCH);
-//                        output.accept(MetroItems.ITEM_AWNING_PILLAR);
-//                        output.accept(MetroItems.ITEM_AWNING_PILLAR_EMERGENCY);
-//                        output.accept(MetroItems.ITEM_AWNING_BEAM);
-//                        output.accept(MetroItems.ITEM_AWNING_ROOF);
-//                        output.accept(MetroItems.ITEM_BLIND_PATH);
                         for (Item tabItem : MetroItems.getTabItems()) {
                             output.accept(tabItem);
                         }
