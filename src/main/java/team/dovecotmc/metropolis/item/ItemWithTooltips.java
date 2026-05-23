@@ -17,19 +17,19 @@ import java.util.List;
  * @copyright Copyright © 2024 Arrokoth All Rights Reserved.
  */
 public class ItemWithTooltips extends Item {
-    public final Style style;
+    public final Style toolTipStyle;
     public ItemWithTooltips(Properties settings) {
         this(settings, Style.EMPTY);
     }
 
-    public ItemWithTooltips(Properties settings, Style style) {
+    public ItemWithTooltips(Properties settings, Style toolTipStyle) {
         super(settings);
-        this.style = style;
+        this.toolTipStyle = toolTipStyle;
     }
 
     @Override
     public void appendHoverText(ItemStack stack, @Nullable Level world, List<Component> tooltip, TooltipFlag context) {
         super.appendHoverText(stack, world, tooltip, context);
-        tooltip.add(MACommonUtil.getTooltip(this, this.style));
+        tooltip.add(MACommonUtil.getTooltip(this, this.toolTipStyle));
     }
 }

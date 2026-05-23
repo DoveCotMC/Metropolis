@@ -81,6 +81,9 @@ public class MetroItems {
     public static final Item ITEM_PLATFORM_A = register("platform_a", new BlockItem(MetroBlocks.BLOCK_PLATFORM_A, new Item.Properties()));
     public static final Item ITEM_PLATFORM_A_SLIM = register("platform_a_slim", new BlockItem(MetroBlocks.BLOCK_PLATFORM_A_SLIM, new Item.Properties()));
 
+    // Sketch board
+    public static final Item ITEM_SKETCH_BOARD = register("sketch_board", new ItemSketchBoard(new Item.Properties().stacksTo(1)));
+
     public static Item register(String id, Item item) {
         return register(id, item, true);
     }
