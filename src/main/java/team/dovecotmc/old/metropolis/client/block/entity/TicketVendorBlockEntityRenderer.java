@@ -95,6 +95,8 @@ public class TicketVendorBlockEntityRenderer implements BlockEntityRenderer<Bloc
                 }
             }
             matrices.popPose();
+
+            RenderSystem.setShaderColor(1, 1, 1, 1);
         }
     }
 

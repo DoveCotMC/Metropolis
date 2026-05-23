@@ -69,30 +69,32 @@ public class FareAdjBlockEntityRenderer implements BlockEntityRenderer<BlockEnti
             matrices.popPose();
         }
 
+        matrices.pushPose();
+        matrices.translate(0.5f, 0.5f, 0.5f);
+        matrices.mulPose(Axis.YP.rotationDegrees(-facing.toYRot() - 180));
+        matrices.translate(-0.5f, -0.5f, -0.5f);
+        if (!entity.getItem(0).isEmpty()) {
             matrices.pushPose();
-            matrices.translate(0.5f, 0.5f, 0.5f);
-            matrices.mulPose(Axis.YP.rotationDegrees(-facing.toYRot() - 180));
-            matrices.translate(-0.5f, -0.5f, -0.5f);
-            if (!entity.getItem(0).isEmpty()) {
-                matrices.pushPose();
 
-                double ticketOffset = 0;
-                if (mc.level != null) {
-                    double time = (double) (mc.level.getGameTime() - entity.ticket_animation_begin_time) + tickDelta;
-                    if (time < 10) {
-                        ticketOffset = 1 - Math.pow(time / 10d, 2);
-                    }
-                    matrices.translate(13.25d / 16d, 2.25d / 16d, (6 + ticketOffset * 3) / 16d);
-                    matrices.translate(-0.5 / 16f, 0, 0);
-                    matrices.scale(0.33f, 0.33f, 0.33f);
-                    matrices.translate(0.5 / 16f, 0, 0);
-                    matrices.mulPose(Axis.XP.rotationDegrees(-90));
-                    matrices.mulPose(Axis.ZP.rotationDegrees(90));
-                    mc.getItemRenderer().renderStatic(entity.getItem(0), ItemDisplayContext.GROUND, light, overlay, matrices, vertexConsumers, mc.level, 0);
-                    matrices.popPose();
+            double ticketOffset = 0;
+            if (mc.level != null) {
+                double time = (double) (mc.level.getGameTime() - entity.ticket_animation_begin_time) + tickDelta;
+                if (time < 10) {
+                    ticketOffset = 1 - Math.pow(time / 10d, 2);
                 }
+                matrices.translate(13.25d / 16d, 2.25d / 16d, (6 + ticketOffset * 3) / 16d);
+                matrices.translate(-0.5 / 16f, 0, 0);
+                matrices.scale(0.33f, 0.33f, 0.33f);
+                matrices.translate(0.5 / 16f, 0, 0);
+                matrices.mulPose(Axis.XP.rotationDegrees(-90));
+                matrices.mulPose(Axis.ZP.rotationDegrees(90));
+                mc.getItemRenderer().renderStatic(entity.getItem(0), ItemDisplayContext.GROUND, light, overlay, matrices, vertexConsumers, mc.level, 0);
+                matrices.popPose();
             }
-            matrices.popPose();
+        }
+        matrices.popPose();
+
+        RenderSystem.setShaderColor(1, 1, 1, 1);
     }
 
     @Override
