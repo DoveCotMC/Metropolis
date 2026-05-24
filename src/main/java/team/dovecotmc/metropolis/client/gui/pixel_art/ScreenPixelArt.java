@@ -3,14 +3,17 @@ package team.dovecotmc.metropolis.client.gui.pixel_art;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
 import team.dovecotmc.metropolis.client.gui.base.BaseMetropolisScreen;
-import team.dovecotmc.metropolis.client.gui.base.components.Button;
+import team.dovecotmc.metropolis.client.gui.base.components.TextButton;
 
 public class ScreenPixelArt extends BaseMetropolisScreen {
-    private final Button button;
+    private final TextButton button;
+    private int x = 0;
 
     public ScreenPixelArt() {
         super("pixel_art");
-        this.button = new Button(this);
+        this.button = new TextButton(this, () -> {
+            x -= 64;
+        });
     }
 
     @Override
@@ -22,9 +25,8 @@ public class ScreenPixelArt extends BaseMetropolisScreen {
     public void render(GuiGraphics guiGraphics, int mouseX, int mouseY, float tickDelta) {
         renderBackground(guiGraphics);
 
-        button.setBackgroundColor(0xFFFF0000);
-        button.setText(Component.literal("Metropolis test"), 16, 0xFFFFFFFF);
-        button.setPosition(getRoot().getWidth() - 64f - button.getWidth(), 64f);
+        button.setText(Component.literal("Metropolis test"), 8, 0xFFFFFFFF);
+        button.setPosition(getRoot().getWidth() - 64f + x - button.getWidth(), 64f);
 
         super.render(guiGraphics, mouseX, mouseY, tickDelta);
     }

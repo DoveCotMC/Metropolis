@@ -4,13 +4,16 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
-import org.joml.Vector4f;
+import net.minecraft.resources.ResourceLocation;
+import team.dovecotmc.metropolis.Metropolis;
 
 public abstract class TextComponentBase extends ComponentBase {
+    public ResourceLocation texture = new ResourceLocation(Metropolis.MOD_ID, "textures/gui/base/atlas.png");
     public Component text = Component.empty();
     public float fontSize = 7;
     public int textColor = 0xFFFFFFFF;
-    public Vector4f padding = new Vector4f(3, 3, 4, 4);
+    public float paddingX = 6;
+    public float paddingY = 4;
 
     public TextComponentBase(IContainer parent) {
         super(parent);
@@ -47,26 +50,35 @@ public abstract class TextComponentBase extends ComponentBase {
     }
 
     public void setPadding(float x, float y) {
-        setPadding(y, y, x, x);
+        setPaddingX(x);
+        setPaddingY(y);
     }
 
-    public void setPadding(float top, float bottom, float left, float right) {
-        this.padding = new Vector4f(top, bottom, left, right);
+    public float getPaddingX() {
+        return paddingX;
     }
 
-    public Vector4f getPadding() {
-        return padding;
+    public void setPaddingX(float paddingX) {
+        this.paddingX = paddingX;
+    }
+
+    public float getPaddingY() {
+        return paddingY;
+    }
+
+    public void setPaddingY(float paddingY) {
+        this.paddingY = paddingY;
     }
 
     @Override
     public float getWidth() {
         float scaleFactor = getFontSize() / Minecraft.getInstance().font.lineHeight;
-        return Math.max(super.getWidth() + getPadding().z + getPadding().w, Minecraft.getInstance().font.width(getText()) * scaleFactor + getPadding().z + getPadding().w);
+        return Math.max(super.getWidth() + getPaddingX() * 2, Minecraft.getInstance().font.width(getText()) * scaleFactor + getPaddingY() * 2);
     }
 
     @Override
     public float getHeight() {
-        return Math.max(super.getHeight() + getPadding().x + getPadding().y, getFontSize() + getPadding().x + getPadding().y);
+        return Math.max(super.getHeight() + getPaddingX() * 2, getFontSize() + getPaddingY() * 2);
     }
 
     @Override

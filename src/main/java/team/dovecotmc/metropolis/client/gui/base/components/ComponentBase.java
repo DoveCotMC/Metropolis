@@ -1,7 +1,6 @@
 package team.dovecotmc.metropolis.client.gui.base.components;
 
 import net.minecraft.client.gui.GuiGraphics;
-import org.joml.Vector4f;
 import team.dovecotmc.metropolis.client.gui.base.IGuiEventHandler;
 
 public abstract class ComponentBase implements IGuiEventHandler {
@@ -72,16 +71,13 @@ public abstract class ComponentBase implements IGuiEventHandler {
     public boolean isMouseIn(float mouseX, float mouseY) {
         return mouseX >= getX() && mouseX <= getX() + getWidth() && mouseY >= getY() && mouseY <= getY() + getHeight();
     }
+
     @Override
-    public void onMouseDown() {
+    public void onMouseDown(int key) {
     }
 
     @Override
-    public void onMousePressing() {
-    }
-
-    @Override
-    public void onMouseRelease() {
+    public void onMouseRelease(int key) {
     }
 
     @Override
@@ -93,6 +89,6 @@ public abstract class ComponentBase implements IGuiEventHandler {
     }
 
     @Override
-    public void onMouseScroll() {
+    public void onMouseScroll(double amount) {
     }
 }

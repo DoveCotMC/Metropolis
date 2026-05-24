@@ -111,6 +111,7 @@ public abstract class BaseMetropolisScreen extends Screen implements IContainer 
 
         for (ComponentBase component : components) {
             if (component.isMouseIn((float) mouseX, (float) mouseY)) {
+                component.onMouseDown(key);
             }
         }
 

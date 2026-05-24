@@ -1,15 +1,13 @@
 package team.dovecotmc.metropolis.client.gui.base;
 
 public interface IGuiEventHandler {
-    void onMouseDown();
+    void onMouseDown(int key);
 
-    void onMousePressing();
-
-    void onMouseRelease();
+    void onMouseRelease(int key);
 
     void onMouseEnter();
 
     void onMouseLeave();
 
-    void onMouseScroll();
+    void onMouseScroll(double amount);
 }
