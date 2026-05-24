@@ -56,6 +56,7 @@ public class OldMetroClientNetwork {
         ClientPlayNetworking.registerGlobalReceiver(OldMetroServerNetwork.TICKET_VENDOR_GUI, (client, handler, buf, responseSender) -> {
             BlockPos pos = buf.readBlockPos();
             ItemStack itemStack = buf.readItem();
+            System.out.println(pos);
 
             int stationSize = buf.readInt();
             Set<WrappedMtrStation> stations = new HashSet<>();

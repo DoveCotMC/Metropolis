@@ -16,12 +16,17 @@ public class MetropolisMixinPlugin implements IMixinConfigPlugin {
 
     @Override
     public String getRefMapperConfig() {
-        return "";
+        return null;
     }
 
     @Override
     public boolean shouldApplyMixin(String targetClassName, String mixinClassName) {
-        return OldMetropolis.shouldEnableMtrContent();
+        try {
+            Class<?> clazz = Class.forName("org.mtr.mod.Init");
+            return true;
+        } catch (ClassNotFoundException e) {
+            return false;
+        }
     }
 
     @Override
@@ -30,7 +35,7 @@ public class MetropolisMixinPlugin implements IMixinConfigPlugin {
 
     @Override
     public List<String> getMixins() {
-        return List.of();
+        return null;
     }
 
     @Override

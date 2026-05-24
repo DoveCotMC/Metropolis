@@ -119,14 +119,21 @@ public abstract class BaseMetropolisScreen extends Screen implements IContainer 
     }
 
     @Override
-    public boolean mouseReleased(double d, double e, int i) {
-        if (i == GLFW.GLFW_MOUSE_BUTTON_1) {
+    public boolean mouseReleased(double mouseX, double mouseY, int key) {
+        if (key == GLFW.GLFW_MOUSE_BUTTON_1) {
             lPressing = false;
         }
-        if (i == GLFW.GLFW_MOUSE_BUTTON_2) {
+        if (key == GLFW.GLFW_MOUSE_BUTTON_2) {
             rPressing = false;
         }
-        return super.mouseReleased(d, e, i);
+
+        for (ComponentBase component : components) {
+            if (component.isMouseIn((float) mouseX, (float) mouseY)) {
+                component.onMouseRelease(key);
+            }
+        }
+
+        return super.mouseReleased(mouseX, mouseY, key);
     }
 
     public int getOpenTicks() {
