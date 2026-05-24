@@ -9,7 +9,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-import team.dovecotmc.metropolis.client.gui.ScreenPixelArt;
+import team.dovecotmc.metropolis.client.gui.pixel_art.ScreenPixelArt;
 
 public class ItemSketchBoard extends ItemWithTooltips {
     public ItemSketchBoard(Properties settings) {
