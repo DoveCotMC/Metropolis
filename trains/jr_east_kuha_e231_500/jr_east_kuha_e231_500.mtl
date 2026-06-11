@@ -1,0 +1,12 @@
+# Made in Blockbench 5.0.2
+newmtl m_8bafebf7-5f50-0d37-34dd-da7bd9ff9ba7
+map_Kd jr_east_e231_500_yamanote_ext.png
+newmtl m_70c5953d-67e6-4628-0b46-2920844b86a9
+map_Kd jr_east_e231_500_int.png
+newmtl m_890c62d1-9800-2626-a476-990f4b865a55
+map_Kd jr_east_e231_500_int_cab.png
+newmtl m_91fc4d2e-6feb-3d80-c8f8-22efe5421ef7
+map_Kd jr_east_e231_500_bottom_ext.png
+newmtl m_c832544a-f013-9f52-2c6c-f91ef476f6d2
+map_Kd advertisements_0.png
+newmtl none
