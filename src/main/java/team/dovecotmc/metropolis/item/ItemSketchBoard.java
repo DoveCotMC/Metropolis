@@ -9,7 +9,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-import team.dovecotmc.metropolis.client.gui.pixel_art.ScreenPixelArt;
+import team.dovecotmc.metropolis.client.gui.GUIManager;
 
 public class ItemSketchBoard extends ItemWithTooltips {
     public ItemSketchBoard(Properties settings) {
@@ -21,7 +21,7 @@ public class ItemSketchBoard extends ItemWithTooltips {
         ItemStack itemStack = player.getItemInHand(hand);
 
         if (level.isClientSide()) {
-            Minecraft.getInstance().setScreen(new ScreenPixelArt());
+            GUIManager.openPixelArtScreen();
         }
 
         return InteractionResultHolder.success(itemStack);
