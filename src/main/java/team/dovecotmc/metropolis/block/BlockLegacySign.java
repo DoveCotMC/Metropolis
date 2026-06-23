@@ -12,8 +12,8 @@ import team.dovecotmc.metropolis.util.MetroBlockUtil;
  * @project Metropolis
  * @copyright Copyright © 2024 Arrokoth All Rights Reserved.
  */
-public class BlockSign extends BlockHorizontalFacing {
-    public BlockSign(Properties settings) {
+public class BlockLegacySign extends BlockHorizontalFacing {
+    public BlockLegacySign(Properties settings) {
         super(settings);
     }
 

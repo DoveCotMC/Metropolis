@@ -1,0 +1,20 @@
+{
+    "variants": {
+        "facing=north": {
+            "model": "metropolis:sign/train_stop_sign",
+            "y": 0
+        },
+        "facing=east": {
+            "model": "metropolis:sign/train_stop_sign",
+            "y": 90
+        },
+        "facing=south": {
+            "model": "metropolis:sign/train_stop_sign",
+            "y": 180
+        },
+        "facing=west": {
+            "model": "metropolis:sign/train_stop_sign",
+            "y": 270
+        }
+    }
+}

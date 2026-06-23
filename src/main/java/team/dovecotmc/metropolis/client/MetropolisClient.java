@@ -37,6 +37,8 @@ public class MetropolisClient implements ClientModInitializer {
             Metropolis.LOGGER.info("Mod menu detected!");
         }
 
+        BlockRenderLayerMap.INSTANCE.putBlock(MetroBlocks.BLOCK_TRAIN_STOP_SIGN, RenderType.cutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(MetroBlocks.BLOCK_TRAIN_STOP_SIGN_PILLAR, RenderType.cutout());
         BlockRenderLayerMap.INSTANCE.putBlock(MetroBlocks.BLOCK_BLIND_PATH, RenderType.cutout());
 
         ModelLoadingRegistry.INSTANCE.registerResourceProvider(rm -> new MetroModelProvicer());
