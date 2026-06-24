@@ -32,6 +32,12 @@ public class MetroBlockEntities {
             FabricBlockEntityTypeBuilder.create(BlockEntityCamera::new, MetroBlocks.BLOCK_CAMERA_CEILING).build()
     );
 
+    public static final BlockEntityType<BlockEntityTrainStopSign> TRAIN_STOP_SIGN_BLOCK_ENTITY = Registry.register(
+            BuiltInRegistries.BLOCK_ENTITY_TYPE,
+            new ResourceLocation(Metropolis.MOD_ID, "train_stop_sign"),
+            FabricBlockEntityTypeBuilder.create(BlockEntityTrainStopSign::new, MetroBlocks.BLOCK_TRAIN_STOP_SIGN).build()
+    );
+
     public static void initialize() {
         Metropolis.LOGGER.info("Registering Block entities");
     }

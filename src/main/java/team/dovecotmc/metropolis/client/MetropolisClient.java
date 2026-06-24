@@ -46,6 +46,7 @@ public class MetropolisClient implements ClientModInitializer {
         BlockEntityRendererRegistry.register(MetroBlockEntities.BUMPER_BLOCK_ENTITY, ctx -> new BumperBlockEntityRenderer());
         BlockEntityRendererRegistry.register(MetroBlockEntities.CAMERA_BLOCK_ENTITY, ctx -> new CameraBlockEntityRenderer());
         BlockEntityRendererRegistry.register(MetroBlockEntities.ITV_MONITOR_BLOCK_ENTITY, ctx -> new ITVMonitorBlockEntityRenderer());
+        BlockEntityRendererRegistry.register(MetroBlockEntities.TRAIN_STOP_SIGN_BLOCK_ENTITY, ctx -> new TrainStopSignBlockEntityRenderer());
 
         EntityRendererRegistry.register(MetroEntities.SITTABLE, EntitySittableRenderer::new);
 
