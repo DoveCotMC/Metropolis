@@ -7,7 +7,6 @@ import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import team.dovecotmc.metropolis.Metropolis;
 import team.dovecotmc.metropolis.block.MetroBlocks;
-import team.dovecotmc.old.metropolis.init.OldMetroBlocks;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,7 +34,7 @@ public class MetroItems {
     // Sign
     public static final Item ITEM_SIGN_NO_PHOTO = register("sign_no_photo", new BlockItem(MetroBlocks.BLOCK_SIGN_NO_PHOTO, new Item.Properties()), false);
     public static final Item ITEM_TRAIN_STOP_SIGN = register("train_stop_sign", new BlockItem(MetroBlocks.BLOCK_TRAIN_STOP_SIGN, new Item.Properties()));
-    public static final Item ITEM_TRAIN_STOP_SIGN_PILLAR = register("train_stop_sign_pillar", new BlockItem(MetroBlocks.BLOCK_TRAIN_STOP_SIGN_PILLAR, new Item.Properties()));
+    public static final Item ITEM_TRACKSIDE_SIGN_PILLAR = register("trackside_sign_pillar", new BlockItem(MetroBlocks.BLOCK_TRACKSIDE_SIGN_PILLAR, new Item.Properties()));
 
     // Ticket Machine
 //    public static final Item ITEM_TICKET_MACHINE = register("ticket_machine", new BlockItem(MetroBlocks.BLOCK_TICKET_MACHINE, new Item.Settings().group(Metropolis.ITEM_GROUP)));

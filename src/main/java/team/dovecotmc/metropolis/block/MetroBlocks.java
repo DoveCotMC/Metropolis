@@ -44,7 +44,7 @@ public class MetroBlocks {
     // Sign
     public static final Block BLOCK_SIGN_NO_PHOTO = register("sign_no_photo", new BlockLegacySign(BlockBehaviour.Properties.of().mapColor(MapColor.METAL).strength(6.0f)));
     public static final Block BLOCK_TRAIN_STOP_SIGN = register("train_stop_sign", new BlockTrainStopSign(BlockBehaviour.Properties.of().mapColor(MapColor.METAL).strength(6.0f)));
-    public static final Block BLOCK_TRAIN_STOP_SIGN_PILLAR = register("train_stop_sign_pillar", new BlockTrainStopSignPillar(BlockBehaviour.Properties.of().mapColor(MapColor.METAL).strength(6.0f)));
+    public static final Block BLOCK_TRACKSIDE_SIGN_PILLAR = register("trackside_sign_pillar", new BlockTrainStopSignPillar(BlockBehaviour.Properties.of().mapColor(MapColor.METAL).strength(6.0f)));
 
     // PIDS
 //    public static final Block BLOCK_PIDS_1 = register("pids_1", new BlockMetroPIDSOne());

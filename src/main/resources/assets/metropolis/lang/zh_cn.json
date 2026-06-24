@@ -143,6 +143,9 @@
     "block.metropolis.turnstile_ic_only.enter": "闸机（仅IC卡，入口）",
     "block.metropolis.turnstile_ic_only.exit": "闸机（仅IC卡，出口）",
 
+    "block.metropolis.train_stop_sign": "停车标",
+    "block.metropolis.trackside_sign_pillar": "信号牌柱",
+
     "block.metropolis.camera_ceiling": "摄像头",
 
     "block.metropolis.sign_no_photo": "告示牌（禁止拍照）",

@@ -148,6 +148,9 @@
 
     "block.metropolis.camera_ceiling": "Security Camera",
 
+    "block.metropolis.train_stop_sign": "Train Stop Sign",
+    "block.metropolis.trackside_sign_pillar": "Trackside Sign Pillar",
+
     "block.metropolis.sign_no_photo": "Sign (No photos)",
 
     "block.metropolis.psd_jr_door_1": "Platform Fence Door",
