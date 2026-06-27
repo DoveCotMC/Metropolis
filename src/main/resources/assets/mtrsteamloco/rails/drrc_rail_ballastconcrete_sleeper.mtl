@@ -1,0 +1,8 @@
+# Made in Blockbench 4.9.3
+newmtl m_025257a5-600e-e57c-5114-1456ae0a7047
+map_Kd ballast.png
+newmtl m_4bc7055d-7b02-8298-9e8b-3f46f78222f7
+map_Kd concrete_sleeper.png
+newmtl m_74692fa5-4629-e888-f13f-f390aed0874e
+map_Kd drrc_rail.png
+newmtl none
