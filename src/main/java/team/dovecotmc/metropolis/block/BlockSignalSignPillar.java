@@ -9,8 +9,8 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import team.dovecotmc.metropolis.util.MetroBlockUtil;
 
-public class BlockTrainStopSignPillar extends Block {
-    public BlockTrainStopSignPillar(Properties properties) {
+public class BlockSignalSignPillar extends Block {
+    public BlockSignalSignPillar(Properties properties) {
         super(properties.noOcclusion());
     }
 

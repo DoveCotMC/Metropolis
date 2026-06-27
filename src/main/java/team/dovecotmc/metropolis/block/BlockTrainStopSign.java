@@ -2,8 +2,6 @@ package team.dovecotmc.metropolis.block;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
@@ -23,7 +21,6 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.Nullable;
 import team.dovecotmc.metropolis.block.entity.BlockEntityTrainStopSign;
 import team.dovecotmc.metropolis.util.MetroBlockUtil;
-import team.dovecotmc.old.metropolis.util.MtrCommonUtil;
 
 public class BlockTrainStopSign extends HorizontalDirectionalBlock implements EntityBlock {
     public BlockTrainStopSign(Properties properties) {
