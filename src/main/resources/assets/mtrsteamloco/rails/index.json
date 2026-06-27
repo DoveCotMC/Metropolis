@@ -1,37 +1,37 @@
 {
     "metropolis_rail": {
         "name": "Metropolis - Wooden Sleeper Track (1435mm)",
-        "model": "mtrsteamloco:rails/metropolis_rail.obj",
+        "model": "mtrsteamloco:rails/drrc_rail.obj",
         "repeatInterval": 0.5,
         "flipv": false
     },
     "metropolis_rail_ballast": {
         "name": "Metropolis - Wooden Sleeper Track (With base, 1435mm)",
-        "model": "mtrsteamloco:rails/metropolis_rail_ballast.obj",
+        "model": "mtrsteamloco:rails/drrc_rail_ballast.obj",
         "repeatInterval": 0.5,
         "flipv": false
     },
     "metropolis_rail_concrete_sleeper": {
         "name": "Metropolis - Concrete Sleeper Track (1435mm)",
-        "model": "mtrsteamloco:rails/metropolis_rail_concrete_sleeper.obj",
+        "model": "mtrsteamloco:rails/drrc_rail_concrete_sleeper.obj",
         "repeatInterval": 0.5,
         "flipv": false
     },
     "metropolis_rail_ballast_concrete_sleeper": {
         "name": "Metropolis - Concrete Sleeper Track (With base, 1435mm)",
-        "model": "mtrsteamloco:rails/metropolis_rail_ballastconcrete_sleeper.obj",
+        "model": "mtrsteamloco:rails/drrc_rail_ballastconcrete_sleeper.obj",
         "repeatInterval": 0.5,
         "flipv": false
     },
     "metropolis_rail_ballastless_1": {
         "name": "Metropolis - Ballastless Track (Type 1, 1435mm)",
-        "model": "mtrsteamloco:rails/metropolis_rail_ballastless_1.obj",
+        "model": "mtrsteamloco:rails/drrc_rail_ballastless_1.obj",
         "repeatInterval": 0.5,
         "flipv": false
     },
     "metropolis_rail_ballastless_2": {
         "name": "Metropolis - Ballastless Track (Type 2, 1435mm)",
-        "model": "mtrsteamloco:rails/metropolis_rail_ballastless_2.obj",
+        "model": "mtrsteamloco:rails/drrc_rail_ballastless_2.obj",
         "repeatInterval": 0.5,
         "flipv": false
     },
