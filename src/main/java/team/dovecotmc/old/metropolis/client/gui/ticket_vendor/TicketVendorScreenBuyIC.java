@@ -223,24 +223,23 @@ public class TicketVendorScreenBuyIC extends Screen {
                                 mouseY >= intoTexturePosY(y2 + (BUTTON_NUMBER_TEXTURE_HEIGHT) * i) &&
                                 mouseX < intoTexturePosX(x2 + (BUTTON_NUMBER_TEXTURE_WIDTH) * j + BUTTON_NUMBER_TEXTURE_WIDTH) &&
                                 mouseY < intoTexturePosY(y2 + (BUTTON_NUMBER_TEXTURE_HEIGHT) * i + BUTTON_NUMBER_TEXTURE_HEIGHT);
+                ResourceLocation numberTexture = BUTTON_NUMBER_TEXTURE_ID;
                 if (thisHover) {
                     if (pressing) {
-                        RenderSystem.setShaderTexture(0, BUTTON_NUMBER_TEXTURE_DOWN_ID);
+                        numberTexture = BUTTON_NUMBER_TEXTURE_DOWN_ID;
                     } else {
-                        RenderSystem.setShaderTexture(0, BUTTON_NUMBER_TEXTURE_HOVER_ID);
+                        numberTexture = BUTTON_NUMBER_TEXTURE_HOVER_ID;
                     }
-                } else {
-                    RenderSystem.setShaderTexture(0, BUTTON_NUMBER_TEXTURE_ID);
                 }
 
                 if (i1 <= 9 && inputToHandle2.contains(i1)) {
-                    RenderSystem.setShaderTexture(0, BUTTON_NUMBER_TEXTURE_DOWN_ID);
+                    numberTexture = BUTTON_NUMBER_TEXTURE_DOWN_ID;
                 } else if (i1 == 11 && inputToHandle2.contains(0)) {
-                    RenderSystem.setShaderTexture(0, BUTTON_NUMBER_TEXTURE_DOWN_ID);
+                    numberTexture = BUTTON_NUMBER_TEXTURE_DOWN_ID;
                 }
 
                 guiGraphics.blit(
-                        BUTTON_NUMBER_TEXTURE_ID,
+                        numberTexture,
                         intoTexturePosX(x2 + (BUTTON_NUMBER_TEXTURE_WIDTH) * j),
                         intoTexturePosY(y2 + (BUTTON_NUMBER_TEXTURE_HEIGHT) * i),
                         0,

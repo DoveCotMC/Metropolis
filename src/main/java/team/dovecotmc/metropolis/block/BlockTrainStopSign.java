@@ -34,7 +34,7 @@ public class BlockTrainStopSign extends HorizontalDirectionalBlock implements En
 //            if (level.getBlockEntity(blockPos) instanceof BlockEntityTrainStopSign blockEntityTrainStopSign) {
 //                blockEntityTrainStopSign.length = Math.max(blockEntityTrainStopSign.length + (player.isShiftKeyDown() ? -1 : 1), 0) % 17;
 //                serverPlayer.connection.send(blockEntityTrainStopSign.getUpdatePacket());
-//            }
+//            \
 //        }
 
         return InteractionResult.PASS;
