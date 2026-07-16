@@ -193,7 +193,7 @@ public class FareAdjCardKeyboardScreen extends Screen {
             ItemStack ticketStack = data.ticketStack;
             CompoundTag nbt = ticketStack.getOrCreateTag();
             int cost = Integer.parseInt(value);
-            nbt.putInt(ItemTicket.BALANCE, cost);
+            nbt.putInt(ItemTicket.BALANCE, cost + nbt.getInt(ItemTicket.BALANCE));
 
             if (this.minecraft != null) {
                 this.minecraft.setScreen(new FareAdjPaymentScreen(
