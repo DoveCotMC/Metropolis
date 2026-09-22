@@ -11,7 +11,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.HorizontalDirectionalBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import org.joml.Quaternionf;
-import team.dovecotmc.old.metropolis.block.BlockPSDSmallDoorSemiAuto;
+import team.dovecotmc.old.metropolis.block.BlockLegacyPSDSmallDoorSemiAuto;
 import team.dovecotmc.old.metropolis.block.entity.BlockEntityPSDSmallDoorSemiAuto;
 
 /**
@@ -44,7 +44,7 @@ public class BlockEntityRendererPSDSmallDoorSemiAuto implements BlockEntityRende
 
             BlockState state = entity.getBlockState();
 
-            int direction = state.getValue(BlockPSDSmallDoorSemiAuto.FLIPPED) ? -1 : 1;
+            int direction = state.getValue(BlockLegacyPSDSmallDoorSemiAuto.FLIPPED) ? -1 : 1;
 
             matrices.translate(easeInOutSine(entity.open) * (14.5f / 16f) * direction, 0f, 0f);
 

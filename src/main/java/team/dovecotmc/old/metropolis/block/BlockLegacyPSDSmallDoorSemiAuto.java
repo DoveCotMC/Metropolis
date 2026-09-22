@@ -36,11 +36,11 @@ import team.dovecotmc.metropolis.util.MetroBlockUtil;
  * @project Metropolis
  * @copyright Copyright © 2024 Arrokoth All Rights Reserved.
  */
-public class BlockPSDSmallDoorSemiAuto extends HorizontalDirectionalBlock implements EntityBlock, IBlockMTRPlatformDoor {
+public class BlockLegacyPSDSmallDoorSemiAuto extends HorizontalDirectionalBlock implements EntityBlock, IBlockMTRPlatformDoor {
     public static final BooleanProperty OPEN = BooleanProperty.create("open");
     public static final BooleanProperty FLIPPED = BooleanProperty.create("flipped");
 
-    public BlockPSDSmallDoorSemiAuto(Properties settings) {
+    public BlockLegacyPSDSmallDoorSemiAuto(Properties settings) {
         super(settings.noOcclusion());
     }
 
@@ -156,12 +156,12 @@ public class BlockPSDSmallDoorSemiAuto extends HorizontalDirectionalBlock implem
         Direction facing = ctx.getHorizontalDirection();
         boolean flipped = false;
 
-        if (world.getBlockState(pos.relative(facing.getCounterClockWise())).getBlock() instanceof BlockPSDSmallDoorSemiAuto) {
+        if (world.getBlockState(pos.relative(facing.getCounterClockWise())).getBlock() instanceof BlockLegacyPSDSmallDoorSemiAuto) {
             BlockState state = world.getBlockState(pos.relative(facing.getCounterClockWise()));
             if (state.getValue(FLIPPED)) {
                 flipped = false;
             }
-        } else if (world.getBlockState(pos.relative(facing.getClockWise())).getBlock() instanceof BlockPSDSmallDoorSemiAuto) {
+        } else if (world.getBlockState(pos.relative(facing.getClockWise())).getBlock() instanceof BlockLegacyPSDSmallDoorSemiAuto) {
             BlockState state = world.getBlockState(pos.relative(facing.getClockWise()));
             if (!state.getValue(FLIPPED)) {
                 flipped = true;

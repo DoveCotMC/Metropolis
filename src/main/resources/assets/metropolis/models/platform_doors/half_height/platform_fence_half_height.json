@@ -1,0 +1,50 @@
+{
+	"format_version": "1.9.0",
+	"credit": "Made with Blockbench",
+	"texture_size": [64, 64],
+	"textures": {
+		"0": "metropolis:block/platform_doors/half_height/platform_fence_half_height",
+		"particle": "metropolis:block/platform_doors/half_height/platform_fence_half_height"
+	},
+	"elements": [
+		{
+			"from": [0, 0, 5],
+			"to": [16, 23, 8],
+			"rotation": {"angle": 0, "axis": "y", "origin": [0, 0, 7]},
+			"faces": {
+				"north": {"uv": [0, 0, 4, 5.75], "texture": "#0"},
+				"east": {"uv": [0, 5.75, 0.75, 11.5], "texture": "#0"},
+				"south": {"uv": [4, 0, 8, 5.75], "texture": "#0"},
+				"west": {"uv": [0.75, 5.75, 1.5, 11.5], "texture": "#0"},
+				"up": {"uv": [5.5, 6.5, 1.5, 5.75], "texture": "#0"},
+				"down": {"uv": [9.5, 5.75, 5.5, 6.5], "texture": "#0"}
+			}
+		},
+		{
+			"from": [0, 23, 5],
+			"to": [16, 24.75, 6.25],
+			"rotation": {"angle": 0, "axis": "y", "origin": [0, 1, 7]},
+			"faces": {
+				"north": {"uv": [1.5, 6.5, 5.5, 7], "texture": "#0"},
+				"east": {"uv": [1.5, 8, 1.75, 8.5], "texture": "#0"},
+				"south": {"uv": [5.5, 6.5, 9.5, 7], "texture": "#0"},
+				"west": {"uv": [8, 1.5, 8.25, 2], "texture": "#0"},
+				"up": {"uv": [12, 0.25, 8, 0], "texture": "#0"},
+				"down": {"uv": [12, 0.25, 8, 0.5], "texture": "#0"}
+			}
+		},
+		{
+			"from": [0, 29.11522, -11.2028],
+			"to": [16, 30.61522, -8.72792],
+			"rotation": {"angle": 45, "axis": "x", "origin": [0, 6.61522, -9.55635]},
+			"faces": {
+				"north": {"uv": [1.5, 7, 5.5, 7.5], "texture": "#0"},
+				"east": {"uv": [8, 0.5, 8.5, 1], "texture": "#0"},
+				"south": {"uv": [5.5, 7, 9.5, 7.5], "texture": "#0"},
+				"west": {"uv": [8, 1, 8.5, 1.5], "texture": "#0"},
+				"up": {"uv": [5.5, 8, 1.5, 7.5], "texture": "#0"},
+				"down": {"uv": [9.5, 7.5, 5.5, 8], "texture": "#0"}
+			}
+		}
+	]
+}

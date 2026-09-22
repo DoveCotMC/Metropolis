@@ -9,6 +9,8 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.material.MapColor;
 import team.dovecotmc.metropolis.Metropolis;
+import team.dovecotmc.metropolis.block.platform_doors.BlockPlatformDoorHalfHeight;
+import team.dovecotmc.metropolis.block.platform_doors.BlockPlatformFenceHalfHeight;
 
 /**
  * @author Arrokoth
@@ -51,6 +53,10 @@ public class MetroBlocks {
 
     // Monitor
     public static final Block BLOCK_ITV_MONITOR = register("itv_monitor", new BlockITVMonitor());
+
+    // Platform fence doors
+    public static final Block BLOCK_PLATFORM_FENCE_HALF_HEIGHT = register("platform_fence_half_height", new BlockPlatformFenceHalfHeight(BlockBehaviour.Properties.of().mapColor(MapColor.TERRACOTTA_WHITE).strength(8.0f)));
+    public static final Block BLOCK_PLATFORM_DOOR_HALF_HEIGHT = register("platform_door_half_height", new BlockPlatformDoorHalfHeight(BlockBehaviour.Properties.of().mapColor(MapColor.TERRACOTTA_WHITE).strength(8.0f)));
 
     /* =========== *
      * Decorations *

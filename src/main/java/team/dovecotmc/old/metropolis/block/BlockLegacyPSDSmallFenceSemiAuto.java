@@ -19,8 +19,8 @@ import team.dovecotmc.metropolis.util.MetroBlockUtil;
  * @project Metropolis
  * @copyright Copyright © 2024 Arrokoth All Rights Reserved.
  */
-public class BlockPSDSmallFenceSemiAuto extends BlockHorizontalFacing implements IBlockPlatform {
-    public BlockPSDSmallFenceSemiAuto(Properties settings) {
+public class BlockLegacyPSDSmallFenceSemiAuto extends BlockHorizontalFacing implements IBlockPlatform {
+    public BlockLegacyPSDSmallFenceSemiAuto(Properties settings) {
         super(settings.noOcclusion());
     }
 
