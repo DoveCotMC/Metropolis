@@ -42,6 +42,10 @@ public class MetroItems {
     // Monitor
     public static final Item ITEM_ITV_MONITOR = register("itv_monitor", new BlockItem(MetroBlocks.BLOCK_ITV_MONITOR, new Item.Properties()));
 
+    // Platform fence doors
+    public static final Item ITEM_PLATFORM_FENCE_HALF_HEIGHT = register("platform_fence_half_height", new BlockItem(MetroBlocks.BLOCK_PLATFORM_FENCE_HALF_HEIGHT, new Item.Properties()));
+    public static final Item ITEM_PLATFORM_DOOR_HALF_HEIGHT = register("platform_door_half_height", new BlockItem(MetroBlocks.BLOCK_PLATFORM_DOOR_HALF_HEIGHT, new Item.Properties()));
+
     /* =========== *
      * Decorations *
      * =========== */

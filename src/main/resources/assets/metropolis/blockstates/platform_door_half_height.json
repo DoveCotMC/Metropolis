@@ -1,0 +1,20 @@
+{
+    "variants": {
+        "facing=north": {
+            "model": "metropolis:platform_doors/half_height/platform_door_half_height",
+            "y": 0
+        },
+        "facing=east": {
+            "model": "metropolis:platform_doors/half_height/platform_door_half_height",
+            "y": 90
+        },
+        "facing=south": {
+            "model": "metropolis:platform_doors/half_height/platform_door_half_height",
+            "y": 180
+        },
+        "facing=west": {
+            "model": "metropolis:platform_doors/half_height/platform_door_half_height",
+            "y": 270
+        }
+    }
+}
