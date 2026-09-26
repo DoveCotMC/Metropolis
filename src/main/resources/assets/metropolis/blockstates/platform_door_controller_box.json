@@ -1,0 +1,20 @@
+{
+    "variants": {
+        "facing=north": {
+            "model": "metropolis:platform_doors/platform_door_controller_box",
+            "y": 0
+        },
+        "facing=east": {
+            "model": "metropolis:platform_doors/platform_door_controller_box",
+            "y": 90
+        },
+        "facing=south": {
+            "model": "metropolis:platform_doors/platform_door_controller_box",
+            "y": 180
+        },
+        "facing=west": {
+            "model": "metropolis:platform_doors/platform_door_controller_box",
+            "y": 270
+        }
+    }
+}
