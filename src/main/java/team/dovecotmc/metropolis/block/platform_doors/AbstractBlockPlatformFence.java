@@ -53,7 +53,7 @@ public abstract class AbstractBlockPlatformFence extends HorizontalDirectionalBl
 
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
-        builder.add(FACING).add(HALF).add(TINT_COLOR);
+        builder.add(FACING, HALF, TINT_COLOR);
     }
 
     protected static void preventCreativeDropFromBottomPart(Level level, BlockPos blockPos, BlockState blockState, Player player) {

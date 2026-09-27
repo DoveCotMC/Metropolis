@@ -26,6 +26,9 @@ public class PlatformDoorBlockEntityRenderer implements BlockEntityRenderer<Bloc
         }
         float offset = openValue * 14.5f / 16f;
 
+        if (state.getValue(AbstractBlockPlatformDoor.FLIPPED))
+            offset *= -1;
+
         Direction facing = state.getValue(AbstractBlockPlatformDoor.FACING);
         float yRotRad = facing.toYRot() * Mth.DEG_TO_RAD;
 

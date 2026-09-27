@@ -1,34 +1,66 @@
 {
     "variants": {
-        "facing=north,half=lower": {
+        "facing=north,half=lower,flipped=false": {
             "model": "metropolis:platform_doors/half_height/platform_door_half_height",
             "y": 0
         },
-        "facing=east,half=lower": {
+        "facing=east,half=lower,flipped=false": {
             "model": "metropolis:platform_doors/half_height/platform_door_half_height",
             "y": 90
         },
-        "facing=south,half=lower": {
+        "facing=south,half=lower,flipped=false": {
             "model": "metropolis:platform_doors/half_height/platform_door_half_height",
             "y": 180
         },
-        "facing=west,half=lower": {
+        "facing=west,half=lower,flipped=false": {
             "model": "metropolis:platform_doors/half_height/platform_door_half_height",
             "y": 270
         },
-        "facing=north,half=upper": {
+        "facing=north,half=upper,flipped=false": {
             "model": "minecraft:block/air",
             "y": 0
         },
-        "facing=east,half=upper": {
+        "facing=east,half=upper,flipped=false": {
             "model": "minecraft:block/air",
             "y": 90
         },
-        "facing=south,half=upper": {
+        "facing=south,half=upper,flipped=false": {
             "model": "minecraft:block/air",
             "y": 180
         },
-        "facing=west,half=upper": {
+        "facing=west,half=upper,flipped=false": {
+            "model": "minecraft:block/air",
+            "y": 270
+        },
+        "facing=north,half=lower,flipped=true": {
+            "model": "metropolis:platform_doors/half_height/platform_door_half_height_flipped",
+            "y": 0
+        },
+        "facing=east,half=lower,flipped=true": {
+            "model": "metropolis:platform_doors/half_height/platform_door_half_height_flipped",
+            "y": 90
+        },
+        "facing=south,half=lower,flipped=true": {
+            "model": "metropolis:platform_doors/half_height/platform_door_half_height_flipped",
+            "y": 180
+        },
+        "facing=west,half=lower,flipped=true": {
+            "model": "metropolis:platform_doors/half_height/platform_door_half_height_flipped",
+            "y": 270
+        },
+        "facing=north,half=upper,flipped=true": {
+            "model": "minecraft:block/air",
+            "y": 0
+        },
+        "facing=east,half=upper,flipped=true": {
+            "model": "minecraft:block/air",
+            "y": 90
+        },
+        "facing=south,half=upper,flipped=true": {
+            "model": "minecraft:block/air",
+            "y": 180
+        },
+        "facing=west,half=upper,flipped=true": {
             "model": "minecraft:block/air",
             "y": 270
         }

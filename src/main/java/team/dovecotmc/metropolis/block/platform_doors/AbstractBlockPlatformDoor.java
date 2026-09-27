@@ -1,6 +1,7 @@
 package team.dovecotmc.metropolis.block.platform_doors;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
@@ -12,12 +13,12 @@ import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
-import net.minecraft.world.level.block.state.properties.EnumProperty;
 import org.jetbrains.annotations.Nullable;
 import team.dovecotmc.metropolis.block.entity.BlockEntityPlatformDoor;
 
 public abstract class AbstractBlockPlatformDoor extends AbstractBlockPlatformFence implements EntityBlock {
     public static final BooleanProperty OPEN = BlockStateProperties.OPEN;
+    public static final BooleanProperty FLIPPED = BooleanProperty.create("flipped");
 
     public AbstractBlockPlatformDoor(Properties properties) {
         super(properties);
@@ -46,13 +47,23 @@ public abstract class AbstractBlockPlatformDoor extends AbstractBlockPlatformFen
         if (state == null)
             return null;
 
-        return state.setValue(OPEN, false);
+        Direction facing = state.getValue(FACING);
+        Block right = ctx.getLevel().getBlockState(ctx.getClickedPos().relative(facing.getClockWise())).getBlock();
+        Block left = ctx.getLevel().getBlockState(ctx.getClickedPos().relative(facing.getCounterClockWise())).getBlock();
+        boolean flipped = true;
+        if (!(right instanceof AbstractBlockPlatformDoor) && right instanceof AbstractBlockPlatformFence) {
+            flipped = false;
+        } else if (left instanceof AbstractBlockPlatformDoor) {
+            flipped = false;
+        }
+
+        return state.setValue(OPEN, false).setValue(FLIPPED, flipped);
     }
 
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
         super.createBlockStateDefinition(builder);
-        builder.add(OPEN);
+        builder.add(OPEN, FLIPPED);
     }
 
     @Override

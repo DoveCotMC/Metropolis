@@ -55,16 +55,21 @@ public class BlockPlatformDoorControllerBox extends HorizontalDirectionalBlock i
 
     private void scanPlatformDoors(Level level, BlockPos blockPos, BlockState blockState, boolean openState, long lastToggleTime) {
         BlockPos platformPos = null;
-        Direction facing = blockState.getValue(FACING);
 
         if (level.getBlockState(blockPos.below()).getBlock() instanceof IBlockPlatform) {
             platformPos = blockPos.below();
-        } else if (level.getBlockState(blockPos.relative(facing).below().below()).getBlock() instanceof IBlockPlatform) {
-            platformPos = blockPos.relative(facing).below().below();
         } else if (level.getBlockState(blockPos.below().below()).getBlock() instanceof IBlockPlatform) {
             platformPos = blockPos.below().below();
-        } else if (level.getBlockState(blockPos.relative(facing).below()).getBlock() instanceof IBlockPlatform) {
-            platformPos = blockPos.relative(facing).below();
+        } else {
+            for (Direction facing : Direction.allShuffled(level.getRandom())) {
+                if (level.getBlockState(blockPos.relative(facing).below().below()).getBlock() instanceof IBlockPlatform) {
+                    platformPos = blockPos.relative(facing).below().below();
+                    break;
+                } else if (level.getBlockState(blockPos.relative(facing).below()).getBlock() instanceof IBlockPlatform) {
+                    platformPos = blockPos.relative(facing).below();
+                    break;
+                }
+            }
         }
 
         if (platformPos == null)
