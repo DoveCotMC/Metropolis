@@ -11,13 +11,14 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.EntityBlock;
 import net.minecraft.world.level.block.HorizontalDirectionalBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntityTicker;
+import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.phys.BlockHitResult;
 import org.jetbrains.annotations.Nullable;
-import team.dovecotmc.metropolis.block.MetroBlocks;
-import team.dovecotmc.metropolis.block.entity.BlockEntityPlatformDoor;
 import team.dovecotmc.metropolis.block.entity.BlockEntityPlatformDoorController;
 import team.dovecotmc.metropolis.block.interfaces.IBlockPlatform;
 
@@ -29,6 +30,7 @@ import java.util.Set;
 public class BlockPlatformDoorControllerBox extends HorizontalDirectionalBlock implements EntityBlock {
     public static final int MAX_DETECTION_RADIUS = 512;
 
+    public static final BooleanProperty POWERED = BlockStateProperties.POWERED;
     public static final BooleanProperty ATTACHED_ON_WALL = BooleanProperty.create("attached");
 
     public BlockPlatformDoorControllerBox(Properties properties) {
@@ -121,12 +123,53 @@ public class BlockPlatformDoorControllerBox extends HorizontalDirectionalBlock i
     }
 
     public BlockState getStateForPlacement(BlockPlaceContext ctx) {
-        return this.defaultBlockState().setValue(FACING, ctx.getHorizontalDirection().getOpposite()).setValue(ATTACHED_ON_WALL, false);
+        return this.defaultBlockState().setValue(FACING, ctx.getHorizontalDirection().getOpposite()).setValue(POWERED, false).setValue(ATTACHED_ON_WALL, false);
     }
 
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
-        builder.add(FACING).add(ATTACHED_ON_WALL);
+        builder.add(FACING, POWERED, ATTACHED_ON_WALL);
+    }
+
+    @Override
+    public @Nullable <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState blockState, BlockEntityType<T> blockEntityType) {
+        return (level1, blockPos, blockState1, blockEntity) -> {
+            boolean changed = false;
+            if (
+                    (level1.hasSignal(blockPos, Direction.DOWN) ||
+                            level1.hasSignal(blockPos.below(), Direction.DOWN) ||
+                            level1.hasSignal(blockPos.below().below(), Direction.DOWN) ||
+                            level1.hasSignal(blockPos.below().below().below(), Direction.DOWN) ||
+                            level1.hasSignal(blockPos, Direction.UP) ||
+                            level1.hasSignal(blockPos.below(), Direction.UP) ||
+                            level1.hasSignal(blockPos.below().below(), Direction.UP) ||
+                            level1.hasSignal(blockPos.below().below().below(), Direction.UP)) &&
+                    !blockState1.getValue(POWERED)
+            ) {
+                changed = true;
+                level.setBlockAndUpdate(blockPos, blockState1.setValue(POWERED, true));
+            } else if (
+                    !(level1.hasSignal(blockPos, Direction.DOWN) ||
+                            level1.hasSignal(blockPos.below(), Direction.DOWN) ||
+                            level1.hasSignal(blockPos.below().below(), Direction.DOWN) ||
+                            level1.hasSignal(blockPos.below().below().below(), Direction.DOWN) ||
+                            level1.hasSignal(blockPos, Direction.UP) ||
+                            level1.hasSignal(blockPos.below(), Direction.UP) ||
+                            level1.hasSignal(blockPos.below().below(), Direction.UP) ||
+                            level1.hasSignal(blockPos.below().below().below(), Direction.UP)) &&
+                            blockState1.getValue(POWERED)
+            ) {
+                changed = true;
+                level.setBlockAndUpdate(blockPos, blockState1.setValue(POWERED, false));
+            }
+
+            if (changed) {
+                boolean powered = level.getBlockState(blockPos).getValue(POWERED);
+                if (level1.getGameTime() - ((BlockEntityPlatformDoorController) blockEntity).lastToggleTime > 20) {
+                    scanPlatformDoors(level1, blockPos, blockState, powered, level1.getGameTime());
+                }
+            }
+        };
     }
 
     @Override
