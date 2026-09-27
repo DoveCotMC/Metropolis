@@ -1,19 +1,35 @@
 {
     "variants": {
-        "facing=north": {
+        "facing=north,half=lower": {
             "model": "metropolis:platform_doors/half_height/platform_fence_half_height",
             "y": 0
         },
-        "facing=east": {
+        "facing=east,half=lower": {
             "model": "metropolis:platform_doors/half_height/platform_fence_half_height",
             "y": 90
         },
-        "facing=south": {
+        "facing=south,half=lower": {
             "model": "metropolis:platform_doors/half_height/platform_fence_half_height",
             "y": 180
         },
-        "facing=west": {
+        "facing=west,half=lower": {
             "model": "metropolis:platform_doors/half_height/platform_fence_half_height",
+            "y": 270
+        },
+        "facing=north,half=upper": {
+            "model": "minecraft:block/air",
+            "y": 0
+        },
+        "facing=east,half=upper": {
+            "model": "minecraft:block/air",
+            "y": 90
+        },
+        "facing=south,half=upper": {
+            "model": "minecraft:block/air",
+            "y": 180
+        },
+        "facing=west,half=upper": {
+            "model": "minecraft:block/air",
             "y": 270
         }
     }

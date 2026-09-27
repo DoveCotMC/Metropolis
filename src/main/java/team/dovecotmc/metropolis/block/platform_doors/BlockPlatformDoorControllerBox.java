@@ -16,6 +16,7 @@ import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.phys.BlockHitResult;
 import org.jetbrains.annotations.Nullable;
+import team.dovecotmc.metropolis.block.MetroBlocks;
 import team.dovecotmc.metropolis.block.entity.BlockEntityPlatformDoor;
 import team.dovecotmc.metropolis.block.entity.BlockEntityPlatformDoorController;
 import team.dovecotmc.metropolis.block.interfaces.IBlockPlatform;
@@ -53,9 +54,6 @@ public class BlockPlatformDoorControllerBox extends HorizontalDirectionalBlock i
     }
 
     private void scanPlatformDoors(Level level, BlockPos blockPos, BlockState blockState, boolean openState, long lastToggleTime) {
-//        if (!(level instanceof ServerLevel serverLevel))
-//            return;
-
         BlockPos platformPos = null;
         Direction facing = blockState.getValue(FACING);
 
@@ -82,20 +80,9 @@ public class BlockPlatformDoorControllerBox extends HorizontalDirectionalBlock i
             BlockPos current = queue.poll();
 
             // Block proc
-            if (level.getBlockState(current.above()).getBlock() instanceof AbstractBlockPlatformDoor) {
+            if (level.getBlockState(current.above()).getBlock() instanceof AbstractBlockPlatformDoor doorBlock) {
                 BlockPos doorPos = current.above();
-                BlockState doorState = level.getBlockState(doorPos);
-                BlockEntity rawEntity = level.getBlockEntity(doorPos);
-
-                if (doorState.getValue(AbstractBlockPlatformDoor.OPEN) != openState) {
-                    if (rawEntity instanceof BlockEntityPlatformDoor blockEntity) {
-                        blockEntity.setBindingBlock(blockPos);
-                        blockEntity.setLastToggleTime(lastToggleTime);
-
-                        level.blockEntityChanged(blockPos);
-                        level.setBlockAndUpdate(doorPos, doorState.setValue(AbstractBlockPlatformDoor.OPEN, openState));
-                    }
-                }
+                doorBlock.setOpenState(level, doorPos, openState);
             }
 
             // Four connected directions
