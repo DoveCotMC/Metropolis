@@ -1,0 +1,16 @@
+{
+    "required": true,
+    "minVersion": "0.8",
+    "package": "team.dovecotmc.metropolis.mixins",
+    "compatibilityLevel": "JAVA_17",
+    "mixins": [
+    ],
+    "server": [
+    ],
+    "client": [
+        "accessor.AccessorBlockRenderDispatcher"
+    ],
+    "injectors": {
+        "defaultRequire": 0
+    }
+}

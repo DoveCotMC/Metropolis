@@ -1,6 +1,6 @@
 package team.dovecotmc.metropolis.block.platform_doors;
 
-public class BlockPlatformDoorHalfHeight extends AbstractBlockPlatformDoors {
+public class BlockPlatformDoorHalfHeight extends AbstractBlockPlatformDoor {
     public BlockPlatformDoorHalfHeight(Properties properties) {
         super(properties);
     }

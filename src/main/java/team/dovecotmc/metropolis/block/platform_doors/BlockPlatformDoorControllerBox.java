@@ -1,8 +1,7 @@
 package team.dovecotmc.metropolis.block.platform_doors;
 
 import net.minecraft.core.BlockPos;
-import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
-import net.minecraft.server.level.ServerLevel;
+import net.minecraft.core.Direction;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
@@ -17,9 +16,18 @@ import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.phys.BlockHitResult;
 import org.jetbrains.annotations.Nullable;
+import team.dovecotmc.metropolis.block.entity.BlockEntityPlatformDoor;
 import team.dovecotmc.metropolis.block.entity.BlockEntityPlatformDoorController;
+import team.dovecotmc.metropolis.block.interfaces.IBlockPlatform;
+
+import java.util.ArrayDeque;
+import java.util.HashSet;
+import java.util.Queue;
+import java.util.Set;
 
 public class BlockPlatformDoorControllerBox extends HorizontalDirectionalBlock implements EntityBlock {
+    public static final int MAX_DETECTION_RADIUS = 512;
+
     public static final BooleanProperty ATTACHED_ON_WALL = BooleanProperty.create("attached");
 
     public BlockPlatformDoorControllerBox(Properties properties) {
@@ -28,14 +36,96 @@ public class BlockPlatformDoorControllerBox extends HorizontalDirectionalBlock i
 
     @Override
     public InteractionResult use(BlockState blockState, Level level, BlockPos blockPos, Player player, InteractionHand interactionHand, BlockHitResult blockHitResult) {
-        if (level instanceof ServerLevel serverLevel && level.getBlockEntity(blockPos) instanceof BlockEntityPlatformDoorController blockEntity) {
+        if (level.getBlockEntity(blockPos) instanceof BlockEntityPlatformDoorController blockEntity) {
+            if (level.getGameTime() - blockEntity.lastToggleTime <= 20) {
+                return InteractionResult.SUCCESS;
+            }
+
             blockEntity.openState = !blockEntity.openState;
             blockEntity.lastToggleTime = level.getGameTime();
 
-            serverLevel.blockEntityChanged(blockPos);
+            scanPlatformDoors(level, blockPos, blockState, blockEntity.openState, blockEntity.lastToggleTime);
+
+            level.blockEntityChanged(blockPos);
         }
 
         return InteractionResult.SUCCESS;
+    }
+
+    private void scanPlatformDoors(Level level, BlockPos blockPos, BlockState blockState, boolean openState, long lastToggleTime) {
+//        if (!(level instanceof ServerLevel serverLevel))
+//            return;
+
+        BlockPos platformPos = null;
+        Direction facing = blockState.getValue(FACING);
+
+        if (level.getBlockState(blockPos.below()).getBlock() instanceof IBlockPlatform) {
+            platformPos = blockPos.below();
+        } else if (level.getBlockState(blockPos.relative(facing).below().below()).getBlock() instanceof IBlockPlatform) {
+            platformPos = blockPos.relative(facing).below().below();
+        } else if (level.getBlockState(blockPos.below().below()).getBlock() instanceof IBlockPlatform) {
+            platformPos = blockPos.below().below();
+        } else if (level.getBlockState(blockPos.relative(facing).below()).getBlock() instanceof IBlockPlatform) {
+            platformPos = blockPos.relative(facing).below();
+        }
+
+        if (platformPos == null)
+            return;
+
+        Set<BlockPos> visited = new HashSet<>();
+        Queue<BlockPos> queue = new ArrayDeque<>();
+
+        visited.add(platformPos);
+        queue.add(platformPos);
+
+        while (!queue.isEmpty()) {
+            BlockPos current = queue.poll();
+
+            // Block proc
+            if (level.getBlockState(current.above()).getBlock() instanceof AbstractBlockPlatformDoor) {
+                BlockPos doorPos = current.above();
+                BlockState doorState = level.getBlockState(doorPos);
+                BlockEntity rawEntity = level.getBlockEntity(doorPos);
+
+                if (doorState.getValue(AbstractBlockPlatformDoor.OPEN) != openState) {
+                    if (rawEntity instanceof BlockEntityPlatformDoor blockEntity) {
+                        blockEntity.setBindingBlock(blockPos);
+                        blockEntity.setLastToggleTime(lastToggleTime);
+
+                        level.blockEntityChanged(blockPos);
+                        level.setBlockAndUpdate(doorPos, doorState.setValue(AbstractBlockPlatformDoor.OPEN, openState));
+                    }
+                }
+            }
+
+            // Four connected directions
+            for (Direction direction : new Direction[] {
+                    Direction.NORTH,
+                    Direction.SOUTH,
+                    Direction.WEST,
+                    Direction.EAST
+            }) {
+                BlockPos next = current.relative(direction);
+
+                // Skip if checked
+                if (visited.contains(next))
+                    continue;
+
+                // Range check
+                int distance = Math.abs(next.getX() - platformPos.getX())
+                        + Math.abs(next.getZ() - platformPos.getZ());
+
+                if (distance > MAX_DETECTION_RADIUS)
+                    continue;
+
+                // Type check
+                if (!(level.getBlockState(next).getBlock() instanceof IBlockPlatform))
+                    continue;
+
+                visited.add(next);
+                queue.add(next);
+            }
+        }
     }
 
     public BlockState getStateForPlacement(BlockPlaceContext ctx) {
