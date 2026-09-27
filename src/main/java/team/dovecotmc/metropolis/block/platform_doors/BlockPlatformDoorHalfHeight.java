@@ -5,6 +5,7 @@ import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
 import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import team.dovecotmc.metropolis.util.MetroBlockUtil;
 
@@ -27,6 +28,15 @@ public class BlockPlatformDoorHalfHeight extends AbstractBlockPlatformDoor {
                     16, 26, 11,
                     blockState.getValue(FACING)
             );
+        }
+    }
+
+    @Override
+    public VoxelShape getCollisionShape(BlockState blockState, BlockGetter blockGetter, BlockPos blockPos, CollisionContext collisionContext) {
+        if (blockState.getValue(OPEN)) {
+            return Shapes.empty();
+        } else {
+            return super.getCollisionShape(blockState, blockGetter, blockPos, collisionContext);
         }
     }
 }
