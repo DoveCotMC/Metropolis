@@ -3,8 +3,8 @@
 	"credit": "Made with Blockbench",
 	"texture_size": [64, 64],
 	"textures": {
-		"0": "metropolis:block/platform_doors/half_height/platform_door_half_height",
-		"particle": "metropolis:block/platform_doors/half_height/platform_door_half_height"
+		"0": "metropolis:block/platform_doors/half_height/platform_door_half_height_glass_flipped",
+		"particle": "metropolis:block/platform_doors/half_height/platform_door_half_height_glass_flipped"
 	},
 	"elements": [
 		{

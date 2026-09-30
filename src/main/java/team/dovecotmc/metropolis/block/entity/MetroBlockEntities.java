@@ -35,7 +35,7 @@ public class MetroBlockEntities {
     public static final BlockEntityType<BlockEntityPlatformDoor> PLATFORM_DOOR_BLOCK_ENTITY = Registry.register(
             BuiltInRegistries.BLOCK_ENTITY_TYPE,
             new ResourceLocation(Metropolis.MOD_ID, "platform_door"),
-            FabricBlockEntityTypeBuilder.create(BlockEntityPlatformDoor::new, MetroBlocks.BLOCK_PLATFORM_DOOR_HALF_HEIGHT).build()
+            FabricBlockEntityTypeBuilder.create(BlockEntityPlatformDoor::new, MetroBlocks.BLOCK_PLATFORM_DOOR_HALF_HEIGHT, MetroBlocks.BLOCK_PLATFORM_DOOR_HALF_HEIGHT_GLASS).build()
     );
 
     public static final BlockEntityType<BlockEntityPlatformDoorController> PLATFORM_DOOR_CONTROLLER_BLOCK_ENTITY = Registry.register(

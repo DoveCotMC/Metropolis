@@ -58,6 +58,7 @@ public class MetroBlocks {
     // Platform doors
     public static final Block BLOCK_PLATFORM_FENCE_HALF_HEIGHT = register("platform_fence_half_height", new BlockPlatformFenceHalfHeight(BlockBehaviour.Properties.of().noOcclusion().mapColor(MapColor.TERRACOTTA_WHITE).strength(8.0f)));
     public static final Block BLOCK_PLATFORM_DOOR_HALF_HEIGHT = register("platform_door_half_height", new BlockPlatformDoorHalfHeight(BlockBehaviour.Properties.of().noOcclusion().mapColor(MapColor.TERRACOTTA_WHITE).strength(8.0f)));
+    public static final Block BLOCK_PLATFORM_DOOR_HALF_HEIGHT_GLASS = register("platform_door_half_height_glass", new BlockPlatformDoorHalfHeight(BlockBehaviour.Properties.of().noOcclusion().mapColor(MapColor.TERRACOTTA_WHITE).strength(8.0f)));
 
     // Platform door controllers
 //    public static final Block BLOCK_PLATFORM_DOOR_CONTROLLER_BOX = register("platform_door_controller_box", new AbstractPlatformDoorController(BlockBehaviour.Properties.of().noOcclusion().mapColor(MapColor.METAL).strength(6.0f)));

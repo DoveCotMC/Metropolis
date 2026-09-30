@@ -69,6 +69,7 @@ public class MetropolisClient implements ClientModInitializer {
     private void registerBlockTint() {
         ColorProviderRegistry.BLOCK.register((blockState, blockAndTintGetter, blockPos, i) -> DyeColor.byId(blockState.getValue(AbstractBlockPlatformFence.TINT_COLOR)).getTextColor(), MetroBlocks.BLOCK_PLATFORM_FENCE_HALF_HEIGHT);
         ColorProviderRegistry.BLOCK.register((blockState, blockAndTintGetter, blockPos, i) -> DyeColor.byId(blockState.getValue(AbstractBlockPlatformFence.TINT_COLOR)).getTextColor(), MetroBlocks.BLOCK_PLATFORM_DOOR_HALF_HEIGHT);
+        ColorProviderRegistry.BLOCK.register((blockState, blockAndTintGetter, blockPos, i) -> DyeColor.byId(blockState.getValue(AbstractBlockPlatformFence.TINT_COLOR)).getTextColor(), MetroBlocks.BLOCK_PLATFORM_DOOR_HALF_HEIGHT_GLASS);
     }
 
     private void registerBlockEntityRenderers() {
