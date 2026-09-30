@@ -1,0 +1,32 @@
+{
+    "variants": {
+        "facing=north,half=lower": {
+            "model": "metropolis:platform_doors/platform_door_controller_pillar",
+            "y": 0
+        },
+        "facing=east,half=lower": {
+            "model": "metropolis:platform_doors/platform_door_controller_pillar",
+            "y": 90
+        },
+        "facing=south,half=lower": {
+            "model": "metropolis:platform_doors/platform_door_controller_pillar",
+            "y": 180
+        },
+        "facing=west,half=lower": {
+            "model": "metropolis:platform_doors/platform_door_controller_pillar",
+            "y": 270
+        },
+        "facing=north,half=upper": {
+            "model": "minecraft:block/air"
+        },
+        "facing=east,half=upper": {
+            "model": "minecraft:block/air"
+        },
+        "facing=south,half=upper": {
+            "model": "minecraft:block/air"
+        },
+        "facing=west,half=upper": {
+            "model": "minecraft:block/air"
+        }
+    }
+}

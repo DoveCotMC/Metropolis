@@ -27,13 +27,13 @@ import java.util.HashSet;
 import java.util.Queue;
 import java.util.Set;
 
-public class BlockPlatformDoorControllerBox extends HorizontalDirectionalBlock implements EntityBlock {
+public abstract class AbstractPlatformDoorController extends HorizontalDirectionalBlock implements EntityBlock {
     public static final int MAX_DETECTION_RADIUS = 512;
 
     public static final BooleanProperty POWERED = BlockStateProperties.POWERED;
     public static final BooleanProperty ATTACHED_ON_WALL = BooleanProperty.create("attached");
 
-    public BlockPlatformDoorControllerBox(Properties properties) {
+    public AbstractPlatformDoorController(Properties properties) {
         super(properties);
     }
 

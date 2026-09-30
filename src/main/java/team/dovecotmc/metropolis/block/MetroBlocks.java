@@ -9,7 +9,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.material.MapColor;
 import team.dovecotmc.metropolis.Metropolis;
-import team.dovecotmc.metropolis.block.platform_doors.BlockPlatformDoorControllerBox;
+import team.dovecotmc.metropolis.block.platform_doors.BlockPlatformDoorControllerPillar;
 import team.dovecotmc.metropolis.block.platform_doors.BlockPlatformDoorHalfHeight;
 import team.dovecotmc.metropolis.block.platform_doors.BlockPlatformFenceHalfHeight;
 
@@ -60,7 +60,8 @@ public class MetroBlocks {
     public static final Block BLOCK_PLATFORM_DOOR_HALF_HEIGHT = register("platform_door_half_height", new BlockPlatformDoorHalfHeight(BlockBehaviour.Properties.of().noOcclusion().mapColor(MapColor.TERRACOTTA_WHITE).strength(8.0f)));
 
     // Platform door controllers
-    public static final Block BLOCK_PLATFORM_DOOR_CONTROLLER_BOX = register("platform_door_controller_box", new BlockPlatformDoorControllerBox(BlockBehaviour.Properties.of().noOcclusion().mapColor(MapColor.METAL).strength(6.0f)));
+//    public static final Block BLOCK_PLATFORM_DOOR_CONTROLLER_BOX = register("platform_door_controller_box", new AbstractPlatformDoorController(BlockBehaviour.Properties.of().noOcclusion().mapColor(MapColor.METAL).strength(6.0f)));
+    public static final Block BLOCK_PLATFORM_DOOR_CONTROLLER_PILLAR = register("platform_door_controller_pillar", new BlockPlatformDoorControllerPillar(BlockBehaviour.Properties.of().noOcclusion().mapColor(MapColor.METAL).strength(6.0f)));
 
     /* =========== *
      * Decorations *

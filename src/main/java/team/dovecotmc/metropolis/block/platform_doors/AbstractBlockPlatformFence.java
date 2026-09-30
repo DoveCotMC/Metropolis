@@ -66,5 +66,4 @@ public abstract class AbstractBlockPlatformFence extends HorizontalDirectionalBl
             level.levelEvent(player, 2001, blockPos2, Block.getId(blockState2));
         }
     }
-
 }

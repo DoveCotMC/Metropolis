@@ -41,7 +41,7 @@ public class MetroBlockEntities {
     public static final BlockEntityType<BlockEntityPlatformDoorController> PLATFORM_DOOR_CONTROLLER_BLOCK_ENTITY = Registry.register(
             BuiltInRegistries.BLOCK_ENTITY_TYPE,
             new ResourceLocation(Metropolis.MOD_ID, "platform_door_controller"),
-            FabricBlockEntityTypeBuilder.create(BlockEntityPlatformDoorController::new, MetroBlocks.BLOCK_PLATFORM_DOOR_CONTROLLER_BOX).build()
+            FabricBlockEntityTypeBuilder.create(BlockEntityPlatformDoorController::new, MetroBlocks.BLOCK_PLATFORM_DOOR_CONTROLLER_PILLAR).build()
     );
 
     public static final BlockEntityType<BlockEntityTrainStopSign> TRAIN_STOP_SIGN_BLOCK_ENTITY = Registry.register(

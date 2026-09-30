@@ -47,7 +47,7 @@ public class MetroItems {
     public static final Item ITEM_PLATFORM_DOOR_HALF_HEIGHT = register("platform_door_half_height", new BlockItem(MetroBlocks.BLOCK_PLATFORM_DOOR_HALF_HEIGHT, new Item.Properties()));
 
     // Platform door controllers
-    public static final Item ITEM_PLATFORM_DOOR_CONTROLLER_BOX = register("platform_door_controller_box", new BlockItem(MetroBlocks.BLOCK_PLATFORM_DOOR_CONTROLLER_BOX, new Item.Properties()));
+    public static final Item ITEM_PLATFORM_DOOR_CONTROLLER_PILLAR = register("platform_door_controller_pillar", new BlockItem(MetroBlocks.BLOCK_PLATFORM_DOOR_CONTROLLER_PILLAR, new Item.Properties()));
 
     /* =========== *
      * Decorations *
