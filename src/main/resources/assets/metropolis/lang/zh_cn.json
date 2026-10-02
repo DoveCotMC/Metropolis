@@ -162,6 +162,11 @@
 
     "block.metropolis.itv_monitor": "站台ITV监控屏幕",
 
+    "block.metropolis.platform_fence_half_height": "半高站台栏杆",
+    "block.metropolis.platform_door_half_height": "半高站台屏蔽门",
+    "block.metropolis.platform_door_half_height_glass": "半高站台屏蔽门",
+    "block.metropolis.platform_door_controller_pillar": "站台屏蔽门控制柱",
+
     "block.metropolis.security_door": "安全门",
     "block.metropolis.security_inspection_machine": "安检机",
 
