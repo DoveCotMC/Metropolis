@@ -21,6 +21,7 @@ import team.dovecotmc.metropolis.block.platform_doors.AbstractBlockPlatformFence
 import team.dovecotmc.metropolis.client.block.entity.*;
 import team.dovecotmc.metropolis.client.block.model.provider.MetroModelProvicer;
 import team.dovecotmc.metropolis.client.entity.EntitySittableRenderer;
+import team.dovecotmc.metropolis.client.network.MetroClientNetworking;
 import team.dovecotmc.metropolis.entity.MetroEntities;
 import team.dovecotmc.old.metropolis.client.OldMetropolisClient;
 import team.dovecotmc.old.metropolis.client.config.OldMetroClientConfig;
@@ -51,6 +52,8 @@ public class MetropolisClient implements ClientModInitializer {
         // Block entity renderers
         registerBlockEntityRenderers();
 
+        MetroClientNetworking.initialize();
+
         // Entity renderer
         EntityRendererRegistry.register(MetroEntities.SITTABLE, EntitySittableRenderer::new);
 
@@ -77,7 +80,6 @@ public class MetropolisClient implements ClientModInitializer {
         BlockEntityRendererRegistry.register(MetroBlockEntities.CAMERA_BLOCK_ENTITY, ctx -> new CameraBlockEntityRenderer());
         BlockEntityRendererRegistry.register(MetroBlockEntities.ITV_MONITOR_BLOCK_ENTITY, ctx -> new ITVMonitorBlockEntityRenderer());
         BlockEntityRendererRegistry.register(MetroBlockEntities.PLATFORM_DOOR_BLOCK_ENTITY, ctx -> new PlatformDoorBlockEntityRenderer());
-        BlockEntityRendererRegistry.register(MetroBlockEntities.TRAIN_STOP_SIGN_BLOCK_ENTITY, ctx -> new TrainStopSignBlockEntityRenderer());
     }
 
     private static class ResourceReloadListener implements SimpleSynchronousResourceReloadListener {

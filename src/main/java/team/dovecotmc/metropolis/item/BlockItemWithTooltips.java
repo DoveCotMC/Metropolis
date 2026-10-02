@@ -19,13 +19,13 @@ import java.util.List;
  * @project Metropolis
  * @copyright Copyright © 2024 Arrokoth All Rights Reserved.
  */
-public class ItemBlockWithTooltips extends BlockItem {
+public class BlockItemWithTooltips extends BlockItem {
     public final Style style;
-    public ItemBlockWithTooltips(Block block, Properties settings) {
+    public BlockItemWithTooltips(Block block, Properties settings) {
         this(block, settings, Style.EMPTY.withColor(TextColor.fromRgb(DyeColor.GRAY.getTextColor())));
     }
 
-    public ItemBlockWithTooltips(Block block, Properties settings, Style style) {
+    public BlockItemWithTooltips(Block block, Properties settings, Style style) {
         super(block, settings);
         this.style = style;
     }

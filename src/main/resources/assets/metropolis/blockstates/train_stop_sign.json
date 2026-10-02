@@ -1,19 +1,563 @@
 {
     "variants": {
-        "facing=north": {
+        "facing=north,index=0": {
             "model": "metropolis:sign/train_stop_sign",
             "y": 0
         },
-        "facing=east": {
+        "facing=east,index=0": {
             "model": "metropolis:sign/train_stop_sign",
             "y": 90
         },
-        "facing=south": {
+        "facing=south,index=0": {
             "model": "metropolis:sign/train_stop_sign",
             "y": 180
         },
-        "facing=west": {
+        "facing=west,index=0": {
             "model": "metropolis:sign/train_stop_sign",
+            "y": 270
+        },
+
+        "facing=north,index=1": {
+            "model": "metropolis:sign/train_stop_signs/sign_1",
+            "y": 0
+        },
+        "facing=east,index=1": {
+            "model": "metropolis:sign/train_stop_signs/sign_1",
+            "y": 90
+        },
+        "facing=south,index=1": {
+            "model": "metropolis:sign/train_stop_signs/sign_1",
+            "y": 180
+        },
+        "facing=west,index=1": {
+            "model": "metropolis:sign/train_stop_signs/sign_1",
+            "y": 270
+        },
+
+        "facing=north,index=2": {
+            "model": "metropolis:sign/train_stop_signs/sign_2",
+            "y": 0
+        },
+        "facing=east,index=2": {
+            "model": "metropolis:sign/train_stop_signs/sign_2",
+            "y": 90
+        },
+        "facing=south,index=2": {
+            "model": "metropolis:sign/train_stop_signs/sign_2",
+            "y": 180
+        },
+        "facing=west,index=2": {
+            "model": "metropolis:sign/train_stop_signs/sign_2",
+            "y": 270
+        },
+
+        "facing=north,index=3": {
+            "model": "metropolis:sign/train_stop_signs/sign_3",
+            "y": 0
+        },
+        "facing=east,index=3": {
+            "model": "metropolis:sign/train_stop_signs/sign_3",
+            "y": 90
+        },
+        "facing=south,index=3": {
+            "model": "metropolis:sign/train_stop_signs/sign_3",
+            "y": 180
+        },
+        "facing=west,index=3": {
+            "model": "metropolis:sign/train_stop_signs/sign_3",
+            "y": 270
+        },
+
+        "facing=north,index=4": {
+            "model": "metropolis:sign/train_stop_signs/sign_4",
+            "y": 0
+        },
+        "facing=east,index=4": {
+            "model": "metropolis:sign/train_stop_signs/sign_4",
+            "y": 90
+        },
+        "facing=south,index=4": {
+            "model": "metropolis:sign/train_stop_signs/sign_4",
+            "y": 180
+        },
+        "facing=west,index=4": {
+            "model": "metropolis:sign/train_stop_signs/sign_4",
+            "y": 270
+        },
+
+        "facing=north,index=5": {
+            "model": "metropolis:sign/train_stop_signs/sign_5",
+            "y": 0
+        },
+        "facing=east,index=5": {
+            "model": "metropolis:sign/train_stop_signs/sign_5",
+            "y": 90
+        },
+        "facing=south,index=5": {
+            "model": "metropolis:sign/train_stop_signs/sign_5",
+            "y": 180
+        },
+        "facing=west,index=5": {
+            "model": "metropolis:sign/train_stop_signs/sign_5",
+            "y": 270
+        },
+
+        "facing=north,index=6": {
+            "model": "metropolis:sign/train_stop_signs/sign_6",
+            "y": 0
+        },
+        "facing=east,index=6": {
+            "model": "metropolis:sign/train_stop_signs/sign_6",
+            "y": 90
+        },
+        "facing=south,index=6": {
+            "model": "metropolis:sign/train_stop_signs/sign_6",
+            "y": 180
+        },
+        "facing=west,index=6": {
+            "model": "metropolis:sign/train_stop_signs/sign_6",
+            "y": 270
+        },
+
+        "facing=north,index=7": {
+            "model": "metropolis:sign/train_stop_signs/sign_7",
+            "y": 0
+        },
+        "facing=east,index=7": {
+            "model": "metropolis:sign/train_stop_signs/sign_7",
+            "y": 90
+        },
+        "facing=south,index=7": {
+            "model": "metropolis:sign/train_stop_signs/sign_7",
+            "y": 180
+        },
+        "facing=west,index=7": {
+            "model": "metropolis:sign/train_stop_signs/sign_7",
+            "y": 270
+        },
+
+        "facing=north,index=8": {
+            "model": "metropolis:sign/train_stop_signs/sign_8",
+            "y": 0
+        },
+        "facing=east,index=8": {
+            "model": "metropolis:sign/train_stop_signs/sign_8",
+            "y": 90
+        },
+        "facing=south,index=8": {
+            "model": "metropolis:sign/train_stop_signs/sign_8",
+            "y": 180
+        },
+        "facing=west,index=8": {
+            "model": "metropolis:sign/train_stop_signs/sign_8",
+            "y": 270
+        },
+
+        "facing=north,index=9": {
+            "model": "metropolis:sign/train_stop_signs/sign_9",
+            "y": 0
+        },
+        "facing=east,index=9": {
+            "model": "metropolis:sign/train_stop_signs/sign_9",
+            "y": 90
+        },
+        "facing=south,index=9": {
+            "model": "metropolis:sign/train_stop_signs/sign_9",
+            "y": 180
+        },
+        "facing=west,index=9": {
+            "model": "metropolis:sign/train_stop_signs/sign_9",
+            "y": 270
+        },
+
+        "facing=north,index=10": {
+            "model": "metropolis:sign/train_stop_signs/sign_10",
+            "y": 0
+        },
+        "facing=east,index=10": {
+            "model": "metropolis:sign/train_stop_signs/sign_10",
+            "y": 90
+        },
+        "facing=south,index=10": {
+            "model": "metropolis:sign/train_stop_signs/sign_10",
+            "y": 180
+        },
+        "facing=west,index=10": {
+            "model": "metropolis:sign/train_stop_signs/sign_10",
+            "y": 270
+        },
+
+        "facing=north,index=11": {
+            "model": "metropolis:sign/train_stop_signs/sign_11",
+            "y": 0
+        },
+        "facing=east,index=11": {
+            "model": "metropolis:sign/train_stop_signs/sign_11",
+            "y": 90
+        },
+        "facing=south,index=11": {
+            "model": "metropolis:sign/train_stop_signs/sign_11",
+            "y": 180
+        },
+        "facing=west,index=11": {
+            "model": "metropolis:sign/train_stop_signs/sign_11",
+            "y": 270
+        },
+
+        "facing=north,index=12": {
+            "model": "metropolis:sign/train_stop_signs/sign_12",
+            "y": 0
+        },
+        "facing=east,index=12": {
+            "model": "metropolis:sign/train_stop_signs/sign_12",
+            "y": 90
+        },
+        "facing=south,index=12": {
+            "model": "metropolis:sign/train_stop_signs/sign_12",
+            "y": 180
+        },
+        "facing=west,index=12": {
+            "model": "metropolis:sign/train_stop_signs/sign_12",
+            "y": 270
+        },
+
+        "facing=north,index=13": {
+            "model": "metropolis:sign/train_stop_signs/sign_13",
+            "y": 0
+        },
+        "facing=east,index=13": {
+            "model": "metropolis:sign/train_stop_signs/sign_13",
+            "y": 90
+        },
+        "facing=south,index=13": {
+            "model": "metropolis:sign/train_stop_signs/sign_13",
+            "y": 180
+        },
+        "facing=west,index=13": {
+            "model": "metropolis:sign/train_stop_signs/sign_13",
+            "y": 270
+        },
+
+        "facing=north,index=14": {
+            "model": "metropolis:sign/train_stop_signs/sign_14",
+            "y": 0
+        },
+        "facing=east,index=14": {
+            "model": "metropolis:sign/train_stop_signs/sign_14",
+            "y": 90
+        },
+        "facing=south,index=14": {
+            "model": "metropolis:sign/train_stop_signs/sign_14",
+            "y": 180
+        },
+        "facing=west,index=14": {
+            "model": "metropolis:sign/train_stop_signs/sign_14",
+            "y": 270
+        },
+
+        "facing=north,index=15": {
+            "model": "metropolis:sign/train_stop_signs/sign_15",
+            "y": 0
+        },
+        "facing=east,index=15": {
+            "model": "metropolis:sign/train_stop_signs/sign_15",
+            "y": 90
+        },
+        "facing=south,index=15": {
+            "model": "metropolis:sign/train_stop_signs/sign_15",
+            "y": 180
+        },
+        "facing=west,index=15": {
+            "model": "metropolis:sign/train_stop_signs/sign_15",
+            "y": 270
+        },
+
+        "facing=north,index=16": {
+            "model": "metropolis:sign/train_stop_signs/sign_16",
+            "y": 0
+        },
+        "facing=east,index=16": {
+            "model": "metropolis:sign/train_stop_signs/sign_16",
+            "y": 90
+        },
+        "facing=south,index=16": {
+            "model": "metropolis:sign/train_stop_signs/sign_16",
+            "y": 180
+        },
+        "facing=west,index=16": {
+            "model": "metropolis:sign/train_stop_signs/sign_16",
+            "y": 270
+        },
+
+        "facing=north,index=17": {
+            "model": "metropolis:sign/train_stop_signs/sign_17",
+            "y": 0
+        },
+        "facing=east,index=17": {
+            "model": "metropolis:sign/train_stop_signs/sign_17",
+            "y": 90
+        },
+        "facing=south,index=17": {
+            "model": "metropolis:sign/train_stop_signs/sign_17",
+            "y": 180
+        },
+        "facing=west,index=17": {
+            "model": "metropolis:sign/train_stop_signs/sign_17",
+            "y": 270
+        },
+
+        "facing=north,index=18": {
+            "model": "metropolis:sign/train_stop_signs/sign_18",
+            "y": 0
+        },
+        "facing=east,index=18": {
+            "model": "metropolis:sign/train_stop_signs/sign_18",
+            "y": 90
+        },
+        "facing=south,index=18": {
+            "model": "metropolis:sign/train_stop_signs/sign_18",
+            "y": 180
+        },
+        "facing=west,index=18": {
+            "model": "metropolis:sign/train_stop_signs/sign_18",
+            "y": 270
+        },
+
+        "facing=north,index=19": {
+            "model": "metropolis:sign/train_stop_signs/sign_19",
+            "y": 0
+        },
+        "facing=east,index=19": {
+            "model": "metropolis:sign/train_stop_signs/sign_19",
+            "y": 90
+        },
+        "facing=south,index=19": {
+            "model": "metropolis:sign/train_stop_signs/sign_19",
+            "y": 180
+        },
+        "facing=west,index=19": {
+            "model": "metropolis:sign/train_stop_signs/sign_19",
+            "y": 270
+        },
+
+        "facing=north,index=20": {
+            "model": "metropolis:sign/train_stop_signs/sign_20",
+            "y": 0
+        },
+        "facing=east,index=20": {
+            "model": "metropolis:sign/train_stop_signs/sign_20",
+            "y": 90
+        },
+        "facing=south,index=20": {
+            "model": "metropolis:sign/train_stop_signs/sign_20",
+            "y": 180
+        },
+        "facing=west,index=20": {
+            "model": "metropolis:sign/train_stop_signs/sign_20",
+            "y": 270
+        },
+
+        "facing=north,index=21": {
+            "model": "metropolis:sign/train_stop_signs/sign_21",
+            "y": 0
+        },
+        "facing=east,index=21": {
+            "model": "metropolis:sign/train_stop_signs/sign_21",
+            "y": 90
+        },
+        "facing=south,index=21": {
+            "model": "metropolis:sign/train_stop_signs/sign_21",
+            "y": 180
+        },
+        "facing=west,index=21": {
+            "model": "metropolis:sign/train_stop_signs/sign_21",
+            "y": 270
+        },
+
+        "facing=north,index=22": {
+            "model": "metropolis:sign/train_stop_signs/sign_22",
+            "y": 0
+        },
+        "facing=east,index=22": {
+            "model": "metropolis:sign/train_stop_signs/sign_22",
+            "y": 90
+        },
+        "facing=south,index=22": {
+            "model": "metropolis:sign/train_stop_signs/sign_22",
+            "y": 180
+        },
+        "facing=west,index=22": {
+            "model": "metropolis:sign/train_stop_signs/sign_22",
+            "y": 270
+        },
+
+        "facing=north,index=23": {
+            "model": "metropolis:sign/train_stop_signs/sign_23",
+            "y": 0
+        },
+        "facing=east,index=23": {
+            "model": "metropolis:sign/train_stop_signs/sign_23",
+            "y": 90
+        },
+        "facing=south,index=23": {
+            "model": "metropolis:sign/train_stop_signs/sign_23",
+            "y": 180
+        },
+        "facing=west,index=23": {
+            "model": "metropolis:sign/train_stop_signs/sign_23",
+            "y": 270
+        },
+
+        "facing=north,index=24": {
+            "model": "metropolis:sign/train_stop_signs/sign_24",
+            "y": 0
+        },
+        "facing=east,index=24": {
+            "model": "metropolis:sign/train_stop_signs/sign_24",
+            "y": 90
+        },
+        "facing=south,index=24": {
+            "model": "metropolis:sign/train_stop_signs/sign_24",
+            "y": 180
+        },
+        "facing=west,index=24": {
+            "model": "metropolis:sign/train_stop_signs/sign_24",
+            "y": 270
+        },
+
+        "facing=north,index=25": {
+            "model": "metropolis:sign/train_stop_signs/sign_25",
+            "y": 0
+        },
+        "facing=east,index=25": {
+            "model": "metropolis:sign/train_stop_signs/sign_25",
+            "y": 90
+        },
+        "facing=south,index=25": {
+            "model": "metropolis:sign/train_stop_signs/sign_25",
+            "y": 180
+        },
+        "facing=west,index=25": {
+            "model": "metropolis:sign/train_stop_signs/sign_25",
+            "y": 270
+        },
+
+        "facing=north,index=26": {
+            "model": "metropolis:sign/train_stop_signs/sign_26",
+            "y": 0
+        },
+        "facing=east,index=26": {
+            "model": "metropolis:sign/train_stop_signs/sign_26",
+            "y": 90
+        },
+        "facing=south,index=26": {
+            "model": "metropolis:sign/train_stop_signs/sign_26",
+            "y": 180
+        },
+        "facing=west,index=26": {
+            "model": "metropolis:sign/train_stop_signs/sign_26",
+            "y": 270
+        },
+
+        "facing=north,index=27": {
+            "model": "metropolis:sign/train_stop_signs/sign_27",
+            "y": 0
+        },
+        "facing=east,index=27": {
+            "model": "metropolis:sign/train_stop_signs/sign_27",
+            "y": 90
+        },
+        "facing=south,index=27": {
+            "model": "metropolis:sign/train_stop_signs/sign_27",
+            "y": 180
+        },
+        "facing=west,index=27": {
+            "model": "metropolis:sign/train_stop_signs/sign_27",
+            "y": 270
+        },
+
+        "facing=north,index=28": {
+            "model": "metropolis:sign/train_stop_signs/sign_28",
+            "y": 0
+        },
+        "facing=east,index=28": {
+            "model": "metropolis:sign/train_stop_signs/sign_28",
+            "y": 90
+        },
+        "facing=south,index=28": {
+            "model": "metropolis:sign/train_stop_signs/sign_28",
+            "y": 180
+        },
+        "facing=west,index=28": {
+            "model": "metropolis:sign/train_stop_signs/sign_28",
+            "y": 270
+        },
+
+        "facing=north,index=29": {
+            "model": "metropolis:sign/train_stop_signs/sign_29",
+            "y": 0
+        },
+        "facing=east,index=29": {
+            "model": "metropolis:sign/train_stop_signs/sign_29",
+            "y": 90
+        },
+        "facing=south,index=29": {
+            "model": "metropolis:sign/train_stop_signs/sign_29",
+            "y": 180
+        },
+        "facing=west,index=29": {
+            "model": "metropolis:sign/train_stop_signs/sign_29",
+            "y": 270
+        },
+
+        "facing=north,index=30": {
+            "model": "metropolis:sign/train_stop_signs/sign_30",
+            "y": 0
+        },
+        "facing=east,index=30": {
+            "model": "metropolis:sign/train_stop_signs/sign_30",
+            "y": 90
+        },
+        "facing=south,index=30": {
+            "model": "metropolis:sign/train_stop_signs/sign_30",
+            "y": 180
+        },
+        "facing=west,index=30": {
+            "model": "metropolis:sign/train_stop_signs/sign_30",
+            "y": 270
+        },
+
+        "facing=north,index=31": {
+            "model": "metropolis:sign/train_stop_signs/sign_31",
+            "y": 0
+        },
+        "facing=east,index=31": {
+            "model": "metropolis:sign/train_stop_signs/sign_31",
+            "y": 90
+        },
+        "facing=south,index=31": {
+            "model": "metropolis:sign/train_stop_signs/sign_31",
+            "y": 180
+        },
+        "facing=west,index=31": {
+            "model": "metropolis:sign/train_stop_signs/sign_31",
+            "y": 270
+        },
+
+        "facing=north,index=32": {
+            "model": "metropolis:sign/train_stop_signs/sign_32",
+            "y": 0
+        },
+        "facing=east,index=32": {
+            "model": "metropolis:sign/train_stop_signs/sign_32",
+            "y": 90
+        },
+        "facing=south,index=32": {
+            "model": "metropolis:sign/train_stop_signs/sign_32",
+            "y": 180
+        },
+        "facing=west,index=32": {
+            "model": "metropolis:sign/train_stop_signs/sign_32",
             "y": 270
         }
     }

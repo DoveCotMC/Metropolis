@@ -1,28 +1,30 @@
 package team.dovecotmc.metropolis.block;
 
+import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.EntityBlock;
 import net.minecraft.world.level.block.HorizontalDirectionalBlock;
-import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import org.jetbrains.annotations.Nullable;
-import team.dovecotmc.metropolis.block.entity.BlockEntityTrainStopSign;
+import team.dovecotmc.metropolis.client.gui.train_stop_sign.TrainStopSignScreen;
 import team.dovecotmc.metropolis.util.MetroBlockUtil;
 
-public class BlockTrainStopSign extends HorizontalDirectionalBlock implements EntityBlock {
+public class BlockTrainStopSign extends HorizontalDirectionalBlock {
+    public static final IntegerProperty INDEX = IntegerProperty.create("index", 0, 32);
+
     public BlockTrainStopSign(Properties properties) {
         super(properties.noOcclusion());
     }
@@ -36,6 +38,12 @@ public class BlockTrainStopSign extends HorizontalDirectionalBlock implements En
 //                serverPlayer.connection.send(blockEntityTrainStopSign.getUpdatePacket());
 //            \
 //        }
+        if (player.getItemInHand(InteractionHand.MAIN_HAND).getItem().equals(Items.INK_SAC)) {
+            if (level.isClientSide()) {
+                Minecraft.getInstance().setScreen(new TrainStopSignScreen(blockState.getValue(INDEX), blockPos));
+            }
+            return InteractionResult.SUCCESS;
+        }
 
         return InteractionResult.PASS;
     }
@@ -58,16 +66,11 @@ public class BlockTrainStopSign extends HorizontalDirectionalBlock implements En
     }
 
     public BlockState getStateForPlacement(BlockPlaceContext ctx) {
-        return this.defaultBlockState().setValue(FACING, ctx.getHorizontalDirection().getOpposite());
+        return this.defaultBlockState().setValue(FACING, ctx.getHorizontalDirection().getOpposite()).setValue(INDEX, 0);
     }
 
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
-        builder.add(FACING);
-    }
-
-    @Override
-    public @Nullable BlockEntity newBlockEntity(BlockPos blockPos, BlockState blockState) {
-        return new BlockEntityTrainStopSign(blockPos, blockState);
+        builder.add(FACING, INDEX);
     }
 }

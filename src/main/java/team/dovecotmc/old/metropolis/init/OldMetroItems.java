@@ -17,10 +17,10 @@ public class OldMetroItems {
     public static final Item ITEM_SECURITY_INSPECTION_MACHINE = register("security_inspection_machine", new BlockItem(OldMetroBlocks.BLOCK_SECURITY_INSPECTION_MACHINE, new Item.Properties()));
 
     // PSD
-    public static final Item ITEM_PSD_JR_DOOR_1 = register("psd_jr_door_1", new ItemBlockWithTooltips(OldMetroBlocks.BLOCK_PSD_JR_DOOR_1, new Item.Properties()), false);
-    public static final Item ITEM_PSD_JR_DOOR_2 = register("psd_jr_door_2", new ItemBlockWithTooltips(OldMetroBlocks.BLOCK_PSD_JR_DOOR_2, new Item.Properties()), false);
-    public static final Item ITEM_PSD_JR_FENCE_1 = register("psd_jr_fence_1", new ItemBlockWithTooltips(OldMetroBlocks.BLOCK_PSD_JR_FENCE_1, new Item.Properties()), false);
-    public static final Item ITEM_PSD_JR_FENCE_2 = register("psd_jr_fence_2", new ItemBlockWithTooltips(OldMetroBlocks.BLOCK_PSD_JR_FENCE_2, new Item.Properties()), false);
+    public static final Item ITEM_PSD_JR_DOOR_1 = register("psd_jr_door_1", new BlockItemWithTooltips(OldMetroBlocks.BLOCK_PSD_JR_DOOR_1, new Item.Properties()), false);
+    public static final Item ITEM_PSD_JR_DOOR_2 = register("psd_jr_door_2", new BlockItemWithTooltips(OldMetroBlocks.BLOCK_PSD_JR_DOOR_2, new Item.Properties()), false);
+    public static final Item ITEM_PSD_JR_FENCE_1 = register("psd_jr_fence_1", new BlockItemWithTooltips(OldMetroBlocks.BLOCK_PSD_JR_FENCE_1, new Item.Properties()), false);
+    public static final Item ITEM_PSD_JR_FENCE_2 = register("psd_jr_fence_2", new BlockItemWithTooltips(OldMetroBlocks.BLOCK_PSD_JR_FENCE_2, new Item.Properties()), false);
 
     // Ticket System
     public static final Item ITEM_SINGLE_TRIP_TICKET = register("single_trip_ticket", new ItemTicket(new Item.Properties(), true));
@@ -30,8 +30,8 @@ public class OldMetroItems {
     public static final Item ITEM_EXIT_TICKET = register("exit_ticket", new ItemExitTicket(new Item.Properties()));
 
     // Vendors
-    public static final Item ITEM_TICKET_VENDOR_TOP = register("ticket_vendor_top", new ItemBlockWithTooltips(OldMetroBlocks.BLOCK_TICKET_VENDOR_TOP, new Item.Properties()));
-    public static final Item ITEM_TICKET_VENDOR_PANEL = register("ticket_vendor_panel", new ItemBlockWithTooltips(OldMetroBlocks.BLOCK_TICKET_VENDOR_PANEL, new Item.Properties()));
+    public static final Item ITEM_TICKET_VENDOR_TOP = register("ticket_vendor_top", new BlockItemWithTooltips(OldMetroBlocks.BLOCK_TICKET_VENDOR_TOP, new Item.Properties()));
+    public static final Item ITEM_TICKET_VENDOR_PANEL = register("ticket_vendor_panel", new BlockItemWithTooltips(OldMetroBlocks.BLOCK_TICKET_VENDOR_PANEL, new Item.Properties()));
     public static final Item ITEM_TICKET_VENDOR_EM10 = register("ticket_vendor_em10", new ItemBlockWithTooltipShowStationHUD(OldMetroBlocks.BLOCK_TICKET_VENDOR_EM10, new Item.Properties()));
     public static final Item ITEM_TICKET_VENDOR_EV23 = register("ticket_vendor_ev23", new ItemBlockWithTooltipShowStationHUD(OldMetroBlocks.BLOCK_TICKET_VENDOR_EV23, new Item.Properties()));
     public static final Item ITEM_FARE_ADJ_EV23 = register("fare_adj_ev23", new ItemBlockWithTooltipShowStationHUD(OldMetroBlocks.BLOCK_FARE_ADJ_EV23_YELLOW, new Item.Properties()));

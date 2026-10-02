@@ -33,7 +33,7 @@ public class MetroItems {
 
     // Sign
     public static final Item ITEM_SIGN_NO_PHOTO = register("sign_no_photo", new BlockItem(MetroBlocks.BLOCK_SIGN_NO_PHOTO, new Item.Properties()), false);
-    public static final Item ITEM_TRAIN_STOP_SIGN = register("train_stop_sign", new BlockItem(MetroBlocks.BLOCK_TRAIN_STOP_SIGN, new Item.Properties()));
+    public static final Item ITEM_TRAIN_STOP_SIGN = register("train_stop_sign", new BlockItemWithTooltips(MetroBlocks.BLOCK_TRAIN_STOP_SIGN, new Item.Properties()));
     public static final Item ITEM_TRACKSIDE_SIGN_PILLAR = register("trackside_sign_pillar", new BlockItem(MetroBlocks.BLOCK_TRACKSIDE_SIGN_PILLAR, new Item.Properties()));
 
     // Ticket Machine
@@ -69,10 +69,10 @@ public class MetroItems {
     public static final Item ITEM_TILES_SMALL_GRAY = register("tiles_small_gray", new BlockItem(MetroBlocks.BLOCK_TILES_SMALL_GRAY, new Item.Properties()));
 
     // Cordon blocks
-    public static final Item ITEM_CORDON_YELLOW_BLACK = register("cordon_yellow_black", new ItemBlockWithTooltips(MetroBlocks.BLOCK_CORDON_YELLOW_BLACK, new Item.Properties()));
-    public static final Item ITEM_CORDON_YELLOW_WHITE = register("cordon_yellow_white", new ItemBlockWithTooltips(MetroBlocks.BLOCK_CORDON_YELLOW_WHITE, new Item.Properties()));
-    public static final Item ITEM_CORDON_RED_BLACK = register("cordon_red_black", new ItemBlockWithTooltips(MetroBlocks.BLOCK_CORDON_RED_BLACK, new Item.Properties()));
-    public static final Item ITEM_CORDON_RED_WHITE = register("cordon_red_white", new ItemBlockWithTooltips(MetroBlocks.BLOCK_CORDON_RED_WHITE, new Item.Properties()));
+    public static final Item ITEM_CORDON_YELLOW_BLACK = register("cordon_yellow_black", new BlockItemWithTooltips(MetroBlocks.BLOCK_CORDON_YELLOW_BLACK, new Item.Properties()));
+    public static final Item ITEM_CORDON_YELLOW_WHITE = register("cordon_yellow_white", new BlockItemWithTooltips(MetroBlocks.BLOCK_CORDON_YELLOW_WHITE, new Item.Properties()));
+    public static final Item ITEM_CORDON_RED_BLACK = register("cordon_red_black", new BlockItemWithTooltips(MetroBlocks.BLOCK_CORDON_RED_BLACK, new Item.Properties()));
+    public static final Item ITEM_CORDON_RED_WHITE = register("cordon_red_white", new BlockItemWithTooltips(MetroBlocks.BLOCK_CORDON_RED_WHITE, new Item.Properties()));
 
     // Bench
     public static final Item ITEM_BENCH = register("bench", new BlockItem(MetroBlocks.BLOCK_BENCH, new Item.Properties()));

@@ -1,0 +1,6 @@
+{
+    "parent": "metropolis:sign/train_stop_sign_number",
+    "textures": {
+        "1": "metropolis:block/sign/train_stop_sign/numbers/18"
+    }
+}

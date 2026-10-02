@@ -1,7 +1,7 @@
 {
     "variants": {
         "": {
-            "model": "metropolis:sign/train_stop_sign_pillar"
+            "model": "metropolis:sign/sign_pillar"
         }
     }
 }

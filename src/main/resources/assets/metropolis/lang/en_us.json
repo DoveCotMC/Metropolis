@@ -149,6 +149,7 @@
     "block.metropolis.camera_ceiling": "Security Camera",
 
     "block.metropolis.train_stop_sign": "Train Stop Sign",
+    "tooltip.metropolis.train_stop_sign": "Use Ink Sac to change content",
     "block.metropolis.trackside_sign_pillar": "Trackside Sign Pillar",
 
     "block.metropolis.sign_no_photo": "Sign (No photos)",

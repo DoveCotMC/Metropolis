@@ -14,6 +14,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.phys.Vec3;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import team.dovecotmc.metropolis.network.MetroServerNetworking;
 import team.dovecotmc.old.metropolis.OldMetropolis;
 import team.dovecotmc.metropolis.block.MetroBlocks;
 import team.dovecotmc.metropolis.block.entity.MetroBlockEntities;
@@ -55,6 +56,7 @@ public class Metropolis implements ModInitializer {
         MetroBlockEntities.initialize();
         MetroEntities.initialize();
         MetroItems.initialize();
+        MetroServerNetworking.initialize();
         SittableRegistries.registerSittable(new SittableRegistry(MetroBlocks.BLOCK_BENCH, (state, player, hit) -> Optional.of(new Vec3(0.5, 0.1, 0.5))));
 
         OldMetropolis.initializeOldContent();

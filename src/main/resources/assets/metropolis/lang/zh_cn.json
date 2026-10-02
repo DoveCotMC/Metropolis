@@ -144,6 +144,7 @@
     "block.metropolis.turnstile_ic_only.exit": "闸机（仅IC卡，出口）",
 
     "block.metropolis.train_stop_sign": "停车标",
+    "tooltip.metropolis.train_stop_sign": "使用墨囊以更改内容",
     "block.metropolis.trackside_sign_pillar": "信号牌柱",
 
     "block.metropolis.camera_ceiling": "摄像头",
