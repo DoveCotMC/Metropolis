@@ -34,6 +34,7 @@ public class MetroItems {
     // Sign
     public static final Item ITEM_SIGN_NO_PHOTO = register("sign_no_photo", new BlockItem(MetroBlocks.BLOCK_SIGN_NO_PHOTO, new Item.Properties()), false);
     public static final Item ITEM_TRAIN_STOP_SIGN = register("train_stop_sign", new BlockItemWithTooltips(MetroBlocks.BLOCK_TRAIN_STOP_SIGN, new Item.Properties()));
+    public static final Item ITEM_TRAIN_SPEED_LIMIT_SIGN = register("train_speed_limit_sign", new BlockItemWithTooltips(MetroBlocks.BLOCK_TRAIN_SPEED_LIMIT_SIGN, new Item.Properties()));
     public static final Item ITEM_TRACKSIDE_SIGN_PILLAR = register("trackside_sign_pillar", new BlockItem(MetroBlocks.BLOCK_TRACKSIDE_SIGN_PILLAR, new Item.Properties()));
 
     // Ticket Machine

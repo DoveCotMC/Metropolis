@@ -1,0 +1,51 @@
+{
+	"format_version": "1.21.6",
+	"credit": "Made with Blockbench",
+	"texture_size": [32, 32],
+	"textures": {
+		"0": "metropolis:block/sign/trackside_sign_pillar",
+		"1": "metropolis:block/sign/train_speed_limit_sign/train_speed_limit_sign",
+		"particle": "metropolis:block/sign/trackside_sign_pillar"
+	},
+	"elements": [
+		{
+			"from": [7, 0, 7],
+			"to": [9, 16, 9],
+			"rotation": {"angle": 0, "axis": "y", "origin": [8, 8, 8]},
+			"faces": {
+				"north": {"uv": [0, 0, 2, 16], "texture": "#0"},
+				"east": {"uv": [2, 0, 4, 16], "texture": "#0"},
+				"south": {"uv": [4, 0, 6, 16], "texture": "#0"},
+				"west": {"uv": [6, 0, 8, 16], "texture": "#0"},
+				"up": {"uv": [10, 2, 8, 0], "texture": "#0"},
+				"down": {"uv": [10, 2, 8, 4], "texture": "#0"}
+			}
+		},
+		{
+			"from": [3, 4.5, 6.1],
+			"to": [13, 11.5, 7.5999],
+			"rotation": {"angle": 0, "axis": "y", "origin": [4, 7, 6.35]},
+			"faces": {
+				"north": {"uv": [0, 0, 5, 3.5], "texture": "#1"},
+				"east": {"uv": [5, 1, 5.5, 4.5], "texture": "#1"},
+				"south": {"uv": [0, 3.5, 5, 7], "texture": "#1"},
+				"west": {"uv": [5, 4.5, 5.5, 8], "texture": "#1"},
+				"up": {"uv": [10, 0.5, 5, 0], "texture": "#1"},
+				"down": {"uv": [10, 0.5, 5, 1], "texture": "#1"}
+			}
+		},
+		{
+			"from": [3, 4.5, 6],
+			"to": [13, 11.5, 6],
+			"rotation": {"angle": 0, "axis": "y", "origin": [2, 3.5, 6]},
+			"faces": {
+				"north": {"uv": [5.5, 1, 10.5, 4.5], "texture": "#1"},
+				"east": {"uv": [0, 0, 0, 4.5], "texture": "#1"},
+				"south": {"uv": [5.5, 1, 10.5, 4.5], "texture": "#1"},
+				"west": {"uv": [0, 0, 0, 4.5], "texture": "#1"},
+				"up": {"uv": [0, 0, 6, 0], "texture": "#1"},
+				"down": {"uv": [0, 0, 6, 0], "texture": "#1"}
+			}
+		}
+	]
+}

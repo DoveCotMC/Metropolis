@@ -1,0 +1,20 @@
+{
+    "variants": {
+        "facing=north": {
+            "model": "metropolis:sign/train_speed_limit_sign/train_speed_limit_sign_remove",
+            "y": 0
+        },
+        "facing=east": {
+            "model": "metropolis:sign/train_speed_limit_sign/train_speed_limit_sign_remove",
+            "y": 90
+        },
+        "facing=south": {
+            "model": "metropolis:sign/train_speed_limit_sign/train_speed_limit_sign_remove",
+            "y": 180
+        },
+        "facing=west": {
+            "model": "metropolis:sign/train_speed_limit_sign/train_speed_limit_sign_remove",
+            "y": 270
+        }
+    }
+}

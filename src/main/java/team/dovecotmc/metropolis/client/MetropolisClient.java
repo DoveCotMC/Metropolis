@@ -64,6 +64,7 @@ public class MetropolisClient implements ClientModInitializer {
 
     private void registerRenderLayers() {
         BlockRenderLayerMap.INSTANCE.putBlock(MetroBlocks.BLOCK_TRAIN_STOP_SIGN, RenderType.cutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(MetroBlocks.BLOCK_TRAIN_SPEED_LIMIT_SIGN, RenderType.cutout());
         BlockRenderLayerMap.INSTANCE.putBlock(MetroBlocks.BLOCK_TRACKSIDE_SIGN_PILLAR, RenderType.cutout());
         BlockRenderLayerMap.INSTANCE.putBlock(MetroBlocks.BLOCK_BLIND_PATH, RenderType.cutout());
         BlockRenderLayerMap.INSTANCE.putBlock(MetroBlocks.BLOCK_PLATFORM_DOOR_CONTROLLER_PILLAR, RenderType.cutout());

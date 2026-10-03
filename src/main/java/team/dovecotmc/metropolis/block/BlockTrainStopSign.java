@@ -19,14 +19,15 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
+import org.jetbrains.annotations.Nullable;
 import team.dovecotmc.metropolis.client.gui.train_stop_sign.TrainStopSignScreen;
 import team.dovecotmc.metropolis.util.MetroBlockUtil;
 
-public class BlockTrainStopSign extends HorizontalDirectionalBlock {
+public class BlockTrainStopSign extends AbstractBlockTracksideSignBase {
     public static final IntegerProperty INDEX = IntegerProperty.create("index", 0, 32);
 
     public BlockTrainStopSign(Properties properties) {
-        super(properties.noOcclusion());
+        super(properties);
     }
 
     @Override
@@ -65,12 +66,19 @@ public class BlockTrainStopSign extends HorizontalDirectionalBlock {
         );
     }
 
-    public BlockState getStateForPlacement(BlockPlaceContext ctx) {
-        return this.defaultBlockState().setValue(FACING, ctx.getHorizontalDirection().getOpposite()).setValue(INDEX, 0);
+    @Override
+    public @Nullable BlockState getStateForPlacement(BlockPlaceContext blockPlaceContext) {
+        BlockState state = super.getStateForPlacement(blockPlaceContext);
+
+        if (state == null)
+            return null;
+
+        return state.setValue(INDEX, 0);
     }
 
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
-        builder.add(FACING, INDEX);
+        super.createBlockStateDefinition(builder);
+        builder.add(INDEX);
     }
 }
