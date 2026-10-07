@@ -20,6 +20,7 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.Nullable;
+import team.dovecotmc.metropolis.client.gui.GUIManager;
 import team.dovecotmc.metropolis.client.gui.train_stop_sign.TrainStopSignScreen;
 import team.dovecotmc.metropolis.util.MetroBlockUtil;
 
@@ -41,7 +42,7 @@ public class BlockTrainStopSign extends AbstractBlockTracksideSignBase {
 //        }
         if (player.getItemInHand(InteractionHand.MAIN_HAND).getItem().equals(Items.INK_SAC)) {
             if (level.isClientSide()) {
-                Minecraft.getInstance().setScreen(new TrainStopSignScreen(blockState.getValue(INDEX), blockPos));
+                GUIManager.openTrainStopSignEditScreen(blockState, blockState.getValue(INDEX), blockPos);
             }
             return InteractionResult.SUCCESS;
         }
