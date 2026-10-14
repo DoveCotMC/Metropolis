@@ -45,6 +45,7 @@ public class Metropolis implements ModInitializer {
                         for (Item tabItem : MetroItems.getTabItems()) {
                             output.accept(tabItem);
                         }
+                        output.accept(MetroItems.ITEM_BENCH);
                     })
                     .build()
     );
