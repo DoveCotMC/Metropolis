@@ -33,6 +33,7 @@ public class OldMetropolisClient {
         if (isMtr4Loaded) {
             Metropolis.LOGGER.info("MTR 4 detected! Loading legacy client content.");
             OldMetroClientNetwork.registerAll();
+            MtrPlatformDoorClientIntegration.initialize();
 
             HudRenderCallback.EVENT.register(BLOCK_PLACE_HUD::render);
 

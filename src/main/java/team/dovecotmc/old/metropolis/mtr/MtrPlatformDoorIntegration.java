@@ -7,6 +7,7 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
 import net.minecraft.server.level.ServerPlayer;
@@ -48,11 +49,11 @@ public final class MtrPlatformDoorIntegration {
                 return InteractionResult.SUCCESS;
             }
 
-            boolean enabled = doorEntity.isAutomaticOpeningEnabled();
+            boolean enabled = !doorEntity.isAutomaticOpeningEnabled();
             Set<BlockPos> connectedDoors = findConnectedDoors(level, doorPos);
             for (BlockPos connectedPos : connectedDoors) {
                 if (level.getBlockEntity(connectedPos) instanceof BlockEntityPlatformDoor connectedEntity) {
-                    enabled = connectedEntity.toggleAutomaticOpening();
+                    connectedEntity.setAutomaticOpeningEnabled(enabled);
                     BlockState doorState = level.getBlockState(connectedPos);
                     level.blockEntityChanged(connectedPos);
                     level.sendBlockUpdated(connectedPos, doorState, doorState, 3);
@@ -74,22 +75,24 @@ public final class MtrPlatformDoorIntegration {
         });
     }
 
-    private static Set<BlockPos> findConnectedDoors(net.minecraft.world.level.Level level, BlockPos start) {
+    private static Set<BlockPos> findConnectedDoors(Level level, BlockPos start) {
         Set<BlockPos> connected = new HashSet<>();
         Queue<BlockPos> queue = new ArrayDeque<>();
+        connected.add(start);
         queue.add(start);
 
         while (!queue.isEmpty()) {
             BlockPos current = queue.remove();
-            if (!connected.add(current)) {
-                continue;
-            }
             for (Direction direction : Direction.Plane.HORIZONTAL) {
                 BlockPos next = current.relative(direction);
+                if (connected.contains(next) || !level.hasChunkAt(next)) {
+                    continue;
+                }
                 BlockState nextState = level.getBlockState(next);
                 if (nextState.getBlock() instanceof AbstractBlockPlatformDoor
                         && nextState.getValue(AbstractBlockPlatformDoor.HALF) == DoubleBlockHalf.LOWER
                         && level.getBlockEntity(next) instanceof BlockEntityPlatformDoor) {
+                    connected.add(next);
                     queue.add(next);
                 }
             }

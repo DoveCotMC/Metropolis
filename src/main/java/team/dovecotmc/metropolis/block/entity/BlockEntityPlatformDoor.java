@@ -1,5 +1,6 @@
 package team.dovecotmc.metropolis.block.entity;
 
+import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.Packet;
@@ -11,13 +12,19 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.function.Consumer;
+
 public class BlockEntityPlatformDoor extends BlockEntity {
     public static final int ANIMATION_TIME = 20;
+    private static final boolean MTR_LOADED = FabricLoader.getInstance().isModLoaded("mtr");
+    private static @Nullable Consumer<BlockEntityPlatformDoor> clientStateInitializer;
 
     private @Nullable BlockPos controllerPos = null;
     private long lastToggleTime = 0;
     private @Nullable Float externalOpenValue = null;
-    private boolean automaticOpeningEnabled = true;
+    private boolean automaticOpeningEnabled = MTR_LOADED;
+    private boolean manualOpenState = false;
+    private boolean clientStateNeedsRefresh = true;
 
     public BlockEntityPlatformDoor(BlockPos blockPos, BlockState blockState) {
         super(MetroBlockEntities.PLATFORM_DOOR_BLOCK_ENTITY, blockPos, blockState);
@@ -31,26 +38,58 @@ public class BlockEntityPlatformDoor extends BlockEntity {
     }
 
     public void setExternalOpenValue(float openValue) {
-        if (automaticOpeningEnabled) {
-            externalOpenValue = Mth.clamp(openValue, 0f, 1f);
+        externalOpenValue = Mth.clamp(openValue, 0f, 1f);
+    }
+
+    public static void setClientStateInitializer(Consumer<BlockEntityPlatformDoor> initializer) {
+        clientStateInitializer = initializer;
+    }
+
+    public void clientTick() {
+        if (clientStateNeedsRefresh && clientStateInitializer != null) {
+            clientStateNeedsRefresh = false;
+            clientStateInitializer.accept(this);
         }
+    }
+
+    public float getCurrentOpenValue(Level level, float partialTick) {
+        if (isAutomaticOpeningEnabled()) {
+            return externalOpenValue == null ? 0f : externalOpenValue;
+        }
+        float progress = getOpenValue(level, partialTick);
+        return manualOpenState ? progress : 1f - progress;
+    }
+
+    public boolean isOpen() {
+        return isAutomaticOpeningEnabled()
+                ? externalOpenValue != null && externalOpenValue > 0f
+                : manualOpenState;
     }
 
     public @Nullable Float getExternalOpenValue() {
-        return automaticOpeningEnabled ? externalOpenValue : null;
+        return isAutomaticOpeningEnabled() ? externalOpenValue : null;
     }
 
     public boolean isAutomaticOpeningEnabled() {
-        return automaticOpeningEnabled;
+        return MTR_LOADED && automaticOpeningEnabled;
     }
 
-    public boolean toggleAutomaticOpening() {
-        automaticOpeningEnabled = !automaticOpeningEnabled;
-        if (!automaticOpeningEnabled) {
-            externalOpenValue = null;
+    public boolean getManualOpenState() {
+        return manualOpenState;
+    }
+
+    public void setManualOpenState(boolean openState) {
+        if (manualOpenState != openState) {
+            manualOpenState = openState;
+            setChanged();
         }
-        setChanged();
-        return automaticOpeningEnabled;
+    }
+
+    public void setAutomaticOpeningEnabled(boolean enabled) {
+        if (automaticOpeningEnabled != enabled) {
+            automaticOpeningEnabled = enabled;
+            setChanged();
+        }
     }
 
     public void setBindingBlock(BlockPos blockPos) {
@@ -69,10 +108,11 @@ public class BlockEntityPlatformDoor extends BlockEntity {
             controllerPos = BlockPos.of(compoundTag.getLong("controller_pos"));
 
         lastToggleTime = compoundTag.getLong("last_toggle_time");
-        automaticOpeningEnabled = !compoundTag.contains("automatic_opening_enabled") || compoundTag.getBoolean("automatic_opening_enabled");
-        if (!automaticOpeningEnabled) {
-            externalOpenValue = null;
-        }
+        automaticOpeningEnabled = compoundTag.contains("automatic_opening_enabled")
+                ? compoundTag.getBoolean("automatic_opening_enabled")
+                : MTR_LOADED;
+        manualOpenState = compoundTag.getBoolean("manual_open_state");
+        clientStateNeedsRefresh = true;
     }
 
     @Override
@@ -84,6 +124,7 @@ public class BlockEntityPlatformDoor extends BlockEntity {
 
         compoundTag.putLong("last_toggle_time", lastToggleTime);
         compoundTag.putBoolean("automatic_opening_enabled", automaticOpeningEnabled);
+        compoundTag.putBoolean("manual_open_state", manualOpenState);
     }
 
     @Nullable

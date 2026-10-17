@@ -20,11 +20,7 @@ public class PlatformDoorBlockEntityRenderer implements BlockEntityRenderer<Bloc
         Minecraft mc = Minecraft.getInstance();
         BlockState state = blockEntity.getBlockState();
 
-        Float externalOpenValue = blockEntity.getExternalOpenValue();
-        float openValue = externalOpenValue != null ? externalOpenValue : blockEntity.getOpenValue(blockEntity.getLevel(), f);
-        if (externalOpenValue == null && !state.getValue(AbstractBlockPlatformDoor.OPEN)) {
-            openValue = 1f - openValue;
-        }
+        float openValue = blockEntity.getCurrentOpenValue(blockEntity.getLevel(), f);
         float offset = openValue * 14.5f / 16f;
 
         if (state.getValue(AbstractBlockPlatformDoor.FLIPPED))

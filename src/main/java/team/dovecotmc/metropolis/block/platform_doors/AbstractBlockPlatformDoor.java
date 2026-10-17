@@ -8,16 +8,16 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.EntityBlock;
 import net.minecraft.world.level.block.RenderShape;
 import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntityTicker;
+import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
-import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
 import org.jetbrains.annotations.Nullable;
 import team.dovecotmc.metropolis.block.entity.BlockEntityPlatformDoor;
 
 public abstract class AbstractBlockPlatformDoor extends AbstractBlockPlatformFence implements EntityBlock {
-    public static final BooleanProperty OPEN = BlockStateProperties.OPEN;
     public static final BooleanProperty FLIPPED = BooleanProperty.create("flipped");
 
     public AbstractBlockPlatformDoor(Properties properties) {
@@ -25,22 +25,28 @@ public abstract class AbstractBlockPlatformDoor extends AbstractBlockPlatformFen
     }
 
     public void setOpenState(Level level, BlockPos blockPos, boolean openState) {
-        BlockState doorState = level.getBlockState(blockPos);
         BlockEntity rawEntity = level.getBlockEntity(blockPos);
 
-        if (doorState.getValue(AbstractBlockPlatformDoor.OPEN) != openState) {
-            if (rawEntity instanceof BlockEntityPlatformDoor blockEntity) {
-                if (blockEntity.isAutomaticOpeningEnabled()) {
-                    return;
-                }
+        if (rawEntity instanceof BlockEntityPlatformDoor blockEntity) {
+            boolean changed = blockEntity.getManualOpenState() != openState;
+            blockEntity.setManualOpenState(openState);
+            if (changed && !blockEntity.isAutomaticOpeningEnabled()) {
                 blockEntity.setBindingBlock(blockPos);
                 blockEntity.setLastToggleTime(level.getGameTime());
-
                 level.blockEntityChanged(blockPos);
-                level.setBlockAndUpdate(blockPos, doorState.setValue(AbstractBlockPlatformDoor.OPEN, openState));
-                level.setBlockAndUpdate(blockPos.above(), level.getBlockState(blockPos.above()).setValue(AbstractBlockPlatformDoor.OPEN, openState));
+                BlockState state = level.getBlockState(blockPos);
+                level.sendBlockUpdated(blockPos, state, state, Block.UPDATE_CLIENTS);
             }
         }
+    }
+
+    @Override
+    public @Nullable <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
+        return level.isClientSide ? (world, pos, blockState, entity) -> {
+            if (entity instanceof BlockEntityPlatformDoor doorEntity) {
+                doorEntity.clientTick();
+            }
+        } : null;
     }
 
     @Override
@@ -60,13 +66,13 @@ public abstract class AbstractBlockPlatformDoor extends AbstractBlockPlatformFen
             flipped = false;
         }
 
-        return state.setValue(OPEN, false).setValue(FLIPPED, flipped);
+        return state.setValue(FLIPPED, flipped);
     }
 
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
         super.createBlockStateDefinition(builder);
-        builder.add(OPEN, FLIPPED);
+        builder.add(FLIPPED);
     }
 
     @Override

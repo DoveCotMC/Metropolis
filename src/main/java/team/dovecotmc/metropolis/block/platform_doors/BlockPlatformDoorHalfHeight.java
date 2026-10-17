@@ -8,10 +8,11 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import team.dovecotmc.metropolis.util.MetroBlockUtil;
+import team.dovecotmc.metropolis.block.entity.BlockEntityPlatformDoor;
 
 public class BlockPlatformDoorHalfHeight extends AbstractBlockPlatformDoor {
     public BlockPlatformDoorHalfHeight(Properties properties) {
-        super(properties);
+        super(properties.dynamicShape());
     }
 
     @Override
@@ -33,10 +34,14 @@ public class BlockPlatformDoorHalfHeight extends AbstractBlockPlatformDoor {
 
     @Override
     public VoxelShape getCollisionShape(BlockState blockState, BlockGetter blockGetter, BlockPos blockPos, CollisionContext collisionContext) {
-        if (blockState.getValue(OPEN)) {
-            return Shapes.empty();
-        } else {
-            return super.getCollisionShape(blockState, blockGetter, blockPos, collisionContext);
+        BlockPos lowerPos = blockState.getValue(HALF) == DoubleBlockHalf.UPPER ? blockPos.below() : blockPos;
+        if (blockGetter.getBlockEntity(lowerPos) instanceof BlockEntityPlatformDoor door) {
+            // Like MTR, automatic collision is evaluated by the client that receives vehicle door values.
+            if (door.isOpen() || door.isAutomaticOpeningEnabled()
+                    && door.getLevel() != null && !door.getLevel().isClientSide) {
+                return Shapes.empty();
+            }
         }
+        return super.getCollisionShape(blockState, blockGetter, blockPos, collisionContext);
     }
 }
