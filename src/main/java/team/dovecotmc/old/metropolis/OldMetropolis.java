@@ -1,8 +1,10 @@
 package team.dovecotmc.old.metropolis;
 
+import net.fabricmc.loader.api.FabricLoader;
 import team.dovecotmc.metropolis.Metropolis;
 import team.dovecotmc.old.metropolis.init.OldMetroBlocks;
 import team.dovecotmc.old.metropolis.init.OldMetroItems;
+import team.dovecotmc.old.metropolis.mtr.MtrPlatformDoorIntegration;
 import team.dovecotmc.old.metropolis.network.OldMetroServerNetwork;
 
 public class OldMetropolis {
@@ -10,21 +12,13 @@ public class OldMetropolis {
     private static boolean enableMtrContent = false;
 
     public static void initializeOldContent() {
-        boolean isMtr4Loaded;
-
-        try {
-            Class<?> clazz = Class.forName("org.mtr.mod.Init");
-            isMtr4Loaded = true;
-        } catch (ClassNotFoundException e) {
-            isMtr4Loaded = false;
-        }
-
-        enableMtrContent = isMtr4Loaded;
-        if (isMtr4Loaded) {
+        enableMtrContent = FabricLoader.getInstance().isModLoaded("mtr");
+        if (enableMtrContent) {
             Metropolis.LOGGER.info("MTR 4 detected! Loading legacy content.");
             OldMetroServerNetwork.registerAll();
             OldMetroBlocks.initialize();
             OldMetroItems.initialize();
+            MtrPlatformDoorIntegration.initialize();
         } else {
             Metropolis.LOGGER.info("MTR 4 not detected! Skipped legacy content.");
         }

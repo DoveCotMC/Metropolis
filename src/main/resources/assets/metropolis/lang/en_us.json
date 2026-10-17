@@ -169,6 +169,8 @@
     "block.metropolis.platform_door_half_height": "Half Height Platform Door",
     "block.metropolis.platform_door_half_height_glass": "Half Height Platform Door",
     "block.metropolis.platform_door_controller_pillar": "Platform Door Controller Pillar",
+    "message.metropolis.platform_door.automatic_opening_enabled": "Automatic platform door opening enabled",
+    "message.metropolis.platform_door.automatic_opening_disabled": "Automatic platform door opening disabled",
 
     "block.metropolis.security_door": "Security door",
     "block.metropolis.security_inspection_machine": "Security inspection machine",

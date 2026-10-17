@@ -77,7 +77,9 @@ public abstract class MixinRenderVehicleHelper {
 
                     if (block.data instanceof AbstractBlockPlatformDoor && blockState.data.getValue(AbstractBlockPlatformDoor.HALF) == net.minecraft.world.level.block.state.properties.DoubleBlockHalf.LOWER) {
                         if (clientWorld.data.getBlockEntity(checkPos.data) instanceof BlockEntityPlatformDoor doorEntity) {
-                            doorEntity.setExternalOpenValue((float) doorValue);
+                            if (doorEntity.isAutomaticOpeningEnabled()) {
+                                doorEntity.setExternalOpenValue((float) doorValue);
+                            }
                         }
                     }
                 }

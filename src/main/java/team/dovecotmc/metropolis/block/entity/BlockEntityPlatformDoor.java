@@ -17,6 +17,7 @@ public class BlockEntityPlatformDoor extends BlockEntity {
     private @Nullable BlockPos controllerPos = null;
     private long lastToggleTime = 0;
     private @Nullable Float externalOpenValue = null;
+    private boolean automaticOpeningEnabled = true;
 
     public BlockEntityPlatformDoor(BlockPos blockPos, BlockState blockState) {
         super(MetroBlockEntities.PLATFORM_DOOR_BLOCK_ENTITY, blockPos, blockState);
@@ -37,6 +38,19 @@ public class BlockEntityPlatformDoor extends BlockEntity {
         return externalOpenValue;
     }
 
+    public boolean isAutomaticOpeningEnabled() {
+        return automaticOpeningEnabled;
+    }
+
+    public boolean toggleAutomaticOpening() {
+        automaticOpeningEnabled = !automaticOpeningEnabled;
+        if (!automaticOpeningEnabled) {
+            externalOpenValue = null;
+        }
+        setChanged();
+        return automaticOpeningEnabled;
+    }
+
     public void setBindingBlock(BlockPos blockPos) {
         controllerPos = blockPos;
     }
@@ -53,6 +67,7 @@ public class BlockEntityPlatformDoor extends BlockEntity {
             controllerPos = BlockPos.of(compoundTag.getLong("controller_pos"));
 
         lastToggleTime = compoundTag.getLong("last_toggle_time");
+        automaticOpeningEnabled = !compoundTag.contains("automatic_opening_enabled") || compoundTag.getBoolean("automatic_opening_enabled");
     }
 
     @Override
@@ -63,6 +78,7 @@ public class BlockEntityPlatformDoor extends BlockEntity {
             compoundTag.putLong("controller_pos", controllerPos.asLong());
 
         compoundTag.putLong("last_toggle_time", lastToggleTime);
+        compoundTag.putBoolean("automatic_opening_enabled", automaticOpeningEnabled);
     }
 
     @Nullable
