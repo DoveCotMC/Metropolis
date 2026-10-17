@@ -11,6 +11,8 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import team.dovecotmc.metropolis.block.interfaces.IBlockPlatform;
+import team.dovecotmc.metropolis.block.entity.BlockEntityPlatformDoor;
+import team.dovecotmc.metropolis.block.platform_doors.AbstractBlockPlatformDoor;
 import team.dovecotmc.old.metropolis.block.interfaces.IBlockMTRPlatformDoor;
 
 /**
@@ -70,6 +72,12 @@ public abstract class MixinRenderVehicleHelper {
                                     checkPos.data,
                                     blockState.data
                             );
+                        }
+                    }
+
+                    if (block.data instanceof AbstractBlockPlatformDoor && blockState.data.getValue(AbstractBlockPlatformDoor.HALF) == net.minecraft.world.level.block.state.properties.DoubleBlockHalf.LOWER) {
+                        if (clientWorld.data.getBlockEntity(checkPos.data) instanceof BlockEntityPlatformDoor doorEntity) {
+                            doorEntity.setExternalOpenValue((float) doorValue);
                         }
                     }
                 }

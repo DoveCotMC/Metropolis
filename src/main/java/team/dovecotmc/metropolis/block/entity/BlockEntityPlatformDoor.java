@@ -16,6 +16,7 @@ public class BlockEntityPlatformDoor extends BlockEntity {
 
     private @Nullable BlockPos controllerPos = null;
     private long lastToggleTime = 0;
+    private @Nullable Float externalOpenValue = null;
 
     public BlockEntityPlatformDoor(BlockPos blockPos, BlockState blockState) {
         super(MetroBlockEntities.PLATFORM_DOOR_BLOCK_ENTITY, blockPos, blockState);
@@ -26,6 +27,14 @@ public class BlockEntityPlatformDoor extends BlockEntity {
             return 1f;
 
         return Mth.clamp((level.getGameTime() - lastToggleTime + f) / ANIMATION_TIME, 0f, 1f);
+    }
+
+    public void setExternalOpenValue(float openValue) {
+        externalOpenValue = Mth.clamp(openValue, 0f, 1f);
+    }
+
+    public @Nullable Float getExternalOpenValue() {
+        return externalOpenValue;
     }
 
     public void setBindingBlock(BlockPos blockPos) {

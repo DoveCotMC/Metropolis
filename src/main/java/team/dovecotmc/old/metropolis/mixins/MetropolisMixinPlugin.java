@@ -1,10 +1,9 @@
 package team.dovecotmc.old.metropolis.mixins;
 
 import org.objectweb.asm.tree.ClassNode;
+import net.fabricmc.loader.api.FabricLoader;
 import org.spongepowered.asm.mixin.extensibility.IMixinConfigPlugin;
 import org.spongepowered.asm.mixin.extensibility.IMixinInfo;
-import team.dovecotmc.old.metropolis.OldMetropolis;
-import team.dovecotmc.old.metropolis.util.MtrCommonUtil;
 
 import java.util.List;
 import java.util.Set;
@@ -21,12 +20,7 @@ public class MetropolisMixinPlugin implements IMixinConfigPlugin {
 
     @Override
     public boolean shouldApplyMixin(String targetClassName, String mixinClassName) {
-        try {
-            Class<?> clazz = Class.forName("org.mtr.mod.Init");
-            return true;
-        } catch (ClassNotFoundException e) {
-            return false;
-        }
+        return FabricLoader.getInstance().isModLoaded("mtr");
     }
 
     @Override

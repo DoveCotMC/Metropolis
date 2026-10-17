@@ -2,6 +2,7 @@
     "required": true,
     "minVersion": "0.8",
     "package": "team.dovecotmc.old.metropolis.mixins",
+    "plugin": "team.dovecotmc.old.metropolis.mixins.MetropolisMixinPlugin",
     "compatibilityLevel": "JAVA_17",
     "mixins": [
         "accessor.AccessorMTRMain",
