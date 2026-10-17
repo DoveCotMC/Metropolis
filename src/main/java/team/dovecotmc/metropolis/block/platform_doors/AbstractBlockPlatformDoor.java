@@ -30,6 +30,9 @@ public abstract class AbstractBlockPlatformDoor extends AbstractBlockPlatformFen
 
         if (doorState.getValue(AbstractBlockPlatformDoor.OPEN) != openState) {
             if (rawEntity instanceof BlockEntityPlatformDoor blockEntity) {
+                if (blockEntity.isAutomaticOpeningEnabled()) {
+                    return;
+                }
                 blockEntity.setBindingBlock(blockPos);
                 blockEntity.setLastToggleTime(level.getGameTime());
 

@@ -31,11 +31,13 @@ public class BlockEntityPlatformDoor extends BlockEntity {
     }
 
     public void setExternalOpenValue(float openValue) {
-        externalOpenValue = Mth.clamp(openValue, 0f, 1f);
+        if (automaticOpeningEnabled) {
+            externalOpenValue = Mth.clamp(openValue, 0f, 1f);
+        }
     }
 
     public @Nullable Float getExternalOpenValue() {
-        return externalOpenValue;
+        return automaticOpeningEnabled ? externalOpenValue : null;
     }
 
     public boolean isAutomaticOpeningEnabled() {
@@ -68,6 +70,9 @@ public class BlockEntityPlatformDoor extends BlockEntity {
 
         lastToggleTime = compoundTag.getLong("last_toggle_time");
         automaticOpeningEnabled = !compoundTag.contains("automatic_opening_enabled") || compoundTag.getBoolean("automatic_opening_enabled");
+        if (!automaticOpeningEnabled) {
+            externalOpenValue = null;
+        }
     }
 
     @Override

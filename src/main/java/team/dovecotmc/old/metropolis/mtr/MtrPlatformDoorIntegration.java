@@ -8,6 +8,7 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
+import net.minecraft.server.level.ServerPlayer;
 import team.dovecotmc.metropolis.block.entity.BlockEntityPlatformDoor;
 import team.dovecotmc.metropolis.block.platform_doors.AbstractBlockPlatformDoor;
 import team.dovecotmc.old.metropolis.util.MtrCommonUtil;
@@ -45,6 +46,9 @@ public final class MtrPlatformDoorIntegration {
             BlockState doorState = level.getBlockState(doorPos);
             level.blockEntityChanged(doorPos);
             level.sendBlockUpdated(doorPos, doorState, doorState, 3);
+            if (player instanceof ServerPlayer serverPlayer) {
+                serverPlayer.connection.send(doorEntity.getUpdatePacket());
+            }
             level.playSound(null, doorPos, SoundEvents.LEVER_CLICK, SoundSource.BLOCKS, 0.7F, enabled ? 1.2F : 0.8F);
             player.displayClientMessage(Component.translatable(
                     enabled
