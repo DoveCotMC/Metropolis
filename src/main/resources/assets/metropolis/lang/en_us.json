@@ -169,6 +169,7 @@
     "block.metropolis.platform_door_half_height": "Half Height Platform Door",
     "block.metropolis.platform_door_half_height_glass": "Half Height Platform Door",
     "block.metropolis.platform_door_controller_pillar": "Platform Door Controller Pillar",
+    "tooltip.metropolis.platform_door_controller_pillar": "Can be toggled by redstone",
 
     "block.metropolis.security_door": "Security door",
     "block.metropolis.security_inspection_machine": "Security inspection machine",
