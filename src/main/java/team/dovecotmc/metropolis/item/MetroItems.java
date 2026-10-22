@@ -4,6 +4,7 @@ import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.Item;
 import team.dovecotmc.metropolis.Metropolis;
 import team.dovecotmc.metropolis.block.MetroBlocks;
@@ -45,8 +46,8 @@ public class MetroItems {
 
     // Platform fence doors
     public static final Item ITEM_PLATFORM_FENCE_HALF_HEIGHT = register("platform_fence_half_height", new BlockItem(MetroBlocks.BLOCK_PLATFORM_FENCE_HALF_HEIGHT, new Item.Properties()));
-    public static final Item ITEM_PLATFORM_DOOR_HALF_HEIGHT = register("platform_door_half_height", new BlockItem(MetroBlocks.BLOCK_PLATFORM_DOOR_HALF_HEIGHT, new Item.Properties()));
-    public static final Item ITEM_PLATFORM_DOOR_HALF_HEIGHT_GLASS = register("platform_door_half_height_glass", new BlockItem(MetroBlocks.BLOCK_PLATFORM_DOOR_HALF_HEIGHT_GLASS, new Item.Properties()));
+    public static final Item ITEM_PLATFORM_DOOR_HALF_HEIGHT = register("platform_door_half_height", new BlockItem(MetroBlocks.BLOCK_PLATFORM_DOOR_HALF_HEIGHT_MAP.get(DyeColor.WHITE), new Item.Properties()));
+    public static final Item ITEM_PLATFORM_DOOR_HALF_HEIGHT_GLASS = register("platform_door_half_height_glass", new BlockItem(MetroBlocks.BLOCK_PLATFORM_DOOR_HALF_HEIGHT_GLASS_MAP.get(DyeColor.WHITE), new Item.Properties()));
 
     // Platform door controllers
     public static final Item ITEM_PLATFORM_DOOR_CONTROLLER_PILLAR = register("platform_door_controller_pillar", new BlockItemWithTooltips(MetroBlocks.BLOCK_PLATFORM_DOOR_CONTROLLER_PILLAR, new Item.Properties()));

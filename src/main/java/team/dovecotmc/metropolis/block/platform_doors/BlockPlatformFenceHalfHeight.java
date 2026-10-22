@@ -1,6 +1,7 @@
 package team.dovecotmc.metropolis.block.platform_doors;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
@@ -9,8 +10,8 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import team.dovecotmc.metropolis.util.MetroBlockUtil;
 
 public class BlockPlatformFenceHalfHeight extends AbstractBlockPlatformFence {
-    public BlockPlatformFenceHalfHeight(Properties properties) {
-        super(properties);
+    public BlockPlatformFenceHalfHeight(Properties properties, DyeColor color) {
+        super(properties, color);
     }
 
     @Override

@@ -13,6 +13,8 @@ import team.dovecotmc.metropolis.block.platform_doors.BlockPlatformDoorControlle
 import team.dovecotmc.metropolis.block.platform_doors.BlockPlatformDoorHalfHeight;
 import team.dovecotmc.metropolis.block.platform_doors.BlockPlatformFenceHalfHeight;
 
+import java.util.*;
+
 /**
  * @author Arrokoth
  * @project Metropolis
@@ -57,9 +59,50 @@ public class MetroBlocks {
     public static final Block BLOCK_ITV_MONITOR = register("itv_monitor", new BlockITVMonitor());
 
     // Platform doors
-    public static final Block BLOCK_PLATFORM_FENCE_HALF_HEIGHT = register("platform_fence_half_height", new BlockPlatformFenceHalfHeight(BlockBehaviour.Properties.of().noOcclusion().mapColor(MapColor.TERRACOTTA_WHITE).strength(8.0f)));
-    public static final Block BLOCK_PLATFORM_DOOR_HALF_HEIGHT = register("platform_door_half_height", new BlockPlatformDoorHalfHeight(BlockBehaviour.Properties.of().noOcclusion().mapColor(MapColor.TERRACOTTA_WHITE).strength(8.0f)));
-    public static final Block BLOCK_PLATFORM_DOOR_HALF_HEIGHT_GLASS = register("platform_door_half_height_glass", new BlockPlatformDoorHalfHeight(BlockBehaviour.Properties.of().noOcclusion().mapColor(MapColor.TERRACOTTA_WHITE).strength(8.0f)));
+    public static final Map<DyeColor, Block> BLOCK_PLATFORM_DOOR_HALF_HEIGHT_MAP;
+    static {
+        Map<DyeColor, Block> map = new HashMap<>();
+
+        for (DyeColor color : DyeColor.values()) {
+            String name = color.equals(DyeColor.WHITE) ? "platform_door_half_height" : "platform_door_half_height_" + color.getName();
+            Block block = new BlockPlatformDoorHalfHeight(BlockBehaviour.Properties.of().noOcclusion().strength(8.0f), color, false);
+            map.put(color, register(name, block));
+        }
+
+        BLOCK_PLATFORM_DOOR_HALF_HEIGHT_MAP = map;
+    }
+    public static final Map<DyeColor, Block> BLOCK_PLATFORM_DOOR_HALF_HEIGHT_GLASS_MAP;
+    static {
+        Map<DyeColor, Block> map = new HashMap<>();
+
+        for (DyeColor color : DyeColor.values()) {
+            String name = color.equals(DyeColor.WHITE) ? "platform_door_half_height_glass" : "platform_door_half_height_glass_" + color.getName();
+            Block block = new BlockPlatformDoorHalfHeight(BlockBehaviour.Properties.of().noOcclusion().strength(8.0f), color, true);
+            map.put(color, register(name, block));
+        }
+
+        BLOCK_PLATFORM_DOOR_HALF_HEIGHT_GLASS_MAP = map;
+    }
+
+    public static Block[] getPlatformDoorBlocks() {
+        Block[] arr = new Block[BLOCK_PLATFORM_DOOR_HALF_HEIGHT_MAP.size() + BLOCK_PLATFORM_DOOR_HALF_HEIGHT_GLASS_MAP.size()];
+        int ptr = 0;
+        for (Block value : BLOCK_PLATFORM_DOOR_HALF_HEIGHT_MAP.values()) {
+            arr[ptr] = value;
+            ptr++;
+        }
+        for (Block value : BLOCK_PLATFORM_DOOR_HALF_HEIGHT_GLASS_MAP.values()) {
+            arr[ptr] = value;
+            ptr++;
+        }
+        return arr;
+    }
+
+    public static final Block BLOCK_PLATFORM_FENCE_HALF_HEIGHT = register("platform_fence_half_height", new BlockPlatformFenceHalfHeight(BlockBehaviour.Properties.of().noOcclusion().strength(8.0f), DyeColor.WHITE));
+//    public static final Block BLOCK_PLATFORM_DOOR_HALF_HEIGHT = register("platform_door_half_height", new BlockPlatformDoorHalfHeight(BlockBehaviour.Properties.of().noOcclusion().strength(8.0f), DyeColor.WHITE, false));
+//    public static final Block BLOCK_PLATFORM_DOOR_HALF_HEIGHT_GLASS = register("platform_door_half_height_glass", new BlockPlatformDoorHalfHeight(BlockBehaviour.Properties.of().noOcclusion().strength(8.0f), DyeColor.WHITE, true));
+//    public static final Block BLOCK_PLATFORM_DOOR_HALF_HEIGHT_ORANGE = register("platform_door_half_height_orange", new BlockPlatformDoorHalfHeight(BlockBehaviour.Properties.of().noOcclusion().strength(8.0f), DyeColor.ORANGE, false));
+//    public static final Block BLOCK_PLATFORM_DOOR_HALF_HEIGHT_GLASS_ORANGE = register("platform_door_half_height_glass_orange", new BlockPlatformDoorHalfHeight(BlockBehaviour.Properties.of().noOcclusion().strength(8.0f), DyeColor.ORANGE, true));
 
     // Platform door controllers
 //    public static final Block BLOCK_PLATFORM_DOOR_CONTROLLER_BOX = register("platform_door_controller_box", new AbstractPlatformDoorController(BlockBehaviour.Properties.of().noOcclusion().mapColor(MapColor.METAL).strength(6.0f)));

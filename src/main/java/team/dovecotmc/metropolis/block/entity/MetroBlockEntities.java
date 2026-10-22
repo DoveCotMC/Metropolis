@@ -4,9 +4,13 @@ import net.fabricmc.fabric.api.object.builder.v1.block.entity.FabricBlockEntityT
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.DyeColor;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import team.dovecotmc.metropolis.Metropolis;
 import team.dovecotmc.metropolis.block.MetroBlocks;
+
+import java.util.ArrayList;
 
 /**
  * @author Arrokoth
@@ -35,7 +39,7 @@ public class MetroBlockEntities {
     public static final BlockEntityType<BlockEntityPlatformDoor> PLATFORM_DOOR_BLOCK_ENTITY = Registry.register(
             BuiltInRegistries.BLOCK_ENTITY_TYPE,
             new ResourceLocation(Metropolis.MOD_ID, "platform_door"),
-            FabricBlockEntityTypeBuilder.create(BlockEntityPlatformDoor::new, MetroBlocks.BLOCK_PLATFORM_DOOR_HALF_HEIGHT, MetroBlocks.BLOCK_PLATFORM_DOOR_HALF_HEIGHT_GLASS).build()
+            FabricBlockEntityTypeBuilder.create(BlockEntityPlatformDoor::new, MetroBlocks.getPlatformDoorBlocks()).build()
     );
 
     public static final BlockEntityType<BlockEntityPlatformDoorController> PLATFORM_DOOR_CONTROLLER_BLOCK_ENTITY = Registry.register(

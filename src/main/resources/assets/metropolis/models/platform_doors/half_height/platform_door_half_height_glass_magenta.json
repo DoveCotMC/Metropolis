@@ -1,0 +1,8 @@
+{
+	"parent": "metropolis:platform_doors/half_height/platform_door_half_height_glass",
+	"textures": {
+		"0": "metropolis:block/platform_doors/half_height/platform_door_half_height_magenta",
+		"1": "metropolis:block/platform_doors/half_height/platform_door_half_height_glass_fill",
+                "particle": "metropolis:block/platform_doors/half_height/platform_door_half_height_magenta"
+	}
+}
