@@ -1,0 +1,8 @@
+{
+	"parent": "metropolis:platform_doors/half_height/platform_fence_half_height",
+	"textures": {
+		"0": "metropolis:block/platform_doors/half_height/platform_fence_half_height",
+		"1": "metropolis:block/platform_doors/half_height/platform_fence_half_height_stripe_light_blue",
+		"particle": "metropolis:block/platform_doors/half_height/platform_fence_half_height"
+	}
+}

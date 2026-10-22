@@ -26,8 +26,6 @@ import org.jetbrains.annotations.Nullable;
 
 public abstract class AbstractBlockPlatformFence extends HorizontalDirectionalBlock {
     public static final EnumProperty<DoubleBlockHalf> HALF = BlockStateProperties.DOUBLE_BLOCK_HALF;
-    public static final IntegerProperty TINT_COLOR = IntegerProperty.create("tint_color", 0, 15);
-
     private final DyeColor color;
 
     public AbstractBlockPlatformFence(Properties properties, DyeColor color) {
@@ -51,6 +49,10 @@ public abstract class AbstractBlockPlatformFence extends HorizontalDirectionalBl
         ItemStack itemStack = player.getItemInHand(InteractionHand.MAIN_HAND);
         if (itemStack.getItem() instanceof DyeItem dyeItem) {
             BlockState newState = getTintedBlockState(blockState, dyeItem.getDyeColor());
+
+            if (newState.getBlock().equals(blockState.getBlock()))
+                return InteractionResult.FAIL;
+
             level.setBlockAndUpdate(blockPos, newState.setValue(HALF, DoubleBlockHalf.LOWER));
             level.setBlockAndUpdate(blockPos.above(), newState.setValue(HALF, DoubleBlockHalf.UPPER));
 
@@ -91,14 +93,14 @@ public abstract class AbstractBlockPlatformFence extends HorizontalDirectionalBl
         BlockPos blockPos = ctx.getClickedPos();
         Level level = ctx.getLevel();
         if (blockPos.getY() < level.getMaxBuildHeight() - 1 && level.getBlockState(blockPos.above()).canBeReplaced(ctx)) {
-            return this.defaultBlockState().setValue(FACING, ctx.getHorizontalDirection().getOpposite()).setValue(HALF, DoubleBlockHalf.LOWER).setValue(TINT_COLOR, 0);
+            return this.defaultBlockState().setValue(FACING, ctx.getHorizontalDirection().getOpposite()).setValue(HALF, DoubleBlockHalf.LOWER);
         }
         return null;
     }
 
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
-        builder.add(FACING, HALF, TINT_COLOR);
+        builder.add(FACING, HALF);
     }
 
     protected static void preventCreativeDropFromBottomPart(Level level, BlockPos blockPos, BlockState blockState, Player player) {

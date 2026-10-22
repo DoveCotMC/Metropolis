@@ -166,8 +166,11 @@
     "block.metropolis.itv_monitor": "Platform ITV Monitor",
 
     "block.metropolis.platform_fence_half_height": "Half Height Platform Fence",
+    "tooltip.metropolis.platform_fence_half_height": "Use dye item to tint",
     "block.metropolis.platform_door_half_height": "Half Height Platform Door",
+    "tooltip.metropolis.platform_door_half_height": "Use dye item to tint",
     "block.metropolis.platform_door_half_height_glass": "Half Height Platform Door",
+    "tooltip.metropolis.platform_door_half_height_glass": "Use dye item to tint",
     "block.metropolis.platform_door_controller_pillar": "Platform Door Controller Pillar",
     "tooltip.metropolis.platform_door_controller_pillar": "Can be toggled by redstone",
 

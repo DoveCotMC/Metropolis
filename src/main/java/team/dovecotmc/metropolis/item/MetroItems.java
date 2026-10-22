@@ -45,9 +45,9 @@ public class MetroItems {
     public static final Item ITEM_ITV_MONITOR = register("itv_monitor", new BlockItem(MetroBlocks.BLOCK_ITV_MONITOR, new Item.Properties()));
 
     // Platform fence doors
-    public static final Item ITEM_PLATFORM_FENCE_HALF_HEIGHT = register("platform_fence_half_height", new BlockItem(MetroBlocks.BLOCK_PLATFORM_FENCE_HALF_HEIGHT, new Item.Properties()));
-    public static final Item ITEM_PLATFORM_DOOR_HALF_HEIGHT = register("platform_door_half_height", new BlockItem(MetroBlocks.BLOCK_PLATFORM_DOOR_HALF_HEIGHT_MAP.get(DyeColor.WHITE), new Item.Properties()));
-    public static final Item ITEM_PLATFORM_DOOR_HALF_HEIGHT_GLASS = register("platform_door_half_height_glass", new BlockItem(MetroBlocks.BLOCK_PLATFORM_DOOR_HALF_HEIGHT_GLASS_MAP.get(DyeColor.WHITE), new Item.Properties()));
+    public static final Item ITEM_PLATFORM_FENCE_HALF_HEIGHT = register("platform_fence_half_height", new BlockItemWithTooltips(MetroBlocks.BLOCK_PLATFORM_FENCE_HALF_HEIGHT_MAP.get(DyeColor.WHITE), new Item.Properties()));
+    public static final Item ITEM_PLATFORM_DOOR_HALF_HEIGHT = register("platform_door_half_height", new BlockItemWithTooltips(MetroBlocks.BLOCK_PLATFORM_DOOR_HALF_HEIGHT_MAP.get(DyeColor.WHITE), new Item.Properties()));
+    public static final Item ITEM_PLATFORM_DOOR_HALF_HEIGHT_GLASS = register("platform_door_half_height_glass", new BlockItemWithTooltips(MetroBlocks.BLOCK_PLATFORM_DOOR_HALF_HEIGHT_GLASS_MAP.get(DyeColor.WHITE), new Item.Properties()));
 
     // Platform door controllers
     public static final Item ITEM_PLATFORM_DOOR_CONTROLLER_PILLAR = register("platform_door_controller_pillar", new BlockItemWithTooltips(MetroBlocks.BLOCK_PLATFORM_DOOR_CONTROLLER_PILLAR, new Item.Properties()));

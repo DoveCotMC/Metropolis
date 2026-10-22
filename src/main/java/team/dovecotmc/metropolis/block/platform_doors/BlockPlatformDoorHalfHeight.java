@@ -2,6 +2,8 @@ package team.dovecotmc.metropolis.block.platform_doors;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.item.DyeColor;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
@@ -12,6 +14,7 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import team.dovecotmc.metropolis.block.MetroBlocks;
+import team.dovecotmc.metropolis.item.MetroItems;
 import team.dovecotmc.metropolis.util.MetroBlockUtil;
 
 public class BlockPlatformDoorHalfHeight extends AbstractBlockPlatformDoor {
@@ -23,12 +26,13 @@ public class BlockPlatformDoorHalfHeight extends AbstractBlockPlatformDoor {
     }
 
     @Override
+    public Item asItem() {
+        return glass ? MetroItems.ITEM_PLATFORM_DOOR_HALF_HEIGHT_GLASS : MetroItems.ITEM_PLATFORM_DOOR_HALF_HEIGHT;
+    }
+
+    @Override
     public @NotNull BlockState getTintedBlockState(BlockState oldState, DyeColor dyeColor) {
-        Block block = null;
-//        switch (dyeColor) {
-//            case WHITE -> block = glass ? MetroBlocks.BLOCK_PLATFORM_DOOR_HALF_HEIGHT_GLASS : MetroBlocks.BLOCK_PLATFORM_DOOR_HALF_HEIGHT;
-//            case ORANGE -> block = glass ? MetroBlocks.BLOCK_PLATFORM_DOOR_HALF_HEIGHT_GLASS_ORANGE : MetroBlocks.BLOCK_PLATFORM_DOOR_HALF_HEIGHT_ORANGE;
-//        }
+        Block block;
         if (this.glass) {
             block = MetroBlocks.BLOCK_PLATFORM_DOOR_HALF_HEIGHT_GLASS_MAP.get(dyeColor);
         } else {

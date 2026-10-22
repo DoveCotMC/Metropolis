@@ -98,7 +98,19 @@ public class MetroBlocks {
         return arr;
     }
 
-    public static final Block BLOCK_PLATFORM_FENCE_HALF_HEIGHT = register("platform_fence_half_height", new BlockPlatformFenceHalfHeight(BlockBehaviour.Properties.of().noOcclusion().strength(8.0f), DyeColor.WHITE));
+    public static final Map<DyeColor, Block> BLOCK_PLATFORM_FENCE_HALF_HEIGHT_MAP;
+    static {
+        Map<DyeColor, Block> map = new HashMap<>();
+        for (DyeColor color : DyeColor.values()) {
+            String name = color.equals(DyeColor.WHITE) ? "platform_fence_half_height" : "platform_fence_half_height_" + color.getName();
+            Block block = new BlockPlatformFenceHalfHeight(BlockBehaviour.Properties.of().noOcclusion().strength(8.0f), color);
+            map.put(color, register(name, block));
+        }
+
+        BLOCK_PLATFORM_FENCE_HALF_HEIGHT_MAP = map;
+    }
+
+//    public static final Block BLOCK_PLATFORM_FENCE_HALF_HEIGHT = register("platform_fence_half_height", new BlockPlatformFenceHalfHeight(BlockBehaviour.Properties.of().noOcclusion().strength(8.0f), DyeColor.WHITE));
 //    public static final Block BLOCK_PLATFORM_DOOR_HALF_HEIGHT = register("platform_door_half_height", new BlockPlatformDoorHalfHeight(BlockBehaviour.Properties.of().noOcclusion().strength(8.0f), DyeColor.WHITE, false));
 //    public static final Block BLOCK_PLATFORM_DOOR_HALF_HEIGHT_GLASS = register("platform_door_half_height_glass", new BlockPlatformDoorHalfHeight(BlockBehaviour.Properties.of().noOcclusion().strength(8.0f), DyeColor.WHITE, true));
 //    public static final Block BLOCK_PLATFORM_DOOR_HALF_HEIGHT_ORANGE = register("platform_door_half_height_orange", new BlockPlatformDoorHalfHeight(BlockBehaviour.Properties.of().noOcclusion().strength(8.0f), DyeColor.ORANGE, false));
