@@ -1,8 +1,14 @@
 package team.dovecotmc.metropolis.block.platform_doors;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.DyeItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.Level;
@@ -14,6 +20,7 @@ import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
 import net.minecraft.world.level.block.state.properties.EnumProperty;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.level.material.Fluids;
+import net.minecraft.world.phys.BlockHitResult;
 import org.jetbrains.annotations.Nullable;
 
 public abstract class AbstractBlockPlatformFence extends HorizontalDirectionalBlock {
@@ -22,6 +29,26 @@ public abstract class AbstractBlockPlatformFence extends HorizontalDirectionalBl
 
     public AbstractBlockPlatformFence(Properties properties) {
         super(properties);
+    }
+
+    @Override
+    public InteractionResult use(BlockState blockState, Level level, BlockPos blockPos, Player player, InteractionHand interactionHand, BlockHitResult blockHitResult) {
+        ItemStack itemStack = player.getItemInHand(InteractionHand.MAIN_HAND);
+        if (itemStack.getItem() instanceof DyeItem dyeItem) {
+            if (!level.isClientSide()) {
+                level.setBlockAndUpdate(blockPos, blockState.setValue(TINT_COLOR, dyeItem.getDyeColor().getId()));
+                level.playSound(null, blockPos, SoundEvents.DYE_USE, SoundSource.BLOCKS, 1.0f, 1.0f);
+
+                if (!player.isCreative()) {
+                    itemStack.setCount(itemStack.getCount() - 1);
+                    player.setItemInHand(InteractionHand.MAIN_HAND, itemStack);
+                }
+            }
+
+            return InteractionResult.SUCCESS;
+        }
+
+        return InteractionResult.PASS;
     }
 
     @Override
